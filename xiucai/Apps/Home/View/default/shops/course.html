@@ -291,7 +291,7 @@
 					
 					<div class="ulliitem2_1">
 						<div id="uploadvideo" style="padding: 10px 0;">点击此处上传课程视频</div>
-						<ul class="clearfix"  style="width: auto;">
+						<ul class="clearfix"  style="width: 900px;">
 			                <div id="myCourseListDiv">
 							
 							    <volist  name="Page['root']"  id="vo" >
@@ -435,7 +435,8 @@
   
     <script>
 	
-	alert({$Page['totalPage']});
+	      //alert({$Page['totalPage']});
+			   
 			    <if condition="$Page['totalPage'] gt 1">
 			    $(document).ready(function(){
 					laypage({
@@ -464,6 +465,7 @@
 			    });
 				</if>
 				</script>
+				
 
 
 
