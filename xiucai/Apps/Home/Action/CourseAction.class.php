@@ -51,7 +51,7 @@ class CourseAction extends BaseAction {
 		
 		//var_dump($pages);
 		//$coursesNav = $rslist["coursesNav"];
-		$pages['totalPage']=10;
+		//$pages['totalPage']=10;
 		$this->assign('pages',$pages);
 	    $c1=$c1Id ?$c1Id :11;
 		if($c1){
@@ -193,8 +193,8 @@ class CourseAction extends BaseAction {
 		$this->isShopLogin();
 		$USER = session('WST_USER');
 		//获取商家商品分类
-		$m = D('Home/ShopsCats');
-		$this->assign('shopCatsList',$m->queryByList($USER['shopId'],0));
+		//$m = D('Home/ShopsCats');
+		//$this->assign('shopCatsList',$m->queryByList($USER['shopId'],0));
 		$m = D('Home/Course');
     	$page = $m->queryOnSaleByPage($USER['shopId']);
     	$pager = new \Think\Page($page['total'],$page['pageSize']);

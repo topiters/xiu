@@ -231,15 +231,9 @@ class ShopsAction extends BaseAction {
 		$shopCourse=D('Home/course');
 		
 		$page = $shopCourse->queryOnSaleByPage($USER['shopId']);
-		$pager = new \Think\Page($page['total'],$page['pageSize']);
-		$page['pager'] = $pager->show();
-		//$page['totalPage']=10;
-		$this->assign('Page',$page);
-		//$courseList=$shopCourse->getShopsCourse($USER['shopId']);
-		
-		//var_dump($courseList);
-		//exit;
-	
+    	$pager = new \Think\Page($page['total'],$page['pageSize']);
+    	$page['pager'] = $pager->show();
+    	$this->assign('Page',$page);
 		$this->display("default/shops/course");
 	
 	}
