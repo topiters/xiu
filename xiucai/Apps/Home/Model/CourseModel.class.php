@@ -139,7 +139,7 @@ class CourseModel extends BaseModel {
 		
 		//var_dump($sqla);
 		//exit;
-		$pages = $this->pageQuery($sqla, $pcurr, 16);
+		$pages = $this->pageQuery($sqla, I('p'), 16);
 		//var_dump($pages );
 		//exit;
 		//$rs["maxPrice"] = $maxPrice;
@@ -300,7 +300,7 @@ class CourseModel extends BaseModel {
 		if($courseName!='')$sql.=" and (g.courseName like '%".$courseName."%' or g.courseSn like '%".$courseName."%') ";
 		$sql.=" order by g.courseId desc";
 		
-		return $this->pageQuery($sql);
+		return $this->pageQuery($sql,I('p'),9);
 	}
     /**
 	 * 获取下架的课程
@@ -892,7 +892,7 @@ class CourseModel extends BaseModel {
 		$orderFile = array('1'=>'saleCount','2'=>'saleCount','3'=>'saleCount','4'=>'shopPrice','5'=>'(totalScore/totalUsers)','6'=>'saleTime');
 	   	$orderSort = array('0'=>'ASC','1'=>'DESC');
 		$sql .= " ORDER BY ".$orderFile[$msort]." ".$orderSort[$mdesc].",g.courseId";
-		$rs = $this->pageQuery($sql,I('p'),2);
+		$rs = $this->pageQuery($sql,I('p'),20);
 		return $rs;
 		
 	}
