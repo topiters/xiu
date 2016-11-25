@@ -139,7 +139,7 @@ class CourseModel extends BaseModel {
 		
 		//var_dump($sqla);
 		//exit;
-		$pages = $this->pageQuery($sqla, $pcurr, 30);
+		$pages = $this->pageQuery($sqla, $pcurr, 16);
 		//var_dump($pages );
 		//exit;
 		//$rs["maxPrice"] = $maxPrice;
@@ -291,13 +291,13 @@ class CourseModel extends BaseModel {
 		$shopCatId1 = (int)I('shopCatId1',0);
 		$shopCatId2 = (int)I('shopCatId2',0);
 		$courseName = WSTAddslashes(I('courseName'));
-		$sql = "select g.courseId,g.coursen,g.courseName,g.courseImg,g.courseThums,g.shopPrice,g.courseStock,g.saleCount,g.isSale,g.isRecomm,g.isHot,g.isBest,g.isNew,ga.isRecomm as attIsRecomm from __PREFIX__course g
+		$sql = "select g.courseId,g.courseSn,g.courseName,g.courseImg,g.courseThums,g.shopPrice,g.courseStock,g.saleCount,g.isSale,g.isRecomm,g.isHot,g.isBest,g.isNew,ga.isRecomm as attIsRecomm from __PREFIX__course g
 				left join __PREFIX__course_attributes ga on g.courseId = ga.courseId and ga.isRecomm = 1
 				where g.courseFlag=1 
-		     and g.shopId=".$shopId." and g.coursetatus=1 and g.isSale=1 ";
+		     and g.shopId=".$shopId." and g.courseStatus=1 and g.isSale=1 ";
 		if($shopCatId1>0)$sql.=" and g.shopCatId1=".$shopCatId1;
 		if($shopCatId2>0)$sql.=" and g.shopCatId2=".$shopCatId2;
-		if($courseName!='')$sql.=" and (g.courseName like '%".$courseName."%' or g.coursen like '%".$courseName."%') ";
+		if($courseName!='')$sql.=" and (g.courseName like '%".$courseName."%' or g.courseSn like '%".$courseName."%') ";
 		$sql.=" order by g.courseId desc";
 		
 		return $this->pageQuery($sql);
@@ -310,13 +310,13 @@ class CourseModel extends BaseModel {
 		$shopCatId1 = (int)I('shopCatId1',0);
 		$shopCatId2 = (int)I('shopCatId2',0);
 		$courseName = WSTAddslashes(I('courseName'));
-		$sql = "select g.courseId,g.coursen,g.courseName,g.courseImg,g.courseThums,g.shopPrice,g.courseStock,g.saleCount,g.isSale,g.isRecomm,g.isHot,g.isBest,g.isNew,ga.isRecomm as attIsRecomm from __PREFIX__course  g
+		$sql = "select g.courseId,g.courseSn,g.courseName,g.courseImg,g.courseThums,g.shopPrice,g.courseStock,g.saleCount,g.isSale,g.isRecomm,g.isHot,g.isBest,g.isNew,ga.isRecomm as attIsRecomm from __PREFIX__course  g
 				left join __PREFIX__course_attributes ga on g.courseId = ga.courseId and ga.isRecomm = 1
 				where g.courseFlag=1 
 		      and g.shopId=".$shopId." and g.isSale=0 ";
 		if($shopCatId1>0)$sql.=" and g.shopCatId1=".$shopCatId1;
 		if($shopCatId2>0)$sql.=" and g.shopCatId2=".$shopCatId2;
-		if($courseName!='')$sql.=" and (g.courseName like '%".$courseName."%' or g.coursen like '%".$courseName."%') ";
+		if($courseName!='')$sql.=" and (g.courseName like '%".$courseName."%' or g.courseSn like '%".$courseName."%') ";
 		$sql.=" order by g.courseId desc";
 		return $this->pageQuery($sql);
 	}
@@ -328,19 +328,19 @@ class CourseModel extends BaseModel {
 		$shopCatId1 = (int)I('shopCatId1',0);
 		$shopCatId2 = (int)I('shopCatId2',0);
 		$courseName = WSTAddslashes(I('courseName'));
-		$sql = "select g.courseId,g.coursen,g.courseName,g.courseImg,g.courseThums,g.shopPrice,g.courseStock,g.saleCount,g.isSale,g.isRecomm,g.isHot,g.isBest,g.isNew,ga.isRecomm as attIsRecomm from __PREFIX__course g
+		$sql = "select g.courseId,g.courseSn,g.courseName,g.courseImg,g.courseThums,g.shopPrice,g.courseStock,g.saleCount,g.isSale,g.isRecomm,g.isHot,g.isBest,g.isNew,ga.isRecomm as attIsRecomm from __PREFIX__course g
 				left join __PREFIX__course_attributes ga on g.courseId = ga.courseId and ga.isRecomm = 1
 				where g.courseFlag=1 
-		     and g.shopId=".$shopId." and g.coursetatus=0 and isSale=1 ";
+		     and g.shopId=".$shopId." and g.courseStatus=0 and isSale=1 ";
 		if($shopCatId1>0)$sql.=" and g.shopCatId1=".$shopCatId1;
 		if($shopCatId2>0)$sql.=" and g.shopCatId2=".$shopCatId2;
-		if($courseName!='')$sql.=" and (g.courseName like '%".$courseName."%' or g.coursen like '%".$courseName."%') ";
+		if($courseName!='')$sql.=" and (g.courseName like '%".$courseName."%' or g.courseSn like '%".$courseName."%') ";
 		$sql.=" order by g.courseId desc";
 		return $this->pageQuery($sql);
 	}
 	
 	protected $_validate = array(
-		 array('coursen','require','请输入课程编号!',1),
+		 array('courseSn','require','请输入课程编号!',1),
 		 array('courseName','require','请输入课程名称!',1),
 		 array('courseImg','require','请上传课程图片!',1),
 		 array('courseThums','require','请上传课程缩略图!',1),
@@ -385,7 +385,7 @@ class CourseModel extends BaseModel {
 			if($m->isSale==1)$m->saleTime=date('Y-m-d H:i:s');
 			$m->courseDesc = I('courseDesc');
 			$m->attrCatId = (int)I("attrCatId");
-			$m->coursetatus = ($GLOBALS['CONFIG']['isCourseVerify']==1)?0:1;
+			$m->courseStatus = ($GLOBALS['CONFIG']['isCourseVerify']==1)?0:1;
 			$m->createTime = date('Y-m-d H:i:s');
 			$m->brandId = (int)I("brandId");
 			$m->coursepec = I("coursepec");
@@ -524,7 +524,7 @@ class CourseModel extends BaseModel {
 			if($m->isSale==1)$m->saleTime=date('Y-m-d H:i:s');
 			$m->courseDesc = I('courseDesc');
 			$m->attrCatId = (int)I("attrCatId");
-			$m->coursetatus = ($GLOBALS['CONFIG']['isCourseVerify']==1)?0:1;
+			$m->courseStatus = ($GLOBALS['CONFIG']['isCourseVerify']==1)?0:1;
 			$m->brandId = (int)I("brandId");
 			$m->coursepec = I("coursepec");
 			$m->courseKeywords = I("courseKeywords");
@@ -860,11 +860,11 @@ class CourseModel extends BaseModel {
 		if($courseName!=""){
 			$words = explode(" ",$courseName);
 		}
-		$sql = "SELECT sp.shopName, g.saleCount totalnum, sp.shopId ,g.courseStock, g.courseId , g.courseName,g.courseImg, g.courseThums,g.shopPrice,g.marketPrice, g.coursen,ga.id courseAttrId 
+		$sql = "SELECT sp.shopName, g.saleCount totalnum, sp.shopId ,g.courseStock, g.courseId , g.courseName,g.courseImg, g.courseThums,g.shopPrice,g.marketPrice, g.courseSn,ga.id courseAttrId 
 						FROM __PREFIX__course g left join __PREFIX__course_attributes ga on g.courseId = ga.courseId and ga.isRecomm=1
 						left join __PREFIX__course_scores gs on gs.courseId= g.courseId,
 						__PREFIX__shops sp 
-						WHERE g.shopId = sp.shopId AND sp.shopFlag=1 AND sp.shopStatus=1 AND g.courseFlag = 1 AND g.isSale = 1 AND g.coursetatus = 1 AND g.shopId = $shopId";
+						WHERE g.shopId = sp.shopId AND sp.shopFlag=1 AND sp.shopStatus=1 AND g.courseFlag = 1 AND g.isSale = 1 AND g.courseStatus = 1 AND g.shopId = $shopId";
 		
 		if($ct1>0){
 			$sql .= " AND g.shopCatId1 = $ct1 ";
@@ -892,7 +892,7 @@ class CourseModel extends BaseModel {
 		$orderFile = array('1'=>'saleCount','2'=>'saleCount','3'=>'saleCount','4'=>'shopPrice','5'=>'(totalScore/totalUsers)','6'=>'saleTime');
 	   	$orderSort = array('0'=>'ASC','1'=>'DESC');
 		$sql .= " ORDER BY ".$orderFile[$msort]." ".$orderSort[$mdesc].",g.courseId";
-		$rs = $this->pageQuery($sql,I('p'),30);
+		$rs = $this->pageQuery($sql,I('p'),2);
 		return $rs;
 		
 	}
@@ -905,9 +905,9 @@ class CourseModel extends BaseModel {
 		$hotcourse = S("WST_CACHE_HOT_GOODS_".$shopId);
 		if(!$hotcourse){
 			//热销排名
-			$sql = "SELECT sp.shopName, g.saleCount totalnum, sp.shopId , g.courseId , g.courseName,g.courseImg, g.courseThums,g.shopPrice,g.marketPrice, g.coursen 
+			$sql = "SELECT sp.shopName, g.saleCount totalnum, sp.shopId , g.courseId , g.courseName,g.courseImg, g.courseThums,g.shopPrice,g.marketPrice, g.courseSn 
 							FROM __PREFIX__course g,__PREFIX__shops sp 
-							WHERE g.shopId = sp.shopId AND g.courseFlag = 1 AND sp.shopFlag=1 AND sp.shopStatus=1 AND g.isSale = 1 AND g.coursetatus = 1 AND sp.shopId = $shopId
+							WHERE g.shopId = sp.shopId AND g.courseFlag = 1 AND sp.shopFlag=1 AND sp.shopStatus=1 AND g.isSale = 1 AND g.courseStatus = 1 AND sp.shopId = $shopId
 							ORDER BY g.saleCount desc limit 5";	
 			$hotcourse = $this->query($sql);
 			S("WST_CACHE_HOT_GOODS_".$shopId,$hotcourse,86400);
@@ -926,7 +926,7 @@ class CourseModel extends BaseModel {
 		$isBook = $data['isBook'];
 		$courseAttrId = $data['courseAttrId'];
 		if($isBook==1){
-			$sql = "select courseId,(courseStock+bookQuantity) as courseStock from __PREFIX__course where isSale=1 and courseFlag=1 and coursetatus=1 and courseId=".$courseId;
+			$sql = "select courseId,(courseStock+bookQuantity) as courseStock from __PREFIX__course where isSale=1 and courseFlag=1 and courseStatus=1 and courseId=".$courseId;
 		}else{
 			$sql = "select courseId,courseStock,attrCatId from __PREFIX__course where isSale=1 and courseFlag=1 and coursestatus=1 and courseId=".$courseId;
 		}
@@ -959,7 +959,7 @@ class CourseModel extends BaseModel {
 	 		$courseAttrId = (int)$pcourse["courseAttrId"];
 	 		$sql = "SELECT g.courseStock,g.shopPrice,g.attrCatId
 			 		FROM __PREFIX__course g, __PREFIX__shops shop
-			 		WHERE g.courseId = $courseId AND g.shopId = shop.shopId AND g.courseFlag = 1 and g.isSale=1 and g.coursetatus=1 ";
+			 		WHERE g.courseId = $courseId AND g.shopId = shop.shopId AND g.courseFlag = 1 and g.isSale=1 and g.courseStatus=1 ";
 	 		$course = $this->queryRow($sql);
 	 		if($course==null)continue;
 	 		//如果课程有价格属性的话则获取其价格属性
@@ -988,7 +988,7 @@ class CourseModel extends BaseModel {
 	 * 查询课程简单信息
 	 */
 	public function getCourseInfo($courseId,$courseAttrId){		
-		$sql = "SELECT g.attrCatId,g.courseId,g.courseName,g.courseStock,g.bookQuantity,g.isBook,g.isSale,sp.shopAtive,sp.shopName FROM __PREFIX__course g, __PREFIX__shops sp WHERE g.shopId=sp.shopId AND g.courseId = $courseId AND g.courseFlag = 1 AND g.coursetatus = 1";		
+		$sql = "SELECT g.attrCatId,g.courseId,g.courseName,g.courseStock,g.bookQuantity,g.isBook,g.isSale,sp.shopAtive,sp.shopName FROM __PREFIX__course g, __PREFIX__shops sp WHERE g.shopId=sp.shopId AND g.courseId = $courseId AND g.courseFlag = 1 AND g.courseStatus = 1";		
 		$rs = $this->queryRow($sql);
         if(!empty($rs) && $rs['attrCatId']>0){
         	$sql = "select ga.id,ga.attrPrice,ga.attrStock,a.attrName,ga.attrVal,ga.attrId from __PREFIX__attributes a,__PREFIX__course_attributes ga
@@ -1090,7 +1090,7 @@ class CourseModel extends BaseModel {
 	
 		$data = array();
 		if($vfield==1){//课程编号
-			$data["coursen"] = WSTAddslashes(I("vtext"));
+			$data["courseSn"] = WSTAddslashes(I("vtext"));
 		}else if($vfield==2){//课程价格
 			$data["shopPrice"] = WSTAddslashes(I("vtext"));
 		}else if($vfield==3){//课程庫存
@@ -1105,7 +1105,7 @@ class CourseModel extends BaseModel {
 	public function getKeyList($areaId2){
 		$keywords = WSTAddslashes(I("keywords"));	
 		$m = M('course');
-		$sql = "select DISTINCT courseName as searchKey from __PREFIX__course g,__PREFIX__shops sp  where (sp.areaId2=$areaId2 or sp.isDistributAll=1) and g.shopId=sp.shopId and coursetatus=1 and courseFlag=1 and courseName like '%$keywords%' 
+		$sql = "select DISTINCT courseName as searchKey from __PREFIX__course g,__PREFIX__shops sp  where (sp.areaId2=$areaId2 or sp.isDistributAll=1) and g.shopId=sp.shopId and courseStatus=1 and courseFlag=1 and courseName like '%$keywords%' 
 				Order by saleCount desc, courseName asc limit 10";
 		$rs = $this->query($sql);
 		return $rs;
@@ -1164,8 +1164,8 @@ class CourseModel extends BaseModel {
 			$goodIds = implode(",",$viewCourse);
 		}
 		//热销排名
-		$sql = "SELECT g.saleCount totalnum, g.courseId , g.courseName,g.courseImg, g.courseThums,g.shopPrice,g.marketPrice, g.coursen FROM __PREFIX__course g
-				WHERE g.courseId in ($goodIds) AND g.courseFlag = 1 AND g.isSale = 1 AND g.coursetatus = 1
+		$sql = "SELECT g.saleCount totalnum, g.courseId , g.courseName,g.courseImg, g.courseThums,g.shopPrice,g.marketPrice, g.courseSn FROM __PREFIX__course g
+				WHERE g.courseId in ($goodIds) AND g.courseFlag = 1 AND g.isSale = 1 AND g.courseStatus = 1
 				ORDER BY FIELD(g.courseId,$goodIds) limit 10";
 	
 		$course = $m->query($sql);
@@ -1197,8 +1197,8 @@ class CourseModel extends BaseModel {
         for ($row = 3; $row <= $rows; $row++){//行数是以第3行开始
             $course = array();
             $course['shopId'] = $shopId;
-            $course['coursen'] = trim($sheet->getCell("A".$row)->getValue());
-            if($course['coursen']=='')break;//如果某一行第一列为空则停止导入
+            $course['courseSn'] = trim($sheet->getCell("A".$row)->getValue());
+            if($course['courseSn']=='')break;//如果某一行第一列为空则停止导入
             $course['courseName'] = trim($sheet->getCell("B".$row)->getValue());
             $course['marketPrice'] = trim($sheet->getCell("C".$row)->getValue());
             $course['shopPrice'] = trim($sheet->getCell("D".$row)->getValue());
@@ -1252,7 +1252,7 @@ class CourseModel extends BaseModel {
             }
             $course['brandId'] = (int)$brandMap[$brand]['brandId'];
             $course['courseDesc'] = trim($sheet->getCell("Q".$row)->getValue());
-            $course['coursetatus'] = 0;
+            $course['courseStatus'] = 0;
             $course['courseFlag'] = 1;
             $course["saleTime"] = date('Y-m-d H:i:s');
             $course['createTime'] = date('Y-m-d H:i:s');
@@ -1266,7 +1266,7 @@ class CourseModel extends BaseModel {
 	public function getCourseByCat(){
 		$shopId = (int)session('WST_USER.shopId');
 		$catId = (int)I("catId");
-		$sql = "select courseId,courseName,shopPrice from  __PREFIX__course where shopId=$shopId and courseFlag = 1 AND isSale = 1 AND coursetatus = 1";
+		$sql = "select courseId,courseName,shopPrice from  __PREFIX__course where shopId=$shopId and courseFlag = 1 AND isSale = 1 AND courseStatus = 1";
 		if($catId>0){
 			$sql .= " and (shopCatId1=$catId or shopCatId2=$catId) ";
 		}

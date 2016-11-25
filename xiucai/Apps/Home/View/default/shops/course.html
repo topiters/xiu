@@ -293,24 +293,37 @@
 						<div id="uploadvideo" style="padding: 10px 0;">点击此处上传课程视频</div>
 						<ul class="clearfix"  style="width: auto;">
 			                <div id="myCourseListDiv">
+							
+							    <volist  name="Page['root']"  id="vo" >
 			                    <li>
 									<span class="i-close-del " inventory-id="411844"></span>
-									<a href="http://www.xiucai.com/course/288/" target="_blank">
+									<a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$vo['courseId']))}" target="_blank">
 									    <div class="course-list-img">
-									        <img width="280" height="160" src="img/01a5b1f3-29a2-4e5d-bfb8-3336bd8f84b5.jpg" alt="第1课  建立高效的建表思维">
+									        <img width="280" height="160" src="__ROOT__/{$vo['courseThums']}" alt="{$vo['courseName']}">
 									    </div>
 									    <h5>
-									        <span>第1课  建立高效的建表思维</span>
+									        <span>{$vo['courseName']}</span>
 									    </h5>
 									    <div class="intro clearfix">
-								            <p>打开一张Excel表格，你知道为什么默认出现3张Sheet吗？平时…</p>
+								            <p>{$vo['courseName']}</p>
 								            <span class="l">1节视频课程</span>
-								            <span class="r">时长0小时10分钟</span>
+								            <span class="r">时长{$vo['courseTime']}</span>
 								        </div>
 									    <div class="tips tips-schedule clearfix">
+										
+										   <eq   name="vo['courseDiffculty']"   value="1">
 								            <span class="l">初级课程</span>
+											</eq>
+											  <eq   name="vo['courseDifficulty']"   value="2">
+								            <span class="l">中级级课程</span>
+											</eq>
+											  <eq   name="vo['courseDifficulty']"   value="3">
+								            <span class="l">高级课程</span>
+											</eq>
+											
+											
 								            <em class="l">|</em>
-								            <span class="l">60828人已学</span>
+								            <span class="l">{$vo['saleCount']}人已学</span>
 								            <span class="r">已学<em>0%</em></span>
 								        </div>
 									    <div class="schedule-bar">
@@ -318,196 +331,30 @@
 									    </div>
 									    <div class="course-free"></div>
 									    <div class="cost">
+										     <eq   name="vo['is_free']"   value="1">
 						                    <span class="l free">免费</span>
+											<else/>
+											  <span class="l free">{$vo['shopPrice']}</span>
+											
+											</eq>
 						                </div>
 									</a>
 								</li>
-								<li>
-								    <span class="i-close-del " inventory-id="411846"></span>
-								    <a href="http://www.xiucai.com/course/128/" target="_blank">
-								        <div class="course-list-img">
-								            <img width="280" height="160" src="http://assets.xiucai.com/assets/uploads/pic/2015/0730/aac31864-70e1-334d-669e-99b0bcba24c2.jpg" alt="EXCEL数据透视表与财务数据分类汇总">
-								        </div>
-								        <h5>
-								            <span>EXCEL数据透视表与财务数据分类汇总</span>
-								        </h5>
-								        <div class="intro clearfix">
-							                <p>利用EXCEL的数据透视表功能，可以轻松实现对数据的分类汇总，这比用筛…</p>
-							                <span class="l">7节视频课程</span>
-							                <span class="r">时长2小时4分钟</span>
-							            </div>
-							            <div class="tips tips-schedule clearfix">
-							                <span class="l">高级课程</span>
-							                <em class="l">|</em>
-							                <span class="l">20547人已学</span>
-							                <span class="r">已学<em>0%</em></span>
-							            </div>
-								        <div class="schedule-bar">
-								            <div style="width:0%;"></div>
-								        </div>
-								        <div class="cost"></div>
-								    </a>
-								</li>
-								<li>
-								    <span class="i-close-del " inventory-id="411845"></span>
-								    <a href="http://www.xiucai.com/course/147/" target="_blank">
-								        <div class="course-list-img">
-								            <img width="280" height="160" src="http://assets.xiucai.com/assets/uploads/pic/2015/0730/2b642fde-a8b6-f65b-0822-be1c8ee601a7.jpg" alt="EXCEL高级财务函数的功能&amp;应用">
-								        </div>
-								        <h5>
-								            <span>EXCEL高级财务函数的功能&amp;应用</span>
-								        </h5>
-							            <div class="intro clearfix">
-							                <p>财务人员需要每天面对大量数据和信息，EXCEL作为帮助财务人员进行数据…</p>
-							                <span class="l">6节视频课程</span>
-							                <span class="r">时长2小时25分钟</span>
-							            </div>
-							            <div class="tips tips-schedule clearfix">
-							                <span class="l">高级课程</span>
-							                <em class="l">|</em>
-							                <span class="l">38677人已学</span>
-							                <span class="r">已学<em>0%</em></span>
-							            </div>
-								        <div class="schedule-bar">
-								            <div style="width:0%;"></div>
-								        </div>
-								        <div class="cost"></div>
-								    </a>
-								</li>								                               
-			               </div>	                                          
+								
+								</volist>         
 			            </ul>  			           
-					</div>					
+					</div>	
+                     <div style="width: 900px;height: 80px;text-align: center;box-sizing: border-box;">
+							    			<div class="page_course"   id="wst-page-items" >
+							    				
+							    			</div>
+							    		</div> 
+
+           					
 					
                 </div>  
 			
 			
-				<div id="ulli-item5" class="hide">
-					<div class="instructor-main clearfix">
-						<div class="quan-main">
-							<div class="module qa">
-								<div class="module-body bd">
-			                        <div>
-			                            <div class="answer-list">
-			                                <dl>
-			                                    <dt>
-			                                        <a href="#"  class="photo" target="_blank">
-			                                        	<img src="img/caiduoduo.png-v=1.10.1.png"  />
-			                                        </a>
-			                                        <a href="" class="title" target="_blank">从预缴增值税中抵减应纳税额，会计分录</a>
-			                                    </dt>
-			                                    <dd>
-			                                        <a href="index.htm" class="photo">
-			                                        	<img src="img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" />
-			                                        </a>
-			                                        <p class="answer">
-			                                       		 你好，问题已知悉！这个其实是要各公司具体的情况而定的，对科目的定义不同，就有不同的处理！如果用应交税费－应交增值税这个二级科目的余额借贷方来表示留抵金额的话，那么，贵司这种情况是应交税费－应交增值税月底科目余额是借方300.证明该科目是有留抵税金300.当然，如果你们公司规定以应交税费－未交增值税 为记录是否有留抵税额… 
-			                                       		 <a href="javascript:if(confirm('http://club.xiucai.com/quan/thread/1473663744/  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ�����ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://club.xiucai.com/quan/thread/1473663744/'"  target="_blank">
-			                                       		 	详情>>
-			                                       		 	
-			                                       		 </a>             
-			                                        </p>
-			                                    </dd>
-			                                </dl>
-			                                <dl>
-			                                    <dt>
-			                                        <a href="../../user/257560/index.htm" class="photo" target="_blank">
-			                                        	<img src="img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" />
-			                                        </a>
-			                                        <a href=""  class="title" target="_blank">关于缴纳增值税</a>
-			                                    </dt>
-			                                    <dd>
-			                                        <a href="index.htm"  class="photo">
-			                                        	<img src="img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" />
-			                                        </a>
-			                                        <p class="answer">
-			                                      	  你好，来信已知悉！你所提及的这两项服务内容属于现代服务中的商务辅助服务，属于此次营改增的范畴，必须要确认收入及销售金额；判定是否属于 主营业务内容，这个要跟贵司的营业范围相结合。从你的描述上来看，两者都是可以当作主营业务收入来确定。详见财务[2016]36号文商关于务辅助服务的描述。商务辅助服务，包括企业管理服务、经纪… 
-			                                      	  <a href="javascript:if(confirm('http://club.xiucai.com/quan/thread/1473437615/  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ�����ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://club.xiucai.com/quan/thread/1473437615/'"  target="_blank">
-			                                      	  	详情>>
-			                                      	  </a>                                                 
-			                                        </p>
-			                                    </dd>
-			                                </dl>
-			                                <dl>
-			                                    <dt>
-			                                        <a href="../../user/304367/index.htm"  class="photo" target="_blank">
-			                                        	<img src="img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" />
-			                                        </a>
-			                                        <a href=""  class="title" target="_blank">您好老师，我想请教关于增值税销项小于进项的问题</a>
-			                                    </dt>
-			                                    <dd>
-			                                        <a href="index.htm" class="photo">
-			                                        	<img src="img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" />
-			                                        </a>
-			                                        <p class="answer">
-			                                           	 预缴税费的会计分录：借：应交税费-应交增值税-已交税金 522.52       应交税费-城建税    36.58       应交税费-印花税    8.5贷：银行存款。 566.6 计提当月税金借：应收账款/银行存款   29000贷：主营业务收入  26126.13        应交税费-应交增值税-销项税额…
-			                                           	 <a href=""  target="_blank">
-			                                           	 	详情>>
-			                                           	 </a>                                                  
-			                                        </p>
-			                                    </dd>
-			                                </dl>
-			                                <dl>
-			                                    <dt>
-			                                        <a href="../../user/246193/index.htm"  class="photo" target="_blank">
-			                                        	<img src="img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" />
-			                                        </a>
-			                                        <a href=""  class="title" target="_blank">清算缴税</a>
-			                                    </dt>
-			                                    <dd>
-			                                        <a href="index.htm" class="photo">
-			                                        	<img src="img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" />
-			                                        </a>
-			                                        <p class="answer">
-			                                        	你好！建议分步骤去核算，这样思路会清晰些。一、设定科目，核算清算损益在普通清算中，一般下设清算费用、清算损益两个科目，用以核算清算期间所发生的费用与损益。清算费用：专用于核算企业清算期间的各项费用成本。包括：清算机构成员的工资报酬、公告费用、咨询费用和办公费用、诉讼费用及清算过程中必须支付的其他的清算费用。这些费用从现…
-			                                        	<a href="" target="_blank">
-			                                        		详情>>
-			                                        	</a>     
-			                                        </p>
-			                                    </dd>
-			                                    </dl>
-			                                    <dl>
-			                                        <dt>
-			                                            <a href="../../user/311488/index.htm"  class="photo" target="_blank">
-			                                            	<img src="img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" />
-			                                            </a>
-			                                            <a href=""  class="title" target="_blank">增值税问题：</a>
-			                                        </dt>
-			                                        <dd>
-			                                            <a href="index.htm" class="photo">
-			                                            	<img src="img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" />
-			                                            </a>
-			                                            <p class="answer">
-			                                            	年底结账，可以结转归零 
-			                                            </p>
-			                                        </dd>
-			                                    </dl>
-			                                </div>
-			                            <div style="width: 100%;height: 80px;text-align: center;box-sizing: border-box;">
-							    			<div class="page_course" >
-							    				<a href="#e" class="page_course_a">首页</a>
-							    				<a href="#e" class="page_course_a">＜</a>
-							    				<a href="#e" class="page_course_a">1</a>
-							    				<a href="#e" class="page_course_a">2</a>
-							    				<a href="#e" class="page_course_a">3</a>
-							    				<a href="#e" class="page_course_a">4</a>
-							    				<a href="#e" class="page_course_a">5</a>
-							    				<a href="#e" class="page_course_a">6</a>
-							    				<a href="#e" class="page_course_a">7</a>
-							    				<a href="#e" class="page_course_a">8</a>
-							    				<a href="#e" class="page_course_a">9</a>
-							    				<a href="#e" class="page_course_a">10</a>
-							    				<a href="#e" class="page_course_a">＞</a>
-							    				<a href="#e" class="page_course_a">尾页</a>
-							    			</div>
-							    		</div> 
-			                        </div>
-			                    </div>
-							</div>
-						</div>
-					</div>
-					
-					
-				</div>
              
             </div>
             <!-- 左侧列表 begin -->
@@ -539,20 +386,7 @@
 								</div>
 		                		<input type="file" value="修改头像" class="upload_pic tximg-x" id="upload" />
 		                	</div>
-				            <!-- 用户等级展示 -->
-				           <!--  <div class="user-level-display border-b-e6 clearfix">
-				                <p class="clearfix">
-				                    <a href="/help/6/#q27" target="_blank" title="" class="fl">
-				                        <span class="tag-qb">
-				                        	<img src="http://assets.xiucai.com/assets/img/quan/qb.png?v=1.10.5" alt="圈币" height="14" width="19">
-				                        	5
-				                        </span>
-				                    </a>
-				                    <span class="fr r-wrap"><a href="/help/6/#q28" target="_blank" class="" title="">
-				                    <span class="tag-level tag-level-LV1">
-				                    <i>LV1</i></span></a></span>
-				                </p>
-				            </div> -->
+				          
 				          
 				        </div>
 				    </div>
@@ -597,6 +431,39 @@
 </div>
 
 
+  
+  
+    <script>
+	
+	alert({$Page['totalPage']});
+			    <if condition="$Page['totalPage'] gt 1">
+			    $(document).ready(function(){
+					laypage({
+					    cont: 'wst-page-items',
+					    pages: {$Page['totalPage']}, //总页数
+					    skip: true, //是否开启跳页
+					    skin: '#e23e3d',
+					    groups: 3, //连续显示分页数
+					    curr: function(){ //通过url获取当前页，也可以同上（pages）方式获取
+					        var page = location.search.match(/p=(\d+)/);
+					        return page ? page[1] : 1;
+					    }(), 
+					    jump: function(e, first){ //触发分页后的回调
+					        if(!first){ //一定要加此判断，否则初始时会无限刷新
+					        	var nuewurl = WST.splitURL("p");
+					        	var ulist = nuewurl.split("?");
+					        	if(ulist.length>1){
+					        		location.href = nuewurl+'&p='+e.curr;
+					        	}else{
+					        		location.href = '?p='+e.curr;
+					        	}
+					            
+					        }
+					    }
+					});
+			    });
+				</if>
+				</script>
 
 
 

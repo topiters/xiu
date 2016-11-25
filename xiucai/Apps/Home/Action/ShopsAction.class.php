@@ -226,7 +226,19 @@ class ShopsAction extends BaseAction {
 	
 	//教师段端课程
 	public function course(){
-	
+		$this->isShopLogin();
+		$USER = session('WST_USER');
+		$shopCourse=D('Home/course');
+		
+		$page = $shopCourse->queryOnSaleByPage($USER['shopId']);
+		$pager = new \Think\Page($page['total'],$page['pageSize']);
+		$page['pager'] = $pager->show();
+		//$page['totalPage']=10;
+		$this->assign('Page',$page);
+		//$courseList=$shopCourse->getShopsCourse($USER['shopId']);
+		
+		//var_dump($courseList);
+		//exit;
 	
 		$this->display("default/shops/course");
 	

@@ -51,6 +51,7 @@ class CourseAction extends BaseAction {
 		
 		//var_dump($pages);
 		//$coursesNav = $rslist["coursesNav"];
+		$pages['totalPage']=10;
 		$this->assign('pages',$pages);
 	    $c1=$c1Id ?$c1Id :11;
 		if($c1){
