@@ -1173,6 +1173,61 @@ class OrdersModel extends BaseModel {
 	
 	}
 	
+	public function queryByShopOrder($obj){
+		
+		$shopId = $obj["shopId"];
+		//$pcurr = (int)I("pcurr",0);
+		$sql = "SELECT o.* FROM __PREFIX__orders o
+		WHERE shopId = $shopId AND orderFlag=1 order by orderId desc";
+		$pages = $this->pageQuery($sql,$pcurr);
+		$orderList = $pages["root"];
+		if(count($orderList)>0){
+			$orderIds=$userIds= array();
+			for($i=0;$i<count($orderList);$i++){
+				$order = $orderList[$i];
+				$orderIds[] = $order["orderId"];
+				$userIds[]=$order["userId"];
+			}
+			//获取涉及的课程
+			$sql = "SELECT og.courseId,og.courseName,og.coursePrice,og.courseThums,og.orderId  FROM __PREFIX__order_course og   WHERE og.orderId in (".implode(',',$orderIds).")";
+			$glist = $this->query($sql);
+			$userlist=$userlist= array();
+			for($i=0;$i<count($glist);$i++){
+				$course = $glist[$i];
+				$courselist[$course["orderId"]][] = $course;
+			}
+			$sqla="SELECT su.LoginName,su.userPhoto,su.userName,su.userId  FROM  __PREFIX__users su WHERE su.userId in (".implode(',',$userIds).")" ;
+			$ulist=$this->query($sqla);
+			
+		for($i=0;$i<count($ulist);$i++){
+			$uname = $ulist[$i];
+				$userlist[$uname["userId"]][] =$uname;
+			}
+			
+			//$courselist =array_merge($courselist[$course["orderId"]],$courselist[$uname["userId"]]);
+			//dump($courselist);
+			//exit;
+			//放回分页数据里
+			for($i=0;$i<count($orderList);$i++){
+				$order = $orderList[$i];
+				
+				 $order["courselist"] = $courselist[$order['orderId']];
+				// $order["userlist"]= $userlist[$uname["userId"]];
+				
+				
+				$pages["root"][$i] = $order;
+			}
+		}
+		return $pages;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * 获取商家订单列表

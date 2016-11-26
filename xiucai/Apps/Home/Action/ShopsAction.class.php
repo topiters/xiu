@@ -217,7 +217,16 @@ class ShopsAction extends BaseAction {
 	
 	//教师段端订单
 	public function  order(){
+		$order = D('Home/Orders');
 		
+		
+		$USER = session('WST_USER');
+		//$obj['userId']=$USER['userId'];
+		$obj['shopId']=$USER['shopId'];
+		$shoporderlist=$order->queryByShopOrder($obj);
+		$this->assign("shoporderlist",$shoporderlist);
+		var_dump($shoporderlist);
+		exit;
 		
 		$this->display("default/shops/order");
 		

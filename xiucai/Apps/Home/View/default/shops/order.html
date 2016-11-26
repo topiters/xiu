@@ -308,6 +308,8 @@
                                 </tbody>
                             </table>
                         </form>
+						
+						<volist   name="shoporderlist['root']"  id="vo">
                         
                         <table class="order-tablet tablet-b order-pr0 dingdantabletd">
                             <colgroup>
@@ -321,29 +323,30 @@
                                 <tr>
                             		<td colspan="5" class="align-l col-bg">
                                         <span>
-                                        	下单时间：<em>2016-10-10 10:41:38</em>
+                                        	下单时间：<em>{$vo.createTime}</em>
                                         </span>
                                         <span>
-                                        	订单编号：<em>1476078729</em>
+                                        	订单编号：<em>{$vo.orderNo}</em>
                                         </span>
                                         <span>
-                                        	课程数：<em>1门</em>                                                                                                       
+                                        	课程数：<em>{$shoporderlist.total}门</em>                                                                                                       
                                         </span>
                                         <span style="float: right;">购买者</span>
                                     </td>
                                 </tr>
+								<volist   name="vo['courselist']"   id="data">
                                 <tr>
                                     <td class="align-l">
-                                    	<a href="/course/248/" target="_blank">
-                                    		<img src="img/5f14963c-b049-2b89-e5ce-202ee850c666.jpg" height="68" width="120" alt=""/>
+                                    	<a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$data['courseId']))}" target="_blank">
+                                    		<img src="__ROOT__/{$data['courseThums']}" height="68" width="120" alt="{$data['courseName']}"/>
                                     	</a>
                                     </td>
                                     <td class="align-l valign-t col-l-p pl-20">
-                                        <a href="/course/248/" class="c-title" target="_blank">
-                                        	企业会计准则解释第7号（三）
+                                        <a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$data['courseId']))}" class="c-title" target="_blank">
+                                        	{$data.courseName}
                                         </a>
                                     </td>
-                                    <td rowspan="1" class="col-font"><b>￥49.00</b></td>
+                                    <td rowspan="1" class="col-font"><b>￥{$data.coursePrice}</b></td>
                                     <td rowspan="1" id="order-status-1476078729">
                                         <p class="a-gap">
                                             <span class="pay-txt">
@@ -357,14 +360,18 @@
                                     <td rowspan="1" class="l-td-p" data-order-id="1476078729" id="order-option-1476078729">                                       
                                         <a href="user_center.html" target="_blank">
                                         	<div style="width: 80px;height: 80px;margin: 0 auto;border: 1px solid #000;border-radius: 40px;overflow: hidden;">
-	                                        	<img style="width: 100%;" src="img/688cfdfa-eabf-fb66-6e4d-9a02732a9c24.jpg" />
+	                                        	<img style="width: 100%;" src="__ROOT__/{$data[0].loginName}" />
 	                                        </div>
                                         </a>
                                        
                                     </td>
-                                </tr>                                                                                                                                  
+                                </tr> 
+
+	                        </volist> 								
                             </tbody>
-                        </table>                           
+                        </table> 
+                       </volist>
+						
                     	<table class="order-tablet tablet-b order-pr0 dingdantabletd">
                             <colgroup>
                                 <col width="15%">
