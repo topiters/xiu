@@ -349,9 +349,30 @@
                                     <td rowspan="1" class="col-font"><b>￥{$data.coursePrice}</b></td>
                                     <td rowspan="1" id="order-status-1476078729">
                                         <p class="a-gap">
+										
+										<if condition="$vo['orderStatus']   eq  -2">
                                             <span class="pay-txt">
-                                                                                                等待付款                                                                                                                                                                                      
+                                                                                   等待付款                                                                                                                                                                                      
                                             </span>
+										
+											
+											
+											
+											
+											</if>
+											<if condition="$vo['orderStatus']   eq  2">
+                                            <span class="pay-txt">
+                                                                                  完成付款                                                                                                                                                                                      
+                                            </span>
+										
+											
+											
+											
+											
+											</if>
+											
+											
+											
                                         </p>
                                         <p class="a-gap">
                                         	<a href="#e" class="order-detail">订单详情</a>
@@ -359,20 +380,23 @@
                                     </td>
                                     <td rowspan="1" class="l-td-p" data-order-id="1476078729" id="order-option-1476078729">                                       
                                         <a href="user_center.html" target="_blank">
-                                        	<div style="width: 80px;height: 80px;margin: 0 auto;border: 1px solid #000;border-radius: 40px;overflow: hidden;">
-	                                        	<img style="width: 100%;" src="__ROOT__/{$data[0].loginName}" />
-	                                        </div>
+                                        
+	                                        	<span>{$data.buyerName}</span>
+	                                     
                                         </a>
                                        
                                     </td>
                                 </tr> 
 
-	                        </volist> 								
+	                        </volist> 	
+
+
+							
                             </tbody>
                         </table> 
                        </volist>
 						
-                    	<table class="order-tablet tablet-b order-pr0 dingdantabletd">
+                    <!-- 	<table class="order-tablet tablet-b order-pr0 dingdantabletd">
                             <colgroup>
                                 <col width="15%">
                                 <col width="44%">
@@ -428,11 +452,50 @@
                                 </tr>                                                                                                                                  
                             </tbody>
                         </table>                           
-                    
+                     -->
 					</div>
 				</div>
-			
+			      <div style="width: 900px;height: 80px;text-align: center;box-sizing: border-box;">
+							    			<div class="page_course"   id="wst-page-items" >
+							    				
+							    			</div>
+				</div> 
             </div>
+			
+	<script>
+	
+	      // alert({$Page['totalPage']});
+			   
+			    <if condition="$Page['totalPage'] gt 1">
+			    $(document).ready(function(){
+					laypage({
+					    cont: 'wst-page-items',
+					    pages: {$Page['totalPage']}, //总页数
+					    skip: true, //是否开启跳页
+					    skin: '#e23e3d',
+					    groups: 3, //连续显示分页数
+					    curr: function(){ //通过url获取当前页，也可以同上（pages）方式获取
+					        var page = location.search.match(/p=(\d+)/);
+					        return page ? page[1] : 1;
+					    }(), 
+					    jump: function(e, first){ //触发分页后的回调
+					        if(!first){ //一定要加此判断，否则初始时会无限刷新
+					        	var nuewurl = WST.splitURL("p");
+					        	var ulist = nuewurl.split("?");
+					        	if(ulist.length>1){
+					        		location.href = nuewurl+'&p='+e.curr;
+					        	}else{
+					        		location.href = '?p='+e.curr;
+					        	}
+					            
+					        }
+					    }
+					});
+			    });
+				</if>
+				</script>
+						
+			
             <!-- 左侧列表 begin -->
             <div class="course-sidebar">
                 <div class="course-sidebar-type">
