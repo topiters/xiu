@@ -223,7 +223,7 @@
 			background: #FF8860;
 			color: #fff;
 		}
-		
+		.uploadify{width:200px;height:30px;line-height:30px;}
     </style>
     <script>
     	$(function(){
@@ -287,72 +287,91 @@
             <!-- 右侧内容 begin -->
             <div class="r about_content">              
             
-                <div class="course-list "  style="padding-left: 15px;box-sizing: border-box;">
-					
-					<div class="ulliitem2_1">
-						<div  style="padding: 10px 0;"><a   href="{:U('Home/Shops/addcourse')}"  target="_blank" >点击此处上传课程视频</a></div>
-						<ul class="clearfix"  style="width: 900px;">
-			                <div id="myCourseListDiv">
-							
-							    <volist  name="Page['root']"  id="vo" >
-			                    <li>
-									<span class="i-close-del " inventory-id="411844"></span>
-									<a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$vo['courseId']))}" target="_blank">
-									    <div class="course-list-img">
-									        <img width="280" height="160" src="__ROOT__/{$vo['courseThums']}" alt="{$vo['courseName']}">
-									    </div>
-									    <h5>
-									        <span>{$vo['courseName']}</span>
-									    </h5>
-									    <div class="intro clearfix">
-								            <p>{$vo['courseName']}</p>
-								            <span class="l">1节视频课程</span>
-								            <span class="r">时长{$vo['courseTime']}</span>
-								        </div>
-									    <div class="tips tips-schedule clearfix">
-										
-										   <eq   name="vo['courseDiffculty']"   value="1">
-								            <span class="l">初级课程</span>
-											</eq>
-											  <eq   name="vo['courseDifficulty']"   value="2">
-								            <span class="l">中级级课程</span>
-											</eq>
-											  <eq   name="vo['courseDifficulty']"   value="3">
-								            <span class="l">高级课程</span>
-											</eq>
-											
-											
-								            <em class="l">|</em>
-								            <span class="l">{$vo['saleCount']}人已学</span>
-								            <span class="r">已学<em>0%</em></span>
-								        </div>
-									    <div class="schedule-bar">
-									        <div style="width:0%;"></div>
-									    </div>
-									    <div class="course-free"></div>
-									    <div class="cost">
-										     <eq   name="vo['is_free']"   value="1">
-						                    <span class="l free">免费</span>
-											<else/>
-											  <span class="l free">{$vo['shopPrice']}</span>
-											
-											</eq>
-						                </div>
-									</a>
-								</li>
-								
-								</volist>         
-			            </ul>  			           
-					</div>	
-                     <div style="width: 900px;height: 80px;text-align: center;box-sizing: border-box;">
-							    			<div class="page_course"   id="wst-page-items" >
-							    				
-							    			</div>
-				</div> 
 
-           					
-					
+
+                 <div class="course-list" id="ulli-item2" style="padding-left: 15px;box-sizing: border-box;">
+					 <script src='__PUBLIC__/plugins/uploadify/jquery.uploadify.min.js'/></script>
+					<link rel="stylesheet" href="__PUBLIC__/plugins/uploadify/uploadify.css">
+						 			
+					<div class="up_progress ulliitem2_2 ">
+		            	<div class="up_progress_img"   style="width:300px;height:40px;line-height:40px;" >
+		             
+					    <p>
+						    <input id="face_file" name="face_file" type="file" multiple="true"   value="" />
+					     </p>
+				          
+		            	</div>
+		            	<!-- <div class="info_progress">
+		            		<span >100%</span>
+		            		<span >
+		            			<a href="#e">
+		            				取消上传
+		            			</a>
+		            		</span>
+		            	</div> -->
+		            	<div class="info_M">
+		            		小于500M
+		            	</div>
+						<div   style="width:600px;height:100px;margin-top:30px;"></div>
+		            	<form action="" method="" name="">
+		            		<table>
+			            		<thead>
+			            			<tr>
+			            				<td><h2>视频信息</h2></td>
+			            			</tr>
+			            		</thead>
+			            		<tbody>
+			            			<tr>
+			            				<td>标题</td>
+			            				<td>
+			            					<input type="text" value="" id="videobiaoti"/>
+			            				</td>
+			            			</tr>
+			            			<tr>
+			            				<td>课程简介</td>
+			            				<td>
+			            					<textarea value=""     name="courseDetails" id="courseexpress"></textarea>
+			            				</td>
+			            			</tr>
+			            			<tr>
+			            				<td>分类</td>
+			            				<td>
+			            					<select name="" id="typetext">
+			            						<option value="-1">请选择视频分类</option>
+			            						<option value="">学习视频</option>
+			            						<option value="">学习视频</option>
+			            					</select>
+			            				</td>
+			            			</tr>
+			            			<tr>
+			            				<td>上传视频图</td>
+			            				<td>		            			
+											<span class="btn upload uploadvideo">上传视频封面图<input type="file" class="upload_pic" id="videofile"/></span>
+			            				</td>
+			            			</tr>
+			            			<tr>
+			            				<td>老师详情</td>
+			            				<td>
+			            					<textarea value="" id="turtorexpress"></textarea>
+			            				</td>
+			            			</tr>
+			            			<tr>
+			            				<td></td>
+			            				<td>
+			            					<input type="submit" value="发布" id="fabuvideo" name="" class="fb_video" />	   
+											<input type="button" value="返回" name="" class="fb_video fb_video_fanhui" />	   	           
+			            				</td>
+			            			</tr>
+			            		</tbody>
+			            	</table>	            
+		            	</form>
+					 </div>
+        
                 </div>  
+
+
+
+			
 			
 			
              
@@ -430,45 +449,39 @@
     </div>
 </div>
 
-
-  
-  
-    <script>
-	
-	      // alert({$Page['totalPage']});
-			   
-			    <if condition="$Page['totalPage'] gt 1">
-			    $(document).ready(function(){
-					laypage({
-					    cont: 'wst-page-items',
-					    pages: {$Page['totalPage']}, //总页数
-					    skip: true, //是否开启跳页
-					    skin: '#e23e3d',
-					    groups: 3, //连续显示分页数
-					    curr: function(){ //通过url获取当前页，也可以同上（pages）方式获取
-					        var page = location.search.match(/p=(\d+)/);
-					        return page ? page[1] : 1;
-					    }(), 
-					    jump: function(e, first){ //触发分页后的回调
-					        if(!first){ //一定要加此判断，否则初始时会无限刷新
-					        	var nuewurl = WST.splitURL("p");
-					        	var ulist = nuewurl.split("?");
-					        	if(ulist.length>1){
-					        		location.href = nuewurl+'&p='+e.curr;
-					        	}else{
-					        		location.href = '?p='+e.curr;
-					        	}
-					            
-					        }
-					    }
-					});
-			    });
-				</if>
-				</script>
 				
 
 
-
+<script>
+		$("#face_file").uploadify({
+		   
+			'swf': '__PUBLIC__/plugins/uploadify/uploadify.swf?t={$nowtime}',
+			'uploader': '{:U("Home/Upload/uploadVideo")}',
+			
+			'cancelImg': '__PUBLIC__/plugins/uploadify/uploadify-cancel.png',
+			 'height':'40',
+			 'width':'300',
+			'buttonText': '上传视屏',
+			'fileSizeLimit':'99999999999999',
+			'fileTypeExts': '*.mp4;*.rmvb',
+			'queueSizeLimit': 1,
+			//'debug':true,
+			'onUploadSuccess': function (file, data, response) {
+			     var data=$.parseJSON(data);
+			       //alert();
+				 //alert(JSON.stringify(data));
+				 alert(data.Filedata.savepath+data.Filedata.savename) ;
+			  //var imgsv=" "+eval(data)+" ";
+			   
+				$("#jcrop-x1").val($.trim(img_m[0]));
+				$("#jcrop-x2").val($.trim(img_m[1]));
+				$("#jcrop-x3").val($.trim(img_m[2]));
+				
+			
+				
+			}
+		});
+	</script> 
 
 
 

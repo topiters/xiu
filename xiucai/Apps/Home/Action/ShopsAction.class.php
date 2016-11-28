@@ -264,7 +264,7 @@ class ShopsAction extends BaseAction {
 		$this->success('添加成功',U('Home/shops/course'));
 			
 		}else{
-			
+			$this->assign('nowtime',time());
 			$this->display("default/shops/addcourse");
 		}
 		
