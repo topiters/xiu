@@ -381,6 +381,7 @@ class ShopsModel extends BaseModel {
 		//$data["bankId"] = (int)I("bankId");
 		//$data["bankNo"] = I("bankNo");
 		//$data["bankUserName"] = I("bankUserName");
+		$data["shopTitle"] = I("shopTitle");
 		$data["shopIndustry"] = I("shopIndustry");
 		$data["shopDetails"] = I("shopDetails");
 		$data["shopGoodat"] = I("shopGoodat");

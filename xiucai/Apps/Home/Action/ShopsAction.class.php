@@ -217,6 +217,7 @@ class ShopsAction extends BaseAction {
 	
 	//教师段端订单
 	public function  order(){
+		$this->isShopLogin();
 		$order = D('Home/Orders');
 		
 		
@@ -224,10 +225,18 @@ class ShopsAction extends BaseAction {
 		//$obj['userId']=$USER['userId'];
 		$obj['shopId']=$USER['shopId'];
 		$shoporderlist=$order->queryByShopOrder($obj);
-		$this->assign("shoporderlist",$shoporderlist);
-		var_dump($shoporderlist);
-		exit;
+		//var_dump($shoporderlist);
+	//exit;
+		$pager = new \Think\Page($shoporderlist['total'],$shoporderlist['pageSize']);
+		$page['pager'] = $pager->show();
+		$this->assign('Page',$page);
+		//$userPwd="123456";
+		//$rs['loginSecret']="3878";
+		//$v=md5($userPwd.$rs['loginSecret']);
+		//echo"<pre>";
 		
+		//echo"</pre>";
+		$this->assign("shoporderlist",$shoporderlist);
 		$this->display("default/shops/order");
 		
 	}
@@ -246,8 +255,22 @@ class ShopsAction extends BaseAction {
 		$this->display("default/shops/course");
 	
 	}
-	
-	
+	//添加课程
+	public function addcourse(){
+		
+		if($_POST){
+			
+			
+		$this->success('添加成功',U('Home/shops/course'));
+			
+		}else{
+			
+			$this->display("default/shops/addcourse");
+		}
+		
+		
+		
+	}
 
 	//教师段端课程
 	public function follow(){

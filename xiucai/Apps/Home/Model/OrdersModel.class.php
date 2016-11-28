@@ -358,8 +358,9 @@ class OrdersModel extends BaseModel {
 			if($GLOBALS['CONFIG']['isOpenScorePay']==1 && $isScorePay==1){//积分支付
 				$baseScore = WSTOrderScore();
 				$baseMoney = WSTScoreMoney();
-				$sql = "select userId,userScore from __PREFIX__users where userId=$userId";
+				$sql = "select userId,userScore,LoginName from __PREFIX__users where userId=$userId";
 				$user = $this->queryRow($sql);
+				$loginName=$user['LoginName'];
 				$useScore = $baseScore*floor($user["userScore"]/$baseScore);
 				$scoreMoney = $baseMoney*floor($user["userScore"]/$baseScore);
 				$orderTotalMoney = $shopcourse["totalMoney"]+$deliverMoney;
@@ -411,6 +412,8 @@ class OrdersModel extends BaseModel {
 				$orderIds[] = $orderId;
 				//建立订单课程记录表
 				$mog = M('order_course');
+				$sqlu = "select userId ,LoginName from __PREFIX__users where userId=$userId";
+				$userm = $this->queryRow($sqlu);
 				foreach ($packages as $key=> $package){
 					foreach ($package['course'] as $key2=> $scourse){
 						$data = array();
@@ -422,6 +425,7 @@ class OrdersModel extends BaseModel {
 						$data["coursePrice"] = $scourse["shopPrice"];
 						$data["courseName"] = $scourse["courseName"];
 						$data["courseThums"] = $scourse["courseThums"];
+						$data["buyerName"]=$userm['LoginName'] ;
 						$mog->add($data);
 					}
 				}
@@ -436,6 +440,7 @@ class OrdersModel extends BaseModel {
 					$data["coursePrice"] = $scourse["shopPrice"];
 					$data["courseName"] = $scourse["courseName"];
 					$data["courseThums"] = $scourse["courseThums"];
+					$data["buyerName"]=$userm['LoginName'] ;
 					$mog->add($data);
 				}
 			
@@ -1176,7 +1181,7 @@ class OrdersModel extends BaseModel {
 	public function queryByShopOrder($obj){
 		
 		$shopId = $obj["shopId"];
-		//$pcurr = (int)I("pcurr",0);
+		$pcurr = (int)I("p",0);
 		$sql = "SELECT o.* FROM __PREFIX__orders o
 		WHERE shopId = $shopId AND orderFlag=1 order by orderId desc";
 		$pages = $this->pageQuery($sql,$pcurr);
@@ -1186,33 +1191,37 @@ class OrdersModel extends BaseModel {
 			for($i=0;$i<count($orderList);$i++){
 				$order = $orderList[$i];
 				$orderIds[] = $order["orderId"];
-				$userIds[]=$order["userId"];
+				  $userIds[]=$order["userId"];
 			}
+			//dump($userIds);
 			//获取涉及的课程
-			$sql = "SELECT og.courseId,og.courseName,og.coursePrice,og.courseThums,og.orderId  FROM __PREFIX__order_course og   WHERE og.orderId in (".implode(',',$orderIds).")";
+			$sql = "SELECT og.courseId,og.courseName,og.coursePrice,og.courseThums,og.orderId,og.buyerName  FROM __PREFIX__order_course og   WHERE og.orderId in (".implode(',',$orderIds).")";
 			$glist = $this->query($sql);
-			$userlist=$userlist= array();
+			$userlist=$ulist= array();
 			for($i=0;$i<count($glist);$i++){
 				$course = $glist[$i];
 				$courselist[$course["orderId"]][] = $course;
 			}
-			$sqla="SELECT su.LoginName,su.userPhoto,su.userName,su.userId  FROM  __PREFIX__users su WHERE su.userId in (".implode(',',$userIds).")" ;
+			/* $sqla="SELECT su.LoginName,su.userPhoto,su.userName,su.userId  FROM  __PREFIX__users su WHERE su.userId in (".implode(',',$userIds).")" ;
 			$ulist=$this->query($sqla);
-			
+		   dump($ulist);
 		for($i=0;$i<count($ulist);$i++){
-			$uname = $ulist[$i];
-				$userlist[$uname["userId"]][] =$uname;
-			}
+			    $uname = $ulist[$i];
+				$ulist[$uname["userId"]][] =$uname;
+			} */
 			
 			//$courselist =array_merge($courselist[$course["orderId"]],$courselist[$uname["userId"]]);
 			//dump($courselist);
 			//exit;
+			
+			
+			
 			//放回分页数据里
 			for($i=0;$i<count($orderList);$i++){
 				$order = $orderList[$i];
 				
 				 $order["courselist"] = $courselist[$order['orderId']];
-				// $order["userlist"]= $userlist[$uname["userId"]];
+				// $order["ulist"]= $ulist[$order['userId']];
 				
 				
 				$pages["root"][$i] = $order;
