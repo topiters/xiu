@@ -33,96 +33,98 @@ function login(){
 		$("#all_login").css({"display":"none"});
 		$("#register_").css({"display":"block"});
 	}
-	
-			
-function logout(){
-     var url="{:U('Home/Users/logout')}";
-	jQuery.post(url,{},function(rsp) {
-		location.reload();
-	});
-}	
-	function tiwen(){
-		$("#tiwen").removeClass('hide');
-	}
-	function tiwen_close(){
-		$("#tiwen").addClass('hide');
-	}
+
+
+function logout() {
+    var url = "{:U('Home/Users/logout')}";
+    jQuery.post(url, {}, function (rsp) {
+        location.reload();
+    });
+}
+function tiwen(shopId) {
+    $('#tutor_member_id').val(shopId);
+    $("#tiwen").removeClass('hide');
+}
+function tiwen_close() {
+    $("#tiwen").addClass('hide');
+}
+function tiwen_send() {
+    var title = $("#thread_title").val();
+    var shopId = $('#tutor_member_id').val();
+    $.ajax({
+        type: "get",
+        url: "{:U('Home/Specialist/ask')}",
+        data: "title=" + title + "&userId=" + {$user['userId']} + "&shopId=" + shopId,
+        success: function (re) {
+            if (re == 1){
+                WST.msg('发布成功', {offset: '250px'})
+            }else {
+                WST.msg('发布失败', {offset: '250px'})
+            }
+        }
+    })
+}
 </script>
 <script>
-	$(function(){
-		$("input[name='mobile_login']").click(function(){
-			//登录成功之后
-			//先让非导航的右边显示登录之后的样子
-			$("#feinav_dlzq").css({"display":"none"});
-			$("#feinav_dlzh").css({"display":"block"});//显示用户信息
-			//再让黑色导航的右边显示登录之后的样子
-			$(".head_dhzx").css({"display":"none"});
-			$("#user_nodl").css({"display":"none"});
-			$("#login_dl").css({"display":"block"});
-			
-	var loginName = $.trim($('#loginName').val());
-	var loginPwd = $.trim($('#loginPwd').val());
-	var chPhone = /^1[2-9]{1}[0-9]{9}$/;
-	var regemail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
-   //  alert(loginName);
-   
-   //判断是否手机号
-	 if($.isNumeric(loginName)){
-	    if(chPhone.test(loginName)){
-		checkl(loginName,loginPwd);
-		  //return true;
-	     }else{
-		 alert('不是有效的手机号');
-		 return false;
-		 } 
-	  
-	  
-	  }else{
-	   //是否邮箱
-	     if(loginName.indexOf("@")!=-1){
-				 if(regemail.test(loginName)){
-				 
-				 
-				  checkl(loginName,loginPwd);
-				 }else{
-				  alert('不是有效的邮箱');
-				 return false;
-				 }
-	  
-	     }else{
-	  
-	  
-	    alert('不是有效的手机号或邮箱');
-	    return false;
-	  
-	   }
-	 
-	 }
-	
+    $(function () {
+        $("input[name='mobile_login']").click(function () {
+            //登录成功之后
+            //先让非导航的右边显示登录之后的样子
+            $("#feinav_dlzq").css({"display": "none"});
+            $("#feinav_dlzh").css({"display": "block"});//显示用户信息
+            //再让黑色导航的右边显示登录之后的样子
+            $(".head_dhzx").css({"display": "none"});
+            $("#user_nodl").css({"display": "none"});
+            $("#login_dl").css({"display": "block"});
 
-			
-			
-		function checkl(loginN,pawd){
-		
-		
-		
-   var loginurl="{:U('Home/Users/checkLogin')}";
-	$.post(loginurl,{loginName:loginN,loginPwd:pawd},function(data,textStatus){
-	     var  data=$.parseJSON(data);
-		if(data.status=='1'){
-		 WST.msg('登录成功...',{offset:'250px'});
-			//location.reload();
-		location.href=data.refer;
-		}else if(data.status=='-2'){
-			//$("#errmsg").html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;登陆失败，账号或密码错误");
-			alert('登陆失败，账号或密码错误');
-		}
-	});
-				
-		}					
-			//
-		});
-	})
+            var loginName = $.trim($('#loginName').val());
+            var loginPwd = $.trim($('#loginPwd').val());
+            var chPhone = /^1[2-9]{1}[0-9]{9}$/;
+            var regemail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+            //  alert(loginName);
+
+            //判断是否手机号
+            if ($.isNumeric(loginName)) {
+                if (chPhone.test(loginName)) {
+                    checkl(loginName, loginPwd);
+                    //return true;
+                } else {
+                    alert('不是有效的手机号');
+                    return false;
+                }
+            } else {
+                //是否邮箱
+                if (loginName.indexOf("@") != -1) {
+                    if (regemail.test(loginName)) {
+                        checkl(loginName, loginPwd);
+                    } else {
+                        alert('不是有效的邮箱');
+                        return false;
+                    }
+                } else {
+                    alert('不是有效的手机号或邮箱');
+                    return false;
+                }
+            }
+            function checkl(loginN, pawd) {
+                var loginurl = "{:U('Home/Users/checkLogin')}";
+                $.post(loginurl, {loginName: loginN, loginPwd: pawd}, function (data, textStatus) {
+                    var data = $.parseJSON(data);
+                    if (data.status == '1') {
+                        WST.msg('登录成功...', {offset: '250px'});
+                        //location.reload();
+                        location.href = data.refer;
+                    } else if (data.status == '-2') {
+                        //$("#errmsg").html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;登陆失败，账号或密码错误");
+                        alert('登陆失败，账号或密码错误');
+                    }
+                });
+
+            }
+
+            //
+        });
+    })
 	
 	
 	
@@ -303,17 +305,17 @@ function userreg(){
 
 
 <div id="tiwen" class="hide" style="width: 100%;height: 100%;position: fixed;top: 0;left: 0;background: rgba(0,0,0,0.5);z-index: 9999;">
-	 
+    <form action="" method="post">
 	<div id="ask-teacher" class="dialog-board ">
-		<div class="close_icon tiwen_close" style="cursor: pointer;" onclick="tiwen_close();"><img src="img/login/close_icon.png"/></div>
+		<div class="close_icon tiwen_close" style="cursor: pointer;" onclick="tiwen_close();"><img src="__ROOT__/Apps/Home/View/default/img/login/close_icon.png"/></div>
 	    <div class="dialog-board-bar">
 	        <h2 class="course-join-title">向导师提问</h2>
-	        <a href="javascript:;" class="close-dialog-board" id="close-ask-teacher"></a>
+	        <!--<a href="javascript:;" class="close-dialog-board" id="close-ask-teacher"></a>-->
 	    </div>
 	    <div>
 	        <div class="box-container">
 	            <p class="row-label"><label>您的问题</label></p>
-	            <p class="ipt-border"><input id="thread_title" type="text" placeholder="请在这里描述您的问题" class="ipt100-text" /><b id="thread_title_b">0/30</b></p>
+	            <p class="ipt-border"><input id="thread_title" type="text" placeholder="请在这里描述您的问题" class="ipt100-text" name="title"/><b id="thread_title_b">0/50</b></p>
 	            <p class="row-label"><label>问题补充<em>（选填）</em></label></p>
 	            <script type="text/javascript">
 	             /*   var ue = UE.getEditor('thread_content_pop', {
@@ -329,13 +331,13 @@ function userreg(){
 	            </div>
 	                        <div class="b-tips clearfix">
 	                                <div class="fl">导师回复将通过邮件提醒您，记得<a href="" target="_blank" class="link">绑定邮箱</a></div>
-	                                <input type="hidden" id="tutor_member_id">
-	                <a id="ask-guider" href="javascript:;" class="fr globe-btn50 globe-btn50-nobg" onclick="tiwen_close();">提问</a>
+	                                <input type="hidden" id="tutor_member_id" name="shopId"/>
+	                <a id="ask-guider" href="javascript:;" class="fr globe-btn50 globe-btn50-nobg" onclick="tiwen_send();">提问</a>
 	            </div>
 	        </div>
 	    </div>
 	</div>
-
+    </form>
 </div>
 
 

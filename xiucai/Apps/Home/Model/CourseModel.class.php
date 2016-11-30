@@ -35,11 +35,8 @@ class CourseModel extends BaseModel {
 		$is_free=(int)I("is_free");
 		
 		//is_live是否直播录播
-		
 		$is_live=(int)I("is_live");
-		
-		
-		
+
 		if($prices != ""){
 			$pricelist = explode("_",$prices);
 		}
@@ -125,7 +122,7 @@ class CourseModel extends BaseModel {
 	    if($prices != "" && $pricelist[0]>=0 && $pricelist[1]>=0){
 			$where .= " AND (g.shopPrice BETWEEN  ".(int)$pricelist[0]." AND ".(int)$pricelist[1].") ";
 		}
-	   	$groupBy .= " group by courseId  ";
+	   	$groupBy .= " group by courseId ";
 	   	//排序-暂时没有按好评度排
 	   	$orderFile = array('1'=>'saleCount','6'=>'saleCount','7'=>'saleCount','8'=>'shopPrice','9'=>'(totalScore/totalUsers)','10'=>'saleTime',''=>'saleTime','12'=>'saleCount','13'=>'is_new','is_hot'=>14);
 	   	$orderSort = array('0'=>'ASC','1'=>'DESC');

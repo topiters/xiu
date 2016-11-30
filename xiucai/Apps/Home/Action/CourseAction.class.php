@@ -46,6 +46,7 @@ class CourseAction extends BaseAction {
 	     // var_dump($c1Id);
 		};
 		$rslist = $mcourses->getCourseList();
+//		dump($rslist);die;
 		//$brands = $rslist["brands"];
 		$pages = $rslist["pages"];
 		
