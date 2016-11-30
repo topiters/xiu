@@ -67,9 +67,9 @@
             <dl class="option">
                 <dt class="middle">排序：</dt>
                 <dd class="btn-group">
-                    <a href="index.htm" tppabs="http://www.xiucai.com/tutor/" class="on"><span>综合</span></a>
-                    <a href="{$Think.server.php_self}?{$Think.server.query_string}&sort=1" tppabs="http://www.xiucai.com/tutor/?sort=1" class=""><span>解答数</span></a>
-                    <a href="{$Think.server.php_self}?{$Think.server.query_string}&sort=3" tppabs="http://www.xiucai.com/tutor/?sort=3" class=""><span>满意度</span></a>
+                    <a href="{:U('Home/specialist/index')}" tppabs="http://www.xiucai.com/tutor/" <if condition="$_GET['sort'] eq null"> class="on" </if>><span>综合</span></a>
+                    <a href="{:U('Home/specialist/index',array('c1Id'=>$_GET['c1Id'],'c2Id'=>$_GET['c2Id'],'sort'=>1))}" tppabs="http://www.xiucai.com/tutor/?sort=1" <if condition="$_GET['sort'] eq 1"> class="on"</if>><span>解答数</span></a>
+                    <a href="{:U('Home/specialist/index',array('c1Id'=>$_GET['c1Id'],'c2Id'=>$_GET['c2Id'],'sort'=>3))}" tppabs="http://www.xiucai.com/tutor/?sort=3" <if condition="$_GET['sort'] eq 3"> class="on"</if>><span>满意度</span></a>
                 </dd>
                 <dd class="first-dd"></dd>
             </dl>
@@ -77,46 +77,51 @@
                 <foreach name="pages['root']" item="v">
 		        <div class="teacher">
 		            <div class="left">
-		                <a target="_blank" href="daoshi_xq.html" >
-		                	<img src="__ROOT__/Apps/Home/View/default/img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" width="180" height="180" >
+		                <a target="_blank" href="{:U('Home/specialist/tutor',array('id'=>$v['shopId']))}" >
+		                	<img src="__ROOT__/{$v['shopImg']}" width="180" height="180" >
 		                </a>
 		            </div>
 		            <div class="center">
 		                <p class="name">
-		                	<a href="daoshi_xq.html"  >
-		                    	李燕翔
+		                	<a href="{:U('Home/specialist/tutor',array('id'=>$v['shopId']))}" >
+                                {$v['shopName']}
 		                    </a>
 		                    <img src="__ROOT__/Apps/Home/View/default/img/blueV.png-v=1.10.1.png" >
 		                </p>
-		                <p class="position">专业服务/教育/培训<span>/</span>跨国集团</p>
+		                <p class="position">{$v['shopIndustry']}</p>
 		                <dl class="specializes">
 		                    <dt class="sc">擅长解答：</dt>
 		                    <dd>
-		                        <span><em></em><i>成本管理</i></span>
-		                        <span><em></em><i>绩效管理</i></span>
-		                        <span><em></em><i>财务分析</i></span>
-		                        <span><em></em><i>职业发展</i></span>
+                                <foreach name="v['shopGoodat']" item="vv">
+		                            <span><em></em><i>{$vv}</i></span>
+                                </foreach>
 		                    </dd>
 		                </dl>
 		                <dl class="recent">
 		                    <dt class="zj">最近解答：</dt>
 		                    <dd>
-		                        <p><a target="_blank" href="">你好老师，我公司产品的物流成本很大，我想计算出每一个产品在公</a></p>
-		                        <p><a target="_blank" href="" >成本核算人员，提升到成本管理人员应多学习哪方面知识？</a></p>
+                                <foreach name="v['shopQuestions']" item="vv">
+		                        <p><a target="_blank" href="{:U('Home/specialist/question',array('id'=>$vv['id']))}">{$vv['title']}</a></p>
+                                </foreach>
 		                    </dd>
 		                </dl>
 		            </div>
 		            <div class="right">
 		                <ul>
-		                    <li><strong>90个</strong><span>已解答</span></li>
-		                    <li><strong>100%</strong><span>满意度</span></li>
+		                    <li><strong>{$v['shopAnswers']}个</strong><span>已解答</span></li>
+		                    <li><strong>{$v['shopScore']}%</strong><span>满意度</span></li>
 		                    <li class="btn">
-		                    	<a href="javascript:" class="tw questioning" onclick="tiwen();">免费提问</a>
+		                    	<a href="javascript:" class="tw questioning" onclick="tiwen({$v['shopId']});">免费提问</a>
 		                    </li>
 		                </ul>
 		            </div>
 		        </div>
                 </foreach>
+            </div>
+            <div style="width: 100%;height: 80px;text-align: center;box-sizing: border-box;">
+                <div class="page_course" id="wst-page-items">
+
+                </div>
             </div>
             <div class="quick">
                 <a href="javascript:" class="qa-btn" onclick="tiwen();">快速提问</a>
@@ -128,7 +133,7 @@
     <script>
         function queryGoods(obj, mark) {
             var params = [];
-            var c1Id, c2Id, c3Id, msort, is_free, is_live, is_new, is_hot;
+            var c1Id, c2Id;
             keyWords = $.trim($("#keyword").val());
             if (mark == 1) {
                 c1Id = $(obj).attr("data") ? $(obj).attr("data") : '';
@@ -139,25 +144,15 @@
             } else if (mark == 4) {
                 c1Id = $("#wst-areas").find(".cur").attr("data");
                 c2Id = $("#course_profess").find(".cur").attr("data");
-                is_free = $(obj).attr("data") ? $(obj).attr("data") : '';
-                is_live = $("#course_type").find(".cur").attr("data");
             } else if (mark == 5) {
                 c1Id = $("#wst-areas").find(".cur").attr("data");
                 c2Id = $("#course_profess").find(".cur").attr("data");
-                is_free = $("#course_price").find(".cur").attr("data");
-                is_live = $(obj).attr("data") ? $(obj).attr("data") : '';
             } else if (mark == 6) {
                 c1Id = $("#wst-areas").find(".cur").attr("data");
                 c2Id = $("#course_profess").find(".cur").attr("data");
-                is_free = $("#course_price").find(".cur").attr("data");
-                is_live = $("#course_type").find(".cur").attr("data");
-                is_new = $(obj).attr("data") ? $(obj).attr("data") : '';
             } else if (mark == 7) {
                 c1Id = $("#wst-areas").find(".cur").attr("data");
                 c2Id = $("#course_profess").find(".cur").attr("data");
-                is_free = $("#course_price").find(".cur").attr("data");
-                is_live = $("#course_type").find(".cur").attr("data");
-                is_hot = $(obj).attr("data") ? $(obj).attr("data") : '';
             }
             else {
 
@@ -165,11 +160,6 @@
             if (keyWords != "") params.push("keyWords=" + keyWords);
             if (c1Id && c1Id != '0') params.push("c1Id=" + c1Id);
             if (c2Id && c2Id != '0') params.push("c2Id=" + c2Id);
-            if (c3Id && c3Id != '0') params.push("c3Id=" + c3Id);
-            if (is_free && is_free != '0') params.push("is_free=" + is_free);
-            if (is_live && is_live != '0') params.push("is_live=" + is_live);
-            if (is_new && is_new != '0') params.push("is_new=" + is_new);
-            if (is_hot && is_hot != '0') params.push("is_hot=" + is_hot);
 			window.location = "{:U('Home/specialist/index')}" + "&" + params.join('&');
         }
 
@@ -179,7 +169,7 @@
                     cont: 'wst-page-items',
                     pages: {$pages['totalPage']}, //总页数
                     skip: true, //是否开启跳页
-                    skin: '#e23e3d',
+                    skin: '#ff7745',
                     groups: 3, //连续显示分页数
                     curr: function () { //通过url获取当前页，也可以同上（pages）方式获取
                         var page = location.search.match(/p=(\d+)/);

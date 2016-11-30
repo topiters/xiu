@@ -57,9 +57,10 @@ function tiwen_send() {
         data: "title=" + title + "&userId=" + {$user['userId']} + "&shopId=" + shopId,
         success: function (re) {
             if (re == 1){
-                WST.msg('发布成功', {offset: '250px'})
+                WST.msg('发布成功', {offset: '250px'});
+                $('#tiwen').addClass('hide');
             }else {
-                WST.msg('发布失败', {offset: '250px'})
+                WST.msg('发布失败', {offset: '250px'});
             }
         }
     })

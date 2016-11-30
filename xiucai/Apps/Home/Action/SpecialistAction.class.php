@@ -27,10 +27,18 @@ class SpecialistAction extends BaseAction {
 //              var_dump($c1Id);
          }
          $rslist = $mcourses->getList();
-         dump($rslist);die;
+
+
 //         $brands = $rslist["brands"];
          $pages = $rslist['pages'];
-//         var_dump($pages);
+         foreach ($pages['root'] as $k=>$v) {
+             $pages['root'][$k]['shopGoodat'] = explode(',' , $v['shopGoodat']);
+             $sid = $v['shopId'];
+             $qArr = D('questions')->field('id,title')->where("shopId = {$sid} and is_answered = 1")->order('id desc')->limit(2)->select();
+             $pages['root'][$k]['shopQuestions'] = $qArr;
+         }
+//         dump($pages);
+//         die;
          $this->assign('pages' , $pages);
          $c1 = $c1Id ? $c1Id : 11;
          if ($c1) {
@@ -49,6 +57,14 @@ class SpecialistAction extends BaseAction {
             }else{
                 echo 0;
             }
+        }
+	 }
+
+    public function tutor() {
+        if ($_GET[id]){
+            $this->display('default/specialist_tutor_info');
+        }else{
+            redirect(U('Home/specialist/index'));
         }
 	 }
 }
