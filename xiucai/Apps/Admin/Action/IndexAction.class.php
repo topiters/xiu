@@ -69,7 +69,8 @@ class IndexAction extends BaseAction {
      */
     public function login(){
     	$m = D('Admin/Staffs');
-    	if($this->checkVerify()){
+		//$this->checkVerify()
+    	if($x=true){
 	    	$rs = $m->login();
 	    	if($rs['status']==1){
 	    		session('WST_STAFF',$rs['staff']);
