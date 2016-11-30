@@ -4,7 +4,7 @@ namespace Home\Model;
  * ============================================================================
  * 联系QQ:1149100178
  * ============================================================================
- * 商品分类服务类
+ * 课程分类服务类
  */
 class CourseCatsModel extends BaseModel {
    /**
@@ -16,7 +16,7 @@ class CourseCatsModel extends BaseModel {
 		return $rs;
 	}
     /**
-     * 获取商品分类及商品
+     * 获取课程分类及课程
      */
 	public function getCourseCatsAndCourseForIndex($areaId2){
 		$cats = S("WST_CACHE_GOODS_CAT_GOODS_WEB_".$areaId2);
@@ -42,7 +42,7 @@ class CourseCatsModel extends BaseModel {
 					}
 					$rs2[$j]["catChildren"] = $cats3;
 			
-					//查询二级分类下的商品
+					//查询二级分类下的课程
 					$sql = "SELECT sp.shopName, g.saleCount , sp.shopId , g.courseId , g.courseName,g.courseImg, g.courseThums,g.shopPrice, g.courseSn,ga.id courseAttrId,ga.attrPrice
 							FROM __PREFIX__course g left join __PREFIX__course_attributes ga on g.courseId=ga.courseId and ga.isRecomm=1, __PREFIX__shops sp
 							WHERE g.shopId = sp.shopId AND sp.shopStatus = 1 AND g.courseFlag = 1 AND g.isSale = 1 AND g.courseStatus = 1 AND g.courseCatId2 = $cat2Id AND (sp.areaId2=$areaId2 or sp.isDistributAll=1)
@@ -56,7 +56,7 @@ class CourseCatsModel extends BaseModel {
 					$cats2[] = $rs2[$j];
 				}
 			
-				//查询二级分类下的商品
+				//查询二级分类下的课程
 				$sql = "SELECT sp.shopName, g.saleCount , sp.shopId , g.courseId , g.courseName,g.courseImg, g.courseThums,g.shopPrice, g.courseSn,ga.id courseAttrId,ga.attrPrice
 						FROM __PREFIX__course g left join __PREFIX__course_attributes ga on g.courseId=ga.courseId and ga.isRecomm=1, __PREFIX__shops sp
 						WHERE g.shopId = sp.shopId AND sp.shopStatus = 1 AND g.courseFlag = 1 AND g.isAdminBest = 1 AND g.isSale = 1 AND g.courseStatus = 1 AND g.courseCatId1 = $cat1Id AND (sp.areaId2=$areaId2 or sp.isDistributAll=1)

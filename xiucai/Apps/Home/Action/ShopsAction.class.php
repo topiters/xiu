@@ -259,11 +259,25 @@ class ShopsAction extends BaseAction {
 	public function addcourse(){
 		
 		if($_POST){
+         D('')->
+			
+			
+			
+			
+			
 			
 			
 		$this->success('添加成功',U('Home/shops/course'));
 			
 		}else{
+			//$courseCats=WSTGoodsCats();
+		//	var_dump($courseCats);
+			//exit;
+			
+			
+			
+			
+			
 			$this->assign('nowtime',time());
 			$this->display("default/shops/addcourse");
 		}

@@ -336,10 +336,31 @@
 			            			<tr>
 			            				<td>分类</td>
 			            				<td>
-			            					<select name="" id="typetext">
-			            						<option value="-1">请选择视频分类</option>
-			            						<option value="">学习视频</option>
-			            						<option value="">学习视频</option>
+			            					<select    name=""   id="typetext">
+			            						<option value="0">请选择视频分类</option>
+			            					  <volist   name=":WSTGoodsCats()"   id="vol" >
+											
+											  <option   value="{$vo1['catId']}"  >|{$vo1["catName"]}</option>
+											       
+ 
+                                               
+														 <volist   name="vo1['catChildren']"   id="vol1" >
+											            
+											             <option   value="{$vo11['catId']}"  >|{$vo11["catName"]}</option>
+											           
+														
+														        <volist   name="vo11['catChildren']"   id="vol2" >
+											                  
+											                     <option   value="{$vo12['catId']}"  >|{$vo12["catName"]}</option>
+											                  
+														        </volist>
+														
+														
+														
+														
+											            </volist>
+											
+											</volist>
 			            					</select>
 			            				</td>
 			            			</tr>
