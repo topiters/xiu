@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<include file="./Apps/Home/View/default/common_head.html"/>
+<div id="main">
+    <div id="main">
+        <div class="container">
+            <div class="instructor-cards">
+                <div class="photo">
+                    <img src="__ROOT__/{$sArr['shopImg']}"  width="388" height="218"/>
+                </div>
+                <div class="cards">
+                    <div class="name">
+                        <span>{$sArr['shopName']}</span><i class="answers" title="问答老师">问答</i><i class="teach" title="授课老师">授课</i>                    </div>
+                    <div class="job-info">
+                        {$sArr['shopIndustry']}
+                    </div>
+                    <div class="sc">
+                        <span>擅长：</span>
+                        <div class="specializes">
+                            <foreach name="sArr['shopGoodat']" item="v">
+                                <span><em></em><i>{$v}</i></span>
+                            </foreach>
+                        </div>
+                    </div>
+                    <div class="number">
+                        <ul>
+                            <li>
+                                <em>2</em>
+                                <span>秀财说</span>
+                            </li>
+                            <li>
+                                <em>{$sArr['courseNum']}</em>
+                                <span>录播课程</span>
+                            </li>
+                            <li>
+                                <em>{$sArr['shopAnswers']}</em>
+                                <span>导师问答</span>
+                            </li>
+                            <li>
+                                <em>{$sArr['shopStudents']}</em>
+                                <span>授课学员</span>
+                            </li>
+                            <li>
+                                <em>{$sArr['shopFollower']}</em>
+                                <span>粉丝</span>
+                            </li>
+                            <li>
+                                <em>{$sArr['shopFolwer']}</em>
+                                <span>小红花</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="questions-and-concerns">
+                    <a class="btn-a qx cancel_focus_user" user_id="1478"style=" display: none;margin: 54px 73px 25px 73px;">取消关注</a>
+                    <a class="btn-a gz sure_focus_user" user_id="1478" >添加关注</a>
+                    <a href="javascript:" class="btn-a tw questioning" tutor-id="{$sArr['shopId']}" onclick="tiwen({$sArr['shopId']});">向Ta提问</a>
+                    <div class="wnjh">问答导师，为您解惑</div>
+                </div>
+            </div>
+            <div class="instructor-main clearfix">
+                <div class="quan-main">
+                    <div class="module introduction">
+                        <h3>Ta的简介</h3>
+                        <p data-content="&lt;p&gt;&lt;strong&gt;&lt;span style=&quot;font-size: 14px; font-family: 微软雅黑, &amp;#39;Microsoft YaHei&amp;#39;;&quot;&gt;美国注册管理会计师（CMA）&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px; font-family: 微软雅黑, &amp;#39;Microsoft YaHei&amp;#39;; color: rgb(127, 127, 127);&quot;&gt;在跨国集团财会领域有多年实战经验，在普华永道、毕马威担任财务管理咨询业务的项目经理，&lt;/span&gt;&lt;span style=&quot;color: rgb(127, 127, 127); font-family: 微软雅黑, &amp;#39;Microsoft YaHei&amp;#39;; font-size: 14px;&quot;&gt;为多个行业的企业提供财务管理咨询服务，帮助中国本土大中型集团企业重构财务组织、规划财务转型路径，并改进不同财务领域的绩效水平，主导多个财务管理模块的方案设计&lt;/span&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&lt;/p&gt;">{$sArr['shopDetails']|WSTMSubstr=###,0,100}<a href="javascript:">展开>></a></p>
+                    </div>
+                    <div class="module qa">
+                        <div class="hd">
+                            <ul>
+                                <li class=""><a href="{:U('Home/specialist/tutor',array('id'=>$_GET['id']))}">Ta的课程</a></li>
+                                <li class="on"><a href="{:U('Home/specialist/questionList',array('id'=>$_GET['id']))}">Ta的问答</a></li>
+                            </ul>
+                        </div>
+                        <div class="module-body bd">
+                            <div>
+                                <div class="answer-list">
+                                    <foreach name="qArr" item="v">
+                                    <dl>
+                                        <dt>
+                                            <a href="{:U('Home/Users/index',array('id'=>$v['userId']))}" class="photo" target="_blank">
+                                            	<img src="__ROOT__/Apps/Home/View/default/img/caiduoduo.png-v=1.10.1.png"  />
+                                            </a>
+                                            <a href="javascript:if(confirm('http://club.xiucai.com/quan/thread/1471432185/  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ�����ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://club.xiucai.com/quan/thread/1471432185/'" target="_blank">{$v['title']|WSTMSubstr=###,0,50}</a>
+                                        </dt>
+                                        <dd>
+                                            <a href="{:U('Home/specialist/tutor',array('id'=>$sArr['shopId']))}" class="photo">
+                                            	<img src="__ROOT__/{$sArr['shopImg']}" />
+                                            </a>
+                                            <p class="answer">
+                                                {$v['answer']|WSTMSubstr=###,0,50}
+                                                <a href="javascript:if(confirm('http://club.xiucai.com/quan/thread/1471432185/  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ�����ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://club.xiucai.com/quan/thread/1471432185/'" >详情>></a>       
+                                            </p>
+                                        </dd>
+                                    </dl>
+                                    </foreach>
+                                </div>
+
+                                <div style="width: 100%;height: 80px;text-align: center;box-sizing: border-box;">
+					    			{$page}
+					    		</div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="quan-side-bar">
+                    <div class="quan-block">
+                        <h2><em></em>Ta的粉丝</h2>
+                        <div class="course-attend-list clearfix">
+                            <div>
+                                <a href="#"  target="_blank">
+                                    <img src="__ROOT__/Apps/Home/View/default/img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg"  height="60" width="60">
+                                </a>
+                            </div>
+                            <div>
+                                <a href="#" target="_blank">
+                                    <img src="__ROOT__/Apps/Home/View/default/img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg"  height="60" width="60">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="fixed-bar">
+        <div class="container">
+            <div class="photo">
+                <img src="../../../assets.xiucai.com/assets/uploads/pic/2016/0906/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" tppabs="http://assets.xiucai.com/assets/uploads/pic/2016/0906/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg"/>
+            </div>
+            <div class="name">
+                李燕翔
+            </div>
+            <a class="tiwen questioning" href="javascript:" tutor-id="1013">
+                <i onclick="tiwen({$v['shopId']});"></i>向Ta提问
+            </a>
+        </div>
+    </div>
+            <!-- wx分享 -->
+    <div class="wx-qrcode">
+        <i class="wx-close"></i>
+        <span id="wx-code"></span>
+        <p>扫一扫，分享到微信</p>
+    </div>
+</div>
+
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.9.0.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/dialog-plus.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/common4.0.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.enplaceholder.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/memberInfoDialog.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/focusUser.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/icheck.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/login.js"></script>
+    <include file="./Apps/Home/View/default/common_foot.html"/>
