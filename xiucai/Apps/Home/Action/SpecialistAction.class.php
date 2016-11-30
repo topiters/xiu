@@ -111,5 +111,18 @@ class SpecialistAction extends BaseAction {
             redirect(U('Home/specialist/index'));
         }
     }
-
+    
+    /**
+     * 处理关注
+     */
+    public function add() {
+        
+    }
+    
+    /**
+     * 取消关注
+     */
+    public function del() {
+        
+    }
 }
