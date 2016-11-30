@@ -11,12 +11,21 @@
 
 <script>
 $(function(){
-		$(".close_icon").click(function(){
-			//alert(0);
-			$(".login").css({"display":"none"});
-			$("body").css({"overflow":"auto"});
-			$("#allsccren").removeClass('allsccren');
-		});
+    $(".close_icon").click(function () {
+        //alert(0);
+        $(".login").css({"display": "none"});
+        $("body").css({"overflow": "auto"});
+        $("#allsccren").removeClass('allsccren');
+    });
+    $('#qa-content').keyup(function () {
+        $('#thread_title').val($('#qa-content').val());
+        inputLength = $('#thread_title').val().length;
+        $('.nowLength').html(inputLength);
+    })
+    $('#thread_title').keyup(function () {
+        inputLength = $('#thread_title').val().length;
+        $('.nowLength').html(inputLength);
+    })
 	});
 function login(){
 		$("#allsccren").addClass('allsccren');
@@ -26,13 +35,13 @@ function login(){
 		$("#register_").css({"display":"none"});
 		
 	}
-	function zhuce(){
-		$("#allsccren").addClass('allsccren');
-		$("body").css({"overflow":"hidden"});
-		$(".login").css({"display":"block"});
-		$("#all_login").css({"display":"none"});
-		$("#register_").css({"display":"block"});
-	}
+function zhuce() {
+    $("#allsccren").addClass('allsccren');
+    $("body").css({"overflow": "hidden"});
+    $(".login").css({"display": "block"});
+    $("#all_login").css({"display": "none"});
+    $("#register_").css({"display": "block"});
+}
 
 
 function logout() {
@@ -50,20 +59,26 @@ function tiwen_close() {
 }
 function tiwen_send() {
     var title = $("#thread_title").val();
-    var shopId = $('#tutor_member_id').val();
-    $.ajax({
-        type: "get",
-        url: "{:U('Home/Specialist/ask')}",
-        data: "title=" + title + "&userId=" + {$user['userId']} + "&shopId=" + shopId,
-        success: function (re) {
-            if (re == 1){
-                WST.msg('发布成功', {offset: '250px'});
-                $('#tiwen').addClass('hide');
-            }else {
-                WST.msg('发布失败', {offset: '250px'});
+    if (title == ''){
+        alert("内容不能为空!");
+        return false;
+    }else{
+        var shopId = $('#tutor_member_id').val();
+        $.ajax({
+            type: "get",
+            url: "{:U('Home/Specialist/ask')}",
+            data: "title=" + title + "&userId=" + {$user['userId']} + "&shopId=" + shopId,
+            success: function (re) {
+                if (re == 1) {
+                    WST.msg('发布成功', {offset: '250px'});
+                    $('#tiwen').addClass('hide');
+                } else {
+                    WST.msg('发布失败', {offset: '250px'});
+                }
             }
-        }
-    })
+        })
+    }
+
 }
 </script>
 <script>
@@ -282,28 +297,11 @@ function userreg(){
                 }
             }            
         })
-
-
-        
     })
 </script>
-
-
-
-
 </div>
 
-
-
-
-
-
-
-
 <include file="./Apps/Home/View/default/header_login.html" />
-
-
-
 
 <div id="tiwen" class="hide" style="width: 100%;height: 100%;position: fixed;top: 0;left: 0;background: rgba(0,0,0,0.5);z-index: 9999;">
     <form action="" method="post">
@@ -316,7 +314,7 @@ function userreg(){
 	    <div>
 	        <div class="box-container">
 	            <p class="row-label"><label>您的问题</label></p>
-	            <p class="ipt-border"><input id="thread_title" type="text" placeholder="请在这里描述您的问题" class="ipt100-text" name="title"/><b id="thread_title_b">0/50</b></p>
+	            <p class="ipt-border"><input id="thread_title" type="text" placeholder="请在这里描述您的问题" class="ipt100-text" name="title" maxlength="50"/><b id="thread_title_b"><span class="nowLength">0</span>/50</b></p>
 	            <p class="row-label"><label>问题补充<em>（选填）</em></label></p>
 	            <script type="text/javascript">
 	             /*   var ue = UE.getEditor('thread_content_pop', {

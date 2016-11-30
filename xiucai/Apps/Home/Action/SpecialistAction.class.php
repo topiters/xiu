@@ -8,13 +8,16 @@ namespace Home\Action;
  * 会员控制器
  */
 class SpecialistAction extends BaseAction {
+
+    public function _initialize() {
+        $this->assign('user' , session('WST_USER'));
+//        dump(session('WST_USER'));die;
+    }
     /**
      * 专家问答界面
      */
 	 
 	 public function  index(){
-//	     dump(session('WST_USER'));die;
-         $this->assign('user',session('WST_USER'));
          $mcourses = D('Home/Special');
          $mcoursesCat = D('Home/CourseCats');
          $c1Id = (int)I("c1Id");//如果没有分类默认热门课程分类
@@ -27,9 +30,6 @@ class SpecialistAction extends BaseAction {
 //              var_dump($c1Id);
          }
          $rslist = $mcourses->getList();
-
-
-//         $brands = $rslist["brands"];
          $pages = $rslist['pages'];
          foreach ($pages['root'] as $k=>$v) {
              $pages['root'][$k]['shopGoodat'] = explode(',' , $v['shopGoodat']);
@@ -60,11 +60,56 @@ class SpecialistAction extends BaseAction {
         }
 	 }
 
+    /**
+     * 导师详页
+     */
     public function tutor() {
         if ($_GET[id]){
+            //获取店铺信息
+            $sid = $_GET['id'];
+            $arr = D('shops')->where("shopId = $sid")->find();
+            $arr['shopGoodat'] = explode(',' , $arr['shopGoodat']);
+            $arr['shopIndustry'] = D('shop_industry')->field('name')->where("id = {$arr['shopIndustry']}")->find();
+            $arr['shopIndustry'] = $arr['shopIndustry']['name'];
+            $courseNum = D('Course')->getShopsCourse($sid);
+            $arr['courseNum'] = $courseNum['total'];
+//            dump($arr);exit;
+            $this->assign('sArr',$arr);
+            //热播课程
+            $course = D('Course')->getHotCourse($arr['shopId']);
+            $this->assign('course',$course);
             $this->display('default/specialist_tutor_info');
         }else{
             redirect(U('Home/specialist/index'));
         }
-	 }
+    }
+
+    /**
+     * 导师问题列表页
+     */
+    public function questionList() {
+        if ($_GET[id]) {
+            //获取店铺信息
+            $sid = $_GET['id'];
+            $arr = D('shops')->where("shopId = $sid")->find();
+            $arr['shopGoodat'] = explode(',' , $arr['shopGoodat']);
+            $arr['shopIndustry'] = D('shop_industry')->field('name')->where("id = {$arr['shopIndustry']}")->find();
+            $arr['shopIndustry'] = $arr['shopIndustry']['name'];
+            $courseNum = D('Course')->getShopsCourse($sid);
+            $arr['courseNum'] = $courseNum['total'];
+//            dump($arr);exit;
+            $this->assign('sArr' , $arr);
+            //问题列表
+            $qArr = D('Special')->getNewsList($sid);
+
+            $this->assign('page' , $qArr['page']);
+            unset($qArr['page']);
+//            dump($qArr);die;
+            $this->assign('qArr' , $qArr);
+            $this->display('default/specialist_tutor_question');
+        } else {
+            redirect(U('Home/specialist/index'));
+        }
+    }
+
 }

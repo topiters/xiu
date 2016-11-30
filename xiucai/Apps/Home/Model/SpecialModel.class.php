@@ -66,4 +66,18 @@ class SpecialModel extends BaseModel {
 		return $rs;
 	}
 
+    public function getNewsList($id) {
+	    $num = D('questions')->where("shopId = $id and is_answered = 1")->count();
+	    $limit = 10;
+        $pager = new \Think\Page($num , $limit);
+        $arr = D('questions')->where("shopId = $id and is_answered = 1")->limit($pager->firstRow,$limit)->select();
+        $arr['page'] = $pager->show();
+        foreach ($arr as $k => $v){
+            //获取用户头像
+            //获取该问题的答案
+            $answer = D('answers')->where("qid = {$v['id']} and shopId = {$id}")->find();
+            $arr[$k]['answer'] = $answer['content'];
+        }
+        return $arr;
+	}
 }
