@@ -27,7 +27,7 @@ class SpecialistAction extends BaseAction {
 //              var_dump($c1Id);
          }
          $rslist = $mcourses->getList();
-//         dump($rslist);die;
+         dump($rslist);die;
 //         $brands = $rslist["brands"];
          $pages = $rslist['pages'];
 //         var_dump($pages);

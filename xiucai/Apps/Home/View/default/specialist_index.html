@@ -68,12 +68,13 @@
                 <dt class="middle">排序：</dt>
                 <dd class="btn-group">
                     <a href="index.htm" tppabs="http://www.xiucai.com/tutor/" class="on"><span>综合</span></a>
-                    <a href="-sort=1.htm" tppabs="http://www.xiucai.com/tutor/?sort=1" class=""><span>解答数</span></a>
-                    <a href="-sort=3.htm" tppabs="http://www.xiucai.com/tutor/?sort=3" class=""><span>满意度</span></a>
+                    <a href="{$Think.server.php_self}?{$Think.server.query_string}&sort=1" tppabs="http://www.xiucai.com/tutor/?sort=1" class=""><span>解答数</span></a>
+                    <a href="{$Think.server.php_self}?{$Think.server.query_string}&sort=3" tppabs="http://www.xiucai.com/tutor/?sort=3" class=""><span>满意度</span></a>
                 </dd>
                 <dd class="first-dd"></dd>
             </dl>
             <div class="list-item" id="tutor-list-content">
+                <foreach name="pages['root']" item="v">
 		        <div class="teacher">
 		            <div class="left">
 		                <a target="_blank" href="daoshi_xq.html" >
@@ -115,46 +116,7 @@
 		                </ul>
 		            </div>
 		        </div>
-	            <div class="teacher">
-		            <div class="left">
-		                <a target="_blank" href="daoshi_xq.html" >
-		                	<img src="__ROOT__/Apps/Home/View/default/img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" width="180" height="180" >
-		                </a>
-		            </div>
-		            <div class="center">
-		                <p class="name">
-		                	<a href="daoshi_xq.html" target="_blank" >
-	                           	 马强
-		                    </a>
-		                    <img src="__ROOT__/Apps/Home/View/default/img/blueV.png-v=1.10.1.png" >
-		                </p>
-		                <p class="position">专业服务/教育/培训<span>/</span>会计师事务所</p>
-		                <dl class="specializes">
-	                        <dt class="sc">擅长解答：</dt>
-	                        <dd>
-	                            <span><em></em><i>会计处理</i></span>
-	                            <span><em></em><i>税会差异</i></span>
-	                            <span><em></em><i>税务筹划</i></span>
-	                            <span><em></em><i>税务稽查</i></span>
-	                            <span><em></em><i>税种及政策</i></span>
-	                        </dd>
-		                </dl>
-		                <dl class="recent">
-		                    <dt class="zj">最近解答：</dt>
-	                        <dd>
-	                            <p><a target="_blank" href="" >物业公司差额计税账务处理</a></p>
-	                            <p><a target="_blank" href="" >税务问题请教</a></p>
-	                        </dd>
-		                </dl>
-		            </div>
-		            <div class="right">
-		                <ul>
-		                    <li><strong>142个</strong><span>已解答</span></li>
-		                    <li><strong>100%</strong><span>满意度</span></li>
-		                    <li class="btn"><a href="javascript:" class="tw questioning" onclick="tiwen();">免费提问</a></li>
-		                </ul>
-		            </div>
-		        </div>
+                </foreach>
             </div>
             <div class="quick">
                 <a href="javascript:" class="qa-btn" onclick="tiwen();">快速提问</a>
