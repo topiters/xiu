@@ -257,9 +257,44 @@ class ShopsAction extends BaseAction {
 	}
 	//添加课程
 	public function addcourse(){
-		
+		$USER = session('WST_USER');
+		$mshopcats=D('courseCats');
+		$data=array();
 		if($_POST){
-         D('')->
+			$data['courseName']=$_POST['courseName'];
+			//当前分类
+			$cate=$_POST['catId'];
+			$shopcats=$mshopcats->where(array('catId'=>$cate))->find();
+			// 获取二级分类
+			if($shopcats['parentId']!=0){
+				$data['courseCatId2']=$cate;
+				$data['courseCatId1']=$shopcats['catId'];
+				//获取一级分类
+			$shopcats0=$mshopcats->where(array('catId'=>$shopcats['catId']))->find();
+				if($shopcats0['parentId']!=0){
+					$data['courseCatId1']=$shopcats0['catId'];
+					$data['courseCatId2']=$shopcats['catId'];
+					$data['courseCatId3']=$cate;
+				}
+				
+				
+				
+			}else{
+				
+				$data['courseCatId1']=$cate;
+				
+				
+			}
+			
+			$data['courseName']=$_POST['courseName'];
+			$data['courseDetails']=$_POST['courseDetails'];
+			$data['courseThums']=$this->;
+			$data['shopDetails']=$_POST['shopDetails'];
+			
+			dump($_POST);
+			exit;
+			
+         //D('Course')->where(array())->
 			
 			
 			
@@ -545,6 +580,55 @@ class ShopsAction extends BaseAction {
 		$rs = $m->getKeyList($areaId2);
 		$this->ajaxReturn($rs);
 	}
+	
+	public function uploadShopPic(){
+		$config = array(
+				'maxSize'       =>  0, //上传的文件大小限制 (0-不做限制)
+				'exts'          =>  array('jpg','png','gif','jpeg'), //允许上传的文件后缀
+				'rootPath'      =>  './Upload/', //保存根路径
+				'driver'        =>  'LOCAL', // 文件上传驱动
+				'subName'       =>  array('date', 'Y-m'),
+				'savePath'      =>  I('dir','uploads')."/"
+		);
+		$dirs = explode(",",C("WST_UPLOAD_DIR"));
+		if(!in_array(I('dir','uploads'), $dirs)){
+			echo '非法文件目录！';
+			return false;
+		}
+	
+		$upload = new \Think\Upload($config);
+		$rs = $upload->upload($_FILES);
+		$Filedata = key($_FILES);
+		if(!$rs){
+			$this->error($upload->getError());
+		}else{
+			$images = new \Think\Image();
+			$images->open('./Upload/'.$rs[$Filedata]['savepath'].$rs[$Filedata]['savename']);
+			$newsavename = str_replace('.','_thumb.',$rs[$Filedata]['savename']);
+			$vv = $images->thumb(I('width',300), I('height',300))->save('./Upload/'.$rs[$Filedata]['savepath'].$newsavename);
+			if(C('WST_M_IMG_SUFFIX')!=''){
+				$msuffix = C('WST_M_IMG_SUFFIX');
+				$mnewsavename = str_replace('.',$msuffix.'.',$rs[$Filedata]['savename']);
+				$mnewsavename_thmb = str_replace('.',"_thumb".$msuffix.'.',$rs[$Filedata]['savename']);
+				$images->open('./Upload/'.$rs[$Filedata]['savepath'].$rs[$Filedata]['savename']);
+				$images->thumb(I('width',700), I('height',700))->save('./Upload/'.$rs[$Filedata]['savepath'].$mnewsavename);
+				$images->thumb(I('width',250), I('height',250))->save('./Upload/'.$rs[$Filedata]['savepath'].$mnewsavename_thmb);
+			}
+			$rs[$Filedata]['savepath'] = "Upload/".$rs[$Filedata]['savepath'];
+			//$rs[$Filedata]['savethumbname'] = $newsavename;
+			//$rs['status'] = 1;
+				
+			return $rs[$Filedata]['savepath'];
+	
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

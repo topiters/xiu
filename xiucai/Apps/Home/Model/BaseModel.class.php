@@ -38,6 +38,12 @@ class BaseModel extends Model {
 	}
 	
 	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 格式化查询语句中传入的in 参与，防止sql注入
 	 * @param unknown $split
