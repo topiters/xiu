@@ -218,6 +218,9 @@ class ShopsAction extends BaseAction {
 	//教师段端订单
 	public function  order(){
 		$this->isShopLogin();
+		
+		
+		
 		$order = D('Home/Orders');
 		
 		
@@ -258,6 +261,14 @@ class ShopsAction extends BaseAction {
 	//添加课程
 	public function addcourse(){
 		$USER = session('WST_USER');
+		//查询教师状态
+		$shopId = (int)session('WST_USER.shopId');
+		$sql = "select shopStatus from __PREFIX__shops where shopFlag = 1 and shopId=".$shopId;
+		$shopStatus = D('Shops')->query($sql);
+		if(empty($shopStatus)){
+			$rd['status'] = -2;
+			return $rd;
+		}
 		$mshopcats=D('courseCats');
 		$data=array();
 		if($_POST){
@@ -268,14 +279,19 @@ class ShopsAction extends BaseAction {
 			// 获取二级分类
 			if($shopcats['parentId']!=0){
 				$data['courseCatId2']=$cate;
-				$data['courseCatId1']=$shopcats['catId'];
+				$data['courseCatId1']=$shopcats['parentId'];
 				//获取一级分类
-			$shopcats0=$mshopcats->where(array('catId'=>$shopcats['catId']))->find();
+			$shopcats0=$mshopcats->where(array('catId'=>$shopcats['parentId']))->find();
+				
+				
 				if($shopcats0['parentId']!=0){
-					$data['courseCatId1']=$shopcats0['catId'];
-					$data['courseCatId2']=$shopcats['catId'];
+					$data['courseCatId1']=$shopcats0['parentId'];
+					$data['courseCatId2']=$shopcats['parentId'];
 					$data['courseCatId3']=$cate;
 				}
+				
+				
+				
 				
 				
 				
@@ -287,22 +303,57 @@ class ShopsAction extends BaseAction {
 			}
 			
 			$data['courseName']=$_POST['courseName'];
-			$data['courseDetails']=$_POST['courseDetails'];
-			//$data['courseThums']=$this->;
-			$data['shopDetails']=$_POST['shopDetails'];
 			
-			dump($_POST);
-			exit;
+			if(empty($data['courseName'])){
+				
+			  $this->error('课程名称不能为空');
+			}
+			$data['courseTime']=$_POST['courseTime'];
+			$data['is_live']=$_POST['is_live'];
+			$data['is_free']=(int)$_POST['is_free'];
+			if($data['is_free']==2){
+				
+				$data['shopPrice']=$_POST['shopPrice'];
+			}
 			
-         //D('Course')->where(array())->
+			//$data['shopId']= (int)session('WST_USER.shopId');
+			$data['isBest']= ((int)I('isBest')==1)?1:0;
+			$data['isRecomm'] = ((int)I('isRecomm')==1)?1:0;
+			$data['isNew']= ((int)I('isNew')==1)?1:0;
+			$data['isHot']= ((int)I('isHot')==1)?1:0;
+			$data['createTime'] = date('Y-m-d H:i:s');
+			$data['courseSn']=time().rand(1000,9999);
+			$data['courseDifficulty']=$_POST['is_difficulty'];
+			$data['courseIntro']=$_POST['courseIntro'];
+			if(empty($data['courseIntro'])){
+				$this->error('请输入课程简介');
+				
+			}
+			$data['courseFor']=$_POST['courseFor'];
+			$data['courseDesc']=$_POST['courseDetails'];
+		    $data['courseThums']=$this->uploadShopPic();
+			$data['shopId']=$USER['shopId'];
+			$data['videoPath']=$_POST['videodata'];
+			if(empty($data['videoPath'])){
+				$this->error('请上传课程视屏');
+			}
+			//var_dump($data);
+			//exit;
+          $res=D('Course')->add($data);
+			
+			if( $res){
+
+				$this->success('添加成功',U('Home/shops/course'));
+				
+			}else{
+				
+				$this->error('课程添加失败');
+			}
 			
 			
 			
 			
-			
-			
-			
-		$this->success('添加成功',U('Home/shops/course'));
+	
 			
 		}else{
 			//$courseCats=WSTGoodsCats();
@@ -598,6 +649,7 @@ class ShopsAction extends BaseAction {
 	
 		$upload = new \Think\Upload($config);
 		$rs = $upload->upload($_FILES);
+		//var_dump($rs);
 		$Filedata = key($_FILES);
 		if(!$rs){
 			$this->error($upload->getError());
@@ -614,7 +666,7 @@ class ShopsAction extends BaseAction {
 				$images->thumb(I('width',700), I('height',700))->save('./Upload/'.$rs[$Filedata]['savepath'].$mnewsavename);
 				$images->thumb(I('width',250), I('height',250))->save('./Upload/'.$rs[$Filedata]['savepath'].$mnewsavename_thmb);
 			}
-			$rs[$Filedata]['savepath'] = "Upload/".$rs[$Filedata]['savepath'];
+			$rs[$Filedata]['savepath'] = "Upload/".$rs[$Filedata]['savepath'].$rs[$Filedata]['savethumbname'] = $newsavename;
 			//$rs[$Filedata]['savethumbname'] = $newsavename;
 			//$rs['status'] = 1;
 				
