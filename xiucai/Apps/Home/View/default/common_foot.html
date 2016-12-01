@@ -51,8 +51,13 @@ function logout() {
     });
 }
 function tiwen(shopId) {
-    $('#tutor_member_id').val(shopId);
-    $("#tiwen").removeClass('hide');
+    if ('{$_SESSION['WSTMALL']['WST_USER']['userId']}' != ''){
+        $('#tutor_member_id').val(shopId);
+        $("#tiwen").removeClass('hide');
+    }
+    else{
+        login();
+    }
 }
 function tiwen_close() {
     $("#tiwen").addClass('hide');

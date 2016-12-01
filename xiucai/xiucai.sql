@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2016-12-01 13:39:58
+Date: 2016-12-01 18:43:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -5987,7 +5987,7 @@ CREATE TABLE `wst_log_user_logins` (
   PRIMARY KEY (`loginId`),
   KEY `loginTime` (`loginTime`),
   KEY `userId` (`userId`)
-) ENGINE=MyISAM AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=75 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wst_log_user_logins
@@ -6060,6 +6060,12 @@ INSERT INTO `wst_log_user_logins` VALUES ('65', '42', '2016-11-29 16:51:01', '12
 INSERT INTO `wst_log_user_logins` VALUES ('66', '42', '2016-11-30 10:17:16', '127.0.0.1', '0', null);
 INSERT INTO `wst_log_user_logins` VALUES ('67', '40', '2016-11-30 10:18:02', '127.0.0.1', '0', null);
 INSERT INTO `wst_log_user_logins` VALUES ('68', '42', '2016-12-01 09:30:07', '127.0.0.1', '0', null);
+INSERT INTO `wst_log_user_logins` VALUES ('69', '42', '2016-12-01 17:32:44', '127.0.0.1', '0', null);
+INSERT INTO `wst_log_user_logins` VALUES ('70', '42', '2016-12-01 17:38:23', '127.0.0.1', '0', null);
+INSERT INTO `wst_log_user_logins` VALUES ('71', '42', '2016-12-01 17:39:28', '127.0.0.1', '0', null);
+INSERT INTO `wst_log_user_logins` VALUES ('72', '42', '2016-12-01 17:53:35', '127.0.0.1', '0', null);
+INSERT INTO `wst_log_user_logins` VALUES ('73', '42', '2016-12-01 18:08:13', '127.0.0.1', '0', null);
+INSERT INTO `wst_log_user_logins` VALUES ('74', '42', '2016-12-01 18:29:51', '127.0.0.1', '0', null);
 
 -- ----------------------------
 -- Table structure for wst_messages
@@ -6394,14 +6400,14 @@ INSERT INTO `wst_payments` VALUES ('3', 'weixin', '微信支付', '微信支付'
 DROP TABLE IF EXISTS `wst_questions`;
 CREATE TABLE `wst_questions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userId` int(11) NOT NULL COMMENT '用户ID',
+  `userId` int(11) unsigned NOT NULL COMMENT '用户ID',
   `title` varchar(255) NOT NULL COMMENT '问题标题',
   `content` varchar(255) DEFAULT NULL COMMENT '问题内容',
   `ctime` int(11) NOT NULL COMMENT '提问时间',
   `shopId` int(11) DEFAULT NULL COMMENT '被提问ID',
   `is_answered` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否已完成解答',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wst_questions
@@ -7165,6 +7171,24 @@ INSERT INTO `wst_shop_scores` VALUES ('31', '34', '0', '0', '0', '0', '0', '0', 
 INSERT INTO `wst_shop_scores` VALUES ('32', '35', '0', '0', '0', '0', '0', '0', '0', '0');
 
 -- ----------------------------
+-- Table structure for wst_sign
+-- ----------------------------
+DROP TABLE IF EXISTS `wst_sign`;
+CREATE TABLE `wst_sign` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userId` int(11) NOT NULL COMMENT '用户ID',
+  `lastTime` datetime DEFAULT NULL COMMENT '上次签到时间',
+  `ctime` datetime NOT NULL COMMENT '本次签到时间',
+  `days` int(11) NOT NULL DEFAULT '0' COMMENT '签到总天数',
+  `rows` int(11) NOT NULL DEFAULT '0' COMMENT '连续签到天数',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of wst_sign
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for wst_staffs
 -- ----------------------------
 DROP TABLE IF EXISTS `wst_staffs`;
@@ -7337,7 +7361,7 @@ INSERT INTO `wst_users` VALUES ('37', 'ceshi62', '1996', '0c3a4081280a5b80af5b70
 INSERT INTO `wst_users` VALUES ('38', 'ceshi63', '8163', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '测试店铺63', '', '15918671987', '', '0', null, '0', '1', '1', '2015-05-26 21:47:10', null, null, '0', null, null);
 INSERT INTO `wst_users` VALUES ('39', 'ceshi64', '3204', '5d50361a4cc2359475c8d08c34fbfcd4', '0', '1', '测试店铺64', '', '15918671857', '', '0', null, '0', '1', '1', '2015-05-26 21:48:43', null, null, '0', null, null);
 INSERT INTO `wst_users` VALUES ('40', 'test123', '9083', '56bf2590b53e8dadb6c47dd81311674f', '0', '1', '', '', '15617859166', '', '0', null, '0', '1', '1', '2016-11-09 10:35:48', '127.0.0.1', '2016-11-30 10:18:02', '0', null, null);
-INSERT INTO `wst_users` VALUES ('42', '15617859168', '3878', '49b103a09ff277c27998d0f14cafdb4e', '0', '0', null, null, '15617859164', '2504585798@qq.com', '0', null, '0', '1', '1', null, '127.0.0.1', '2016-12-01 09:30:07', '0', null, null);
+INSERT INTO `wst_users` VALUES ('42', '15617859168', '3878', '49b103a09ff277c27998d0f14cafdb4e', '0', '0', null, null, '15617859164', '2504585798@qq.com', '0', null, '0', '1', '1', null, '127.0.0.1', '2016-12-01 18:29:51', '0', null, null);
 INSERT INTO `wst_users` VALUES ('43', '15617859167', '8212', '2afc9178a5ff317f816054da34cc9f79', '0', '0', 'uname', null, '15617859167', null, '0', null, '0', '1', '1', '2016-11-10 16:57:15', '127.0.0.1', '2016-11-10 17:53:24', '0', null, null);
 
 -- ----------------------------

@@ -970,176 +970,242 @@
     </div>
     </div>
     <!-- right -->
-    <div class="quan-side-bar">
-        <div class="quan-block quan-sign-block">
-            <!-- 已签到添加样式 signed -->
-            <div class="btn-sign-in basic-transit clearfix qiandao" data-is-sign="1">
-                <div class="fl"><i></i>签到</div>
-                <!-- 未登录只显示日期，添加single-p样式 -->
-                <div class="fr">
-                    <p>10月06日</p>
-                        <p id="continue-sign-times" class="border-t-c1">连续<span class="point-red" id="continue_sign_count_box">1</span>天</p>
+		<div class="quan-side-bar">
+			<div class="quan-block quan-sign-block sign1" style="display:none;">
+				<!-- 已签到添加样式 signed -->
+				<div class="btn-sign-in basic-transit clearfix qiandao" data-is-sign="1">
+					<div class="fl"><i></i><span>签到</span></div>
+					<!-- 未登录只显示日期，添加single-p样式 -->
+					<div class="fr">
+						<p><span class="month"></span>月<span class="day"></span>日</p>
+						<p id="continue-sign-times" class="border-t-c1">
+							连续<span class="point-red" id="continue_sign_count_box">1</span>天</p>
+					</div>
+				</div>
+				<!-- 未登录不显示 -->
+				<p class="total-sign" id="total-sign-times">
+					共签到
+					<span class="point-red" id="total_sign_count_box">1</span>天
+					<span class="signed-qb">
+                		<img src="http://assets.xiucai.com/assets/__ROOT__/Apps/Home/View/default/img/quan/qb.png?v=1.10.5" alt="圈币" height="14" width="20">
+                		<em id="addCoin">7</em>
+                	</span>
+				</p>
+				<div class="num-display">
+					<span class="border-r-e6" id="today-sign-count">今日签到<b>{$todaySign}</b></span>
+					<span>总帖量<b>284014</b></span>
+				</div>
+			</div>
+
+
+            <div class="quan-block quan-sign-block sign2">
+                <div class="btn-sign-in basic-transit clearfix qiandao" data-is-sign="1">
+                    <div class="fl"><i></i>签到</div>
+                    <!--未登录-->
+                    <div class="fr single-p">
+                        <p><span class="month"></span>月<span class="day"></span>日</p>
+                    </div>
+                    <!--未登录-->
+                </div>
+                <!--未登录-->
+                <p class="total-sign" id="total-sign-times">
+                    <a class="a-login" href="javascript:login();">登录</a>签到送圈币哦！
+                </p>
+                <p id="sign-user-score-coins"></p>
+                <!--未登录-->
+                <div class="num-display">
+                    <span class="border-r-e6" id="today-sign-count">今日签到<b>{$todaySign}</b></span>
+                    <span>总帖量<b>284014</b></span>
                 </div>
             </div>
-            <!-- 未登录不显示 -->
-            <p class="total-sign" id="total-sign-times">
-                                 共签到 <span class="point-red" id="total_sign_count_box">1</span>天
-                <span class="signed-qb">
-                	<img src="http://assets.xiucai.com/assets/__ROOT__/Apps/Home/View/default/img/quan/qb.png?v=1.10.5" alt="圈币" height="14" width="20">
-                	<em id="addCoin">7</em>
-                </span>
-            </p>
-            <p id="sign-user-score-coins" class="hide">
-                <span class="signed-qb">
-                	<img src="http://assets.xiucai.com/assets/__ROOT__/Apps/Home/View/default/img/quan/qb.png?v=1.10.5" alt="圈币" height="14" width="20">
-                	8
-                </span>
-            </p>
-            <div class="num-display">
-                <span class="border-r-e6" id="today-sign-count">今日签到<b>851</b></span>
-                <span>总帖量<b>284014</b></span>
-            </div>
-        </div>
-        <div class="quan-block quan-block-all quaner-name-parent">
-            <p class="align-c">
-                <a  href="fabu_new.html" target="_blank" class="globe-btn50 edit-btn postThread"><i></i>
-                	我要发帖
-                </a>
-                <a href="fabu_new.html" class="globe-btn50 edit-btn hide" target="_blank">
-                    <i></i>我要发帖
-                </a>
-                <span class="posting-tips">提问或分享，与同行讨论</span>
-            </p>
-        </div>        
-        <!-- 推荐圈子 -->
-        <div class="quan-block">
-            <h2><em></em>推荐圈子</h2>
-            <ul class="quan-more-list">
-                <li>
-                    <a href="http://club.xiucai.com/quan/cw/" class="clearfix" target="_blank">
-                        <span class="fl"><i class="iconfont icon-accounting"></i>财务圈</span>
-                        <span class="fr">434320人</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://club.xiucai.com/quan/sw/" class="clearfix" target="_blank">
-                        <span class="fl"><i class="iconfont icon-tax_planning"></i>税务圈</span>
-                        <span class="fr">452574人</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://club.xiucai.com/quan/gz/" class="clearfix" target="_blank">
-                        <span class="fl"><i class="iconfont icon-tool"></i>工作圈</span>
-                        <span class="fr">432712人</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://club.xiucai.com/quan/gf/" class="clearfix" target="_blank">
-                        <span class="fl"><i class="iconfont icon-official"></i>官方圈</span>
-                        <span class="fr">54950人</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://club.xiucai.com/quan/ks/" class="clearfix" target="_blank">
-                        <span class="fl"><i class="iconfont icon-kaoshiquan"></i>考试圈</span>
-                        <span class="fr">66400人</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://club.xiucai.com/quan/sh/" class="clearfix" target="_blank">
-                        <span class="fl"><i class="iconfont icon-shenghuoquan"></i>生活圈</span>
-                        <span class="fr">46600人</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://club.xiucai.com/quan/hbcahome/" class="clearfix" target="_blank">
-                        <span class="fl"><i class="iconfont icon-circlehbca"></i>河北CA家园</span>
-                        <span class="fr">16人</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
 
-        <!-- 热门讨论 -->
-        <div class="quan-block quan-title-block">
-		    <h2><em></em>精华推荐</h2>
-		    <ul class="circle-list">
-		                    <li class="rank-top">
-		                <a data-id="53" href="/quan/thread/1464606283/" target="_blank" class="clearfix hit_count" title="营改增实用落地锦囊—【申报表辅导】+【实务操作】+【填写案例】">
-		                    <span class="rank-num">1</span><span class="rank-discuss">营改增实用落地锦囊—【申报表辅导】+【实务操作】+【填写案例】</span>
-		                </a>
-		            </li>
-		                    <li class="rank-top">
-		                <a data-id="42" href="/quan/thread/1446533821/" target="_blank" class="clearfix hit_count" title="零基础一次过初级的心经  ">
-		                    <span class="rank-num">2</span><span class="rank-discuss">零基础一次过初级的心经  </span>
-		                </a>
-		            </li>
-		                    <li class="rank-top">
-		                <a data-id="41" href="/quan/thread/1455438430/" target="_blank" class="clearfix hit_count" title="Excel就是你制胜职场的核武器  ">
-		                    <span class="rank-num">3</span><span class="rank-discuss">Excel就是你制胜职场的核武器  </span>
-		                </a>
-		            </li>
-		                    <li >
-		                <a data-id="37" href="/quan/thread/1446198678/" target="_blank" class="clearfix hit_count" title="【课件资料案例·下载提供】Excel高手之路">
-		                    <span class="rank-num">4</span><span class="rank-discuss">【课件资料案例·下载提供】Excel高手之路</span>
-		                </a>
-		            </li>
-		                    <li >
-		                <a data-id="34" href="/quan/thread/1445311860/" target="_blank" class="clearfix hit_count" title="2016初级考试早准备——学习资料汇总">
-		                    <span class="rank-num">5</span><span class="rank-discuss">2016初级考试早准备——学习资料汇总</span>
-		                </a>
-		            </li>
-		            </ul>
-		</div>
 
-        <!-- 后台推送直播课程，如果没有则提取最新 -->
-		    <div class="quan-block quan-title-block">
-		        <h2 class="relative">
-		        	<em></em>
-		        	近期直播
-		        	<a href="" target="_blank" class="link-more">更多 &raquo;</a>
-		        </h2>
-		        <div class="live-slider">
-		            <div class="bd">
-		                <ul class="clearfix">
-		                                        <li>
-		                        <a data-id="655" href="/live/655/" target="_blank" class="hit_count">
-		                            <img src="http://assets.xiucai.com/assets/uploads/pic/2016/0111/e58b3252-ac54-6439-3bfe-457e7b4431b2.jpg" width="224" height="128">
-		                            <div class="quan-course">
-		                                <p class="quan-course-title">非居民企业税收政策分析之投资所得处理</p>
-		                                <p class="quan-course-date">10月10日<span>14:00~15:00</span></p>
-		                            </div>
-		                        </a>
-		                    </li>
-		                                        <li>
-		                        <a data-id="660" href="/live/660/" target="_blank" class="hit_count">
-		                            <img src="http://assets.xiucai.com/assets/uploads/pic/2016/0928/9dfa803c-cc32-5cd1-1d02-42d77f32ebc1.jpg" width="224" height="128">
-		                            <div class="quan-course">
-		                                <p class="quan-course-title">关于股权激励和技术出资的重大优惠政策解析</p>
-		                                <p class="quan-course-date">10月11日<span>14:00~15:00</span></p>
-		                            </div>
-		                        </a>
-		                    </li>
-		                                        <li>
-		                        <a data-id="657" href="/live/657/" target="_blank" class="hit_count">
-		                            <img src="http://assets.xiucai.com/assets/uploads/pic/2016/0930/12007425-1f59-6501-4048-8061b6ee4154.jpg" width="224" height="128">
-		                            <div class="quan-course">
-		                                <p class="quan-course-title">财税战略之如何建立防控风险的税务管理体系</p>
-		                                <p class="quan-course-date">10月12日<span>14:00~15:00</span></p>
-		                            </div>
-		                        </a>
-		                    </li>
-		                                    </ul>
-		            </div>
-		          <div class="hd">
-		                <ul>
-		                    <li class="on"></li>
-		                    <li ></li>
-		                    <li ></li>
-		                </ul>
-		            </div> 
-		        </div>
-		    </div>
+
+            <script>
+                var uid = '{$_SESSION['WSTMALL']['WST_USER']['userId']}';
+                var time = new Date();
+                var Mon = time.getMonth() + 1;
+                var Day = time.getDate();
+                $('.month').html(Mon);
+                $('.day').html(Day);
+                if (uid != '') {
+                    $('.sign2').hide();
+                    $('.sign1').show();
+                }
+                $('.qiandao').click(function () {
+                    if ($('.btn-sign-in').hasClass('qiandao')) {
+                        if (uid != '') {
+                            $.ajax({
+                                type: 'post',
+                                url: '{:U("Home/Forum/sign")}',
+                                data: "id=" + uid,
+                                success: function (re) {
+                                    if (re == 1) {
+//                                    WST.msg('签到成功');
+                                        $('.btn-sign-in').removeClass('qiandao');
+                                        $('.btn-sign-in').addClass('signed');
+                                        $('.btn-sign-in .fl span').html('已签到');
+                                        var now = $('#continue_sign_count_box').html();
+                                        now = parseInt(now);
+                                        $('#continue_sign_count_box').html(now+1);
+                                        var now = $('#total_sign_count_box').html();
+                                        now = parseInt(now);
+                                        $('#total_sign_count_box').html(now+1);
+                                    }
+                                }
+                            })
+                        } else {
+                            login();
+                        }
+                    }
+
+                })
+            </script>
+
+
+
+
+
+			<div class="quan-block quan-block-all quaner-name-parent">
+				<p class="align-c">
+					<a href="fabu_new.html" target="_blank" class="globe-btn50 edit-btn postThread"><i></i>
+						我要发帖
+					</a>
+					<a href="fabu_new.html" class="globe-btn50 edit-btn hide" target="_blank">
+						<i></i>我要发帖
+					</a>
+					<span class="posting-tips">提问或分享，与同行讨论</span>
+				</p>
+			</div>
+			<!-- 推荐圈子 -->
+			<div class="quan-block">
+				<h2><em></em>推荐圈子</h2>
+				<ul class="quan-more-list">
+					<li>
+						<a href="http://club.xiucai.com/quan/cw/" class="clearfix" target="_blank">
+							<span class="fl"><i class="iconfont icon-accounting"></i>财务圈</span>
+							<span class="fr">434320人</span>
+						</a>
+					</li>
+					<li>
+						<a href="http://club.xiucai.com/quan/sw/" class="clearfix" target="_blank">
+							<span class="fl"><i class="iconfont icon-tax_planning"></i>税务圈</span>
+							<span class="fr">452574人</span>
+						</a>
+					</li>
+					<li>
+						<a href="http://club.xiucai.com/quan/gz/" class="clearfix" target="_blank">
+							<span class="fl"><i class="iconfont icon-tool"></i>工作圈</span>
+							<span class="fr">432712人</span>
+						</a>
+					</li>
+					<li>
+						<a href="http://club.xiucai.com/quan/gf/" class="clearfix" target="_blank">
+							<span class="fl"><i class="iconfont icon-official"></i>官方圈</span>
+							<span class="fr">54950人</span>
+						</a>
+					</li>
+					<li>
+						<a href="http://club.xiucai.com/quan/ks/" class="clearfix" target="_blank">
+							<span class="fl"><i class="iconfont icon-kaoshiquan"></i>考试圈</span>
+							<span class="fr">66400人</span>
+						</a>
+					</li>
+					<li>
+						<a href="http://club.xiucai.com/quan/sh/" class="clearfix" target="_blank">
+							<span class="fl"><i class="iconfont icon-shenghuoquan"></i>生活圈</span>
+							<span class="fr">46600人</span>
+						</a>
+					</li>
+					<li>
+						<a href="http://club.xiucai.com/quan/hbcahome/" class="clearfix" target="_blank">
+							<span class="fl"><i class="iconfont icon-circlehbca"></i>河北CA家园</span>
+							<span class="fr">16人</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+
+			<!-- 热门讨论 -->
+			<div class="quan-block quan-title-block">
+				<h2><em></em>精华推荐</h2>
+				<ul class="circle-list">
+					<li class="rank-top">
+						<a data-id="53" href="/quan/thread/1464606283/" target="_blank" class="clearfix hit_count" title="营改增实用落地锦囊—【申报表辅导】+【实务操作】+【填写案例】">
+							<span class="rank-num">1</span><span class="rank-discuss">营改增实用落地锦囊—【申报表辅导】+【实务操作】+【填写案例】</span>
+						</a>
+					</li>
+					<li class="rank-top">
+						<a data-id="42" href="/quan/thread/1446533821/" target="_blank" class="clearfix hit_count" title="零基础一次过初级的心经  ">
+							<span class="rank-num">2</span><span class="rank-discuss">零基础一次过初级的心经  </span>
+						</a>
+					</li>
+					<li class="rank-top">
+						<a data-id="41" href="/quan/thread/1455438430/" target="_blank" class="clearfix hit_count" title="Excel就是你制胜职场的核武器  ">
+							<span class="rank-num">3</span><span class="rank-discuss">Excel就是你制胜职场的核武器  </span>
+						</a>
+					</li>
+					<li>
+						<a data-id="37" href="/quan/thread/1446198678/" target="_blank" class="clearfix hit_count" title="【课件资料案例·下载提供】Excel高手之路">
+							<span class="rank-num">4</span><span class="rank-discuss">【课件资料案例·下载提供】Excel高手之路</span>
+						</a>
+					</li>
+					<li>
+						<a data-id="34" href="/quan/thread/1445311860/" target="_blank" class="clearfix hit_count" title="2016初级考试早准备——学习资料汇总">
+							<span class="rank-num">5</span><span class="rank-discuss">2016初级考试早准备——学习资料汇总</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+
+			<!-- 后台推送直播课程，如果没有则提取最新 -->
+			<div class="quan-block quan-title-block">
+				<h2 class="relative">
+					<em></em>
+					近期直播
+					<a href="" target="_blank" class="link-more">更多 &raquo;</a>
+				</h2>
+				<div class="live-slider">
+					<div class="bd">
+						<ul class="clearfix">
+							<li>
+								<a data-id="655" href="/live/655/" target="_blank" class="hit_count">
+									<img src="http://assets.xiucai.com/assets/uploads/pic/2016/0111/e58b3252-ac54-6439-3bfe-457e7b4431b2.jpg" width="224" height="128">
+									<div class="quan-course">
+										<p class="quan-course-title">非居民企业税收政策分析之投资所得处理</p>
+										<p class="quan-course-date">10月10日<span>14:00~15:00</span></p>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a data-id="660" href="/live/660/" target="_blank" class="hit_count">
+									<img src="http://assets.xiucai.com/assets/uploads/pic/2016/0928/9dfa803c-cc32-5cd1-1d02-42d77f32ebc1.jpg" width="224" height="128">
+									<div class="quan-course">
+										<p class="quan-course-title">关于股权激励和技术出资的重大优惠政策解析</p>
+										<p class="quan-course-date">10月11日<span>14:00~15:00</span></p>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a data-id="657" href="/live/657/" target="_blank" class="hit_count">
+									<img src="http://assets.xiucai.com/assets/uploads/pic/2016/0930/12007425-1f59-6501-4048-8061b6ee4154.jpg" width="224" height="128">
+									<div class="quan-course">
+										<p class="quan-course-title">财税战略之如何建立防控风险的税务管理体系</p>
+										<p class="quan-course-date">10月12日<span>14:00~15:00</span></p>
+									</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="hd">
+						<ul>
+							<li class="on"></li>
+							<li></li>
+							<li></li>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</div>
 
     </div>
