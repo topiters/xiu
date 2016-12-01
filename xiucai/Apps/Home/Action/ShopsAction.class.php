@@ -288,7 +288,7 @@ class ShopsAction extends BaseAction {
 			
 			$data['courseName']=$_POST['courseName'];
 			$data['courseDetails']=$_POST['courseDetails'];
-			$data['courseThums']=$this->;
+			//$data['courseThums']=$this->;
 			$data['shopDetails']=$_POST['shopDetails'];
 			
 			dump($_POST);
