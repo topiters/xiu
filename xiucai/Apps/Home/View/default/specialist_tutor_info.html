@@ -42,7 +42,7 @@
                                 <span>授课学员</span>
                             </li>
                             <li>
-                                <em>{$sArr['shopFollower']}</em>
+                                <em class="follower">{$sArr['shopFollower']}</em>
                                 <span>粉丝</span>
                             </li>
                             <li>
@@ -53,11 +53,60 @@
                     </div>
                 </div>
                 <div class="questions-and-concerns">
-                    <a class="btn-a qx cancel_focus_user" user_id="1478"style=" display: none;margin: 54px 73px 25px 73px;">取消关注</a>
-                    <a class="btn-a gz sure_focus_user" user_id="1478" >添加关注</a>
+                    <a class="btn-a qx cancel_focus_user" user_id="{$sArr['shopId']}" style="margin: 54px 73px 25px 73px; <if condition=" $following neq null"> display: block; <else/> display: none;</if>">取消关注</a>
+                    <a class="btn-a gz sure_focus_user" user_id="{$sArr['shopId']}" <if condition=" $following neq null"> style="display: none;"<else/> style="display: block;"</if>>添加关注</a>
                     <a href="javascript:" class="btn-a tw questioning" tutor-id="{$sArr['shopId']}" onclick="tiwen({$sArr['shopId']});">向Ta提问</a>
                     <div class="wnjh">问答导师，为您解惑</div>
                 </div>
+                <script>
+                    var uid = {$user.userId};
+                    $('.sure_focus_user').click(function () {
+                        if (uid != null){
+                            $.ajax({
+                                type:'post',
+                                url:"{:U('Home/specialist/add')}",
+                                data: "userId="+uid+"&shopId={$_GET['id']}",
+                                success:function (re) {
+                                    if (re == 1){
+                                        WST.msg('关注成功');
+                                        var now = $('.follower').html();
+                                        now = parseInt(now);
+                                        now = now + 1;
+                                        $('.follower').html(now);
+                                        $('.sure_focus_user').hide();
+                                        $('.cancel_focus_user').show();
+                                    } else if (re == 2){
+                                        WST.msg('您已经关注过该导师了');
+                                    } else {
+                                        WST.msg('关注失败');
+                                    }
+                                }
+                            })
+                        }
+                    })
+                    $('.cancel_focus_user').click(function () {
+                        if (uid != null){
+                            $.ajax({
+                                type: 'post',
+                                url: "{:U('Home/specialist/del')}",
+                                data: "userId=" + uid + "&shopId={$_GET['id']}",
+                                success: function (re) {
+                                    if (re == 1) {
+                                        WST.msg('取消关注成功');
+                                        var now = $('.follower').html();
+                                        now = parseInt(now);
+                                        now = now - 1;
+                                        $('.follower').html(now);
+                                        $('.cancel_focus_user').hide();
+                                        $('.sure_focus_user').show();
+                                    } else {
+                                        WST.msg('取消关注失败');
+                                    }
+                                }
+                            })
+                        }
+                    })
+                </script>
             </div>
             <div class="instructor-main clearfix">
                 <div class="quan-main">
@@ -146,16 +195,13 @@
                     <div class="quan-block">
                         <h2><em></em>Ta的粉丝</h2>
                         <div class="course-attend-list clearfix">
-                            <div>
-                                <a href="#"  target="_blank">
-                                    <img src="__ROOT__/Apps/Home/View/default/img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg"  height="60" width="60">
-                                </a>
-                            </div>
-                            <div>
-                                <a href="#" target="_blank">
-                                    <img src="__ROOT__/Apps/Home/View/default/img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg"  height="60" width="60">
-                                </a>
-                            </div>
+                            <foreach name="sArr['shopFollowers']" item="v">
+                                <div>
+                                    <a href="{:U('Home/Users/index',array('id'=>$v['userId']))}" target="_blank">
+                                        <img src="__ROOT__/{$v['userPhoto']}" height="60" width="60">
+                                    </a>
+                                </div>
+                            </foreach>
                         </div>
                     </div>
                 </div>

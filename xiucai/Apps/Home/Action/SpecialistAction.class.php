@@ -73,6 +73,21 @@ class SpecialistAction extends BaseAction {
             $arr['shopIndustry'] = $arr['shopIndustry']['name'];
             $courseNum = D('Course')->getShopsCourse($sid);
             $arr['courseNum'] = $courseNum['total'];
+            //判断当前登录用户是否关注该导师
+            if ($_SESSION['WSTMALL']['WST_USER']['userId']){
+                $result = D('follow')->field('id')->where("userId = {$_SESSION['WSTMALL']['WST_USER']['userId']} and shopId = {$sid}")->find();
+                if ($result){
+                    $this->assign('following',$result);
+                }
+            }
+            //粉丝列表
+            $idArr = D('follow')->field('userId')->where("shopId = $sid")->select();
+            foreach ($idArr as $k => $v) {
+                $userArr = D('Users')->get($v['userId']);
+                $idArr[$k]['userPhoto'] = $userArr['userPhoto'];
+            }
+//            dump($idArr);die;
+            $arr['shopFollowers'] = $idArr;
 //            dump($arr);exit;
             $this->assign('sArr',$arr);
             //热播课程
@@ -97,6 +112,21 @@ class SpecialistAction extends BaseAction {
             $arr['shopIndustry'] = $arr['shopIndustry']['name'];
             $courseNum = D('Course')->getShopsCourse($sid);
             $arr['courseNum'] = $courseNum['total'];
+            //判断当前登录用户是否关注该导师
+            if ($_SESSION['WSTMALL']['WST_USER']['userId']) {
+                $result = D('follow')->field('id')->where("userId = {$_SESSION['WSTMALL']['WST_USER']['userId']} and shopId = {$sid}")->find();
+                if ($result) {
+                    $this->assign('following' , $result);
+                }
+            }
+            //粉丝列表
+            $idArr = D('follow')->field('userId')->where("shopId = $sid")->select();
+            foreach ($idArr as $k => $v) {
+                $userArr = D('Users')->get($v['userId']);
+                $idArr[$k]['userPhoto'] = $userArr['userPhoto'];
+            }
+//            dump($idArr);die;
+            $arr['shopFollowers'] = $idArr;
 //            dump($arr);exit;
             $this->assign('sArr' , $arr);
             //问题列表
@@ -116,13 +146,44 @@ class SpecialistAction extends BaseAction {
      * 处理关注
      */
     public function add() {
-        
+        if ($_POST['userId'] && $_POST['shopId']){
+            $uid = $_POST['userId'];
+            $sid = $_POST['shopId'];
+            //先看是否有关注关系
+            $re = D('follow')->where("userId = $uid and shopId = $sid")->find();
+            if ($re){
+                echo 2;
+                exit;
+            }else{//没有则添加记录 并为该导师粉丝数加1
+                $re = D('follow')->add($_POST);
+                if ($re){
+                    D('shops')->query("update wst_shops set shopFollower = shopFollower + 1 where shopId = $sid");
+                    echo 1;
+                    exit;
+                }else{
+                    exit;
+                }
+
+            }
+        }
     }
     
     /**
      * 取消关注
      */
     public function del() {
-        
+        if ($_POST['userId'] && $_POST['shopId']) {
+            $uid = $_POST['userId'];
+            $sid = $_POST['shopId'];
+            $re = D('follow')->where("userId = $uid and shopId = $sid")->delete();
+            if ($re){
+                D('shops')->query("update wst_shops set shopFollower = shopFollower - 1 where shopId = $sid");
+                echo 1;
+                exit;
+            }else{
+                echo 'error';
+                exit;
+            }
+        }
     }
 }

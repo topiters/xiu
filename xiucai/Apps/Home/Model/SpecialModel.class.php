@@ -44,16 +44,16 @@ class SpecialModel extends BaseModel {
 		if ($c2Id > 0 && $c1Id = 0){
             $where .= " goodsCatId2 = $c2Id";
         }
-        $orderBy = " group by shopId ";
+        $orderBy = " order by shopId desc";
         //有排序
         if ($sort > 0 ){
             //按解答数排序
             if ($sort == 1){
-                $orderBy = " order by shopAnswers ";
+                $orderBy = " order by shopAnswers desc";
             }
             //按满意度排序
             if ($sort == 0) {
-                $orderBy = " order by shopScore ";
+                $orderBy = " order by shopScore desc";
             }
         }
         //sql语句
