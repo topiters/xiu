@@ -112,8 +112,15 @@
                 <div class="quan-main">
                     <div class="module introduction">
                         <h3>Ta的简介</h3>
-                        <p data-content="&lt;p&gt;&lt;strong&gt;&lt;span style=&quot;font-size: 14px; font-family: 微软雅黑, &amp;#39;Microsoft YaHei&amp;#39;;&quot;&gt;美国注册管理会计师（CMA）&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px; font-family: 微软雅黑, &amp;#39;Microsoft YaHei&amp;#39;; color: rgb(127, 127, 127);&quot;&gt;在跨国集团财会领域有多年实战经验，在普华永道、毕马威担任财务管理咨询业务的项目经理，&lt;/span&gt;&lt;span style=&quot;color: rgb(127, 127, 127); font-family: 微软雅黑, &amp;#39;Microsoft YaHei&amp;#39;; font-size: 14px;&quot;&gt;为多个行业的企业提供财务管理咨询服务，帮助中国本土大中型集团企业重构财务组织、规划财务转型路径，并改进不同财务领域的绩效水平，主导多个财务管理模块的方案设计&lt;/span&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&lt;/p&gt;">{$sArr['shopDetails']|WSTMSubstr=###,0,100}<a href="javascript:">展开>></a></p>
+                        <p id="jianjie1">{$sArr['shopDetails']|WSTMSubstr=###,0,5}<a href="javascript:">展开>></a></p>
+                        <p id="jianjie2" style="display: none;">{$sArr['shopDetails']}</p>
                     </div>
+                    <script>
+                        $('#jianjie1 a').click(function () {
+                            $('#jianjie1').hide();
+                            $('#jianjie2').show();
+                        })
+                    </script>
                     <div class="module qa">
                         <div class="hd">
                             <ul>
