@@ -1,4 +1,5 @@
 <include file="./Apps/Home/View/default/common_head.html" />
+<link rel="stylesheet" href="__PUBLIC__/plugins/uploadify/uploadify.css">
  <style>
     	.laoshi_tx{
     		padding: 10px 0;
@@ -313,7 +314,9 @@
 		            		小于500M
 		            	</div>
 						<div   style="width:600px;height:100px;margin-top:30px;"></div>
-		            	<form     action="{:U('Home/Shops/addcourse')}"    method="post"      >
+		            	<form     action="{:U('Home/Shops/addcourse')}"    method="post"    id="myform"  enctype="multipart/form-data"    >
+						
+						<input    type="hidden" id="jcrop-x1"  name="videodata"      value="" >
 		            		<table>
 			            		<thead>
 			            			<tr>
@@ -324,19 +327,63 @@
 			            			<tr>
 			            				<td>标题</td>
 			            				<td>
-			            					<input type="text"   name="courseName"   value="" id="videobiaoti"/>
+			            					<input type="text"   name="courseName"  id="courseName" value="" />
 			            				</td>
 			            			</tr>
 			            			<tr>
 			            				<td>课程简介</td>
 			            				<td>
-			            					<textarea     name="courseDetails"  value=""   id="courseexpress"></textarea>
+			            					<textarea     name="courseIntro"    id="courseIntro" value=""   ></textarea>
+			            				</td>
+			            			</tr>
+									
+									<tr>
+			            				<td>课程时长</td>
+			            				<td>
+			            					<input type="text"   name="courseTime"  id="courseTime" value="" /><code  style="color:red;">&nbsp;分钟数，如100</code>
+			            				</td>
+			            			</tr>
+									
+									<tr>
+			            				<td>课程类型</td>
+			            				<td>
+			            				<span>直播</span><input type="radio"   name="is_live"   value="1" style="width:40px;"/> 
+			            				
+										<span> 录播</span> <input type="radio"   name="is_live"   value="2" style="width:40px;" />
+										</td>
+			            			</tr>
+									
+									<tr>
+			            				<td>课程价格</td>
+			            				<td>
+										
+										<span>免费课</span> <input type="radio"   name="is_free"   value="1" style="width:40px;" />
+			            				<span>会员课</span><input type="radio"   name="is_free"   value="2" style="width:40px;"/> 
+										课价： <input type="text"   name="shopPrice"   value="" style="width:60px;height:36px;"/> 
+			            				
+										</td>
+			            			</tr>
+									
+									<tr>
+			            				<td>课程等级</td>
+			            				<td>
+										
+										<span>初级</span> <input type="radio"   name="is_difficulty"   value="1" style="width:40px;" />
+			            				<span>中级</span> <input type="radio"   name="is_difficulty"   value="2" style="width:40px;"/>  
+										<span>高级</span> <input type="radio"   name="is_difficulty"   value="3" style="width:40px;"/>  
+			            				
+										</td>
+			            			</tr>
+									<tr>
+			            				<td>适合对象</td>
+			            				<td>
+			            					<input type="text"   name="courseFor"   value="" />
 			            				</td>
 			            			</tr>
 			            			<tr>
 			            				<td>分类</td>
 			            				<td>
-			            					<select    name="catId"   id="typetext">
+			            					<select    name="catId"   id="coursecatId">
 			            						<option value="0">请选择视频分类</option>
 			            					  <volist   name=":WSTGoodsCats()"   id="data" >
 											
@@ -366,13 +413,13 @@
 			            			<tr>
 			            				<td>上传视频图</td>
 			            				<td>		            			
-											<span class="btn upload uploadvideo">上传视频封面图<input type="file"    name="courseThums"  class="upload_pic" id="videofile"/></span>
+											<span class="btn upload uploadvideo">上传视频封面图<input type="file"   id="courseThums"   name="courseThums"  class="upload_pic" /></span>
 			            				</td>
 			            			</tr>
 			            			<tr>
-			            				<td>老师详情</td>
+			            				<td>课程详情</td>
 			            				<td>
-			            					<textarea value=""   name="shopDetails"   id="turtorexpress"></textarea>
+			            					<textarea value=""   name="courseDetails"    id="courseDetails"   ></textarea>
 			            				</td>
 			            			</tr>
 			            			<tr>
@@ -472,7 +519,44 @@
 				
 
 
-<script>
+     
+    <script src="__PUBLIC__/plugins/formValidator/formValidator-4.1.3.js"></script>
+     <script src="__PUBLIC__/plugins/kindeditor/kindeditor.js"></script>
+      <script src="__PUBLIC__/plugins/kindeditor/lang/zh-CN.js"></script>
+   <script>
+   $(function () {
+	   KindEditor.ready(function(K) {
+			editor1 = K.create('textarea[name="courseDetails"]', {
+				height:'260px',
+				allowFileManager : false,
+				allowImageUpload : true,
+				items:[
+				        'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+				        'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+				        'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+				        'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+				        'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+				        'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|','image','table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+				        'anchor', 'link', 'unlink', '|', 'about'
+				],
+				afterBlur: function(){ this.sync(); }
+			});
+		});
+	   $.formValidator.initConfig({
+		   theme:'Default',mode:'AutoTip',formID:"myform",debug:false,submitOnce:false,onError:function(msg){
+		}});
+	  $("#courseName").formValidator({onFocus:"请输入课程标题"}).inputValidator({min:1,max:100,onError:"请输入100字以内课程标题"});
+	  $("#courseIntro").formValidator({onFocus:"请输入课程简介"}).inputValidator({min:1,max:200,onError: "请输入200字以内课程标题"});
+	  $("#courseTime").formValidator({onFocus:"请输入课程时长"}).inputValidator({min:1,max:500,onError:"请输入课程时长"});
+	  $("#coursecatId").formValidator({onFocus:"请选择课程分类"}).inputValidator({min:1,max:10000,type: "value",onError:"请选择课程分类"});
+	  $("#courseDetails").formValidator({onFocus:"请输入课程详情"}).inputValidator({min:1,max:1000000,onError:"请输入课程详情"});
+	  // $("#courseThums").formValidator({onFocus:"请上传课程缩略图片",empty:false}).inputValidator({regexp:regexEnum.picture,onerror: "请上传课程缩略图片"});
+	   
+   });
+  
+   </script>
+   
+   <script>
 		$("#face_file").uploadify({
 		   
 			'swf': '__PUBLIC__/plugins/uploadify/uploadify.swf?t={$nowtime}',
@@ -490,52 +574,16 @@
 			     var data=$.parseJSON(data);
 			       //alert();
 				 //alert(JSON.stringify(data));
-				 alert(data.Filedata.savepath+data.Filedata.savename) ;
+				 var videodata=data.Filedata.savepath+data.Filedata.savename;
+				// alert() ;
 			  //var imgsv=" "+eval(data)+" ";
 			   
-				$("#jcrop-x1").val($.trim(img_m[0]));
-				$("#jcrop-x2").val($.trim(img_m[1]));
-				$("#jcrop-x3").val($.trim(img_m[2]));
+				$("#jcrop-x1").val($.trim(videodata));
 				
 			
 				
 			}
 		});
 	</script> 
-     <script src="__PUBLIC__/plugins/formValidator/formValidator-4.1.3.js"></script>
-     <script src="__PUBLIC__/plugins/kindeditor/kindeditor.js"></script>
-      <script src="__PUBLIC__/plugins/kindeditor/lang/zh-CN.js"></script>
-   <script>
-   $(function () {
-	   KindEditor.ready(function(K) {
-			editor1 = K.create('textarea[name="shopDetails"]', {
-				height:'260px',
-				allowFileManager : false,
-				allowImageUpload : true,
-				items:[
-				        'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
-				        'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
-				        'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
-				        'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
-				        'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
-				        'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|','image','table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
-				        'anchor', 'link', 'unlink', '|', 'about'
-				],
-				afterBlur: function(){ this.sync(); }
-			});
-		});
-	   $.formValidator.initConfig({
-		   theme:'Default',mode:'AutoTip',formID:"myform",debug:true,submitOnce:true,onSuccess:function(){
-				   edit();
-			       return false;
-			},onError:function(msg){
-		}});
-	  // $("#articleTitle").formValidator({onFocus:"请输入文章标题"}).inputValidator({min:1,max:100,onError:"请输入100字以内文章标题"});
-	  // $("#catId").formValidator({onFocus:"请选择文章分类"}).inputValidator({min:1,onError: "请选择文章分类"});
-	  // $("#articleKey").formValidator({onFocus:"请输入关键字"}).inputValidator({min:1,max:80,onError:"请输入关键字"});
-	   
-   });
-  
-   </script>
 
 <include file="./Apps/Home/View/default/common_foot.html" />
