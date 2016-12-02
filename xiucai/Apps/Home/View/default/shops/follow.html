@@ -288,19 +288,41 @@
             <div class="r about_content">              
               
             <div id="ulli-item4" class="">
+			<if  condition="!empty($followslist['root'])" > 
+			  <volist   name="followslist['root']"  id="data">
 					<div class="toppic-bar concern-friends-box clearfix " >
 				        <div class="left-img">
-				        	<a href="user_center.html">
-				        		<img src="img/caiduoduo.png-v=1.10.1.png" height="80" width="80" class="all-border-radius">
+				        	<a href="">
+				        		<img src="__ROOT__/{$data['userPhoto']}" height="80" width="80"   alt="{$data['loginName']}" class="all-border-radius">
 				        	</a>
 				        </div>
 				        <div class="toppic-intro friends-intro">
-				            <p class="toppic-title"> 杨国政</p>
+				            <p class="toppic-title"> {$data['loginName']}</p>
 				            <p class="font-small">生产/加工/制造</p>
 				        </div>
 		            </div>
-				</div>
-	   
+				
+	      </volist>
+		 
+		  <else/>
+		  
+		     <div class="toppic-bar concern-friends-box clearfix " >
+				        <p style="cousor:default;">暂时没有数据了 </p>
+		            </div>
+		  
+		  
+		  
+		  </if>
+		   </div>
+		     <div style="width: 900px;height: 80px;text-align: center;box-sizing: border-box;">
+							    			<div class="page_course"   id="wst-page-items" >
+							    				
+							    			</div>
+			</div> 
+		  
+		  
+		  
+		  
             </div>
             <!-- 左侧列表 begin -->
             <div class="course-sidebar">
@@ -389,7 +411,38 @@
 </div>
 
 
-
+  <script>
+	
+	      // alert({$Page['totalPage']});
+			   
+			     <if condition="$followslist['totalPage'] gt 1">
+			    $(document).ready(function(){
+					laypage({
+					    cont: 'wst-page-items',
+					    pages: {$followslist['totalPage']}, //总页数
+					    skip: true, //是否开启跳页
+					    skin: '#e23e3d',
+					    groups: 3, //连续显示分页数
+					    curr: function(){ //通过url获取当前页，也可以同上（pages）方式获取
+					        var page = location.search.match(/p=(\d+)/);
+					        return page ? page[1] : 1;
+					    }(), 
+					    jump: function(e, first){ //触发分页后的回调
+					        if(!first){ //一定要加此判断，否则初始时会无限刷新
+					        	var nuewurl = WST.splitURL("p");
+					        	var ulist = nuewurl.split("?");
+					        	if(ulist.length>1){
+					        		location.href = nuewurl+'&p='+e.curr;
+					        	}else{
+					        		location.href = '?p='+e.curr;
+					        	}
+					            
+					        }
+					    }
+					});
+			    });
+				</if>
+				</script>
 
 
 
