@@ -477,13 +477,13 @@
                         <div class="fr">
                             <p><span class="month"></span>月<span class="day"></span>日</p>
                             <p id="continue-sign-times" class="border-t-c1">
-                                连续<span class="point-red" id="continue_sign_count_box">{$sign['rows']}</span>天</p>
+                                连续<span class="point-red" id="continue_sign_count_box"><if condition="$sign['rows'] neq null">{$sign['rows']}<else/>0</if></span>天</p>
                         </div>
                     </div>
                     <!-- 未登录不显示 -->
                     <p class="total-sign" id="total-sign-times">
                         共签到
-                        <span class="point-red" id="total_sign_count_box">{$sign['days']}</span>天
+                        <span class="point-red" id="total_sign_count_box"><if condition="$sign['days'] neq null">{$sign['days']}<else/>0</if></span>天
                         <span class="signed-qb">
                 		<img src="__ROOT__/Apps/Home/View/default/img/quan/qb.png?v=1.10.5" alt="圈币" height="14" width="20">
                 		<em id="addCoin">7</em>

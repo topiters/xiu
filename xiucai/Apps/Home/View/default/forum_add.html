@@ -1,0 +1,113 @@
+<include file="./Apps/Home/View/default/common_head.html"/>
+<div id="main">
+    <div class="container">
+        <div class="major clearfix">
+            <div class="quan-body white-bg">
+                <div class="page-nav">
+                    <a href="{:U('Home/Forum/index')}" target="_blank">财税圈</a>&gt;<a href="javascript:;">发布新帖</a>
+                </div>
+                <div class="content-m clearfix">
+                    <!-- 发帖 -->
+                    <div class="posting-box ">
+                        <form action="{:U('Home/Forum/doAdd')}" method="post" id="myform">
+                            <input type="text" placeholder="请输入帖子标题" class="input-field" id="thread_title" name="title" value=""/>
+                            <div class="editor">
+                                <textarea name="content" id="content" cols="110" rows="10"></textarea>
+                            </div>
+                            <div class="posting-choose clearfix">
+                                <div class="diy_select">
+                                    <input type="hidden" id="quan_id" class="diy_select_input"/>
+                                    <div class="diy_select_txt">选择圈子</div>
+                                    <div class="diy_select_btn triangle6-red"></div>
+                                    <ul class="diy_select_list" id="quan_ul">
+                                        <li id="36">财务圈</li>
+                                        <li id="38">税务圈</li>
+                                        <li id="39">工作圈</li>
+                                        <li id="31">官方圈</li>
+                                        <li id="237">考试圈</li>
+                                        <li id="238">生活圈</li>
+                                        <li id="377">河北CA家园</li>
+                                    </ul>
+                                </div>
+                                <div class="diy_select toppic-sel">
+                                    <input type="hidden" id="topic_id" class="diy_select_input"/>
+                                    <div class="diy_select_txt" id="topicTitle">选择话题分类</div>
+                                    <div class="diy_select_btn triangle6-red"></div>
+                                    <ul class="diy_select_list" id="topic_ul">
+                                        <li id="">心得感悟</li>
+                                        <li id="">晒照交流</li>
+                                        <li id="">茶余饭后</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="posting-btn">
+                                <input type="submit" value="发布" id="ask_question_btn" class="globe-ipt-btn"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/select.js"></script>
+<script type="text/javascript">
+    var TTDiy_select = new diy_select({  //参数可选
+        TTContainer: 'diy_select',//控件的class
+        TTDiy_select_input: 'diy_select_input',//用于提交表单的class
+        TTDiy_select_txt: 'diy_select_txt',//diy_select用于显示当前选中内容的容器class
+        TTDiy_select_btn: 'diy_select_btn',//diy_select的打开按钮
+        TTDiv_select_list: 'diy_select_list',//要显示的下拉框内容列表class
+        TTFcous: 'focus'//得到焦点时的class
+    });//如同时使用多个时请保持各class一致.
+</script>
+
+<script src="__PUBLIC__/plugins/formValidator/formValidator-4.1.3.js"></script>
+<script src="__PUBLIC__/plugins/kindeditor/kindeditor.js"></script>
+<script src="__PUBLIC__/plugins/kindeditor/lang/zh-CN.js"></script>
+<script>
+    $(function () {
+        KindEditor.ready(function (K) {
+            editor1 = K.create('textarea[name="content"]', {
+                height: '260px',
+                allowFileManager: false,
+                allowImageUpload: true,
+                items: [
+                    'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+                    'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                    'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                    'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+                    'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                    'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+                    'anchor', 'link', 'unlink', '|', 'about'
+                ],
+                afterBlur: function () {
+                    this.sync();
+                }
+            });
+        });
+        $.formValidator.initConfig({
+            theme: 'Default',
+            mode: 'AutoTip',
+            formID: "myform",
+            debug: false,
+            submitOnce: false,
+            onError: function (msg) {
+            }
+        });
+        $("#thread_title").formValidator({onFocus: "请输入帖子标题"}).inputValidator({
+            min: 1,
+            max: 100,
+            onError: "请输入100字以内帖子标题",
+        });
+        $("#content").formValidator({onFocus: "请输入帖子详情"}).inputValidator({
+            min: 1,
+            max: 1000000,
+            onError: "请输入帖子详情"
+        });
+    });
+
+</script>
+<include file="./Apps/Home/View/default/common_foot.html"/>

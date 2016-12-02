@@ -11,6 +11,7 @@ class ForumAction extends BaseAction {
 
     //圈子首页
     public function index() {
+        $this->isLogin();
         $user = session('WST_USER');
         //用户签到数据
         $sign = D('sign')->where("userId = {$user['userId']}")->find();
@@ -22,14 +23,27 @@ class ForumAction extends BaseAction {
         $todaySign = $result;
         $this->assign('todaySign',$todaySign);
 
-
         $this->display('default/forum_index');
     }
 
     /**
+     * 发布新帖
+     */
+    public function add() {
+        $this->display('default/forum_add');
+    }
+
+    /**
+     *
+     */
+    public function doAdd() {
+        dump($_POST);
+    }
+    /**
      * 处理签到
      */
     public function sign() {
+        $this->isLogin();
         if ($_POST['userId']) {
             //分为两种情况 第一次签到或非第一次签到
             $uid = $_POST['userId'];

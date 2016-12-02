@@ -49,6 +49,7 @@ class SpecialistAction extends BaseAction {
 	 }
 
     public function ask() {
+        $this->isLogin();
         if ($_GET){
             $_GET['ctime'] = time();
             $re = D('questions')->add($_GET);
@@ -103,6 +104,7 @@ class SpecialistAction extends BaseAction {
      * 导师问题列表页
      */
     public function questionList() {
+        $this->isLogin();
         if ($_GET[id]) {
             //获取店铺信息
             $sid = $_GET['id'];
@@ -146,6 +148,7 @@ class SpecialistAction extends BaseAction {
      * 处理关注
      */
     public function add() {
+        $this->isLogin();
         if ($_POST['userId'] && $_POST['shopId']){
             $uid = $_POST['userId'];
             $sid = $_POST['shopId'];
@@ -163,7 +166,6 @@ class SpecialistAction extends BaseAction {
                 }else{
                     exit;
                 }
-
             }
         }
     }
@@ -172,6 +174,7 @@ class SpecialistAction extends BaseAction {
      * 取消关注
      */
     public function del() {
+        $this->isLogin();
         if ($_POST['userId'] && $_POST['shopId']) {
             $uid = $_POST['userId'];
             $sid = $_POST['shopId'];
