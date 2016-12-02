@@ -375,8 +375,12 @@ class ShopsAction extends BaseAction {
 	//教师段端课程
 	public function follow(){
 	
-	
-		$this->display("default/shops/follow");
+		$this->isShopLogin();
+		$shopId = (int)session('WST_USER.shopId');
+		$shopFollow = D('Home/Shops');
+		$followslist=$shopFollow->getShopsfollow($shopId);
+	   $this->assign('followslist',$followslist);
+	   $this->display("default/shops/follow");
 	
 	}
 	
