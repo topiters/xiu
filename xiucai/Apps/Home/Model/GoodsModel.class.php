@@ -855,6 +855,29 @@ class GoodsModel extends BaseModel {
 	}
 	
 	
+	
+	/**
+	 * 获取粉丝列表
+	 */
+	public function getShopsfollow($shopId = 0){
+	
+		$shopId = ($shopId>0)?$shopId:(int)I("shopId");
+		$sql = "SELECT u.userPhoto,u.loginName,u.userId FROM __PREFIX__follow g Left join  __PREFIX__users  u  ON  u.userId=g.userId
+		WHERE  g.shopId = $shopId";
+	
+	
+		$sql .= " ORDER BY g.ctime  desc";
+					$rs = $this->pageQuery($sql,I('p'),30);
+		return $rs;
+	
+	}
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 获取店铺商品列表
 	 */
