@@ -293,7 +293,8 @@
 					<div class="toppic-bar concern-friends-box clearfix " >
 				        <div class="left-img">
 				        	<a href="">
-				        		<img src="__ROOT__/{$data['userPhoto']}" height="80" width="80"   alt="{$data['loginName']}" class="all-border-radius">
+						
+				        		<img src="__ROOT__/{$data['userPhoto']|default='Apps/Home/View/default/img/caiduoduo.png-v=1.10.1.png'}" height="80" width="80"   alt="{$data['loginName']}" class="all-border-radius">
 				        	</a>
 				        </div>
 				        <div class="toppic-intro friends-intro">
@@ -327,49 +328,7 @@
             <!-- 左侧列表 begin -->
             <div class="course-sidebar">
                 <div class="course-sidebar-type">
-                	<div class="quan-block quan-hp-block">			       
-				        <form id="member_editor_form" name="member_editor" action="" enctype="multipart/form-data" method="post" onsubmit="return true;">
-				        <a href="javascript:;" class="user-head" style="border-radius: 50%;overflow: hidden;">
-				            <span class="head90-mask" style="border: 0;"></span>
-				            <img  id="avatar" src="__ROOT__/Apps/Home/View/default/images/caiduoduo.png" height="90" width="90">
-				            <div class="head-mask head-mask90"></div>
-				            <div id="avatarProfileUpload"></div>
-				            <input type="hidden" name="avatar" id="head_pic" value="/assets/img/caiduoduo.png"/>
-				            <input type="hidden" name="avatar_large" id="head_pic_large" value="/assets/img/caiduoduo.png"/>
-				        </a>
-				        </form>
-				        
-				        <div class="hp-user-zone" id="personal-info-div">
-				            <p class="user-name">
-				                <a href="/vip/" target="_blank" class="vip" title="">
-				                	<img src="__ROOT__/{$shopInfo['shop']['shopImg']}" width="16" height="12" alt="会员特权" border="0">
-				                </a>
-				                <strong id="nickname-span">{$shopInfo['shop']['shopName']}</strong>				               
-				            </p> 
-				            <div class="laoshi_tx">
-		                		<div class="con4">
-									<canvas id="cvs" width="0" height="0" class="hide"></canvas>
-									<span class="btn upload" style="margin: 0 auto;">上传头像<input type="file" class="upload_pic" id="upload"/></span>
-								</div>
-		                		<input type="file" value="修改头像" class="upload_pic tximg-x" id="upload" />
-		                	</div>
-				            <!-- 用户等级展示 -->
-				           <!--  <div class="user-level-display border-b-e6 clearfix">
-				                <p class="clearfix">
-				                    <a href="/help/6/#q27" target="_blank" title="" class="fl">
-				                        <span class="tag-qb">
-				                        	<img src="http://assets.xiucai.com/assets/img/quan/qb.png?v=1.10.5" alt="圈币" height="14" width="19">
-				                        	5
-				                        </span>
-				                    </a>
-				                    <span class="fr r-wrap"><a href="/help/6/#q28" target="_blank" class="" title="">
-				                    <span class="tag-level tag-level-LV1">
-				                    <i>LV1</i></span></a></span>
-				                </p>
-				            </div> -->
-				          
-				        </div>
-				    </div>
+                	<include file="./Apps/Home/View/default/shops/layout.html" />
                 	
                     <ul class="ulli-item">                    	
                         <li class="course-category course-category-more" >

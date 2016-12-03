@@ -13,6 +13,24 @@ namespace Home\Action;
 * @version:1.0
 */
 class ShopsAction extends BaseAction {
+	
+	
+	public function __construct(){
+		parent::__construct();
+		$this->isShopLogin();
+		$spm = D('Home/Shops');
+		$data['shop'] = $spm->loadShopInfo(session('WST_USER.userId'));
+		//	var_dump($data['shop']);
+		//exit;
+		$obj["shopId"] = $data['shop']['shopId'];
+		$details = $spm->getShopDetails($obj);
+		$data['details'] = $details;
+		//var_dump($data);
+		//exit;
+		$this->assign('shopInfo',$data);
+		
+		
+	}
 	/**
      * 跳到教师端首页面
      */
@@ -163,17 +181,7 @@ class ShopsAction extends BaseAction {
 	 * 跳到教师端中心页面
 	 */
 	public function index(){
-		$this->isShopLogin();
-		$spm = D('Home/Shops');
-		$data['shop'] = $spm->loadShopInfo(session('WST_USER.userId'));
-	    //	var_dump($data['shop']);
-		//exit;
-		$obj["shopId"] = $data['shop']['shopId'];
-		$details = $spm->getShopDetails($obj);
-		$data['details'] = $details;
-		//var_dump($data);
-		//exit;
-		$this->assign('shopInfo',$data);
+		
 		
 		$this->display("default/shops/index");
 	}
@@ -192,8 +200,18 @@ class ShopsAction extends BaseAction {
 		if($_POST){
 			//var_dump($_POST);
 			//exit;
+			if($_FILES){
+				
+				$_POST['shopImg']=$this->uploadShopPic();
+				
+			}
+			//var_dump($_POST['shopImg']);
+			//exit;
 			$m = D('Home/Shops');
 			$res=$m->edit($USER['shopId']);
+			
+			
+			
 			 if($res){ 
 			 	
 			 	$this->success('编辑教师成功',U('Shops/index'));
@@ -383,6 +401,24 @@ class ShopsAction extends BaseAction {
 	   $this->display("default/shops/follow");
 	
 	}
+	
+	
+	//教师段端问答
+	public function ask(){
+	
+		$this->isShopLogin();
+		$shopId = (int)session('WST_USER.shopId');
+		$shopReply = D('Home/Shops');
+		$replylist=$shopReply->getShopsreply($shopId);
+		//$replylist['totalPage']=100;
+		$this->assign('replylist',$replylist);
+		
+		
+		$this->display("default/shops/ask");
+	
+	}
+	
+	
 	
 	
 	
@@ -654,11 +690,12 @@ class ShopsAction extends BaseAction {
 		$upload = new \Think\Upload($config);
 		$rs = $upload->upload($_FILES);
 		//var_dump($rs);
+		//exit;
 		$Filedata = key($_FILES);
 		if(!$rs){
 			$this->error($upload->getError());
 		}else{
-			$images = new \Think\Image();
+			/*$images = new \Think\Image();
 			$images->open('./Upload/'.$rs[$Filedata]['savepath'].$rs[$Filedata]['savename']);
 			$newsavename = str_replace('.','_thumb.',$rs[$Filedata]['savename']);
 			$vv = $images->thumb(I('width',300), I('height',300))->save('./Upload/'.$rs[$Filedata]['savepath'].$newsavename);
@@ -670,7 +707,8 @@ class ShopsAction extends BaseAction {
 				$images->thumb(I('width',700), I('height',700))->save('./Upload/'.$rs[$Filedata]['savepath'].$mnewsavename);
 				$images->thumb(I('width',250), I('height',250))->save('./Upload/'.$rs[$Filedata]['savepath'].$mnewsavename_thmb);
 			}
-			$rs[$Filedata]['savepath'] = "Upload/".$rs[$Filedata]['savepath'].$rs[$Filedata]['savethumbname'] = $newsavename;
+			*/
+			$rs[$Filedata]['savepath'] = "Upload/".$rs[$Filedata]['savepath'].$rs[$Filedata]['savename'];
 			//$rs[$Filedata]['savethumbname'] = $newsavename;
 			//$rs['status'] = 1;
 				
@@ -679,8 +717,24 @@ class ShopsAction extends BaseAction {
 		}
 	}
 	
-	
-	
+	//删除课程
+	function delCourse(){
+		
+		
+		$m = M('course');
+		$shopId = (int)session('WST_USER.shopId');
+		$data = array();
+		$data["courseFlag"] = -1;
+		$rs = $m->where("shopId=".$shopId." and courseId=".I('courseId'))->delete();
+	//	var_dump($m->getLastSql());
+		if(false !== $rs){
+			$rd['status']= 1;
+		}
+		$this->AjaxReturn($rd['status']);
+		
+		
+		
+	}
 	
 	
 	

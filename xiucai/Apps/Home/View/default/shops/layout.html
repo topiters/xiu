@@ -1,112 +1,54 @@
-<!doctype html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <link rel="shortcut icon" href="favicon.ico"/>
-  		<title>卖家中心 - {$CONF['mallTitle']}</title>
-  		<meta name="keywords" content="{$CONF['mallKeywords']}" />
-      	<meta name="description" content="{$CONF['mallDesc']},卖家中心" />
-  		<meta http-equiv="Expires" content="0">
-		<meta http-equiv="Pragma" content="no-cache">
-		<meta http-equiv="Cache-control" content="no-cache">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-      	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta http-equiv="Cache" content="no-cache">
-  		<link rel="stylesheet" href="__ROOT__/Apps/Home/View/default/css/common.css" />
-    	<link rel="stylesheet" href="__ROOT__/Apps/Home/View/default/css/shop.css">
-    	<link rel="stylesheet" type="text/css" href="__PUBLIC__/plugins/webuploader/webuploader.css" />
-		{:WSTLoginTarget(1)}
-    </head>
-    <body>
-        <div class="wst-wrap">
-          <div class='wst-header'>
-			<include file="./Apps/Home/View/default/header_nav.html" />
-			<div class='wst-user-top'>
-			<div class="wst-user-top-main">
-					<div class='wst-user-top-logo'>
-						<a href="{:WSTDomain()}"  title='商城首页'>
-						<img class='lazyImg' data-original="{:WSTDomain()}/{$CONF['mallLogo']}" style="max-width: 240px; height: 132px;"/>	
-						</a>
-					</div>
-					<div class='wst-user-top-search'>
-						<div class="search-box">
-							<input id="wst-search-type" type="hidden" value="1"/>
-							<input id="keyword" class="wst-search-ipt" me="q" tabindex="9" placeholder="搜索 商品" autocomplete="off" >
-							<div id="btnsch" class="wst-search-btn">搜&nbsp;索</div>
-						</div>
-					</div>
-					
-				</div>
-			</div>
-			<div class="wst-shop-nav">
-				<div class="wst-nav-box">
-					<li class="liselect"  style="float:left;"><a href="{:U('Home/Shops/index')}" style='color:#FFFFFF;'>我是卖家</a></li>
-					<div class="wst-clear"></div>
-				</div>
-			</div>
-			<div class="wst-clear;"></div>
-		</div>
-          <div class='wst-nav'></div>
-          <div class='wst-main'>
-            <div class='wst-menu'>
-            	<span class='wst-menu-title'><span></span>交易管理</span>
-            	<ul>
-              	<li onclick="goBack(this)" data='{:U("Home/Orders/toShopOrdersList")}' <if condition='$umark eq "toShopOrdersList"'> class='liselect'</if>>订单管理<span id="wst_orders_cnt" style="display:none;" class="wst-msg-tips-box"></span></li>
-            	<li onclick="goBack(this)" data="{:U('Home/OrderComplains/queryShopComplainByPage')}" <if condition='$umark eq "queryShopComplainByPage"'> class='liselect'</if>>投诉订单</li>
-            	<li onclick="goBack(this)" data="{:U('Home/OrderSettlements/toSettlementIndex')}" <if condition='$umark eq "toSettlementIndex"'> class='liselect'</if>>订单结算</li>
-            	</ul>
-            	<span class='wst-menu-title'><span></span>商品管理</span>
-            	<ul>
-               	<li onclick="goBack(this)" data="{:U('Home/ShopsCats/index')}" <if condition='$umark eq "index"'> class='liselect'</if>>商品分类</li>
-              	<li onclick="goBack(this)" data="{:U('Home/Goods/queryOnSaleByPage')}" <if condition='$umark eq "queryOnSaleByPage"'> class='liselect'</if>>出售中的商品</li>
-               	<li onclick="goBack(this)" data="{:U('Home/Goods/queryPenddingByPage')}" <if condition='$umark eq "queryPenddingByPage"'> class='liselect'</if>>待审核商品</li>
-               	<li onclick="goBack(this)" data="{:U('Home/Goods/queryUnSaleByPage')}" <if condition='$umark eq "queryUnSaleByPage"'> class='liselect'</if>>仓库中的商品</li>
-               	<li onclick="goBack(this)" data="{:U('Home/Goods/toEdit/',array('umark'=>'toEditGoods'))}" <if condition='$umark eq "toEditGoods"'> class='liselect'</if>>新增商品</li>
-               	<li onclick="goBack(this)" data="{:U('Home/GoodsAppraises/index')}" <if condition='$umark eq "GoodsAppraises"'> class='liselect'</if>>评价管理</li>
+  	<div class="quan-block quan-hp-block">			       
+				        <form id="member_editor_form" name="member_editor" action="" enctype="multipart/form-data" method="post" onsubmit="return true;">
+				        <a href="javascript:;" class="user-head" style="border-radius: 50%;overflow: hidden;">
+				            <span class="head90-mask" style="border: 0;"></span>
+				            <img  id="ImgPr" src="__ROOT__/{$shopInfo['shop']['shopImg']| default='./Apps/Home/View/default/images/caiduoduo.png'  }" height="90" width="90">
+				            <div class="head-mask head-mask90"></div>
+				            <div id="avatarProfileUpload"></div>
+				            <input type="hidden" name="avatar" id="head_pic" value="/assets/img/caiduoduo.png"/>
+				            <input type="hidden" name="avatar_large" id="head_pic_large" value="/assets/img/caiduoduo.png"/>
+				        </a>
+				        </form>
+				        
+				        <div class="hp-user-zone" id="personal-info-div">
+				            <p class="user-name">
+				               <!--  <a href="/vip/" target="_blank" class="vip" title="">
+				                	<img src="__ROOT__/{$shopInfo['shop']['shopImg']| default='./Apps/Home/View/default/images/caiduoduo.png'  }"      width="16" height="12" alt="会员特权" border="0">
+				                </a> -->
+				                <strong id="nickname-span">{$shopInfo['shop']['shopName']}</strong>				               
+				            </p> 
+						
+				         <!--    <div class="laoshi_tx">
+		                		<div class="con4"  id="shoplogo_u">
+									<canvas id="cvs" width="0" height="0" class="hide"></canvas>
+									<span class="btn upload" style="margin: 0 auto;">上传头像<input type="file" class="upload_pic" name="shopImg"  id="uplogo"/></span>
+								
+                                     <button class="button" id="buttonUpload" onclick="return ajaxFileUpload();">Upload</button>
+								</div>
+								
+							
+		                	
+		                	</div> -->
+							
+<!----图像预览插件---->						
 
-               	<li onclick="goBack(this)" data="{:U('Home/AttributeCats/index')}" <if condition='$umark eq "AttributeCats"'> class='liselect'</if>>商品类型</li>
-               	<li onclick="goBack(this)" data="{:U('Home/Imports/index')}" <if condition='$umark eq "Imports"'> class='liselect'</if>>数据导入</li>
-				</ul>
-              	<span class='wst-menu-title'><span></span>网店设置</span>
-              	<ul>
-            	<li onclick="goBack(this)" data="{:U('Home/Shops/toEdit/')}" <if condition='$umark eq "toEdit"'> class='liselect'</if>>店铺资料</li>
-              	<li onclick="goBack(this)" data="{:U('Home/Shops/toShopCfg/')}" <if condition='$umark eq "setShop"'> class='liselect'</if>>店铺设置</li>
-              	<li onclick="goBack(this)" data="{:U('Home/Messages/queryByPage/')}" id='li_queryMessageByPage' <if condition='$umark eq "queryMessageByPage"'> class='liselect'</if>>商城消息<span style="display:none;" class="wst-msg-tips-box"></span></li>
-              	<li onclick="goBack(this)" data="{:U('Home/Shops/toEditPass')}" <if condition='$umark eq "toEditPass"'> class='liselect'</if>>修改密码</li>
-           		</ul>
-            </div>
-            <div class='wst-content'>
-            <block name="content"><div class="result">卖家中心</div></block>
-            </div>
-          </div>
-          <div style='clear:both;'></div>
-          <br/>
-          <div class='wst-footer'>
-          	<include file="./Apps/Home/View/default/footer.html" />
-          </div>
-        </div>
-        <object id="player" height="360" width="300" classid="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6" style="display:none;"> 
-			<param name="AUTOSTART" value="0"/>
-			<param name="SHUFFLE" value="0"/>
-			<param name="PREFETCH" value="0"/>
-			<param name="NOLABELS" value="0"/>
-			<param name="url" value=""/>
-			<param name="CONTROLS" value="ImageWindow"/>
-			<param name="CONSOLE" value="Clip1"/>
-			<param name="LOOP" value="0"/>
-			<param name="NUMLOOP" value="0"/>
-			<param name="CENTER" value="0"/>
-			<param name="MAINTAINASPECT" value="0"/>
-			<param name="BACKGROUNDCOLOR" value="#000000"/>
-		</object>
-    </body>
-      	<script src="__PUBLIC__/plugins/formValidator/formValidator-4.1.3.js"></script>
-     	<script src="__PUBLIC__/js/common.js"></script>
-      	<script src="__ROOT__/Apps/Home/View/default/js/shopcom.js"></script>
-      	<script src="__ROOT__/Apps/Home/View/default/js/head.js"></script>
-      	<script src="__ROOT__/Apps/Home/View/default/js/common.js"></script>
-      	<script src="__PUBLIC__/plugins/layer/layer.min.js"></script>
-      	<script src="__ROOT__/Apps/Home/View/default/js/audio.js"></script>
-      	<script type="text/javascript" src="__PUBLIC__/plugins/webuploader/webuploader.js"></script>
-      	<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/goodsbatchupload.js"></script>
-</html>
+<!----图像预览插件---->								
+							
+							
+				            <!-- 用户等级展示 -->
+				           <!--  <div class="user-level-display border-b-e6 clearfix">
+				                <p class="clearfix">
+				                    <a href="/help/6/#q27" target="_blank" title="" class="fl">
+				                        <span class="tag-qb">
+				                        	<img src="http://assets.xiucai.com/assets/img/quan/qb.png?v=1.10.5" alt="圈币" height="14" width="19">
+				                        	5
+				                        </span>
+				                    </a>
+				                    <span class="fr r-wrap"><a href="/help/6/#q28" target="_blank" class="" title="">
+				                    <span class="tag-level tag-level-LV1">
+				                    <i>LV1</i></span></a></span>
+				                </p>
+				            </div> -->
+				          
+				        </div>
+				    </div>

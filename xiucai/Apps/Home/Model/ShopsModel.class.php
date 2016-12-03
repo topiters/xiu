@@ -364,7 +364,9 @@ class ShopsModel extends BaseModel {
 	    $data = array();
 		$data["shopName"] = I("shopName");
 		$data["shopCompany"] = I("shopName");//I("shopCompany");
-		//$data["shopImg"] = I("shopImg");
+		$data["shopImg"] = I("shopImg");
+		//var_dump($data["shopImg"]);
+		//exit;
 		//$data["shopAddress"] = I("shopAddress");
 		//$data["deliveryStartMoney"] = I("deliveryStartMoney",0);
 		////$data["deliveryCostTime"] = I("deliveryCostTime",0);
@@ -912,9 +914,25 @@ class ShopsModel extends BaseModel {
 	
 	}
 	
+	/**
+	 *获取教师的问答 
+	 * 
+	 */
 	
-	
-	
+	public function getShopsreply($shopId = 0){
+		
+		$shopId = ($shopId>0)?$shopId:(int)I("shopId");
+		$sql = "SELECT u.userPhoto,u.loginName,u.userId,q.id,q.title,q.ctime,an.*  FROM __PREFIX__questions q Left join  __PREFIX__users  u  ON  u.userId=q.userId
+		LEFT JOIN  __PREFIX__answers an ON an.id=qId   WHERE  q.shopId = $shopId";
+		
+		
+		$sql .= " ORDER BY q.ctime  desc";
+		$rs = $this->pageQuery($sql,I('p'),30);
+		return $rs;
+		
+		
+		
+	}
 	
 	
 	
