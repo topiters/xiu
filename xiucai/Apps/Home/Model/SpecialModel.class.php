@@ -58,7 +58,7 @@ class SpecialModel extends BaseModel {
         }
         //sql语句
 		$sqla = $sqla . $sqlc . $sqld . $where . $orderBy;
-		$pages = $this->pageQuery($sqla, I('p'), 1);
+		$pages = $this->pageQuery($sqla, I('p'), 10);
 		$rs["pages"] = $pages;
 		$gcats["courseCatId1"] = $c1Id;
 		$gcats["courseCatId2"] = $c2Id;
@@ -68,7 +68,7 @@ class SpecialModel extends BaseModel {
 
     public function getNewsList($id) {
 	    $num = D('questions')->where("shopId = $id and is_answered = 1")->count();
-	    $limit = 1;
+	    $limit = 10;
         $pager = new \Think\Page($num , $limit);
         $arr = D('questions')->where("shopId = $id and is_answered = 1")->limit($pager->firstRow,$limit)->select();
         $arr['page'] = $pager->show();
@@ -76,6 +76,7 @@ class SpecialModel extends BaseModel {
             //获取用户头像
             $userArr = D('Users')->get($v['userId']);
             $arr[$k]['userPhoto'] = $userArr['userPhoto'];
+            $arr[$k]['loginName'] = $userArr['loginName'];
             //获取该问题的答案
             $answer = D('answers')->where("qid = {$v['id']} and shopId = {$id}")->find();
             $arr[$k]['answer'] = $answer['content'];

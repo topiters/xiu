@@ -45,9 +45,18 @@ class SpecialistAction extends BaseAction {
              $c2cat = $mcoursesCat->queryByList($c1);
              $this->assign("c2cat" , $c2cat);
          }
+         //提问题者总数
+         $people = D('questions')->group('userId')->count('DISTINCT userId');
+         $this->assign('people',$people);
+         //问题总数
+         $questions = D('questions')->where("is_answered = 1")->count();
+         $this->assign('questions' , $questions);
 		 $this->display('default/specialist_index');
 	 }
 
+	 /*
+	  * 处理提问
+	  */
     public function ask() {
         $this->isLogin();
         if ($_GET){
@@ -86,6 +95,7 @@ class SpecialistAction extends BaseAction {
             foreach ($idArr as $k => $v) {
                 $userArr = D('Users')->get($v['userId']);
                 $idArr[$k]['userPhoto'] = $userArr['userPhoto'];
+                $idArr[$k]['loginName'] = $userArr['loginName'];
             }
 //            dump($idArr);die;
             $arr['shopFollowers'] = $idArr;
@@ -126,6 +136,7 @@ class SpecialistAction extends BaseAction {
             foreach ($idArr as $k => $v) {
                 $userArr = D('Users')->get($v['userId']);
                 $idArr[$k]['userPhoto'] = $userArr['userPhoto'];
+                $idArr[$k]['loginName'] = $userArr['loginName'];
             }
 //            dump($idArr);die;
             $arr['shopFollowers'] = $idArr;

@@ -471,8 +471,8 @@
             <div class="quan-side-bar">
                 <div class="quan-block quan-sign-block sign1" style="display:none;">
                     <!-- 已签到添加样式 signed -->
-                    <div class="btn-sign-in basic-transit clearfix qiandao" data-is-sign="1">
-                        <div class="fl"><i></i><span>签到</span></div>
+                    <div class="btn-sign-in basic-transit clearfix <if condition="$can eq 1">qiandao<else/>signed</if>" data-is-sign="1">
+                        <div class="fl"><i></i><span><if condition="$can eq 1">签到<else/>已签到</if></span></div>
                         <!-- 未登录只显示日期，添加single-p样式 -->
                         <div class="fr">
                             <p><span class="month"></span>月<span class="day"></span>日</p>
@@ -563,10 +563,10 @@
 
                 <div class="quan-block quan-block-all quaner-name-parent">
                     <p class="align-c">
-                        <a href="fabu_new.html" target="_blank" class="globe-btn50 edit-btn postThread"><i></i>
+                        <a href="{:U('home/forum/add')}" target="_blank" class="globe-btn50 edit-btn postThread"><i></i>
                             我要发帖
                         </a>
-                        <a href="fabu_new.html" class="globe-btn50 edit-btn hide" target="_blank">
+                        <a href="{:U('home/forum/add')}" class="globe-btn50 edit-btn hide" target="_blank">
                             <i></i>我要发帖
                         </a>
                         <span class="posting-tips">提问或分享，与同行讨论</span>

@@ -16,6 +16,10 @@ class ForumAction extends BaseAction {
         //用户签到数据
         $sign = D('sign')->where("userId = {$user['userId']}")->find();
         $this->assign('sign' , $sign);
+        //判断今天是否签过到 最后一次签到时间大于今天0点则表示签过到
+        if ($sign['ctime'] < strtotime(date('Y-m-d'))){
+            $this->assign('can',1);
+        }
         //当日签到人数
         $today = strtotime(date('Y-m-d'));
         $tomorrow = strtotime(date('Y-m-d' , strtotime('+1 day')));
@@ -64,12 +68,12 @@ class ForumAction extends BaseAction {
                 $now = time();
                 $last = $re['ctime'];
                 if ($now - $last > (60*60*24)){ //两次签到时间大于一天则将连续签到更新为0
-                    $result = D('sign')->execute("update wst_sign set lastTime = {$re['ctime']},ctime = {$now},days = days + 1,rows = 0");
+                    $result = D('sign')->execute("update wst_sign set lastTime = {$re['ctime']},ctime = {$now},days = days + 1,rows = 1 where userId = {$uid}");
                     if ($result){
                         echo 1;
                     }
                 }else{ //两次签到时间小于一天则连续签到+1
-                    $result = D('sign')->execute("update wst_sign set lastTime = {$re['ctime']} , ctime = {$now},days = days + 1,rows = rows + 1");
+                    $result = D('sign')->execute("update wst_sign set lastTime = {$re['ctime']} , ctime = {$now},days = days + 1,rows = rows + 1 where userId = {$uid}");
                     if ($result) {
                         echo 1;
                     }

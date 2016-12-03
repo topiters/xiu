@@ -205,7 +205,7 @@
                             <foreach name="sArr['shopFollowers']" item="v">
                                 <div>
                                     <a href="{:U('Home/Users/index',array('id'=>$v['userId']))}" target="_blank">
-                                        <img src="__ROOT__/{$v['userPhoto']}" height="60" width="60">
+                                        <img src="__ROOT__/{$v['userPhoto']|default='Apps/Home/View/default/img/caiduoduo.png-v=1.10.1.png'}" alt="{$v['loginName']}" height="60" width="60">
                                     </a>
                                 </div>
                             </foreach>
