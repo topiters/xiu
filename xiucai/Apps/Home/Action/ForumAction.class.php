@@ -41,6 +41,7 @@ class ForumAction extends BaseAction {
      *
      */
     public function doAdd() {
+
         dump($_POST);
     }
     /**
@@ -79,9 +80,6 @@ class ForumAction extends BaseAction {
                     }
                 }
             }
-
-
-
         }
     }
 

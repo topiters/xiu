@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2016-12-01 18:43:30
+Date: 2016-12-03 20:06:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -3803,17 +3803,35 @@ CREATE TABLE `wst_article_cats` (
   PRIMARY KEY (`catId`),
   KEY `isShow` (`catType`,`catFlag`,`isShow`) USING BTREE,
   KEY `parentId` (`catFlag`,`parentId`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wst_article_cats
 -- ----------------------------
-INSERT INTO `wst_article_cats` VALUES ('1', '0', '0', '0', '商城快讯', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('2', '0', '1', '1', '新手上路', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('3', '0', '1', '1', '如何付款', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('4', '0', '1', '1', '配送说明', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('5', '0', '1', '1', '售后服务', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('6', '0', '1', '1', '常见问题', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('1', '0', '0', '1', '财务圈', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('2', '0', '0', '1', '税务圈', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('3', '0', '0', '1', '工作圈', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('4', '0', '0', '1', '官方圈', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('5', '0', '0', '1', '考试圈', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('6', '0', '0', '1', '生活圈', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('7', '1', '0', '1', '资料', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('8', '1', '0', '1', '实务', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('9', '1', '0', '1', '问答', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('10', '2', '0', '1', '资料', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('14', '3', '0', '1', '工具技能', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('16', '4', '0', '1', '站务处理', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('11', '2', '0', '1', '实务', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('12', '2', '0', '1', '问答', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('13', '3', '0', '1', '实战经验', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('15', '3', '0', '1', '职场成长', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('17', '4', '0', '1', '官方公告', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('18', '5', '0', '1', '从业资格', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('19', '5', '0', '1', '会计职称', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('20', '5', '0', '1', 'CPA', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('21', '5', '0', '1', '其它', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('22', '6', '0', '1', '心得感悟', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('23', '6', '0', '1', '晒照交流', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('24', '6', '0', '1', '茶余饭后', '0', '1');
 
 -- ----------------------------
 -- Table structure for wst_attributes
@@ -5987,7 +6005,7 @@ CREATE TABLE `wst_log_user_logins` (
   PRIMARY KEY (`loginId`),
   KEY `loginTime` (`loginTime`),
   KEY `userId` (`userId`)
-) ENGINE=MyISAM AUTO_INCREMENT=75 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=81 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wst_log_user_logins
@@ -6066,6 +6084,12 @@ INSERT INTO `wst_log_user_logins` VALUES ('71', '42', '2016-12-01 17:39:28', '12
 INSERT INTO `wst_log_user_logins` VALUES ('72', '42', '2016-12-01 17:53:35', '127.0.0.1', '0', null);
 INSERT INTO `wst_log_user_logins` VALUES ('73', '42', '2016-12-01 18:08:13', '127.0.0.1', '0', null);
 INSERT INTO `wst_log_user_logins` VALUES ('74', '42', '2016-12-01 18:29:51', '127.0.0.1', '0', null);
+INSERT INTO `wst_log_user_logins` VALUES ('75', '42', '2016-12-02 09:53:48', '127.0.0.1', '0', null);
+INSERT INTO `wst_log_user_logins` VALUES ('76', '40', '2016-12-02 11:57:15', '127.0.0.1', '0', null);
+INSERT INTO `wst_log_user_logins` VALUES ('77', '42', '2016-12-02 13:06:26', '127.0.0.1', '0', null);
+INSERT INTO `wst_log_user_logins` VALUES ('78', '40', '2016-12-02 16:34:53', '127.0.0.1', '0', null);
+INSERT INTO `wst_log_user_logins` VALUES ('79', '40', '2016-12-03 11:35:09', '127.0.0.1', '0', null);
+INSERT INTO `wst_log_user_logins` VALUES ('80', '40', '2016-12-03 11:45:35', '127.0.0.1', '0', null);
 
 -- ----------------------------
 -- Table structure for wst_messages
@@ -7177,16 +7201,18 @@ DROP TABLE IF EXISTS `wst_sign`;
 CREATE TABLE `wst_sign` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userId` int(11) NOT NULL COMMENT '用户ID',
-  `lastTime` datetime DEFAULT NULL COMMENT '上次签到时间',
-  `ctime` datetime NOT NULL COMMENT '本次签到时间',
+  `lastTime` int(11) DEFAULT NULL COMMENT '上次签到时间',
+  `ctime` int(11) NOT NULL COMMENT '本次签到时间',
   `days` int(11) NOT NULL DEFAULT '0' COMMENT '签到总天数',
   `rows` int(11) NOT NULL DEFAULT '0' COMMENT '连续签到天数',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wst_sign
 -- ----------------------------
+INSERT INTO `wst_sign` VALUES ('1', '42', '1480655616', '1480655616', '1', '1');
+INSERT INTO `wst_sign` VALUES ('2', '40', '1480662876', '1480748726', '3', '2');
 
 -- ----------------------------
 -- Table structure for wst_staffs
@@ -7360,8 +7386,8 @@ INSERT INTO `wst_users` VALUES ('36', 'ceshi61', '1934', 'fc9fb3a4db2ebb524be319
 INSERT INTO `wst_users` VALUES ('37', 'ceshi62', '1996', '0c3a4081280a5b80af5b70967cb6252a', '0', '1', '测试店铺62', '', '15918671867', '', '0', null, '0', '1', '1', '2015-05-26 21:45:22', '103.199.87.218', '2015-06-01 21:44:20', '0', null, null);
 INSERT INTO `wst_users` VALUES ('38', 'ceshi63', '8163', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '测试店铺63', '', '15918671987', '', '0', null, '0', '1', '1', '2015-05-26 21:47:10', null, null, '0', null, null);
 INSERT INTO `wst_users` VALUES ('39', 'ceshi64', '3204', '5d50361a4cc2359475c8d08c34fbfcd4', '0', '1', '测试店铺64', '', '15918671857', '', '0', null, '0', '1', '1', '2015-05-26 21:48:43', null, null, '0', null, null);
-INSERT INTO `wst_users` VALUES ('40', 'test123', '9083', '56bf2590b53e8dadb6c47dd81311674f', '0', '1', '', '', '15617859166', '', '0', null, '0', '1', '1', '2016-11-09 10:35:48', '127.0.0.1', '2016-11-30 10:18:02', '0', null, null);
-INSERT INTO `wst_users` VALUES ('42', '15617859168', '3878', '49b103a09ff277c27998d0f14cafdb4e', '0', '0', null, null, '15617859164', '2504585798@qq.com', '0', null, '0', '1', '1', null, '127.0.0.1', '2016-12-01 18:29:51', '0', null, null);
+INSERT INTO `wst_users` VALUES ('40', 'test123', '9083', '56bf2590b53e8dadb6c47dd81311674f', '0', '1', '', '', '15617859166', '', '0', null, '0', '1', '1', '2016-11-09 10:35:48', '127.0.0.1', '2016-12-03 11:45:35', '0', null, null);
+INSERT INTO `wst_users` VALUES ('42', '15617859168', '3878', '49b103a09ff277c27998d0f14cafdb4e', '0', '0', null, null, '15617859164', '2504585798@qq.com', '0', null, '0', '1', '1', null, '127.0.0.1', '2016-12-02 13:06:26', '0', null, null);
 INSERT INTO `wst_users` VALUES ('43', '15617859167', '8212', '2afc9178a5ff317f816054da34cc9f79', '0', '0', 'uname', null, '15617859167', null, '0', null, '0', '1', '1', '2016-11-10 16:57:15', '127.0.0.1', '2016-11-10 17:53:24', '0', null, null);
 
 -- ----------------------------
