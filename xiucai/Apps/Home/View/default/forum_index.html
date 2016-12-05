@@ -68,7 +68,7 @@
                 <!-- quan-slider end -->
                 <!-- 导师问答 -->
                 <div class="quan-block">
-                    <a href="zhuanjiawenda.html" target="_blank">
+                    <a href="{:U('Home/specialist/index')}" target="_blank">
                         <img src="__ROOT__/Apps/Home/View/default/img/quan/tutor_banner.png" width="900" height="123" style="display: block;">
                     </a>
                 </div>
@@ -76,393 +76,108 @@
                 <div class="quan-block block-pagination relative">
                     <div class="quan-tab quan-tab-auto  quan_middle_nav">
                         <ul class="clearfix">
-                            <li class="cur">
-                                <a href="#e" name="hot_">最热帖子</a>
+                            <li <if condition="$_GET['type'] eq 'hot' or $_GET['type'] eq ''"> class="cur"</if>>
+                                <a href="{:U('Home/forum/index',array('type'=>'hot'))}" name="hot_">最热帖子</a>
                             </li>
-                            <li class="">
-                                <a href="#e" name="new_">最新发布</a>
+                            <li <if condition="$_GET['type'] eq 'new'"> class="cur"</if>>
+                                <a href="{:U('Home/forum/index',array('type'=>'new'))}" name="new_">最新发布</a>
                             </li>
-                            <li class="">
-                                <a href="#e" name="huif_">最后回复</a>
+                            <li <if condition="$_GET['type'] eq 'reply'"> class="cur" </if>>
+                                <a href="{:U('Home/forum/index',array('type'=>'reply'))}" name="huif_">最后回复</a>
                             </li>
                         </ul>
-                        <a href="http://www.xiucai.com/user/quan/feed/" class="link-mine-circle" target="_blank">
+                        <a href="{:U('Home/Users/quan')}" class="link-mine-circle" target="_blank">
                             <span>我的圈子</span>
-                            <b>GO!</b>
+                            <b>GO</b>
                         </a>
                     </div>
                     <div class="quan_post_">
                         <div class="quan-post hot_">
                             <!-- 全部圈子动态 -->
-                            <div class="quan-post-item clearfix">
-                                <div class="fl">
-                                    <a href="#" class="block-head common-avatar" target="_blank">
-                                        <img src="http://assets.xiucai.com/assets/uploads/avatar/2015/1224/99b97b3d-309c-540f-4395-5d190bbd3c10.jpg?v=0.058550095185637474" height="50" width="50">
-                                    </a>
-                                </div>
-                                <div class="r-content">
-                                    <a class="quan-post-title" href="#" target="_blank">
-                                        <!-- 标题30个字符 -->
-                                        <h2 id="quan-post-title1471004043" style="color: #996600;">
-                                            「导师问答」精选问题——汇总系列（不断更新）</h2>
-                                    </a>
-                                    <span id="quan-post-tag1471004043" class="quan-post-tag">
-                        <i class="tag-top" title="置顶"></i>
-                    </span>
-                                    <div class="quan-post-info">
-                                        <div class="">
-                                            <span class="toppic-type">官方圈</span>
-                                            <span class="devide-line"></span>
-                                            <span class="post-data">阅读<i>3066</i></span>
-                                            <span class="m20 post-data">回复<i>22</i></span>
-                                            <span class="devide-line"></span>
-                                            <a href="http://www.xiucai.com/user/291227/" class="user" target="_blank">无邪</a>
-                                            <span class="post-time">于2天前</span>
-                                            <span class="post-type">最后回复</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="quan-post-item clearfix">
-                                <div class="fl">
-                                    <a href="#" class="block-head common-avatar" target="_blank">
-                                        <img src="http://assets.xiucai.com/assets/uploads/avatar/2015/1224/99b97b3d-309c-540f-4395-5d190bbd3c10.jpg?v=0.058550095185637474" height="50" width="50">
-                                    </a>
-                                </div>
-                                <div class="r-content">
-                                    <a class="quan-post-title" href="" target="_blank">
-                                        <!-- 标题30个字符 -->
-                                        <h2 id="quan-post-title1458298965" style="color: #fd6440;">
-                                            【官方公告】秀财网财务QQ交流群汇总，快来对号入座啦！</h2>
-                                    </a>
-                                    <span id="quan-post-tag1458298965" class="quan-post-tag">
-			                <i class="tag-top" title="置顶"></i>
-			            </span>
-                                    <div class="quan-post-info">
-                                        <div class="">
-                                            <span class="toppic-type">官方圈</span>
-                                            <span class="devide-line"></span>
-                                            <span class="post-data">阅读<i>10725</i></span>
-                                            <span class="m20 post-data">回复<i>81</i></span>
-                                            <span class="devide-line"></span>
-                                            <a href="" class="user" target="_blank">秀财网</a>
-                                            <span class="post-time">于1个月前</span>
-                                            <span class="post-type">最后回复</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="quan-post-item clearfix">
-                                <div class="fl">
-                                    <a href=" " class="block-head common-avatar" target="_blank">
-                                        <img src="__ROOT__/Apps/Home/View/default/img/avatar/avatar92.jpg?v=1.10.5" height="50" width="50">
-                                    </a>
-                                </div>
-                                <div class="r-content">
-                                    <a class="quan-post-title" href="" target="_blank">
-                                        <!-- 标题30个字符 -->
-                                        <h2 id="quan-post-title1469714250" style="color: #2897c5;">秀财说直播课回看及笔记汇总帖</h2>
-                                    </a>
-                                    <span id="quan-post-tag1469714250" class="quan-post-tag">
-                        <i class="tag-top" title="置顶"></i>
-                    </span>
-                                    <div class="quan-post-info">
-                                        <div class="">
-                                            <span class="toppic-type">财务圈</span>
-                                            <span class="devide-line"></span>
-                                            <span class="post-data">阅读<i>14211</i></span>
-                                            <span class="m20 post-data">回复<i>42</i></span>
-                                            <span class="devide-line"></span>
-                                            <a href="" class="user" target="_blank">朱幽兰</a>
-                                            <span class="post-time">于6天前</span>
-                                            <span class="post-type">最后回复</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="quan-post-item clearfix">
-                                <div class="fl">
-                                    <a href="http://www.xiucai.com/user/18016/" class="block-head common-avatar" target="_blank">
-                                        <img src="http://assets.xiucai.com/assets/uploads/avatar/2016/0122/0a6ccf0e-c0b8-38b6-a940-13bb62946964.jpg" height="50" width="50">
-                                    </a>
-                                </div>
-                                <div class="r-content">
-                                    <a class="quan-post-title" href="http://club.xiucai.com/quan/thread/1458803917/" target="_blank">
-                                        <!-- 标题30个字符 -->
-                                        <h2 id="quan-post-title1458803917" style="color: #fd6440;">【专家坐阵解答】 营改增
-                                            常见问题应对方案（不断更新）</h2>
-                                    </a>
-                                    <span id="quan-post-tag1458803917" class="quan-post-tag">
-                        <i class="tag-top" title="置顶"></i>
-                        <i class="tag-hot" title="热帖"></i>
-                    </span>
-                                    <div class="quan-post-info">
-                                        <div class="">
-                                            <span class="toppic-type">税务圈</span>
-                                            <span class="devide-line"></span>
-                                            <span class="post-data">阅读<i>91386</i></span>
-                                            <span class="m20 post-data">回复<i>172</i></span>
-                                            <span class="devide-line"></span>
-                                            <a href="http://www.xiucai.com/user/237073/" class="user" target="_blank">138****0332</a><span class="post-time">于1个月前</span><span class="post-type">最后回复</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="quan-post-item clearfix">
-                                <div class="fl">
-                                    <a href="http://www.xiucai.com/user/2951/" class="block-head common-avatar" target="_blank">
-                                        <img src="http://assets.xiucai.com/assets/uploads/pic/2015/1021/92989051-89af-7471-a3df-70909b448454.jpg" height="50" width="50">
-                                    </a>
-                                </div>
-                                <div class="r-content">
-                                    <a class="quan-post-title" href="http://club.xiucai.com/quan/thread/1442826103/" target="_blank">
-                                        <!-- 标题30个字符 -->
-                                        <h2 id="quan-post-title1442826103">我的10年EXCEL经验【干货】</h2>
-                                    </a>
-                                    <span id="quan-post-tag1442826103" class="quan-post-tag"> </span>
-                                    <div class="quan-post-info">
-                                        <div class="">
-                                            <span class="toppic-type">工作圈</span>
-                                            <span class="devide-line"></span>
-                                            <span class="post-data">阅读<i>245850</i></span>
-                                            <span class="m20 post-data">回复<i>5722</i></span>
-                                            <span class="devide-line"></span>
-                                            <a href="/vip/" target="_blank" class="vip" title="了解秀财会员">
-                                                <img src="__ROOT__/Apps/Home/View/default/img/vip.png" width="16" height="12" alt="会员特权" border="0">
+                            <!--只有首页展示置顶信息-->
+                            <if condition="$_GET['p'] eq '' or $_GET['p'] eq 1">
+                                <foreach name="top" item="v">
+                                    <div class="quan-post-item clearfix">
+                                        <div class="fl">
+                                            <a href="{:U('Home/Users/index',array('id'=>$v['staffId']))}" class="block-head common-avatar" target="_blank">
+                                                <img src="__ROOT__/{$v['userPhoto']|default='Apps/Home/View/default/img/caiduoduo.png-v=1.10.1.png'}" height="50" width="50">
                                             </a>
-                                            <a href="http://www.xiucai.com/user/318445/" class="user" target="_blank">张同学</a>
-                                            <span class="post-time">于2小时前</span>
-                                            <span class="post-type">最后回复</span>
+                                        </div>
+                                        <div class="r-content">
+                                            <a class="quan-post-title" href="{:U('Home/forum/article',array('id'=>$v['articleId']))}" target="_blank">
+                                                <!-- 标题30个字符 -->
+                                                <h2 id="quan-post-title{$v['createTime']}" style="color: #fd6440;">
+                                                    {$v['articleTitle']|WSTMSubstr=###,0,30}</h2>
+                                            </a>
+                                            <span id="quan-post-tag{$v['createTime']}" class="quan-post-tag">
+                        <i class="tag-top" title="置顶"></i>
+                    </span>
+                                            <div class="quan-post-info">
+                                                <div class="">
+                                                    <span class="toppic-type">{$v['catName']}</span>
+                                                    <span class="devide-line"></span>
+                                                    <span class="post-data">阅读<i>{$v['readNum']}</i></span>
+                                                    <span class="m20 post-data">回复<i>{$v['commentNum']}</i></span>
+                                                    <span class="devide-line"></span>
+                                                    <if condition="$v['lastId'] neq null">
+                                                        <a href="{:U('Home/Users/index',array('id'=>$v['lastId']))}" class="user" target="_blank">{$v['lastName']}</a>
+                                                        <span class="post-time">{$v['lastTime']|mdate}</span>
+                                                        <span class="post-type">最后回复</span>
+                                                        <else/>
+                                                        <span class="post-time">{$v['createTime']|mdate}</span>
+                                                        <span class="post-type">发表</span>
+                                                    </if>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="quan-post-item clearfix">
-                                <div class="fl">
-                                    <a href="http://www.xiucai.com/user/169/" class="block-head common-avatar" target="_blank">
-                                        <img src="http://assets.xiucai.com/assets/uploads/pic/2015/1020/2228b77c-bda9-44b1-371a-ac2f0ca6778c.jpg" height="50" width="50">
-                                    </a>
-                                </div>
-                                <div class="r-content">
-                                    <a class="quan-post-title" href="http://club.xiucai.com/quan/thread/1439897754/" target="_blank">
-                                        <!-- 标题30个字符 -->
-                                        <h2 id="quan-post-title1439897754">一个会计的每月“做账流程”，不要小瞧！</h2>
-                                    </a>
-                                    <span id="quan-post-tag1439897754" class="quan-post-tag"></span>
-                                    <div class="quan-post-info">
-                                        <div class="">
-                                            <span class="toppic-type">财务圈</span>
-                                            <span class="devide-line"></span>
-                                            <span class="post-data">阅读<i>146678</i></span>
-                                            <span class="m20 post-data">回复<i>4628</i></span>
-                                            <span class="devide-line"></span>
-                                            <a href="http://www.xiucai.com/user/31179/" class="user" target="_blank">轻语</a>
-                                            <span class="post-time">于4小时前</span>
-                                            <span class="post-type">最后回复</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="quan-post new_ ">
-                            <!-- 最新发布 -->
-                            <div class="quan-post-item clearfix">
-                                <div class="fl">
-                                    <a href="#" class="block-head common-avatar" target="_blank">
-                                        <img src="http://assets.xiucai.com/assets/uploads/avatar/2015/1224/99b97b3d-309c-540f-4395-5d190bbd3c10.jpg?v=0.058550095185637474" height="50" width="50">
-                                    </a>
-                                </div>
-                                <div class="r-content">
-                                    <a class="quan-post-title" href="#" target="_blank">
-                                        <!-- 标题30个字符 -->
-                                        <h2 id="quan-post-title1471004043" style="color: #996600;">
-                                            「导师问答」精选问题——汇总系列（不断更新）</h2>
-                                    </a>
-                                    <span id="quan-post-tag1471004043" class="quan-post-tag">
-	                        <i class="tag-top" title="置顶"></i>
-	                    </span>
-                                    <div class="quan-post-info">
-                                        <div class="">
-                                            <span class="toppic-type">官方圈</span>
-                                            <span class="devide-line"></span>
-                                            <span class="post-data">阅读<i>3066</i></span>
-                                            <span class="m20 post-data">回复<i>22</i></span>
-                                            <span class="devide-line"></span>
-                                            <a href="http://www.xiucai.com/user/291227/" class="user" target="_blank">无邪</a>
-                                            <span class="post-time">于2天前</span>
-                                            <span class="post-type">最后回复</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="quan-post-item clearfix">
-                                <div class="fl">
-                                    <a href="#" class="block-head common-avatar" target="_blank">
-                                        <img src="http://assets.xiucai.com/assets/uploads/avatar/2015/1224/99b97b3d-309c-540f-4395-5d190bbd3c10.jpg?v=0.058550095185637474" height="50" width="50">
-                                    </a>
-                                </div>
-                                <div class="r-content">
-                                    <a class="quan-post-title" href="" target="_blank">
-                                        <!-- 标题30个字符 -->
-                                        <h2 id="quan-post-title1458298965" style="color: #fd6440;">
-                                            【官方公告】秀财网财务QQ交流群汇总，快来对号入座啦！</h2>
-                                    </a>
-                                    <span id="quan-post-tag1458298965" class="quan-post-tag">
-				                <i class="tag-top" title="置顶"></i>
-				            </span>
-                                    <div class="quan-post-info">
-                                        <div class="">
-                                            <span class="toppic-type">官方圈</span>
-                                            <span class="devide-line"></span>
-                                            <span class="post-data">阅读<i>10725</i></span>
-                                            <span class="m20 post-data">回复<i>81</i></span>
-                                            <span class="devide-line"></span>
-                                            <a href="" class="user" target="_blank">秀财网</a>
-                                            <span class="post-time">于1个月前</span>
-                                            <span class="post-type">最后回复</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="quan-post-item clearfix">
-                                <div class="fl">
-                                    <a href=" " class="block-head common-avatar" target="_blank">
-                                        <img src="__ROOT__/Apps/Home/View/default/img/avatar/avatar92.jpg?v=1.10.5" height="50" width="50">
-                                    </a>
-                                </div>
-                                <div class="r-content">
-                                    <a class="quan-post-title" href="" target="_blank">
-                                        <!-- 标题30个字符 -->
-                                        <h2 id="quan-post-title1469714250" style="color: #2897c5;">秀财说直播课回看及笔记汇总帖</h2>
-                                    </a>
-                                    <span id="quan-post-tag1469714250" class="quan-post-tag">
-	                        <i class="tag-top" title="置顶"></i>
-	                    </span>
-                                    <div class="quan-post-info">
-                                        <div class="">
-                                            <span class="toppic-type">财务圈</span>
-                                            <span class="devide-line"></span>
-                                            <span class="post-data">阅读<i>14211</i></span>
-                                            <span class="m20 post-data">回复<i>42</i></span>
-                                            <span class="devide-line"></span>
-                                            <a href="" class="user" target="_blank">朱幽兰</a>
-                                            <span class="post-time">于6天前</span>
-                                            <span class="post-type">最后回复</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                </foreach>
+                            </if>
 
-                        <div class="quan-post huif_ ">
-                            <!-- 最后回复 -->
-                            <div class="quan-post-item clearfix">
-                                <div class="fl">
-                                    <a href="#" class="block-head common-avatar" target="_blank">
-                                        <img src="http://assets.xiucai.com/assets/uploads/avatar/2015/1224/99b97b3d-309c-540f-4395-5d190bbd3c10.jpg?v=0.058550095185637474" height="50" width="50">
-                                    </a>
-                                </div>
-                                <div class="r-content">
-                                    <a class="quan-post-title" href="#" target="_blank">
-                                        <!-- 标题30个字符 -->
-                                        <h2 id="quan-post-title1471004043" style="color: #996600;">
-                                            「导师问答」精选问题——汇总系列（不断更新）</h2>
-                                    </a>
-                                    <span id="quan-post-tag1471004043" class="quan-post-tag">
-	                        <i class="tag-top" title="置顶"></i>
-	                    </span>
-                                    <div class="quan-post-info">
-                                        <div class="">
-                                            <span class="toppic-type">官方圈</span>
-                                            <span class="devide-line"></span>
-                                            <span class="post-data">阅读<i>3066</i></span>
-                                            <span class="m20 post-data">回复<i>22</i></span>
-                                            <span class="devide-line"></span>
-                                            <a href="http://www.xiucai.com/user/291227/" class="user" target="_blank">无邪</a>
-                                            <span class="post-time">于2天前</span>
-                                            <span class="post-type">最后回复</span>
+                            <!--文章列表-->
+                            <foreach name="article" item="v">
+                                <div class="quan-post-item clearfix">
+                                    <div class="fl">
+                                        <a href="{:U('Home/Users/index',array('id'=>$v['staffId']))}" class="block-head common-avatar" target="_blank">
+                                            <img src="__ROOT__/{$v['userPhoto']|default='Apps/Home/View/default/img/caiduoduo.png-v=1.10.1.png'}" height="50" width="50">
+                                        </a>
+                                    </div>
+                                    <div class="r-content">
+                                        <a class="quan-post-title" href="{:U('Home/forum/article',array('id'=>$v['articleId']))}" target="_blank">
+                                            <!-- 标题30个字符 -->
+                                            <h2 id="quan-post-title1442826103">
+                                                {$v['articleTitle']|WSTMSubstr=###,0,30}</h2>
+                                        </a>
+                                        <span id="quan-post-tag1442826103" class="quan-post-tag"> </span>
+                                        <div class="quan-post-info">
+                                            <div class="">
+                                                <span class="toppic-type">{$v['catName']}</span>
+                                                <span class="devide-line"></span>
+                                                <span class="post-data">阅读<i>{$v['readNum']}</i></span>
+                                                <span class="m20 post-data">回复<i>{$v['commentNum']}</i></span>
+                                                <span class="devide-line"></span>
+                                                <!--会员图标-->
+                                                <!--<a href="/vip/" target="_blank" class="vip" title="了解秀财会员">-->
+                                                    <!--<img src="__ROOT__/Apps/Home/View/default/img/vip.png" width="16" height="12" alt="会员特权" border="0">-->
+                                                <!--</a>-->
+                                                <if condition="$v['lastId'] neq null">
+                                                    <a href="{:U('Home/Users/index',array('id'=>$v['lastId']))}" class="user" target="_blank">{$v['lastName']}</a>
+                                                    <span class="post-time">{$v['lastTime']|mdate}</span>
+                                                    <span class="post-type">最后回复</span>
+                                                    <else/>
+                                                    <span class="post-time">{$v['createTime']|mdate}</span>
+                                                    <span class="post-type">发表</span>
+                                                </if>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="quan-post-item clearfix">
-                                <div class="fl">
-                                    <a href="#" class="block-head common-avatar" target="_blank">
-                                        <img src="http://assets.xiucai.com/assets/uploads/avatar/2015/1224/99b97b3d-309c-540f-4395-5d190bbd3c10.jpg?v=0.058550095185637474" height="50" width="50">
-                                    </a>
-                                </div>
-                                <div class="r-content">
-                                    <a class="quan-post-title" href="" target="_blank">
-                                        <!-- 标题30个字符 -->
-                                        <h2 id="quan-post-title1458298965" style="color: #fd6440;">
-                                            【官方公告】秀财网财务QQ交流群汇总，快来对号入座啦！</h2>
-                                    </a>
-                                    <span id="quan-post-tag1458298965" class="quan-post-tag">
-				                <i class="tag-top" title="置顶"></i>
-				            </span>
-                                    <div class="quan-post-info">
-                                        <div class="">
-                                            <span class="toppic-type">官方圈</span>
-                                            <span class="devide-line"></span>
-                                            <span class="post-data">阅读<i>10725</i></span>
-                                            <span class="m20 post-data">回复<i>81</i></span>
-                                            <span class="devide-line"></span>
-                                            <a href="" class="user" target="_blank">秀财网</a>
-                                            <span class="post-time">于1个月前</span>
-                                            <span class="post-type">最后回复</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="quan-post-item clearfix">
-                                <div class="fl">
-                                    <a href=" " class="block-head common-avatar" target="_blank">
-                                        <img src="__ROOT__/Apps/Home/View/default/img/avatar/avatar92.jpg?v=1.10.5" height="50" width="50">
-                                    </a>
-                                </div>
-                                <div class="r-content">
-                                    <a class="quan-post-title" href="" target="_blank">
-                                        <!-- 标题30个字符 -->
-                                        <h2 id="quan-post-title1469714250" style="color: #2897c5;">秀财说直播课回看及笔记汇总帖</h2>
-                                    </a>
-                                    <span id="quan-post-tag1469714250" class="quan-post-tag">
-	                        <i class="tag-top" title="置顶"></i>
-	                    </span>
-                                    <div class="quan-post-info">
-                                        <div class="">
-                                            <span class="toppic-type">财务圈</span>
-                                            <span class="devide-line"></span>
-                                            <span class="post-data">阅读<i>14211</i></span>
-                                            <span class="m20 post-data">回复<i>42</i></span>
-                                            <span class="devide-line"></span>
-                                            <a href="" class="user" target="_blank">朱幽兰</a>
-                                            <span class="post-time">于6天前</span>
-                                            <span class="post-type">最后回复</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </foreach>
                         </div>
-
                     </div>
 
                     <div style="width: 100%;height: 80px;text-align: center;box-sizing: border-box;">
-                        <div class="page_course">
-                            <a href="#e" class="page_course_a">首页</a>
-                            <a href="#e" class="page_course_a">＜</a>
-                            <a href="#e" class="page_course_a">1</a>
-                            <a href="#e" class="page_course_a">2</a>
-                            <a href="#e" class="page_course_a">3</a>
-                            <a href="#e" class="page_course_a">4</a>
-                            <a href="#e" class="page_course_a">5</a>
-                            <a href="#e" class="page_course_a">6</a>
-                            <a href="#e" class="page_course_a">7</a>
-                            <a href="#e" class="page_course_a">8</a>
-                            <a href="#e" class="page_course_a">9</a>
-                            <a href="#e" class="page_course_a">10</a>
-                            <a href="#e" class="page_course_a">＞</a>
-                            <a href="#e" class="page_course_a">尾页</a>
-                        </div>
+                        {$pages}
                     </div>
                 </div>
             </div>
@@ -491,7 +206,7 @@
                     </p>
                     <div class="num-display">
                         <span class="border-r-e6" id="today-sign-count">今日签到<b>{$todaySign}</b></span>
-                        <span>总帖量<b>284014</b></span>
+                        <span>总帖量<b>{$articleNum}</b></span>
                     </div>
                 </div>
 
@@ -513,7 +228,7 @@
                     <!--未登录-->
                     <div class="num-display">
                         <span class="border-r-e6" id="today-sign-count">今日签到<b>{$todaySign}</b></span>
-                        <span>总帖量<b>284014</b></span>
+                        <span>总帖量<b>{$articleNum}</b></span>
                     </div>
                 </div>
 
@@ -576,48 +291,14 @@
                 <div class="quan-block">
                     <h2><em></em>推荐圈子</h2>
                     <ul class="quan-more-list">
-                        <li>
-                            <a href="http://club.xiucai.com/quan/cw/" class="clearfix" target="_blank">
-                                <span class="fl"><i class="iconfont icon-accounting"></i>财务圈</span>
-                                <span class="fr">434320人</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://club.xiucai.com/quan/sw/" class="clearfix" target="_blank">
-                                <span class="fl"><i class="iconfont icon-tax_planning"></i>税务圈</span>
-                                <span class="fr">452574人</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://club.xiucai.com/quan/gz/" class="clearfix" target="_blank">
-                                <span class="fl"><i class="iconfont icon-tool"></i>工作圈</span>
-                                <span class="fr">432712人</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://club.xiucai.com/quan/gf/" class="clearfix" target="_blank">
-                                <span class="fl"><i class="iconfont icon-official"></i>官方圈</span>
-                                <span class="fr">54950人</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://club.xiucai.com/quan/ks/" class="clearfix" target="_blank">
-                                <span class="fl"><i class="iconfont icon-kaoshiquan"></i>考试圈</span>
-                                <span class="fr">66400人</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://club.xiucai.com/quan/sh/" class="clearfix" target="_blank">
-                                <span class="fl"><i class="iconfont icon-shenghuoquan"></i>生活圈</span>
-                                <span class="fr">46600人</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://club.xiucai.com/quan/hbcahome/" class="clearfix" target="_blank">
-                                <span class="fl"><i class="iconfont icon-circlehbca"></i>河北CA家园</span>
-                                <span class="fr">16人</span>
-                            </a>
-                        </li>
+                        <foreach name="cats" item="v">
+                            <li>
+                                <a href="{:U('Home/forum/quan',array('id'=>$v['catId']))}" class="clearfix" target="_blank">
+                                    <span class="fl"><i class="iconfont icon-official"></i>{$v['catName']}</span>
+                                    <span class="fr">{$v['totalNum']}人</span>
+                                </a>
+                            </li>
+                        </foreach>
                     </ul>
                 </div>
 
@@ -625,31 +306,20 @@
                 <div class="quan-block quan-title-block">
                     <h2><em></em>精华推荐</h2>
                     <ul class="circle-list">
+                        <volist name="tuijian" id="v" offset="0" length="3">
                         <li class="rank-top">
-                            <a data-id="53" href="/quan/thread/1464606283/" target="_blank" class="clearfix hit_count" title="营改增实用落地锦囊—【申报表辅导】+【实务操作】+【填写案例】">
-                                <span class="rank-num">1</span><span class="rank-discuss">营改增实用落地锦囊—【申报表辅导】+【实务操作】+【填写案例】</span>
+                            <a data-id="{$v.articleId}" href="{:U('Home/forum/article',array('id'=>$v['articleId']))}" target="_blank" class="clearfix hit_count" title="{$v.articleTitle}">
+                                <span class="rank-num">{$i}</span><span class="rank-discuss">{$v.articleTitle}</span>
                             </a>
                         </li>
-                        <li class="rank-top">
-                            <a data-id="42" href="/quan/thread/1446533821/" target="_blank" class="clearfix hit_count" title="零基础一次过初级的心经  ">
-                                <span class="rank-num">2</span><span class="rank-discuss">零基础一次过初级的心经  </span>
-                            </a>
-                        </li>
-                        <li class="rank-top">
-                            <a data-id="41" href="/quan/thread/1455438430/" target="_blank" class="clearfix hit_count" title="Excel就是你制胜职场的核武器  ">
-                                <span class="rank-num">3</span><span class="rank-discuss">Excel就是你制胜职场的核武器  </span>
-                            </a>
-                        </li>
+                        </volist>
+                        <volist name="tuijian" id="v" offset="3" length="2">
                         <li>
-                            <a data-id="37" href="/quan/thread/1446198678/" target="_blank" class="clearfix hit_count" title="【课件资料案例·下载提供】Excel高手之路">
-                                <span class="rank-num">4</span><span class="rank-discuss">【课件资料案例·下载提供】Excel高手之路</span>
+                            <a data-id="{$v.articleId}" href="{:U('Home/forum/article',array('id'=>$v['articleId']))}" target="_blank" class="clearfix hit_count" title="{$v.articleTitle}">
+                                <span class="rank-num">{$i+3}</span><span class="rank-discuss">{$v.articleTitle}</span>
                             </a>
                         </li>
-                        <li>
-                            <a data-id="34" href="/quan/thread/1445311860/" target="_blank" class="clearfix hit_count" title="2016初级考试早准备——学习资料汇总">
-                                <span class="rank-num">5</span><span class="rank-discuss">2016初级考试早准备——学习资料汇总</span>
-                            </a>
-                        </li>
+                        </volist>
                     </ul>
                 </div>
 

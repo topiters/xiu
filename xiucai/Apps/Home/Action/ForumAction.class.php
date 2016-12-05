@@ -1,5 +1,7 @@
 <?php
 namespace Home\Action;
+use Think\Page;
+
 /**
  * ============================================================================
  * 论坛控制器
@@ -26,7 +28,48 @@ class ForumAction extends BaseAction {
         $result = D('sign')->where("ctime > $today and ctime < $tomorrow")->count();
         $todaySign = $result;
         $this->assign('todaySign',$todaySign);
+        //总帖量
+        $articleNum = D('articles')->where('isShow = 1')->count();
+        $this->assign('articleNum',$articleNum);
 
+        //推荐圈子
+        $cats = D('article_cats')->field('catId,catName,totalNum,key')->where('parentId = 0 and catFlag = 1')->select();
+        $this->assign('cats',$cats);
+        //置顶帖子
+        $top = D('articles')->field('articleId,c.catId,c.catName,articleTitle,staffId,createTime,readNum,commentNum,lastId,lastTime')->join("wst_article_cats c on wst_articles.catId = c.catId")->where('wst_articles.isShow = 1 and isTop = 1')->select();
+        //获取用户头像
+        foreach ($top as $k=>$v){
+            $userArr = D('Users')->get($v['staffId']);
+            $top[$k]['userPhoto'] = $userArr['userPhoto'];
+            $userArr = D('Users')->get($v['lastId']);
+            $top[$k]['lastName'] = $userArr['loginName'];
+        }
+        $this->assign('top',$top);
+        //        dump($top);die;
+        //文章列表
+        $where = 'wst_articles.isShow = 1';
+        $order = '';
+        if ($_GET['type'] == 'hot'){
+            $order = 'readNum desc';
+        }
+        if ($_GET['type'] == 'new') {
+            $order = 'createTime desc';
+        }
+        if ($_GET['type'] == 'reply') {
+            $order = 'lastTime desc';
+        }
+        $limit = 20;
+        $total = D('articles')->where('isShow = 1')->count();
+        $page = new \Think\Page($total,$limit);
+        $article = D('articles')->field('articleId,c.catId,c.catName,articleTitle,staffId,createTime,readNum,commentNum,lastId,lastTime')->join("wst_article_cats c on wst_articles.catId = c.catId")->where($where)->order($order)->limit($page->firstRow,$limit)->select();
+        $pages = $page->show();
+        $this->assign('pages',$pages);
+        $this->assign('article' , $article);
+
+        //推荐阅读
+        $tuijian = D('articles')->where('isShow = 1')->order('commentNum desc')->limit(0,5)->select();
+        $this->assign('tuijian' , $tuijian);
+//        dump($tuijian);die;
         $this->display('default/forum_index');
     }
 
@@ -34,15 +77,37 @@ class ForumAction extends BaseAction {
      * 发布新帖
      */
     public function add() {
+        $this->isLogin();
+        $cateArr1 = D('article_cats')->field('catId,catName')->where('parentId = 0')->select();
+        $this->assign('cateArr1',$cateArr1);
+//        dump($cateArr1);die;
         $this->display('default/forum_add');
     }
 
     /**
+     * 获取二级分类
+     */
+    public function cats() {
+        $cat = D('Home/ArticleCats');
+        $arr = $cat->queryByList($_POST['catId']);
+        $html = '';
+        foreach ($arr as $v) {
+            $html .= "<li id=\"{$v['catId']}\">{$v['catName']}</li>";
+        }
+        echo $html;
+    }
+    
+    /**
      *
      */
     public function doAdd() {
-
-        dump($_POST);
+        $this->isLogin();
+        $_POST['staffId'] = session('WST_USER')['userId'];
+        $_POST['createTime'] = time();
+        $re = D('articles')->add($_POST);
+        if ($re){
+            echo 1;
+        }
     }
     /**
      * 处理签到
@@ -69,7 +134,7 @@ class ForumAction extends BaseAction {
                 $now = time();
                 $last = $re['ctime'];
                 if ($now - $last > (60*60*24)){ //两次签到时间大于一天则将连续签到更新为0
-                    $result = D('sign')->execute("update wst_sign set lastTime = {$re['ctime']},ctime = {$now},days = days + 1,rows = 1 where userId = {$uid}");
+                    $result = D('sign')->execute("update wst_sign set lastTime = {$re['ctime']},ctime = {$now},days = days + 1,rows = 0 where userId = {$uid}");
                     if ($result){
                         echo 1;
                     }
@@ -83,11 +148,22 @@ class ForumAction extends BaseAction {
         }
     }
 
-    //我的圈子
-    public function myindex() {
+    /**
+     * 圈子
+     */
+    public function quan() {
 
-        $this->display('default/my_index');
-
+        $this->display('default/quanzi');
     }
+
+
+    /**
+     * 文章详页
+     */
+    public function article() {
+
+        $this->display('default/article');
+    }
+
 
 }

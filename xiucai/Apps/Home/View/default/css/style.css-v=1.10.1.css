@@ -1606,7 +1606,7 @@ table th,table td{vertical-align: middle;}
 .idx-header .logined ul li#message>a,  .idx-header .logined ul li.guider-qa>a{
 	padding:30px 0;
 }
-.idx-header .change-entrance>a,{
+.idx-header .change-entrance>a{
 	/*padding:30px 0;*/
 }
 .idx-header .logined a.user-head img{margin:24px 0 5px 18px;}
@@ -8646,7 +8646,7 @@ input[type="button"].submit-order{
 .bmk-phone .check,.bmk-email .check{
     width: 21px;
     height: 21px;
-    background: url("../checkboxcss/red-minimal.png");/*tpa=http://assets.xiucai.com/assets/checkboxcss/red-minimal.png*//*tpa=http://assets.xiucai.com/assets/checkboxcss/red-minimal.png*/ no-repeat 0 0;
+    background: url("../checkboxcss/red-minimal.png");/*tpa=http://assets.xiucai.com/assets/checkboxcss/red-minimal.png*//*tpa=http://assets.xiucai.com/assets/checkboxcss/red-minimal.png*/ no-repeat :0 0;
 
     position: relative;
     top:5px;

@@ -8,7 +8,7 @@
 .page_course{
 	
 }
-.page_course a, .page_course span{
+.page a, .page span{
 	width: 40px;
 	height: 40px;
 	display: inline-block;
@@ -20,6 +20,12 @@
 	color: #999;	
 	font-size: 12px;
 }
+
+.page span.current, .page a:hover {
+	border: 1px solid #ff7745;
+	color: #ff7745;
+}
+
 .page_active{
 	border: 1px solid #ff773d;
 	border-radius: 20px;

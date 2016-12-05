@@ -126,6 +126,11 @@
     border: 1px solid #ff7745;
     color: #ff7745;
 }
+
+.page span.current, .page a:hover {
+	border: 1px solid #ff7745;
+	color: #ff7745;
+}
 .page li a.none-border {
 	border:none;
 }
