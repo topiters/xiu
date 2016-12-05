@@ -13,6 +13,10 @@ class CourseAction extends BaseAction {
 	 * 课程列表
 	 */
 	
+	
+	
+	
+	
 	public function  index(){
 		$mcourses = D('Home/Course');
 		//$mareas = D('Home/Areas');

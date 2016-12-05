@@ -544,9 +544,9 @@
 			'onUploadSuccess': function (file, data, response) {
 			     var data=$.parseJSON(data);
 			       //alert();
-				 //alert(JSON.stringify(data));
+				// alert(JSON.stringify(data));
 				 var videodata=data.Filedata.savepath+data.Filedata.savename;
-				// alert() ;
+				//alert(videodata) ;
 			  //var imgsv=" "+eval(data)+" ";
 			   
 				$("#jcrop-x1").val($.trim(videodata));

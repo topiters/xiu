@@ -161,6 +161,37 @@ class UsersAction extends BaseAction {
 	//	$this->assign("userScore",$user['userScore']);
 		$this->assign("orderList",$orderList);
 		$this->assign("statusList",$statusList);
+		//我的问答
+		 $specialist=D('Shops')->where(array('shopStatus'=>1,'shopFlag'=>1))->limit(3)->select();
+		foreach($specialist  as  $k=>$v){
+			$specialist[$k]['shopGoodat']=explode(',' , $v['shopGoodat']);
+			
+			
+			
+		}
+		//var_dump($specialist);
+		// exit;
+		 $this->assign('specialist',$specialist);
+		//我的圈子动态
+		
+		//我的课程
+	
+		$userId=$obj["userId"];
+		//SELECT o.orderId,o.orderNo ,c.courseId , FROM  wst_orders o LEFT JOIN   wst_order_course  oc  ON  O.orderId=oc.orderId  left join   wst_course c   ON  c.courseId=oc.courseId   where o.orderStatus=2 AND o.userId=42; 
+		$sql="SECLECT o.orderId,o.orderNo ,c.courseId  FROM __PREFIX__orders  o LEFT JOIN  __PREFIX__course c   ON  c.courseId=o.courseId   where o.orderStatus=2 AND o.userId=$userId ";
+		$result=D('Orders')->query($sql);
+		//var_dump($result);exit;
+		
+		
+		 
+		 
+		 
+		 
+		 
+		 
+		
+		
+		
 		
 		$this->display("default/users/index");
 	}

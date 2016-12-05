@@ -110,7 +110,7 @@
 					                <div id="myCourseListDiv">
 					                    <li>
 											<span class="i-close-del hide" inventory-id="411844"></span>
-											<a href="http://www.xiucai.com/course/288/" target="_blank">
+											<a href="" target="_blank">
 											    <div class="course-list-img">
 											        <img width="280" height="160" src="http://assets.xiucai.com/assets/uploads/pic/2016/0122/0905843c-d588-649a-915d-978654cd671a.jpg" alt="第1课  建立高效的建表思维">
 											    </div>
@@ -139,7 +139,7 @@
 										</li>
 										<li>
 										    <span class="i-close-del hide" inventory-id="411846"></span>
-										    <a href="http://www.xiucai.com/course/128/" target="_blank">
+										    <a href="" target="_blank">
 										        <div class="course-list-img">
 										            <img width="280" height="160" src="http://assets.xiucai.com/assets/uploads/pic/2015/0730/aac31864-70e1-334d-669e-99b0bcba24c2.jpg" alt="EXCEL数据透视表与财务数据分类汇总">
 										        </div>
@@ -165,7 +165,7 @@
 										</li>
 										<li>
 										    <span class="i-close-del hide" inventory-id="411845"></span>
-										    <a href="http://www.xiucai.com/course/147/" target="_blank">
+										    <a href="" target="_blank">
 										        <div class="course-list-img">
 										            <img width="280" height="160" src="http://assets.xiucai.com/assets/uploads/pic/2015/0730/2b642fde-a8b6-f65b-0822-be1c8ee601a7.jpg" alt="EXCEL高级财务函数的功能&amp;应用">
 										        </div>
@@ -220,62 +220,36 @@
 					                <div class="slider-three">
 					                    <div class="slider-show">
 					                        <ul>
+											<volist   name="specialist"  id="data" >
 					                            <li>
 					                                <div class="relative">
+													
 					                                    <a href="javascript:;" class="globe-btn50 globe-btn50-nobg questioning" tutor-id="1013">向Ta提问</a>
-					                                    <a href="turtor_info.html" class="block-head avatar-80" target="_blank">
-					                                        <img src="__ROOT__/Apps/Home/View/default/img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" alt="">
+					                                    <a href="{:U('Home/Specialist/tutor',array('id'=>$data['shopId']))}" class="block-head avatar-80" target="_blank">
+					                                        <img src="__ROOT__/{$data['shopImg']|default='__ROOT__/Apps/Home/View/default/img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg'}" alt="{$data['shopName']}">
 					                                        <em>
 					                                        	<img src="__ROOT__/Apps/Home/View/default/img/tag-V.png-v=1.10.1.png" alt="" title="认证导师" />
 					                                        </em>
 					                                    </a>
 					                                    <p>
-					                                    	<a href="turtor_info.html" target="_blank">李燕翔</a>
+					                                    	<a href="{:U('Home/Specialist/tutor',array('id'=>$data['shopId']))}" target="_blank">{$data['shopName']}</a>
 					                                    </p>
-					                                    <p>专业服务/教育/培训</p>
+					                                    <p>{$data['shopIndustry']}</p>
 					                                    <!-- 限制三条 -->
 					                                    <p class="specializes">
-					                                        <span><em></em><i>成本管理</i></span>                                                                                                            
-					                                        <span><em></em><i>绩效管理</i></span>                                                                                                            <span><em></em><i>财务分析</i></span>                                                                                                                                                                                                               
+														<if  condition="!empty($data['shopGoodat'])"  >
+					                                      
+															<volist   name="data['shopGoodat']"   id="data1">
+                                                            <span><em></em><i>{$data1['shopGoodat']}</i></span>
+                                                           </volist>
+                                                        </if>															
+					                                                                                                                                                                                                                                                
 					                                    </p>
 					                                </div>
 					                            </li>
-					                            <li>
-					                                <div class="relative">
-					                                    <a href="javascript:;" class="globe-btn50 globe-btn50-nobg questioning" tutor-id="1033">向Ta提问</a>
-					                                    <a href="turtor_info.html" class="block-head avatar-80" target="_blank">
-					                                        <img src="__ROOT__/Apps/Home/View/default/img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" alt="">
-					                                        <em>
-					                                        	<img src="__ROOT__/Apps/Home/View/default/img/tag-V.png-v=1.10.1.png" alt="" title="认证导师" />
-					                                        </em>
-					                                    </a>
-					                                    <p><a href="turtor_info.html" target="_blank">马强</a></p>
-					                                    <p>专业服务/教育/培训</p>
-					                                    <!-- 限制三条 -->
-					                                    <p class="specializes">
-					                                        <span><em></em><i>会计处理</i></span>    
-					                                        <span><em></em><i>税会差异</i></span>  
-					                                        <span><em></em><i>税务筹划</i></span>  
-					                                    </p>
-					                                </div>
-					                            </li>
-					                            <li>
-					                                <div class="relative">
-					                                    <a href="javascript:;" class="globe-btn50 globe-btn50-nobg questioning" tutor-id="1005">向Ta提问</a>
-					                                    <a href="turtor_info.html"class="block-head avatar-80" target="_blank">
-					                                        <img src="__ROOT__/Apps/Home/View/default/img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" alt="">
-					                                        <em>
-					                                        	<img src="__ROOT__/Apps/Home/View/default/img/tag-V.png-v=1.10.1.png" alt="" title="认证导师" />
-					                                        </em>
-					                                    </a>
-					                                    <p><a href="turtor_info.html" target="_blank">郭衍亮</a></p>
-					                                    <p>计算机/互联网/通信/电子</p>
-					                                    <!-- 限制三条 -->
-					                                    <p class="specializes">
-					                                        <span><em></em><i>Excel</i></span>   
-					                                    </p>
-					                                </div>
-					                            </li>
+												
+												</volist>
+					                         
 					
 					                        </ul>
 					                        <div class="clear"></div>
@@ -450,7 +424,7 @@
 								    </div>
 								    <div class="quan-post-item clearfix iten_quan" style="padding: 10px 0;margin-top: 0;">
 								        <div class="fl" style="float: left;">
-								            <a href="http://www.xiucai.com/user/318438/" class="block-head common-avatar" target="_blank">
+								            <a href="" class="block-head common-avatar" target="_blank">
 								            	<img src="http://assets.xiucai.com/assets/__ROOT__/Apps/Home/View/default/img/caiduoduo.png?v=1.10.5" height="65" width="65">
 								            </a>
 								        </div>
@@ -484,12 +458,12 @@
 						                <div class="hp-col3">
 								            <div class="hp-col3-row1">
 								                <span class="reply-txt">回复</span>
-								                <a href="http://www.xiucai.com/user/318438/" target="_blank">到汉多少次了</a>：111     
+								                <a href="" target="_blank">到汉多少次了</a>：111     
 								            </div>
 								            <div class="hp-col3-row2">
 								                <span class="fl-replyed">
 								                	来自：
-								                	<a href="http://www.xiucai.com/user/thread/gofloor/?threadId=1476342326&amp;replyId=129397" target="_blank">666</a>
+								                	<a href="" target="_blank">666</a>
 								                </span>								                
 								                <span class="date">2016-10-13 10:03:27</span>
 								            </div>
@@ -499,12 +473,12 @@
 						                <div class="hp-col3">
 								            <div class="hp-col3-row1">
 								                <span class="reply-txt">回复</span>
-								                <a href="http://www.xiucai.com/user/318438/" target="_blank">到汉多少次了</a>：111     
+								                <a href="" target="_blank">到汉多少次了</a>：111     
 								            </div>
 								            <div class="hp-col3-row2">
 								                <span class="fl-replyed">
 								                	来自：
-								                	<a href="http://www.xiucai.com/user/thread/gofloor/?threadId=1476342326&amp;replyId=129397" target="_blank">666</a>
+								                	<a href="" target="_blank">666</a>
 								                </span>								                
 								                <span class="date">2016-10-13 10:03:27</span>
 								            </div>
@@ -522,12 +496,12 @@
 									    </div>
 									    <div class="r-content hp-col3" style="float: left;text-align: left;height: auto;line-height: normal;">
 									        <p class="hp-col3-row1" style="padding: 10px 0;">
-									            <a href="http://www.xiucai.com/user/318438/" target="_blank">到汉多少次了</a>
+									            <a href="" target="_blank">到汉多少次了</a>
 									            <span class="reply-me">回复我：</span>111
 									        </p>
 									        <p class="hp-col3-row2" style="text-align: left;padding: 10px 0;margin-top:0;">
 									            <span class="fl-replyed">回复我的帖子：
-									            	<a href="http://www.xiucai.com/user/thread/gofloor/?threadId=1476342326&amp;replyId=129397" target="_blank">666</a>
+									            	<a href="" target="_blank">666</a>
 									            </span>									            
 									            <span class="date">2016-10-13 10:03:27</span>
 									        </p>									
@@ -790,18 +764,14 @@
             </div>
 		</div>
 	</div>
-    <script language="JavaScript" type="text/javascript">
-	    var session_name = "xiucai";
-	    var session_id = "5e9dqqtnc3vgojr30sdqdsshj0";
-	    var uploadUrl = "/assets/uploadify/upload.php?member_id=318438";
-	</script>
+  
 <div class="hp-side-bar">
     <div class="quan-block quan-hp-block">
-        <div class="edit-info"><a href="http://www.xiucai.com/user/set_pass/" class="globe-btn50">账号设置</a></div>
+        <div class="edit-info"><a href="" class="globe-btn50">账号设置</a></div>
         <form id="member_editor_form" name="member_editor" action="" enctype="multipart/form-data" method="post" onsubmit="return true;">
         <a href="javascript:;" class="user-head">
             <span class="head90-mask"></span>
-            <img id="avatar" src="{$WST_USER.userPhoto|default=''}" height="90" width="90"  alt="{$WST_USER.loginName}">
+            <img id="avatar" src="{$WST_USER.userPhoto|default='/Apps/Home/View/default/img/caiduoduo.png-v=1.10.1.png'}" height="90" width="90"  alt="{$WST_USER.loginName}">
             <div class="head-mask head-mask90"></div>
                         <div id="avatarProfileUpload"></div>
             <input type="hidden" name="avatar" id="head_pic" value="/assets/__ROOT__/Apps/Home/View/default/img/caiduoduo.png"/>
@@ -825,11 +795,14 @@
                     <a href="/help/6/#q27" target="_blank" title="了解秀财圈币" class="fl">
                         <span class="tag-qb"><img src="__ROOT__/Apps/Home/View/default/images/qb.png" alt="圈币" height="14" width="19">5</span>
                     </a>
-                    <span class="fr r-wrap"><a href="/help/6/#q28" target="_blank" class="" title="了解经验值等级">
+                    <span class="fr r-wrap">
+					<a href=" " target="_blank" class="" title="了解经验值等级">
                     <span class="tag-level tag-level-LV1">
-                    <i>LV1</i></span></a></span>
+                    <i>LV1</i></span>
+					</a>
+					</span>
                 </p>
-                            </div>
+          </div>
             <div class="hp-user-info">
                 <div class="info-item">
                     <!-- 显示15个字 -->
@@ -860,13 +833,13 @@
         </ul>
     </div>
             <div class="quan-block quan-title-block">
-                <h2 class="relative"><em></em>获取圈币<a href="http://www.xiucai.com/task/" target="_blank" class="link-more">查看更多 &raquo;</a></h2>
+                <h2 class="relative"><em></em>获取圈币<a href="" target="_blank" class="link-more">查看更多 &raquo;</a></h2>
                 <div class="hp-task-show">
                     <p class="task-undo clearfix">
                         <span class="fl"><strong>绑定邮箱</strong></span>
                         <span class="fr">奖：<span class="dark-red">1圈币</span></span>
                     </p>
-                    <p class="task-describe">任务描述：进入安全中心绑定邮箱账号，并且登录邮箱激活<a href="http://www.xiucai.com/task/" target="_blank" class="link-text">去做任务 &raquo;</a></p>
+                    <p class="task-describe">任务描述：进入安全中心绑定邮箱账号，并且登录邮箱激活<a href="" target="_blank" class="link-text">去做任务 &raquo;</a></p>
                 </div>
             </div>
             <div class="quan-block quan-title-block">
@@ -943,7 +916,7 @@
             <p class="text-c-tips">本课程为会员专享，开通会员即可报名听课</p>
             <div class="btn-col2 clearfix">
                 <a href="javascript:;" id="view_course" target="_blank" class="fl common-all-btn long-blue-btn">查看课程</a>
-                <a href="http://www.xiucai.com/vip/buy/" target="_blank" class="fr common-all-btn long-blue-btn">开通会员</a>
+                <a href="" target="_blank" class="fr common-all-btn long-blue-btn">开通会员</a>
             </div>
         </div>
     </div>
