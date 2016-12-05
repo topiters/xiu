@@ -102,6 +102,7 @@ class ForumAction extends BaseAction {
      */
     public function doAdd() {
         $this->isLogin();
+
         $user = session('WST_USER');
         $_POST['staffId'] = $user['userId'];
         $_POST['createTime'] = time();
