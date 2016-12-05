@@ -11,7 +11,7 @@ class ArticleCatsModel extends BaseModel {
 	* 获取列表
 	*/
 	public function queryByList($pid = 0){
-	    $m = M('article_cats');
+	    $m = M('forum_cats');
 	    $rs = $m->where('catFlag=1 and parentId='.$pid)->select(); 
 		return $rs;
 	}

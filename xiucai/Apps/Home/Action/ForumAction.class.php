@@ -29,14 +29,14 @@ class ForumAction extends BaseAction {
         $todaySign = $result;
         $this->assign('todaySign',$todaySign);
         //总帖量
-        $articleNum = D('articles')->where('isShow = 1')->count();
+        $articleNum = D('forum')->where('isShow = 1')->count();
         $this->assign('articleNum',$articleNum);
 
         //推荐圈子
-        $cats = D('article_cats')->field('catId,catName,totalNum,key')->where('parentId = 0 and catFlag = 1')->select();
+        $cats = D('forum_cats')->field('catId,catName,totalNum,key')->where('parentId = 0 and catFlag = 1')->select();
         $this->assign('cats',$cats);
         //置顶帖子
-        $top = D('articles')->field('articleId,c.catId,c.catName,articleTitle,staffId,createTime,readNum,commentNum,lastId,lastTime')->join("wst_article_cats c on wst_articles.catId = c.catId")->where('wst_articles.isShow = 1 and isTop = 1')->select();
+        $top = D('forum')->field('articleId,c.catId,c.catName,articleTitle,staffId,createTime,readNum,commentNum,lastId,lastTime')->join("wst_forum_cats c on wst_forum.catId = c.catId")->where('wst_forum.isShow = 1 and isTop = 1')->select();
         //获取用户头像
         foreach ($top as $k=>$v){
             $userArr = D('Users')->get($v['staffId']);
@@ -47,7 +47,7 @@ class ForumAction extends BaseAction {
         $this->assign('top',$top);
         //        dump($top);die;
         //文章列表
-        $where = 'wst_articles.isShow = 1';
+        $where = 'wst_forum.isShow = 1';
         $order = '';
         if ($_GET['type'] == 'hot'){
             $order = 'readNum desc';
@@ -59,15 +59,15 @@ class ForumAction extends BaseAction {
             $order = 'lastTime desc';
         }
         $limit = 20;
-        $total = D('articles')->where('isShow = 1')->count();
+        $total = D('forum')->where('isShow = 1')->count();
         $page = new \Think\Page($total,$limit);
-        $article = D('articles')->field('articleId,c.catId,c.catName,articleTitle,staffId,createTime,readNum,commentNum,lastId,lastTime')->join("wst_article_cats c on wst_articles.catId = c.catId")->where($where)->order($order)->limit($page->firstRow,$limit)->select();
+        $article = D('forum')->field('articleId,c.catId,c.catName,articleTitle,staffId,createTime,readNum,commentNum,lastId,lastTime')->join("wst_forum_cats c on wst_forum.catId = c.catId")->where($where)->order($order)->limit($page->firstRow,$limit)->select();
         $pages = $page->show();
         $this->assign('pages',$pages);
         $this->assign('article' , $article);
 
         //推荐阅读
-        $tuijian = D('articles')->where('isShow = 1')->order('commentNum desc')->limit(0,5)->select();
+        $tuijian = D('forum')->where('isShow = 1')->order('commentNum desc')->limit(0,5)->select();
         $this->assign('tuijian' , $tuijian);
 //        dump($tuijian);die;
         $this->display('default/forum_index');
@@ -78,7 +78,7 @@ class ForumAction extends BaseAction {
      */
     public function add() {
         $this->isLogin();
-        $cateArr1 = D('article_cats')->field('catId,catName')->where('parentId = 0')->select();
+        $cateArr1 = D('forum_cats')->field('catId,catName')->where('parentId = 0')->select();
         $this->assign('cateArr1',$cateArr1);
 //        dump($cateArr1);die;
         $this->display('default/forum_add');
@@ -88,7 +88,7 @@ class ForumAction extends BaseAction {
      * 获取二级分类
      */
     public function cats() {
-        $cat = D('Home/ArticleCats');
+        $cat = D('Home/ForumCats');
         $arr = $cat->queryByList($_POST['catId']);
         $html = '';
         foreach ($arr as $v) {
@@ -102,7 +102,8 @@ class ForumAction extends BaseAction {
      */
     public function doAdd() {
         $this->isLogin();
-        $_POST['staffId'] = session('WST_USER')['userId'];
+        $user = session('WST_USER');
+        $_POST['staffId'] = $user['userId'];
         $_POST['createTime'] = time();
         $re = D('articles')->add($_POST);
         if ($re){

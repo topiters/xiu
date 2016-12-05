@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2016-12-05 17:39:08
+Date: 2016-12-05 18:34:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -3770,26 +3770,23 @@ CREATE TABLE `wst_articles` (
   `articleTitle` varchar(200) NOT NULL,
   `articleImg` varchar(150) NOT NULL,
   `isShow` tinyint(4) NOT NULL DEFAULT '1',
-  `isTop` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否置顶',
   `articleContent` text NOT NULL,
   `articleKey` varchar(255) DEFAULT NULL,
   `staffId` int(11) NOT NULL,
-  `createTime` int(11) NOT NULL,
-  `readNum` int(11) NOT NULL DEFAULT '0' COMMENT '阅读数',
-  `CommentNum` int(11) NOT NULL DEFAULT '0' COMMENT '评论数',
-  `lastId` int(11) DEFAULT NULL COMMENT '回复最后一条的ID',
-  `lastTime` int(11) DEFAULT NULL COMMENT '最后一条回复的时间',
+  `createTime` datetime NOT NULL,
   PRIMARY KEY (`articleId`),
   KEY `catId` (`catId`,`isShow`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wst_articles
 -- ----------------------------
-INSERT INTO `wst_articles` VALUES ('1', '17', '发布测试', '', '1', '1', '<pre><span><b>测试ING<img src=\"http://xiucai.localhost.com/Public/plugins/kindeditor/plugins/emoticons/images/13.gif\" border=\"0\" alt=\"\" />\n<pre><span><b>测试ING<img src=\"http://xiucai.localhost.com/Public/plugins/kindeditor/plugins/emoticons/images/13.gif\" border=\"0\" alt=\"\" /></b></span></pre>\n</b></span></pre>', null, '42', '1480915528', '0', '0', null, null);
-INSERT INTO `wst_articles` VALUES ('2', '7', '凑数分页用', '', '1', '0', '<p>\n	凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用\n</p>\n<p>\n	凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用\n</p>', null, '42', '1480926427', '0', '0', null, null);
-INSERT INTO `wst_articles` VALUES ('3', '17', '发布测试 凑数使用', '', '1', '0', '<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用发布测试 凑数使用发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用发布测试 凑数使用\n</p>', null, '42', '1480928762', '0', '0', null, null);
-INSERT INTO `wst_articles` VALUES ('4', '11', '发布测试 凑数使用 发布测试 凑数使用', '', '1', '0', '<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用发布测试 凑数使用发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用发布测试 凑数使用\n</p>', null, '42', '1480928791', '0', '0', null, null);
+INSERT INTO `wst_articles` VALUES ('1', '1', 'wstmall正式上线', '', '1', '热烈庆祝wstmall正式上线 &amp;nbsp;帐户自助服务', 'wstmall', '1', '2015-03-14 16:48:58');
+INSERT INTO `wst_articles` VALUES ('2', '2', '帐户自助服务', '', '1', '&amp;nbsp;帐户自助服务&amp;nbsp;帐户自助服务', '帐户自助服务', '1', '2015-04-09 21:37:30');
+INSERT INTO `wst_articles` VALUES ('3', '3', '支付方式', '', '1', '支付方式&amp;nbsp;支付方式&amp;nbsp;支付方式&lt;br /&gt;', '支付方式', '1', '2015-04-09 21:37:56');
+INSERT INTO `wst_articles` VALUES ('4', '4', '运费说明', '', '1', '运费说明 这里是运费说明', '运费说明', '1', '2015-04-09 21:38:12');
+INSERT INTO `wst_articles` VALUES ('5', '5', '退换货原则和流程', '', '1', '&lt;p&gt;\n	&amp;nbsp; &amp;nbsp; &amp;nbsp; 退换货原则和流程 &amp;nbsp;\n&lt;/p&gt;\n&lt;p&gt;\n	&amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;退换货原则和流程\n&lt;/p&gt;\n&lt;p&gt;\n	&amp;nbsp; &amp;nbsp; &amp;nbsp; 退换货原则和流程\n&lt;/p&gt;', '退换货原则和流程', '1', '2015-04-09 21:38:45');
+INSERT INTO `wst_articles` VALUES ('6', '6', '帐号&amp;密码问题', '', '1', '&lt;u&gt;111111111111111&amp;nbsp;&lt;/u&gt;', '帐号&amp;密码问题', '1', '2015-04-09 21:39:06');
 
 -- ----------------------------
 -- Table structure for wst_article_cats
@@ -3803,40 +3800,20 @@ CREATE TABLE `wst_article_cats` (
   `catName` varchar(20) NOT NULL,
   `catSort` int(11) NOT NULL DEFAULT '0',
   `catFlag` tinyint(4) NOT NULL DEFAULT '1',
-  `totalNum` int(11) NOT NULL DEFAULT '0' COMMENT '圈子成员数',
-  `key` varchar(255) DEFAULT NULL COMMENT '关键字',
   PRIMARY KEY (`catId`),
   KEY `isShow` (`catType`,`catFlag`,`isShow`) USING BTREE,
   KEY `parentId` (`catFlag`,`parentId`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wst_article_cats
 -- ----------------------------
-INSERT INTO `wst_article_cats` VALUES ('1', '0', '0', '1', '财务圈', '0', '1', '0', '');
-INSERT INTO `wst_article_cats` VALUES ('2', '0', '0', '1', '税务圈', '0', '1', '0', '');
-INSERT INTO `wst_article_cats` VALUES ('3', '0', '0', '1', '工作圈', '0', '1', '0', '');
-INSERT INTO `wst_article_cats` VALUES ('4', '0', '0', '1', '官方圈', '0', '1', '0', '');
-INSERT INTO `wst_article_cats` VALUES ('5', '0', '0', '1', '考试圈', '0', '1', '0', '');
-INSERT INTO `wst_article_cats` VALUES ('6', '0', '0', '1', '生活圈', '0', '1', '0', '');
-INSERT INTO `wst_article_cats` VALUES ('7', '1', '0', '1', '资料', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('8', '1', '0', '1', '实务', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('9', '1', '0', '1', '问答', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('10', '2', '0', '1', '资料', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('14', '3', '0', '1', '工具技能', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('16', '4', '0', '1', '站务处理', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('11', '2', '0', '1', '实务', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('12', '2', '0', '1', '问答', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('13', '3', '0', '1', '实战经验', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('15', '3', '0', '1', '职场成长', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('17', '4', '0', '1', '官方公告', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('18', '5', '0', '1', '从业资格', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('19', '5', '0', '1', '会计职称', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('20', '5', '0', '1', 'CPA', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('21', '5', '0', '1', '其它', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('22', '6', '0', '1', '心得感悟', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('23', '6', '0', '1', '晒照交流', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('24', '6', '0', '1', '茶余饭后', '0', '1', '0', null);
+INSERT INTO `wst_article_cats` VALUES ('1', '0', '0', '0', '商城快讯', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('2', '0', '1', '1', '新手上路', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('3', '0', '1', '1', '如何付款', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('4', '0', '1', '1', '配送说明', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('5', '0', '1', '1', '售后服务', '0', '1');
+INSERT INTO `wst_article_cats` VALUES ('6', '0', '1', '1', '常见问题', '0', '1');
 
 -- ----------------------------
 -- Table structure for wst_attributes
@@ -4825,6 +4802,84 @@ CREATE TABLE `wst_follow` (
 -- ----------------------------
 INSERT INTO `wst_follow` VALUES ('10', '42', '35', '2016-12-01 11:45:14');
 INSERT INTO `wst_follow` VALUES ('13', '42', '34', '2016-12-01 13:33:11');
+
+-- ----------------------------
+-- Table structure for wst_forum
+-- ----------------------------
+DROP TABLE IF EXISTS `wst_forum`;
+CREATE TABLE `wst_forum` (
+  `articleId` int(11) NOT NULL AUTO_INCREMENT,
+  `catId` int(11) NOT NULL,
+  `articleTitle` varchar(200) NOT NULL,
+  `articleImg` varchar(150) NOT NULL,
+  `isShow` tinyint(4) NOT NULL DEFAULT '1',
+  `isTop` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否置顶',
+  `articleContent` text NOT NULL,
+  `articleKey` varchar(255) DEFAULT NULL,
+  `staffId` int(11) NOT NULL,
+  `createTime` int(11) NOT NULL,
+  `readNum` int(11) NOT NULL DEFAULT '0' COMMENT '阅读数',
+  `CommentNum` int(11) NOT NULL DEFAULT '0' COMMENT '评论数',
+  `lastId` int(11) DEFAULT NULL COMMENT '回复最后一条的ID',
+  `lastTime` int(11) DEFAULT NULL COMMENT '最后一条回复的时间',
+  PRIMARY KEY (`articleId`),
+  KEY `catId` (`catId`,`isShow`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of wst_forum
+-- ----------------------------
+INSERT INTO `wst_forum` VALUES ('1', '17', '发布测试', '', '1', '1', '<pre><span><b>测试ING<img src=\"http://xiucai.localhost.com/Public/plugins/kindeditor/plugins/emoticons/images/13.gif\" border=\"0\" alt=\"\" />\n<pre><span><b>测试ING<img src=\"http://xiucai.localhost.com/Public/plugins/kindeditor/plugins/emoticons/images/13.gif\" border=\"0\" alt=\"\" /></b></span></pre>\n</b></span></pre>', null, '42', '1480915528', '0', '0', null, null);
+INSERT INTO `wst_forum` VALUES ('2', '7', '凑数分页用', '', '1', '0', '<p>\n	凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用\n</p>\n<p>\n	凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用\n</p>', null, '42', '1480926427', '0', '0', null, null);
+INSERT INTO `wst_forum` VALUES ('3', '17', '发布测试 凑数使用', '', '1', '0', '<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用发布测试 凑数使用发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用发布测试 凑数使用\n</p>', null, '42', '1480928762', '0', '0', null, null);
+INSERT INTO `wst_forum` VALUES ('4', '11', '发布测试 凑数使用 发布测试 凑数使用', '', '1', '0', '<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用发布测试 凑数使用发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用发布测试 凑数使用\n</p>', null, '42', '1480928791', '0', '0', null, null);
+
+-- ----------------------------
+-- Table structure for wst_forum_cats
+-- ----------------------------
+DROP TABLE IF EXISTS `wst_forum_cats`;
+CREATE TABLE `wst_forum_cats` (
+  `catId` int(11) NOT NULL AUTO_INCREMENT,
+  `parentId` int(11) NOT NULL,
+  `catType` tinyint(4) NOT NULL DEFAULT '0',
+  `isShow` tinyint(4) NOT NULL DEFAULT '1',
+  `catName` varchar(20) NOT NULL,
+  `catSort` int(11) NOT NULL DEFAULT '0',
+  `catFlag` tinyint(4) NOT NULL DEFAULT '1',
+  `totalNum` int(11) NOT NULL DEFAULT '0' COMMENT '圈子成员数',
+  `key` varchar(255) DEFAULT NULL COMMENT '关键字',
+  PRIMARY KEY (`catId`),
+  KEY `isShow` (`catType`,`catFlag`,`isShow`) USING BTREE,
+  KEY `parentId` (`catFlag`,`parentId`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of wst_forum_cats
+-- ----------------------------
+INSERT INTO `wst_forum_cats` VALUES ('1', '0', '0', '1', '财务圈', '0', '1', '0', '');
+INSERT INTO `wst_forum_cats` VALUES ('2', '0', '0', '1', '税务圈', '0', '1', '0', '');
+INSERT INTO `wst_forum_cats` VALUES ('3', '0', '0', '1', '工作圈', '0', '1', '0', '');
+INSERT INTO `wst_forum_cats` VALUES ('4', '0', '0', '1', '官方圈', '0', '1', '0', '');
+INSERT INTO `wst_forum_cats` VALUES ('5', '0', '0', '1', '考试圈', '0', '1', '0', '');
+INSERT INTO `wst_forum_cats` VALUES ('6', '0', '0', '1', '生活圈', '0', '1', '0', '');
+INSERT INTO `wst_forum_cats` VALUES ('7', '1', '0', '1', '资料', '0', '1', '0', null);
+INSERT INTO `wst_forum_cats` VALUES ('8', '1', '0', '1', '实务', '0', '1', '0', null);
+INSERT INTO `wst_forum_cats` VALUES ('9', '1', '0', '1', '问答', '0', '1', '0', null);
+INSERT INTO `wst_forum_cats` VALUES ('10', '2', '0', '1', '资料', '0', '1', '0', null);
+INSERT INTO `wst_forum_cats` VALUES ('14', '3', '0', '1', '工具技能', '0', '1', '0', null);
+INSERT INTO `wst_forum_cats` VALUES ('16', '4', '0', '1', '站务处理', '0', '1', '0', null);
+INSERT INTO `wst_forum_cats` VALUES ('11', '2', '0', '1', '实务', '0', '1', '0', null);
+INSERT INTO `wst_forum_cats` VALUES ('12', '2', '0', '1', '问答', '0', '1', '0', null);
+INSERT INTO `wst_forum_cats` VALUES ('13', '3', '0', '1', '实战经验', '0', '1', '0', null);
+INSERT INTO `wst_forum_cats` VALUES ('15', '3', '0', '1', '职场成长', '0', '1', '0', null);
+INSERT INTO `wst_forum_cats` VALUES ('17', '4', '0', '1', '官方公告', '0', '1', '0', null);
+INSERT INTO `wst_forum_cats` VALUES ('18', '5', '0', '1', '从业资格', '0', '1', '0', null);
+INSERT INTO `wst_forum_cats` VALUES ('19', '5', '0', '1', '会计职称', '0', '1', '0', null);
+INSERT INTO `wst_forum_cats` VALUES ('20', '5', '0', '1', 'CPA', '0', '1', '0', null);
+INSERT INTO `wst_forum_cats` VALUES ('21', '5', '0', '1', '其它', '0', '1', '0', null);
+INSERT INTO `wst_forum_cats` VALUES ('22', '6', '0', '1', '心得感悟', '0', '1', '0', null);
+INSERT INTO `wst_forum_cats` VALUES ('23', '6', '0', '1', '晒照交流', '0', '1', '0', null);
+INSERT INTO `wst_forum_cats` VALUES ('24', '6', '0', '1', '茶余饭后', '0', '1', '0', null);
 
 -- ----------------------------
 -- Table structure for wst_friendlinks
@@ -6246,7 +6301,7 @@ INSERT INTO `wst_orders` VALUES ('8', '1000000116', '0', '0', '0', '4', '-2', '4
 INSERT INTO `wst_orders` VALUES ('7', '1000000105', '0', '0', '0', '4', '-2', '50.00', '0.00', '1', '0', '2', '0', '1', '40', '', '0', '', null, null, '', '50', '0', '', null, '0000-00-00 00:00:00', '0', '2016-11-24 14:49:09', '0', '0', null, '147997014968240', '0', '1', '50.00', null, '0', '50.00', '1.00', '0.50', '0', '0.00', null, null);
 INSERT INTO `wst_orders` VALUES ('6', '1000000094', '0', '0', '0', '4', '-2', '90.00', '0.00', '1', '0', '2', '0', '1', '40', '', '0', '', null, null, '', '90', '0', '', null, '0000-00-00 00:00:00', '0', '2016-11-24 11:54:00', '0', '0', null, '147995964024440', '0', '1', '90.00', null, '0', '90.00', '1.00', '0.90', '0', '0.00', null, null);
 INSERT INTO `wst_orders` VALUES ('9', '1000000120', '0', '0', '0', '34', '-2', '40.00', '0.00', '1', '0', '2', '0', '1', '40', '', '0', '', null, null, '', '40', '0', '', null, '0000-00-00 00:00:00', '0', '2016-11-24 14:50:09', '0', '0', null, '147997020959340', '0', '1', '40.00', null, '0', '40.00', '1.00', '0.40', '0', '0.00', null, null);
-INSERT INTO `wst_orders` VALUES ('11', '1000000142', '0', '0', '0', '4', '-2', '40.00', '0.00', '1', '0', '2', '0', '1', '42', '', '0', '', null, null, '', '40', '0', '', null, '0000-00-00 00:00:00', '0', '2016-11-28 11:56:11', '0', '0', null, '148030537198742', '0', '1', '40.00', null, '0', '40.00', '1.00', '0.40', '0', '0.00', null, null);
+INSERT INTO `wst_orders` VALUES ('11', '1000000142', '0', '0', '0', '4', '2', '40.00', '0.00', '1', '0', '2', '0', '1', '42', '', '0', '', null, null, '', '40', '0', '', null, '0000-00-00 00:00:00', '0', '2016-11-28 11:56:11', '0', '0', null, '148030537198742', '0', '1', '40.00', null, '0', '40.00', '1.00', '0.40', '0', '0.00', null, null);
 
 -- ----------------------------
 -- Table structure for wst_order_complains
