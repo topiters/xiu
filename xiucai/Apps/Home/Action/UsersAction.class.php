@@ -177,9 +177,10 @@ class UsersAction extends BaseAction {
 		//我的课程
 	
 		$userId=$obj["userId"];
-		//SELECT o.orderId,o.orderNo ,c.courseId , FROM  wst_orders o LEFT JOIN   wst_order_course  oc  ON  O.orderId=oc.orderId  left join   wst_course c   ON  c.courseId=oc.courseId   where o.orderStatus=2 AND o.userId=42; 
-		$sql="SECLECT o.orderId,o.orderNo ,c.courseId  FROM __PREFIX__orders  o LEFT JOIN  __PREFIX__course c   ON  c.courseId=o.courseId   where o.orderStatus=2 AND o.userId=$userId ";
+		//SELECT o.orderId,o.orderNo ,c.courseId ,oc.courseId FROM  wst_orders o LEFT JOIN   wst_order_course  oc  ON  o.orderId=oc.orderId  left join   wst_course c   ON  c.courseId=oc.courseId   where o.orderStatus=2 AND o.userId=42; 
+		$sql=" SELECT o.orderId,o.orderNo ,c.courseId  FROM  wst_orders o LEFT JOIN   wst_order_course  oc  ON  o.orderId=oc.orderId  left join   wst_course c   ON  c.courseId=oc.courseId   where o.orderStatus=2 AND o.userId=$userId ";
 		$result=D('Orders')->query($sql);
+		
 		//var_dump($result);exit;
 		
 		
