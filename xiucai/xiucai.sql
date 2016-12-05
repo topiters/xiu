@@ -3810,64 +3810,14 @@ CREATE TABLE `wst_article_cats` (
 -- ----------------------------
 -- Records of wst_article_cats
 -- ----------------------------
-<<<<<<< .mine
-INSERT INTO `wst_article_cats` VALUES ('1', '0', '0', '1', '财务圈', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('2', '0', '0', '1', '税务圈', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('3', '0', '0', '1', '工作圈', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('4', '0', '0', '1', '官方圈', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('5', '0', '0', '1', '考试圈', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('6', '0', '0', '1', '生活圈', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('7', '1', '0', '1', '资料', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('8', '1', '0', '1', '实务', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('9', '1', '0', '1', '问答', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('10', '2', '0', '1', '资料', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('14', '3', '0', '1', '工具技能', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('16', '4', '0', '1', '站务处理', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('11', '2', '0', '1', '实务', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('12', '2', '0', '1', '问答', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('13', '3', '0', '1', '实战经验', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('15', '3', '0', '1', '职场成长', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('17', '4', '0', '1', '官方公告', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('18', '5', '0', '1', '从业资格', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('19', '5', '0', '1', '会计职称', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('20', '5', '0', '1', 'CPA', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('21', '5', '0', '1', '其它', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('22', '6', '0', '1', '心得感悟', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('23', '6', '0', '1', '晒照交流', '0', '1');
-INSERT INTO `wst_article_cats` VALUES ('24', '6', '0', '1', '茶余饭后', '0', '1');
-||||||| .r54
-INSERT INTO `wst_article_cats` VALUES ('1', '0', '0', '1', '财务圈', '0', '1', '0', '');
-INSERT INTO `wst_article_cats` VALUES ('2', '0', '0', '1', '税务圈', '0', '1', '0', '');
-INSERT INTO `wst_article_cats` VALUES ('3', '0', '0', '1', '工作圈', '0', '1', '0', '');
-INSERT INTO `wst_article_cats` VALUES ('4', '0', '0', '1', '官方圈', '0', '1', '0', '');
-INSERT INTO `wst_article_cats` VALUES ('5', '0', '0', '1', '考试圈', '0', '1', '0', '');
-INSERT INTO `wst_article_cats` VALUES ('6', '0', '0', '1', '生活圈', '0', '1', '0', '');
-INSERT INTO `wst_article_cats` VALUES ('7', '1', '0', '1', '资料', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('8', '1', '0', '1', '实务', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('9', '1', '0', '1', '问答', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('10', '2', '0', '1', '资料', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('14', '3', '0', '1', '工具技能', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('16', '4', '0', '1', '站务处理', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('11', '2', '0', '1', '实务', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('12', '2', '0', '1', '问答', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('13', '3', '0', '1', '实战经验', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('15', '3', '0', '1', '职场成长', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('17', '4', '0', '1', '官方公告', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('18', '5', '0', '1', '从业资格', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('19', '5', '0', '1', '会计职称', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('20', '5', '0', '1', 'CPA', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('21', '5', '0', '1', '其它', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('22', '6', '0', '1', '心得感悟', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('23', '6', '0', '1', '晒照交流', '0', '1', '0', null);
-INSERT INTO `wst_article_cats` VALUES ('24', '6', '0', '1', '茶余饭后', '0', '1', '0', null);
-=======
+
 INSERT INTO `wst_article_cats` VALUES ('1', '0', '0', '0', '商城快讯', '0', '1');
 INSERT INTO `wst_article_cats` VALUES ('2', '0', '1', '1', '新手上路', '0', '1');
 INSERT INTO `wst_article_cats` VALUES ('3', '0', '1', '1', '如何付款', '0', '1');
 INSERT INTO `wst_article_cats` VALUES ('4', '0', '1', '1', '配送说明', '0', '1');
 INSERT INTO `wst_article_cats` VALUES ('5', '0', '1', '1', '售后服务', '0', '1');
 INSERT INTO `wst_article_cats` VALUES ('6', '0', '1', '1', '常见问题', '0', '1');
->>>>>>> .r56
+
 
 -- ----------------------------
 -- Table structure for wst_attributes
