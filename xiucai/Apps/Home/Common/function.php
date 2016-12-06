@@ -172,6 +172,30 @@ function WSTTarget(){
 	$target["targetType"] = $targetType;
 	return $target;
 }
+//视屏加密算法
+function setVpath($uid,$path){
+	import("ORG/Util/Base64");
+	$vpath = 'USER_'.$uid.'_'.$path.'_'.NOW_TIME;
+	var_dump($vpath);exit;
+	$vpath = Base64::encrypt($vpath, C('AUTH_KEY'));
+	cookie('VIDEO_TOKEN',$vpath,86400*365); //存一年
+	return true;
+}
+//视屏清除加密算法
+function clearVpath(){
+	cookie('VIDEO_TOKEN',null); //存一年
+	return true;
+}
+//视屏清除解密算法
+function getVpath(){
+	import("ORG/Util/Base64");
+	$token = cookie('VIDEO_TOKEN');
+	$token = Base64::decrypt($token, C('AUTH_KEY'));
+	$token = explode('_', $token);
+	if($token[0]!= 'USER') return 0;
+	dump($token);
+	//return (int)$token[1];
+}
 
 
 

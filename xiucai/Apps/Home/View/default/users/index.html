@@ -108,36 +108,58 @@
 					        <div >
 					            <ul class="clearfix"  style="width:900px;">
 					                <div id="myCourseListDiv">
+									<volist   name="userresult"  id="vol" >
 					                    <li>
 											<span class="i-close-del hide" inventory-id="411844"></span>
-											<a href="" target="_blank">
+											<a href="{:U('Home/Users/videoPlay',array('courseId'=>$vol['courseId'],orderId=>$vol['orderNo']))}" target="_blank">
 											    <div class="course-list-img">
-											        <img width="280" height="160" src="http://assets.xiucai.com/assets/uploads/pic/2016/0122/0905843c-d588-649a-915d-978654cd671a.jpg" alt="第1课  建立高效的建表思维">
+											        <img width="280" height="160" src="__ROOT__/{$vol.courseThums}" alt="{$vol.courseName}">
 											    </div>
 											    <h5>
-											        <span>第1课  建立高效的建表思维</span>
+											        <span>{$vol.courseName}</span>
 											    </h5>
 											    <div class="intro clearfix">
-										            <p>打开一张Excel表格，你知道为什么默认出现3张Sheet吗？平时…</p>
+										            <p>{$vol.courseName}…</p>
 										            <span class="l">1节视频课程</span>
 										            <span class="r">时长0小时10分钟</span>
 										        </div>
 											    <div class="tips tips-schedule clearfix">
+												  <if condition=" $vol['courseDifficulty']  eq  1"  >
 										            <span class="l">初级课程</span>
+													
+													</if>
+													<if condition=" $vol['courseDifficulty']  eq  2"  >
+										            <span class="l">中级课程</span>
+													
+													</if>
+													<if condition=" $vol['courseDifficulty']  eq  1"  >
+										            <span class="l">高级课程</span>
+													
+													</if>
 										            <em class="l">|</em>
-										            <span class="l">60828人已学</span>
+										            <span class="l">{$vol.saleCount}人已学</span>
 										            <span class="r">已学<em>0%</em></span>
 										        </div>
 											    <div class="schedule-bar">
 											        <div style="width:0%;"></div>
 											    </div>
 											    <div class="course-free"></div>
+													<if condition=" $vol['is_free']  eq  1"  >
 											    <div class="cost">
 								                    <span class="l free">免费</span>
 								                </div>
+												<else/>
+												 <div class="cost">
+								                    <span class="l free">{$vol.shopPrice}</span>
+								                </div>
+												
+												</if>
 											</a>
 										</li>
-										<li>
+									</volist>	
+										
+										
+									<!-- 	<li>
 										    <span class="i-close-del hide" inventory-id="411846"></span>
 										    <a href="" target="_blank">
 										        <div class="course-list-img">
@@ -188,7 +210,7 @@
 										        </div>
 										        <div class="cost"></div>
 										    </a>
-										</li>								                               
+										</li>						 -->		                               
 					                </div>
 					                <li class="none-dynamic">
 										<a href="course.html" target="_blank">

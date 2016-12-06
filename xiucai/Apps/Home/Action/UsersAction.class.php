@@ -178,21 +178,18 @@ class UsersAction extends BaseAction {
 	
 		$userId=$obj["userId"];
 		//SELECT o.orderId,o.orderNo ,c.courseId ,oc.courseId FROM  wst_orders o LEFT JOIN   wst_order_course  oc  ON  o.orderId=oc.orderId  left join   wst_course c   ON  c.courseId=oc.courseId   where o.orderStatus=2 AND o.userId=42; 
-		$sql=" SELECT o.orderId,o.orderNo ,c.courseId  FROM  wst_orders o LEFT JOIN   wst_order_course  oc  ON  o.orderId=oc.orderId  left join   wst_course c   ON  c.courseId=oc.courseId   where o.orderStatus=2 AND o.userId=$userId ";
+		$sql=" SELECT o.orderId,o.orderNo,c.courseId ,c.videoPath,c.courseName,c.courseTime,c.courseDifficulty,c.is_free,c.saleCount,c.courseThums FROM  wst_orders o LEFT JOIN   wst_order_course  oc  ON  o.orderId=oc.orderId  left join   wst_course c   ON  c.courseId=oc.courseId   where o.orderStatus=2 AND o.userId=$userId ";
 		$result=D('Orders')->query($sql);
+		//foreach ($result  as  $k=>$v){
+	
+		//}
+		//var_dump($result);
+		//exit;
+	//	setVpath($userId,$result['videoPath']);
+	
+		$this->assign('userresult',$result);
 		
 		//var_dump($result);exit;
-		
-		
-		 
-		 
-		 
-		 
-		 
-		 
-		
-		
-		
 		
 		$this->display("default/users/index");
 	}
@@ -547,6 +544,31 @@ class UsersAction extends BaseAction {
 	}
 	
 	
+	
+    //视屏播放页面
+	public  function  videoPlay(){
+		$this->isUserLogin();
+		$courseId=I('courseId');
+		$orderId=I('orderId');
+		$courseOne=D('course')->where(array('courseId'=>$courseId))->find();
+		if(!$courseOne){
+			
+			$this->error('当前课程不存在');
+		}
+		$orderOne=D('orders')->where(array('orderNo'=>$orderId))->find();
+		if(!$orderOne){
+			
+			$this->error('当前视屏不存在');
+			
+		}
+		
+		$this->assign('courseOne',$courseOne);
+
+		//dump($courseOne);
+	
+		$this->display("default/users/videoplay");
+		 
+	}
 	
     
     

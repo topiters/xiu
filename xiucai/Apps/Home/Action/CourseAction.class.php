@@ -452,4 +452,14 @@ class CourseAction extends BaseAction {
     	$this->ajaxReturn($rs);
     }
 	
+    
+ 
+    
+    
+    
+    
+    
+    
+    
+    
 }
