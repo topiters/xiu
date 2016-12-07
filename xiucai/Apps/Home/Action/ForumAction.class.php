@@ -18,7 +18,7 @@ class ForumAction extends BaseAction {
         $sign = D('sign')->where("userId = {$user['userId']}")->find();
         $now = time();
         $last = $sign['ctime'];
-        if ($now - $last > (60 * 60 * 24)) { //两次签到时间大于一天则将连续签到更新为0
+        if ($now - $last > (60 * 60 * 24 * 2)) { //两次签到时间大于两天则将连续签到更新为0
             D('sign')->execute("update wst_sign set rows = 0 where userId = {$user['userId']}");
             $sign['rows'] = 0;
         }
@@ -265,10 +265,29 @@ class ForumAction extends BaseAction {
     }
 
     /**
+     * 获取评论列表
+     */
+    protected function getComList($article , $parent_id = 0) {
+        $arr = D('forum_comment')->where("aid = '".$article."'"." and parentId = '" . $parent_id . "'")->order("ctime desc")->select();
+        if (empty($arr)) {
+            return array();
+        }
+        foreach ($arr as $k => $v) {
+            $userArr = D('Users')->get($v['uid']);
+//            dump($userArr);
+            $arr[$k]['userName'] = $userArr['loginName'];
+            $arr[$k]['userPhoto'] = $userArr['userPhoto'];
+            $arr[$k]["children"] = $this->getComList($article , $v["id"]);
+        }
+        return $arr;
+    }
+
+    /**
      * 文章详页
      */
     public function article() {
         if ($_GET['id']){
+            D('forum')->query("update wst_forum set readNum = readNum +1 where articleId = {$_GET['id']}");
             $article = D('forum')->where("articleId = {$_GET['id']}")->find();
             $re = D('forum_cats')->field('catId,catName')->where("catId = {$article['catId']}")->find();
             $article['catName'] = $re['catName'];
@@ -279,7 +298,12 @@ class ForumAction extends BaseAction {
             $article['userPhoto'] = $re['userPhoto'];
 //            dump($article);die;
             $this->assign('article',$article);
-
+            //评论列表
+            $totalComment = D('forum_comment')->where("aid = {$_GET['id']}")->count(); //获取评论总数
+            $this->assign('totalComment' , $totalComment);
+            $comment = $this->getComList($_GET['id']);
+//            dump($comment);die;
+            $this->assign('comment',$comment);
             //圈子热门
             $hot = D('forum')->where("isShow = 1 and parentCatId = {$article['parentCatId']}")->order('commentNum desc')->limit(0 , 5)->select();
             $this->assign('hot' , $hot);
