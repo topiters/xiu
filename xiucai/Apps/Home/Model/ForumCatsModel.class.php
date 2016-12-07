@@ -6,7 +6,7 @@ namespace Home\Model;
  * ============================================================================
  * 课程分类服务类
  */
-class ArticleCatsModel extends BaseModel {
+class ForumCatsModel extends BaseModel {
    /**
 	* 获取列表
 	*/

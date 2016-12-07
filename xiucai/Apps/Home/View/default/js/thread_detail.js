@@ -190,95 +190,95 @@ $(function(){
     });
 
     //加入圈子，退出圈子操作
-    $(document).on('click', '.add-quan', function(event) {
-        //检查是否登录
-        if ($('a.a-login').length > 0) {
-            showLogin();
-            return false;
-        }
-
-        var _this = $(this);
-        var option_type = $(this).data('option-type');
-        if($.trim(option_type) == ''){
-            $.xcDialog.alert({'content':'操作类型有误'});
-            return false;
-        }
-
-        if(option_type == 'out'){
-            $('.overlay').show();
-            $('#out-circle-confirm-btn').show();
-            $('#down-thread-confirm-btn').hide();
-            $('#lock-thread-confirm-btn').hide();
-            $('#delete-reply-confirm-btn').hide();
-            $('#option-community-confirm-layer').show();
-            $('#option-community-confirm-tips').html('确认退出该圈子吗？');
-            $('#option-community-confirm-title').html('确认退出圈子');
-            return;
-        }
-
-        if(!isThreadSubmitting){
-            isThreadSubmitting = true;
-            $.post(join_circle_url,{id: CIRCLE_ID, type: option_type},
-                function (data) {
-                    if(data.code == 200){
-                        if(option_type == 'join'){
-                            /*_this.addClass("active-added").find("a").html("您是财税圈第<b>45216</b>位成员").hover(
-                                function(){
-                                    $(".add-quan.active-added>a").addClass("add-hit").html("退出圈子");
-                                },
-                                function(){
-                                    $(".add-quan.active-added>a").removeClass("add-hit").html("您是财税圈第<b>45216</b>位成员");
-                                }
-                            );*/
-
-                            _this.data('option-type', 'out');
-                            _this.addClass("active-added");
-                            _this.html('<a class="globe-btn50 add-hit" href="javascript:;">退出圈子</a>');
-
-                            var totalUserCount = parseInt($.trim($('#circle-total-user-count').html()))+1;
-                            var todayCount = parseInt($.trim($('#today-user-count').html()))+1;
-                            $('#today-user-count').html(todayCount);
-                        }else if(option_type == 'out'){
-                            _this.data('option-type', 'join');
-                            _this.removeClass("active-added");
-                            _this.html('<a class="globe-btn50" href="javascript:;">加入圈子</a>');
-
-                            var totalUserCount = parseInt($.trim($('#circle-total-user-count').html()))-1;
-                            if(data.is_today == 1){
-                                var todayCount = parseInt($.trim($('#today-user-count').html()))-1;
-                                $('#today-user-count').html(todayCount);
-                            }
-                        }
-
-                        if(totalUserCount < 0)
-                            totalUserCount = 0;
-                        $('#circle-total-user-count').html(totalUserCount);
-                    }else if(data.code == 301){
-                        _this.data('option-type', 'out');
-                        _this.addClass("active-added");
-                        _this.html('<a class="globe-btn50 add-hit" href="javascript:;">退出圈子</a>');
-
-                        var totalUserCount = parseInt($.trim($('#circle-total-user-count').html()))+1;
-                        var todayCount = parseInt($.trim($('#today-user-count').html()))+1;
-                        $('#today-user-count').html(todayCount);
-                        $('#circle-total-user-count').html(totalUserCount);
-                    }else if(data.code == 302){
-                        _this.data('option-type', 'join');
-                        _this.removeClass("active-added");
-                        _this.html('<a class="globe-btn50" href="javascript:;">加入圈子</a>');
-                        var totalUserCount = parseInt($.trim($('#circle-total-user-count').html()))-1;
-
-                        if(totalUserCount < 0)
-                            totalUserCount = 0;
-                        $('#circle-total-user-count').html(totalUserCount);
-                    }else{
-                        $.xcDialog.alert({'content':data.msg});
-                    }
-                    isThreadSubmitting = false;
-                }
-            );
-        }
-    });
+    // $(document).on('click', '.add-quan', function(event) {
+    //     //检查是否登录
+    //     if ($('a.a-login').length > 0) {
+    //         showLogin();
+    //         return false;
+    //     }
+    //
+    //     var _this = $(this);
+    //     var option_type = $(this).data('option-type');
+    //     if($.trim(option_type) == ''){
+    //         $.xcDialog.alert({'content':'操作类型有误'});
+    //         return false;
+    //     }
+    //
+    //     if(option_type == 'out'){
+    //         $('.overlay').show();
+    //         $('#out-circle-confirm-btn').show();
+    //         $('#down-thread-confirm-btn').hide();
+    //         $('#lock-thread-confirm-btn').hide();
+    //         $('#delete-reply-confirm-btn').hide();
+    //         $('#option-community-confirm-layer').show();
+    //         $('#option-community-confirm-tips').html('确认退出该圈子吗？');
+    //         $('#option-community-confirm-title').html('确认退出圈子');
+    //         return;
+    //     }
+    //
+    //     if(!isThreadSubmitting){
+    //         isThreadSubmitting = true;
+    //         $.post(join_circle_url,{id: CIRCLE_ID, type: option_type},
+    //             function (data) {
+    //                 if(data.code == 200){
+    //                     if(option_type == 'join'){
+    //                         /*_this.addClass("active-added").find("a").html("您是财税圈第<b>45216</b>位成员").hover(
+    //                             function(){
+    //                                 $(".add-quan.active-added>a").addClass("add-hit").html("退出圈子");
+    //                             },
+    //                             function(){
+    //                                 $(".add-quan.active-added>a").removeClass("add-hit").html("您是财税圈第<b>45216</b>位成员");
+    //                             }
+    //                         );*/
+    //
+    //                         _this.data('option-type', 'out');
+    //                         _this.addClass("active-added");
+    //                         _this.html('<a class="globe-btn50 add-hit" href="javascript:;">退出圈子</a>');
+    //
+    //                         var totalUserCount = parseInt($.trim($('#circle-total-user-count').html()))+1;
+    //                         var todayCount = parseInt($.trim($('#today-user-count').html()))+1;
+    //                         $('#today-user-count').html(todayCount);
+    //                     }else if(option_type == 'out'){
+    //                         _this.data('option-type', 'join');
+    //                         _this.removeClass("active-added");
+    //                         _this.html('<a class="globe-btn50" href="javascript:;">加入圈子</a>');
+    //
+    //                         var totalUserCount = parseInt($.trim($('#circle-total-user-count').html()))-1;
+    //                         if(data.is_today == 1){
+    //                             var todayCount = parseInt($.trim($('#today-user-count').html()))-1;
+    //                             $('#today-user-count').html(todayCount);
+    //                         }
+    //                     }
+    //
+    //                     if(totalUserCount < 0)
+    //                         totalUserCount = 0;
+    //                     $('#circle-total-user-count').html(totalUserCount);
+    //                 }else if(data.code == 301){
+    //                     _this.data('option-type', 'out');
+    //                     _this.addClass("active-added");
+    //                     _this.html('<a class="globe-btn50 add-hit" href="javascript:;">退出圈子</a>');
+    //
+    //                     var totalUserCount = parseInt($.trim($('#circle-total-user-count').html()))+1;
+    //                     var todayCount = parseInt($.trim($('#today-user-count').html()))+1;
+    //                     $('#today-user-count').html(todayCount);
+    //                     $('#circle-total-user-count').html(totalUserCount);
+    //                 }else if(data.code == 302){
+    //                     _this.data('option-type', 'join');
+    //                     _this.removeClass("active-added");
+    //                     _this.html('<a class="globe-btn50" href="javascript:;">加入圈子</a>');
+    //                     var totalUserCount = parseInt($.trim($('#circle-total-user-count').html()))-1;
+    //
+    //                     if(totalUserCount < 0)
+    //                         totalUserCount = 0;
+    //                     $('#circle-total-user-count').html(totalUserCount);
+    //                 }else{
+    //                     $.xcDialog.alert({'content':data.msg});
+    //                 }
+    //                 isThreadSubmitting = false;
+    //             }
+    //         );
+    //     }
+    // });
 
     //回帖时候的入圈提示
     $(document).on('click', '#reply-thread-remind-btn', function(){
@@ -298,38 +298,38 @@ $(function(){
     });
 
     //退出圈子操作
-    $(document).on('click', '#out-circle-confirm-btn', function(){
-        $.post(join_circle_url,{id: CIRCLE_ID, type: 'out'},
-            function (data) {
-                if(data.code == 200 || data.code == 302){
-                    $('.overlay').hide();
-                    $('#option-community-confirm-layer').hide();
-
-                    $('.add-quan').data('option-type', 'join');
-                    $('.add-quan').removeClass("active-added").find("a").html("加入圈子");
-                    var totalUserCount = parseInt($.trim($('#circle-total-user-count').html()))-1;
-
-                    if(data.is_today == 1 && data.code == 200){
-                        var todayCount = parseInt($.trim($('#today-user-count').html()))-1;
-                        $('#today-user-count').html(todayCount);
-                    }
-
-                    if(totalUserCount < 0)
-                        totalUserCount = 0;
-                    $('#circle-total-user-count').html(totalUserCount);
-                }else{
-                    $.xcDialog.alert({'content':data.msg});
-                    return false;
-                }
-            }
-        );
-    });
-
-    //退出圈子，锁定帖子，沉底帖子确认弹层取消按钮
-    $(document).on('click', '#cancel-option-community', function(){
-        $('.overlay').hide();
-        $('#option-community-confirm-layer').hide();
-    });
+    // $(document).on('click', '#out-circle-confirm-btn', function(){
+    //     $.post(join_circle_url,{id: CIRCLE_ID, type: 'out'},
+    //         function (data) {
+    //             if(data.code == 200 || data.code == 302){
+    //                 $('.overlay').hide();
+    //                 $('#option-community-confirm-layer').hide();
+    //
+    //                 $('.add-quan').data('option-type', 'join');
+    //                 $('.add-quan').removeClass("active-added").find("a").html("加入圈子");
+    //                 var totalUserCount = parseInt($.trim($('#circle-total-user-count').html()))-1;
+    //
+    //                 if(data.is_today == 1 && data.code == 200){
+    //                     var todayCount = parseInt($.trim($('#today-user-count').html()))-1;
+    //                     $('#today-user-count').html(todayCount);
+    //                 }
+    //
+    //                 if(totalUserCount < 0)
+    //                     totalUserCount = 0;
+    //                 $('#circle-total-user-count').html(totalUserCount);
+    //             }else{
+    //                 $.xcDialog.alert({'content':data.msg});
+    //                 return false;
+    //             }
+    //         }
+    //     );
+    // });
+    //
+    // //退出圈子，锁定帖子，沉底帖子确认弹层取消按钮
+    // $(document).on('click', '#cancel-option-community', function(){
+    //     $('.overlay').hide();
+    //     $('#option-community-confirm-layer').hide();
+    // });
 
     //圈子按钮鼠标hover效果
     /*$(".add-quan").hover(

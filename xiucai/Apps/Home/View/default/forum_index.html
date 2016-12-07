@@ -104,7 +104,7 @@
                                             </a>
                                         </div>
                                         <div class="r-content">
-                                            <a class="quan-post-title" href="{:U('Home/forum/article',array('id'=>$v['articleId']))}" target="_blank">
+                                            <a class="quan-post-title" href="{:U('Home/forum/article',array('cid'=>$v['catId'],'pid'=>$v['parentCatId'],'id'=>$v['articleId']))}" target="_blank">
                                                 <!-- 标题30个字符 -->
                                                 <h2 id="quan-post-title{$v['createTime']}" style="color: #fd6440;">
                                                     {$v['articleTitle']|WSTMSubstr=###,0,30}</h2>
@@ -135,7 +135,7 @@
                             </if>
 
                             <!--文章列表-->
-                            <foreach name="article" item="v">
+                            <volist name="article" id="v">
                                 <div class="quan-post-item clearfix">
                                     <div class="fl">
                                         <a href="{:U('Home/Users/index',array('id'=>$v['staffId']))}" class="block-head common-avatar" target="_blank">
@@ -143,7 +143,7 @@
                                         </a>
                                     </div>
                                     <div class="r-content">
-                                        <a class="quan-post-title" href="{:U('Home/forum/article',array('id'=>$v['articleId']))}" target="_blank">
+                                        <a class="quan-post-title" href="{:U('Home/forum/article',array('cid'=>$v['catId'],'pid'=>$v['parentCatId'],'id'=>$v['articleId']))}" target="_blank">
                                             <!-- 标题30个字符 -->
                                             <h2 id="quan-post-title1442826103">
                                                 {$v['articleTitle']|WSTMSubstr=###,0,30}</h2>
@@ -172,7 +172,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </foreach>
+                            </volist>
                         </div>
                     </div>
 
@@ -313,7 +313,7 @@
                             </a>
                         </li>
                         </volist>
-                        <volist name="tuijian" id="v" offset="3" length="2">
+                        <volist name="tuijian" id="v" offset="3" length="7">
                         <li>
                             <a data-id="{$v.articleId}" href="{:U('Home/forum/article',array('id'=>$v['articleId']))}" target="_blank" class="clearfix hit_count" title="{$v.articleTitle}">
                                 <span class="rank-num">{$i+3}</span><span class="rank-discuss">{$v.articleTitle}</span>
@@ -324,56 +324,54 @@
                 </div>
 
                 <!-- 后台推送直播课程，如果没有则提取最新 -->
-                <div class="quan-block quan-title-block">
-                    <h2 class="relative">
-                        <em></em>
-                        近期直播
-                        <a href="" target="_blank" class="link-more">更多 &raquo;</a>
-                    </h2>
-                    <div class="live-slider">
-                        <div class="bd">
-                            <ul class="clearfix">
-                                <li>
-                                    <a data-id="655" href="/live/655/" target="_blank" class="hit_count">
-                                        <img src="http://assets.xiucai.com/assets/uploads/pic/2016/0111/e58b3252-ac54-6439-3bfe-457e7b4431b2.jpg" width="224" height="128">
-                                        <div class="quan-course">
-                                            <p class="quan-course-title">非居民企业税收政策分析之投资所得处理</p>
-                                            <p class="quan-course-date">10月10日<span>14:00~15:00</span></p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a data-id="660" href="/live/660/" target="_blank" class="hit_count">
-                                        <img src="http://assets.xiucai.com/assets/uploads/pic/2016/0928/9dfa803c-cc32-5cd1-1d02-42d77f32ebc1.jpg" width="224" height="128">
-                                        <div class="quan-course">
-                                            <p class="quan-course-title">关于股权激励和技术出资的重大优惠政策解析</p>
-                                            <p class="quan-course-date">10月11日<span>14:00~15:00</span></p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a data-id="657" href="/live/657/" target="_blank" class="hit_count">
-                                        <img src="http://assets.xiucai.com/assets/uploads/pic/2016/0930/12007425-1f59-6501-4048-8061b6ee4154.jpg" width="224" height="128">
-                                        <div class="quan-course">
-                                            <p class="quan-course-title">财税战略之如何建立防控风险的税务管理体系</p>
-                                            <p class="quan-course-date">10月12日<span>14:00~15:00</span></p>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="hd">
-                            <ul>
-                                <li class="on"></li>
-                                <li></li>
-                                <li></li>
-                            </ul>
-                        </div>
+            <div class="quan-block quan-title-block">
+                <h2 class="relative"><em></em>近期直播<a href="" target="_blank" class="link-more">更多 &raquo;</a></h2>
+                <div class="live-slider">
+                    <div class="bd">
+                        <ul class="clearfix">
+                            <li>
+                                <a data-id="658" href="/live/658/" target="_blank" class="hit_count">
+                                    <img src="http://assets.xiucai.com/assets/uploads/pic/2015/1211/d7b8c99a-ecbb-5b5e-c018-d73e81dafe17.jpg" width="224" height="128">
+                                    <div class="quan-course">
+                                        <p class="quan-course-title">税务行政复议实战案例分析</p>
+                                        <p class="quan-course-date">10月14日<span>14:00~15:00</span></p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a data-id="662" href="/live/662/" target="_blank" class="hit_count">
+                                    <img src="http://assets.xiucai.com/assets/uploads/pic/2016/0202/75a39d2e-0c9f-b97e-3ede-9b558f6ae12f.jpg" width="224" height="128">
+                                    <div class="quan-course">
+                                        <p class="quan-course-title">食堂经费（员工餐费）涉税分析与处理</p>
+                                        <p class="quan-course-date">10月17日<span>14:00~15:00</span></p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a data-id="665" href="/live/665/" target="_blank" class="hit_count">
+                                    <img src="http://assets.xiucai.com/assets/uploads/pic/2016/1011/b606a694-ed6a-f3c0-01e0-c46b0282c8e8.jpg" width="224" height="128">
+                                    <div class="quan-course">
+                                        <p class="quan-course-title">舌尖上的会计之一道名菜的成本管控经</p>
+                                        <p class="quan-course-date">10月18日<span>20:00~21:30</span></p>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="hd">
+                        <ul>
+                            <li class="on"></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
                     </div>
                 </div>
+            </div>
             </div>
 
         </div>
     </div>
 </div>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/jquery.SuperSlide.2.1.1.js?v=1.10.5"></script>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/thread_detail.js?v=1.10.5"></script>
 <include file="./Apps/Home/View/default/common_foot.html"/>

@@ -1308,6 +1308,33 @@ a.quan-post-title:hover{
 	border:none;
 	background: #eee;
 }
+#out .active-added ,#out a.globe-btn50 {
+    height: 49px;
+    line-height: 49px;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #e6e6e6;
+    color: #666;
+}
+
+#out.active-added ,#out a.add-hit {
+    /*height: 44px;
+    line-height: 44px;
+    border-width: 3px;*/
+    height: 50px;
+    line-height: 50px;
+    border: none;
+    background: #eee;
+}
+
+#out-circle-confirm-btn,.globe-btn50:hover{
+    color: #fff;
+}
+
+.active-added .globe-btn50:hover {
+    color: #666;
+}
+
 .quan-data{
 	margin-top: 10px;
 }

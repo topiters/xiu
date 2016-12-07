@@ -5,15 +5,15 @@
             <form action="" method="" id="myform">
                 <div class="quan-body white-bg">
                     <div class="page-nav">
-                        <a href="{:U('Home/Forum/index')}" target="_blank">财税圈</a>&gt;<a href="javascript:;">发布新帖</a>
+                        <a href="{:U('Home/Forum/index')}" target="_blank">财税圈</a>&gt;<a href="javascript:;">编辑帖子</a>
                     </div>
                     <div class="content-m clearfix">
                         <!-- 发帖 -->
                         <div class="posting-box ">
 
-                            <input type="text" placeholder="请输入帖子标题" class="input-field" id="thread_title" name="articleTitle" value=""/>
+                            <input type="text" class="input-field" id="thread_title" name="articleTitle" value="{$article.articleTitle}"/>
                             <div class="editor">
-                                <textarea name="articleContent" id="content" cols="110" rows="10"></textarea>
+                                <textarea name="articleContent" id="content" cols="110" rows="10">{$article.articleContent}</textarea>
                             </div>
                             <div class="posting-choose clearfix">
                                 <div class="diy_select">
@@ -27,7 +27,7 @@
                                     </ul>
                                 </div>
                                 <div class="diy_select toppic-sel">
-                                    <input type="hidden" id="topic_id" class="diy_select_input" name="catId"/>
+                                    <input type="hidden" id="topic_id" class="diy_select_input" name="catId" />
                                     <div class="diy_select_txt" id="topicTitle">选择话题分类</div>
                                     <div class="diy_select_btn triangle6-red"></div>
                                     <ul class="diy_select_list" id="topic_ul">
@@ -35,7 +35,7 @@
                                 </div>
                             </div>
                             <div class="posting-btn" style="margin-top: 10px">
-                                <input type="button" value="发布" id="ask_question_btn" class="globe-ipt-btn"/>
+                                <input type="button" value="更新" id="ask_question_btn" class="globe-ipt-btn"/>
                             </div>
                         </div>
                     </div>
@@ -71,25 +71,25 @@
     $('#ask_question_btn').click(function () {
         var value = $('#quan_id').val();
         if (value == '') {
-            alert('请选择圈子!');
+            WST.msg('请选择圈子!');
             return false;
         }else{
             var value = $('#topic_id').val();
             if (value == '') {
-                alert('请选择话题分类!');
+                WST.msg('请选择话题分类!');
                 return false;
             }
         }
         $.ajax({
             type:'post',
-            url:"{:U('Home/forum/doAdd')}",
-            data:"articleTitle="+$('#thread_title').val()+"&articleContent=" + $('#content').val() + "&catId="+ $('#topic_id').val() + "&parentCatId=" + $('#quan_id').val(),
+            url:"{:U('Home/forum/doUpdate')}",
+            data:"articleTitle="+$('#thread_title').val()+"&articleContent=" + $('#content').val() + "&catId="+ $('#topic_id').val() + "&parentCatId=" + $('#quan_id').val() + "&articleId={$_GET['id']}",
             success:function (data) {
                 if (data == 1){
-                    WST.msg('发布成功');
+                    WST.msg('更新成功');
                     location.href="{:U('Home/forum/index')}";
                 }else{
-                    WST.msg('发布失败');
+                    WST.msg('更新失败');
                 }
             }
         })

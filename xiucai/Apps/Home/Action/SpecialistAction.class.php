@@ -114,7 +114,6 @@ class SpecialistAction extends BaseAction {
      * 导师问题列表页
      */
     public function questionList() {
-        $this->isLogin();
         if ($_GET[id]) {
             //获取店铺信息
             $sid = $_GET['id'];

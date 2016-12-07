@@ -6,149 +6,206 @@
                 <div class="quan-block quan-top-intro clearfix">
                     <div class="fl l-intro">
                         <div class="intro-pic">
-                            <span class="iconfont icon-tax_planning" style="color:#8cd2ad"></span>                        
+                            <span class="iconfont icon-tax_planning" style="color:#8cd2ad"></span>
                         </div>
-                        <p class="quan-top-name">税务圈</p>
+                        <p class="quan-top-name">{$cat.catName}</p>
                     </div>
                     <div class="fl r-intro">
-                        <p class="quan-top-detail">税务，不是睡无，也不是一头水雾。是精确的，是有料的。这里汇集税务实际工作的相关涉及。想说什么就说好了，想分享什么就去分享好了，只因我们是税务人er。</p>
-                        <p class="quan-manager">
-                            	管理员：
-                            <a href="#e" target="_blank">
-                                <img src="img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" alt="">
-                            </a>
-                            <a href="#e" target="_blank">
-                                <img src="img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" alt="">
-                            </a>
-                         </p>
+                        <p class="quan-top-detail">{$cat.catInfo}</p>
                     </div>
                 </div>
                 <div class="quan-block quan-title-block block-pagination relative">
                     <div class="dynamic-filtrate">
-                        <div class="filter-box">最后回复<i class="triangle6-red"></i></div>
+                        <div class="filter-box"><if condition="$_GET['type'] eq null or $_GET['type'] eq 'new'">最新发布<elseif condition="$_GET['type'] eq 'reply'"/>最后回复<elseif condition="$_GET['type'] eq 'hot'"/>最热帖子</if><i class=" triangle6-red"></i></div>
                         <ul>
-                            <li><a href="http://club.xiucai.com/quan/sw/?type=new">最新发布</a></li>
-                            <li><a href="http://club.xiucai.com/quan/sw/?type=reply">最后回复</a></li>
-                            <li><a href="http://club.xiucai.com/quan/sw/?type=hot">最热帖子</a></li>
+                            <li><a href="{:U('Home/Forum/quan',array('id'=>$_GET['id'],'cat'=>$_GET['cat']))}&type=new">最新发布</a></li>
+                            <li><a href="{:U('Home/Forum/quan',array('id'=>$_GET['id'],'cat'=>$_GET['cat']))}&type=reply">最后回复</a></li>
+                            <li><a href="{:U('Home/Forum/quan',array('id'=>$_GET['id'],'cat'=>$_GET['cat']))}&type=hot">最热帖子</a></li>
                         </ul>
                     </div>
                     <div class="quan-tab quan-tab-auto">
                         <ul class="clearfix">
-                            <li class="cur">
-                                <a href="#e">全部</a>
-                            </li>                                                                                                                                 </ul>
+                            <li <if condition="$_GET['cat'] eq null"> class="cur" </if>>
+                                <a href="{:U('Home/Forum/quan',array('id'=>$_GET['id']))}">全部</a>
+                            </li>
+                            <volist name="catArr" id="v">
+                                <li <if condition="$v['catId'] eq $_GET['cat']"> class="cur" </if>>
+                                    <a href="{:U('Home/Forum/quan',array('id'=>$_GET['id'],'cat'=>$v['catId']))}">{$v.catName}</a>
+                                </li>
+                            </volist>
+                        </ul>
                     </div>
-                    <!-- 三级分类 -->                    
-                    <div class="quan-post">
-                        <div id="" class="quan-post-item clearfix">
-					        <div class="fl">
-					            <a href="#e" class="block-head common-avatar" target="_blank">
-					                <img src="img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" height="50" width="50">
-					            </a>
-					        </div>
-					        <div class="r-content">
-					            <a class="quan-post-title" href="caishuiquan_user.html" target="_blank">
-					                <!-- 标题30个字符 -->
-					                <h2 id="quan-post-title1439968453" >史上最全的税务风险点汇总</h2>
-					            </a>
-					            <span id="quan-post-tag1439968453" class="quan-post-tag"> </span>
-					            <p class="quan-post-detail">
-					            	一、企业所得税（一）收入类1.取得手续费收入，未计入收入总额。如：代扣代缴个人所得税取得手… 
-					            </p>
-					            <div class="quan-post-info">
-					                <div class="">
-					                    <span class="post-data">阅读<i>12419</i></span>
-					                    <span class="m20 post-data">回复<i>578</i></span>
-					                    <span class="devide-line"></span>
-					                    <a href="#e" class="user" target="_blank">熊敏</a>
-					                    <span class="post-time">于16小时前</span>
-					                    <span class="post-type">最后回复</span>
-					                </div>
-					            </div>
-					        </div>
-					    </div>
-			            <div id="" class="quan-post-item clearfix">
-					        <div class="fl">
-					            <a href="#e" class="block-head common-avatar" target="_blank">
-					                <img src="img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" height="50" width="50">
-					            </a>
-					        </div>
-					        <div class="r-content">
-					            <a class="quan-post-title" href="caishuiquan_user.html" target="_blank">
-					                <!-- 标题30个字符 -->
-					                <h2 id="quan-post-title1439968453" >史上最全的税务风险点汇总</h2>
-					            </a>
-					            <span id="quan-post-tag1439968453" class="quan-post-tag"> </span>
-					            <p class="quan-post-detail">
-					            	一、企业所得税（一）收入类1.取得手续费收入，未计入收入总额。如：代扣代缴个人所得税取得手… 
-					            </p>
-					            <div class="quan-post-info">
-					                <div class="">
-					                    <span class="post-data">阅读<i>12419</i></span>
-					                    <span class="m20 post-data">回复<i>578</i></span>
-					                    <span class="devide-line"></span>
-					                    <a href="#e" class="user" target="_blank">熊敏</a>
-					                    <span class="post-time">于16小时前</span>
-					                    <span class="post-type">最后回复</span>
-					                </div>
-					            </div>
-					        </div>
-					    </div>
+                    <!-- 三级分类 -->
+                    <div class="quan_post_">
+                        <div class="quan-post hot_">
+                            <!-- 全部圈子动态 -->
+                            <!--只有首页展示置顶信息-->
+                            <if condition="$_GET['p'] eq '' or $_GET['p'] eq 1">
+                                <foreach name="top" item="v">
+                                    <div class="quan-post-item clearfix">
+                                        <div class="fl">
+                                            <a href="{:U('Home/Users/index',array('id'=>$v['staffId']))}" class="block-head common-avatar" target="_blank">
+                                                <img src="__ROOT__/{$v['userPhoto']|default='Apps/Home/View/default/img/caiduoduo.png-v=1.10.1.png'}" height="50" width="50">
+                                            </a>
+                                        </div>
+                                        <div class="r-content">
+                                            <a class="quan-post-title" href="{:U('Home/forum/article',array('cid'=>$v['catId'],'pid'=>$v['parentCatId'],'id'=>$v['articleId']))}" target="_blank">
+                                                <!-- 标题30个字符 -->
+                                                <h2 id="quan-post-title{$v['createTime']}" style="color: #fd6440;">
+                                                    {$v['articleTitle']|WSTMSubstr=###,0,30}</h2>
+                                            </a>
+                                            <span id="quan-post-tag{$v['createTime']}" class="quan-post-tag">
+                        <i class="tag-top" title="置顶"></i>
+                    </span>
+                                            <div class="quan-post-info">
+                                                <div class="">
+                                                    <span class="toppic-type">{$v['catName']}</span>
+                                                    <span class="devide-line"></span>
+                                                    <span class="post-data">阅读<i>{$v['readNum']}</i></span>
+                                                    <span class="m20 post-data">回复<i>{$v['commentNum']}</i></span>
+                                                    <span class="devide-line"></span>
+                                                    <if condition="$v['lastId'] neq null">
+                                                        <a href="{:U('Home/Users/index',array('id'=>$v['lastId']))}" class="user" target="_blank">{$v['lastName']}</a>
+                                                        <span class="post-time">{$v['lastTime']|mdate}</span>
+                                                        <span class="post-type">最后回复</span>
+                                                        <else/>
+                                                        <span class="post-time">{$v['createTime']|mdate}</span>
+                                                        <span class="post-type">发表</span>
+                                                    </if>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </foreach>
+                            </if>
+
+                            <!--文章列表-->
+                            <volist name="article" id="v" empty="暂无信息~">
+                                <div class="quan-post-item clearfix">
+                                    <div class="fl">
+                                        <a href="{:U('Home/Users/index',array('id'=>$v['staffId']))}" class="block-head common-avatar" target="_blank">
+                                            <img src="__ROOT__/{$v['userPhoto']|default='Apps/Home/View/default/img/caiduoduo.png-v=1.10.1.png'}" height="50" width="50">
+                                        </a>
+                                    </div>
+                                    <div class="r-content">
+                                        <a class="quan-post-title" href="{:U('Home/forum/article',array('cid'=>$v['catId'],'pid'=>$v['parentCatId'],'id'=>$v['articleId']))}" target="_blank">
+                                            <!-- 标题30个字符 -->
+                                            <h2 id="quan-post-title1442826103">
+                                                {$v['articleTitle']|WSTMSubstr=###,0,30}</h2>
+                                        </a>
+                                        <span id="quan-post-tag1442826103" class="quan-post-tag"> </span>
+                                        <div class="quan-post-info">
+                                            <div class="">
+                                                <span class="toppic-type">{$v['catName']}</span>
+                                                <span class="devide-line"></span>
+                                                <span class="post-data">阅读<i>{$v['readNum']}</i></span>
+                                                <span class="m20 post-data">回复<i>{$v['commentNum']}</i></span>
+                                                <span class="devide-line"></span>
+                                                <!--会员图标-->
+                                                <!--<a href="/vip/" target="_blank" class="vip" title="了解秀财会员">-->
+                                                <!--<img src="__ROOT__/Apps/Home/View/default/img/vip.png" width="16" height="12" alt="会员特权" border="0">-->
+                                                <!--</a>-->
+                                                <if condition="$v['lastId'] neq null">
+                                                    <a href="{:U('Home/Users/index',array('id'=>$v['lastId']))}" class="user" target="_blank">{$v['lastName']}</a>
+                                                    <span class="post-time">{$v['lastTime']|mdate}</span>
+                                                    <span class="post-type">最后回复</span>
+                                                    <else/>
+                                                    <span class="post-time">{$v['createTime']|mdate}</span>
+                                                    <span class="post-type">发表</span>
+                                                </if>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </volist>
+                        </div>
                     </div>
-                    <div class="pagination"> <ul class="page clearfix"><li><a class="cur" href="javascript:;">1</a></li><li><a href="?page=2">2</a></li><li><a href="?page=3">3</a></li><li><a href="?page=4">4</a></li><li><a href="?page=5">5</a></li><li><a href="?page=6">6</a></li><li><a href="?page=7">7</a></li><li><a href="?page=8">8</a></li><li><a href="?page=9">9</a></li><li><a href="?page=10">10</a></li><li><a href="?page=2">&gt;</a></li><li><a href="?page=95">尾页</a></li></ul> </div>
+
+                    <div style="width: 100%;height: 80px;text-align: center;box-sizing: border-box;">
+                        {$pages}
+                    </div>
 
                 </div>
             </div>
             <!-- right -->
             <script>
-            	$(function(){
-//          		$(".add-quanzi").click(function(){
-//          			$(this).addClass('active-added');
-//          			$(this).children('a').addClass('add-hit').text('退出圈子');
-//          		});
-            		$(document).on('click','.add-quanzi',function(){
-            			$(this).addClass('active-added');
-            			$(this).children('a').addClass('add-hit').text('退出圈子');
-            		});
-            		$(document).on('click','.active-added',function(){
-            			$(".overlay,#del-community-layer").removeClass('hide');
-            		});
-            		$(".active-added").click(function(){
-            			//$(".overlay,.del-community-layer").removeClass('hide');
-            			//$(".del-community-layer").removeClass('hide');
-            		});
-            		$("#del-community-layer .queren").click(function(){
-            			$(".add-quanzi").removeClass('active-added');
-            			$(".add-quanzi").children('a').addClass('add-hit').text('加入圈子');
-            			$(".overlay,#del-community-layer").addClass('hide');
-            		});
-            		$("#del-community-layer .quxiao").click(function(){
-            			$(".overlay,#del-community-layer").addClass('hide');
-            		});
-            		
-            	})
+                $(function () {
+                    $(document).on('click', '#join', function () {
+                        $.ajax({
+                            type:'post',
+                            url:"{:U('Home/Forum/addquan')}",
+                            data:"cid={$_GET['id']}&uid={$_SESSION['WSTMALL']['WST_USER']['userId']}",
+                            success:function (data) {
+                                if (data == 1) {
+                                    $('.add-quanzi').addClass('active-added');
+                                    $('.add-quanzi').attr('id','out');
+                                    $('.add-quanzi').children('a').addClass('add-hit').text('退出圈子');
+                                    var now = $('#today-user-count').html();
+                                    now = parseInt(now);
+                                    $('#today-user-count').html(now + 1);
+                                    var now = $('#circle-total-user-count').html();
+                                    now = parseInt(now);
+                                    $('#circle-total-user-count').html(now + 1);
+                                }
+                            }
+                        })
+                    });
+                    $("#option-community-confirm-layer .queren").click(function () {
+                        $.ajax({
+                            type: 'post',
+                            url: "{:U('Home/Forum/delquan')}",
+                            data: "cid={$_GET['id']}&uid={$_SESSION['WSTMALL']['WST_USER']['userId']}",
+                            success: function (data) {
+                                if (data == 1) {
+                                    $("#out").removeClass('active-added');
+                                    $("#option-community-confirm-layer").hide();
+                                    $("#out").children('a').addClass('add-hit').text('加入圈子');
+                                    $("#out").attr('id','join');
+                                    var now = $('#today-user-count').html();
+                                    now = parseInt(now);
+                                    $('#today-user-count').html(now - 1);
+                                    var now = $('#circle-total-user-count').html();
+                                    now = parseInt(now);
+                                    $('#circle-total-user-count').html(now - 1);
+                                }
+                            }
+                        })
+                    });
+
+                    $(document).on('click', '#out', function () {
+                        $("#option-community-confirm-layer").show();
+                    });
+                    $(document).on('click', '#cancel-option-community', function () {
+                        $('#option-community-confirm-layer').hide();
+                    });
+                })
             </script>
             <div class="quan-side-bar">
                 <div class="quan-block quan-block-all">
-                        <p class="add-quan  add-quanzi" data-option-type="join" >
+                    <if condition="$quanUser eq null">
+                        <p class="add-quan  add-quanzi" id="join">
                             <a class="globe-btn50 " href="javascript:;">加入圈子</a>
                         </p>
-                    
+                        <else/>
+                        <p class="add-quan add-quanzi actived-added" id="out">
+                            <a class="globe-btn50 add-hit" href="javascript:;">退出圈子</a>
+                        </p>
+                    </if>
                     <div class="quan-data">
                         <div class="num-display">
-                            <span class="border-r-e6">今日帖量<b>0</b></span>
-                            <span>圈子总帖数<b>114300</b></span>
+                            <span class="border-r-e6">今日帖量<b>{$todayArticle}</b></span>
+                            <span>圈子总帖数<b>{$total}</b></span>
                         </div>
                         <div class="num-display border-t-e6">
-                            <span class="border-r-e6">今日总成员<b id="today-user-count">9</b></span>
-                            <span>圈内总成员<b id="circle-total-user-count">452637</b></span>
+                            <span class="border-r-e6">今日总成员<b id="today-user-count">{$todayMember}</b></span>
+                            <span>圈内总成员<b id="circle-total-user-count">{$cat.totalNum}</b></span>
                         </div>
                     </div>
                 </div>
 
                 <div class="quan-block quan-block-all">
                     <p class="align-c">
-                        <a href="fabu_new.html" id="no-login-join-btn" class="globe-btn50 edit-btn postThread"><i></i>我要发帖</a>
+                        <a href="{:U('Home/Forum/add')}" id="no-login-join-btn" class="globe-btn50 edit-btn postThread"><i></i>我要发帖</a>
                         <span class="posting-tips">提问或分享，与同行讨论</span>
                     </p>
                 </div>
@@ -156,293 +213,133 @@
                 <div class="quan-block">
                     <h2><em></em>最近加入</h2>
                     <div class="course-attend-list clearfix">
-                        <div>
-                            <a href="#e" target="_blank">
-                                <img src="img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" height="60" width="60">
-                            </a>
-                        </div>
-                        <div>
-                            <a href="#e" target="_blank">
-                                <img src="img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" height="60" width="60">
-                            </a>
-                        </div>
-                        <div>
-                            <a href="#e" target="_blank">
-                                <img src="img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" height="60" width="60">
-                            </a>
-                        </div>
-                        <div>
-                            <a href="#e" target="_blank">
-                                <img src="img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" height="60" width="60">
-                            </a>
-                        </div>
-                        <div>
-                            <a href="#e" target="_blank">
-                                <img src="img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" height="60" width="60">
-                            </a>
-                        </div>
-                        <div>
-                            <a href="#e" target="_blank">
-                                <img src="img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" height="60" width="60">
-                            </a>
-                        </div>
-                        <div>
-                            <a href="#e" target="_blank">
-                                <img src="img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" height="60" width="60">
-                            </a>
-                        </div>
-                        <div>
-                            <a href="#e" target="_blank">
-                                <img src="img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" height="60" width="60">
-                            </a>
-                        </div>
-                        <div>
-                            <a href="#e" target="_blank">
-                                <img src="img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" height="60" width="60">
-                            </a>
-                        </div>
-                        <div>
-                            <a href="#e" target="_blank">
-                                <img src="img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" height="60" width="60">
-                            </a>
-                        </div>
+                        <volist name="latest" id="v" empty="暂无信息~">
+                            <div>
+                                <a href="{:U('Home/Users/index',array('id'=>$v['uid']))}" target="_blank">
+                                    <img src="{$v['userPhoto']|default='Apps/Home/View/default/img/caiduoduo.png-v=1.10.1.png'}" height="60" width="60">
+                                </a>
+                            </div>
+                        </volist>
                     </div>
-                </div>               
+                </div>
                 <!-- 更多圈子 -->
                 <div class="quan-block">
                     <h2><em></em>更多圈子</h2>
                     <ul class="quan-more-list">
-                        <li>
-                            <a href="quanzi.html" class="clearfix" target="_blank">
-                                <span class="fl"><i class="iconfont icon-accounting"></i>财务圈</span>
-                                <span class="fr">434440人</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="quanzi.html" class="clearfix" target="_blank">
-                                <span class="fl"><i class="iconfont icon-tool"></i>工作圈</span>
-                                <span class="fr">432784人</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="quanzi.html" class="clearfix" target="_blank">
-                                <span class="fl"><i class="iconfont icon-official"></i>官方圈</span>
-                                <span class="fr">54990人</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="quanzi.html" class="clearfix" target="_blank">
-                                <span class="fl"><i class="iconfont icon-kaoshiquan"></i>考试圈</span>
-                                <span class="fr">66700人</span>
-                            </a>
-                        </li>
-                        <li>
-		                    <a href="quanzi.html" class="clearfix" target="_blank">
-		                        <span class="fl"><i class="iconfont icon-shenghuoquan"></i>生活圈</span>
-		                        <span class="fr">46800人</span>
-		                    </a>
-                        </li>
-                        <li>
-                            <a href="quanzi.html" class="clearfix" target="_blank">
-                                <span class="fl"><i class="iconfont icon-circlehbca"></i>河北CA家园</span>
-                                <span class="fr">16人</span>
-                            </a>
-                        </li>
+                        <volist name="cats" id="v">
+                            <li>
+                                <a href="{:U('Home/forum/quan',array('id'=>$v['catId']))}" class="clearfix" target="_blank">
+                                    <span class="fl"><i class="iconfont icon-official"></i>{$v['catName']}</span>
+                                    <span class="fr">{$v['totalNum']}人</span>
+                                </a>
+                            </li>
+                        </volist>
                     </ul>
                 </div>
                 <!-- 后台推送直播课程，如果没有则提取最新 -->
                 <div class="quan-block quan-title-block">
-			        <h2 class="relative"><em></em>近期直播<a href="" target="_blank" class="link-more">更多 &raquo;</a></h2>
-			        <div class="live-slider">
-			            <div class="bd">
-			                <ul class="clearfix">
-			                    <li>
-			                        <a data-id="658" href="/live/658/" target="_blank" class="hit_count">
-			                            <img src="http://assets.xiucai.com/assets/uploads/pic/2015/1211/d7b8c99a-ecbb-5b5e-c018-d73e81dafe17.jpg" width="224" height="128">
-			                            <div class="quan-course">
-			                                <p class="quan-course-title">税务行政复议实战案例分析</p>
-			                                <p class="quan-course-date">10月14日<span>14:00~15:00</span></p>
-			                            </div>
-			                        </a>
-			                    </li>
-			                    <li>
-			                        <a data-id="662" href="/live/662/" target="_blank" class="hit_count">
-			                            <img src="http://assets.xiucai.com/assets/uploads/pic/2016/0202/75a39d2e-0c9f-b97e-3ede-9b558f6ae12f.jpg" width="224" height="128">
-			                            <div class="quan-course">
-			                                <p class="quan-course-title">食堂经费（员工餐费）涉税分析与处理</p>
-			                                <p class="quan-course-date">10月17日<span>14:00~15:00</span></p>
-			                            </div>
-			                        </a>
-			                    </li>
-			                    <li>
-			                        <a data-id="665" href="/live/665/" target="_blank" class="hit_count">
-			                            <img src="http://assets.xiucai.com/assets/uploads/pic/2016/1011/b606a694-ed6a-f3c0-01e0-c46b0282c8e8.jpg" width="224" height="128">
-			                            <div class="quan-course">
-			                                <p class="quan-course-title">舌尖上的会计之一道名菜的成本管控经</p>
-			                                <p class="quan-course-date">10月18日<span>20:00~21:30</span></p>
-			                            </div>
-			                        </a>
-			                    </li>
-			                </ul>
-			            </div>
-			            <div class="hd">
-			                <ul>
-			                    <li class="on"></li>
-			                    <li ></li>
-			                    <li ></li>
-			                </ul>
-			            </div>
-			        </div>
-			    </div>
+                    <h2 class="relative"><em></em>近期直播<a href="" target="_blank" class="link-more">更多 &raquo;</a></h2>
+                    <div class="live-slider">
+                        <div class="bd">
+                            <ul class="clearfix">
+                                <li>
+                                    <a data-id="658" href="/live/658/" target="_blank" class="hit_count">
+                                        <img src="http://assets.xiucai.com/assets/uploads/pic/2015/1211/d7b8c99a-ecbb-5b5e-c018-d73e81dafe17.jpg" width="224" height="128">
+                                        <div class="quan-course">
+                                            <p class="quan-course-title">税务行政复议实战案例分析</p>
+                                            <p class="quan-course-date">10月14日<span>14:00~15:00</span></p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-id="662" href="/live/662/" target="_blank" class="hit_count">
+                                        <img src="http://assets.xiucai.com/assets/uploads/pic/2016/0202/75a39d2e-0c9f-b97e-3ede-9b558f6ae12f.jpg" width="224" height="128">
+                                        <div class="quan-course">
+                                            <p class="quan-course-title">食堂经费（员工餐费）涉税分析与处理</p>
+                                            <p class="quan-course-date">10月17日<span>14:00~15:00</span></p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-id="665" href="/live/665/" target="_blank" class="hit_count">
+                                        <img src="http://assets.xiucai.com/assets/uploads/pic/2016/1011/b606a694-ed6a-f3c0-01e0-c46b0282c8e8.jpg" width="224" height="128">
+                                        <div class="quan-course">
+                                            <p class="quan-course-title">舌尖上的会计之一道名菜的成本管控经</p>
+                                            <p class="quan-course-date">10月18日<span>20:00~21:30</span></p>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="hd">
+                            <ul>
+                                <li class="on"></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
     </div>
-    <!-- 帖子着色 begin -->
-<div id="colorful-community-layer" class="dialog-board dialog-board-none-title hide">
-    <div class="dialog-board-bar">
-                <a href="javascript:;" class="close-dialog-board"></a>
-    </div>
-    <div class="dialog-board-content">
-        <div class="box-container">
-            <div class="select-choose clearfix">
-                <label class="fl">选择颜色：</label>
-                <div class="color-filtrate">
-                    <div class="filter-box">默认<i class="triangle6-red color-gray"></i></div>
-                    <ul>
-                        <li data-color="" class="defalut">默认</li>
-                        <li data-color="#fd6440" class="color-orange">橙色</li>
-                        <li data-color="#2897c5" class="color-blue">蓝色</li>
-                        <li data-color="#996600" class="color-brown">棕色</li>
-                    </ul>
+    <!-- 退出帖子 begin -->
+    <div id="option-community-confirm-layer" class="dialog-board dialog-board-none-title" style="display:none;">
+        <div class="dialog-board-bar">
+            <a href="javascript:;" class="close-dialog-board"></a>
+        </div>
+        <div class="dialog-board-content">
+            <div class="box-container">
+                <p id="option-community-confirm-tips" class="text-c-tips">确认退出该圈子吗？</p>
+                <div class="btn-col2 clearfix">
+                    <a id="out-circle-confirm-btn" href="javascript:;" class="fl globe-btn50 queren">确认</a>
+                    <a id="cancel-option-community" href="javascript:;" class="fr globe-btn50 globe-btn50-nobg quxiao">取消</a>
                 </div>
             </div>
-            <div class="btn-col2 clearfix">
-                <a id="colorful-community-btn" href="javascript:;" class="fl globe-btn50">确认</a>
-                <a id="colorful-community-cancel" href="javascript:;" class="fr globe-btn50 globe-btn50-nobg">取消</a>
+        </div>
+    </div>
+    <!-- 退出帖子 end -->
+
+    <!-- 帖子操作 begin -->
+    <div id="option-community-layer" class="dialog-board dialog-board-none-title hide">
+        <div class="dialog-board-bar">
+            <a href="javascript:;" class="close-dialog-board"></a>
+        </div>
+        <div class="dialog-board-content">
+            <div class="box-container">
+                <p id="option-community-tips" class="text-c-tips">操作成功</p>
+                <div class="btn-single">
+                    <a id="option-community-btn" href="javascript:;" class="globe-btn50">确认</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- 帖子着色 end -->
+    <!-- 帖子操作 end -->
 
-<!-- 删除帖子 begin -->
-<div id="del-community-layer" class="dialog-board dialog-board-none-title hide">
-    <div class="dialog-board-bar">
-                <a href="javascript:;" class="close-dialog-board"></a>
-    </div>
-    <div class="dialog-board-content">
-        <div class="box-container">
-            <p id="del-community-tips" class="text-c-tips">确认删除此帖吗？</p>
-            <div class="btn-col2 clearfix">
-                <a id="del-community-btn" href="javascript:;" class="fl globe-btn50 queren">确认</a>
-                <a id="del-community-cancel" href="javascript:;" class="fr globe-btn50 globe-btn50-nobg quxiao">取消</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- 删除帖子 end -->
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/jquery-1.9.0.js"></script>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/dialog-plus.js"></script>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/common4.0.js"></script>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/jquery.enplaceholder.js"></script>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/memberInfoDialog.js"></script>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/focusUser.js"></script>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/icheck.min.js"></script>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/login.js"></script>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/login_register.js"></script>
 
-<!-- 退出帖子 begin -->
-<div id="option-community-confirm-layer" class="dialog-board dialog-board-none-title hide">
-    <div class="dialog-board-bar">
-                <a href="javascript:;" class="close-dialog-board"></a>
-    </div>
-    <div class="dialog-board-content">
-        <div class="box-container">
-            <p id="option-community-confirm-tips" class="text-c-tips">确认退出该圈子吗？</p>
-            <div class="btn-col2 clearfix">
-                <a id="out-circle-confirm-btn" href="javascript:;" class="fl globe-btn50 hide">确认</a>
-                <a id="down-thread-confirm-btn" href="javascript:;" class="fl globe-btn50 hide">确认</a>
-                <a id="lock-thread-confirm-btn" href="javascript:;" class="fl globe-btn50 hide">确认</a>
-                <a id="delete-reply-confirm-btn" href="javascript:;" class="fl globe-btn50 hide">确认</a>
-                <a id="cancel-option-community" href="javascript:;" class="fr globe-btn50 globe-btn50-nobg">取消</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- 退出帖子 end -->
-
-<!-- 帖子操作 begin -->
-<div id="option-community-layer" class="dialog-board dialog-board-none-title hide">
-    <div class="dialog-board-bar">
-                <a href="javascript:;" class="close-dialog-board"></a>
-    </div>
-    <div class="dialog-board-content">
-        <div class="box-container">
-            <p id="option-community-tips" class="text-c-tips">操作成功</p>
-            <div class="btn-single">
-                <a id="option-community-btn" href="javascript:;" class="globe-btn50">确认</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- 帖子操作 end -->
-
-<!-- 回帖加入圈子提醒 begin -->
-<script>
-	$(function(){
-		$(".add_quanzi").click(function(){
-			
-		});
-	})
-</script>
-<div id="reply-thread-remind-layer" class="dialog-board dialog-board-window dialog-board-red hide">
-    <div class="dialog-board-bar">
-        <h2>回帖提醒</h2>
-        <a href="javascript:;" class="close-dialog-board"></a>
-    </div>
-    <div class="dialog-board-content">
-        <div class="box-container">
-            <p class="text-c-tips">对这个话题感兴趣？加入圈子关注更多话题</p>
-            <div class="btn-single add-quan add_quanzi ">
-                <a id="reply-thread-remind-btn" href="javascript:;" class="globe-btn50  add-hit">加入圈子</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- 回帖加入圈子提醒 end -->
-
-<!-- 下载帖子附件扣除圈币提醒 begin -->
-<div id="down-thread-file-coin-layer" class="dialog-board dialog-board-window dialog-board-red hide">
-    <div class="dialog-board-bar">
-        <h2>下载提醒</h2>
-        <a href="javascript:;" class="close-dialog-board"></a>
-    </div>
-    <div class="dialog-board-content">
-        <div class="box-container">
-            <p id="down-thread-file-coin-tips" class="text-c-tips"></p>
-            <div class="btn-col2 clearfix">
-                <a id="down-thread-file-coin-btn" href="javascript:;" class="fl globe-btn50" target="_blank">确认</a>
-                <a id="down-thread-file-coin-cancel" href="javascript:;" class="fr globe-btn50 globe-btn50-nobg">取消</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- 下载帖子附件扣除圈币提醒 end --></div>
-<script type="text/javascript" src="js/jquery-1.9.0.js"></script>
-<script type="text/javascript" src="js/dialog-plus.js"></script>
-<script type="text/javascript" src="js/common4.0.js"></script>
-<script type="text/javascript" src="js/jquery.enplaceholder.js"></script>
-<script type="text/javascript" src="js/memberInfoDialog.js"></script>
-<script type="text/javascript" src="js/focusUser.js"></script>
-<script type="text/javascript" src="js/icheck.min.js"></script>
-<script type="text/javascript" src="js/login.js"></script> 
-<script type="text/javascript" src="js/login_register.js"></script>
-
-<script type="text/javascript" src="js/jquery.SuperSlide.2.1.1.js?v=1.10.5"></script>
-<script type="text/javascript" src="js/thread_detail.js?v=1.10.5"></script>
-<script type="text/javascript" src="js/alert.js"></script>
-<script type="text/javascript" src="js/communityManage.js?v=1.10.5"></script>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/jquery.SuperSlide.2.1.1.js?v=1.10.5"></script>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/thread_detail.js?v=1.10.5"></script>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/alert.js"></script>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/communityManage.js?v=1.10.5"></script>
 
 
 <script language="JavaScript" type="text/javascript">
     randomQQ();
     $(window).scroll(fixedPosition);
     $(window).resize(fixedPosition);
-    function fixedPosition(){
+    function fixedPosition() {
         var s_left = $(window).scrollLeft();
-        $(".fixed-head").css("left",~s_left+1);
+        $(".fixed-head").css("left", ~s_left + 1);
     }
 </script>
 

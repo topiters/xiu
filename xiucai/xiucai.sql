@@ -1,18 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 本地
-Source Server Version : 50540
+Source Server         : localhost
+Source Server Version : 50553
 Source Host           : localhost:3306
 Source Database       : xiucai
 
 Target Server Type    : MYSQL
-Target Server Version : 50540
+Target Server Version : 50553
 File Encoding         : 65001
 
-
-Date: 2016-12-05 18:17:35
-|
+Date: 2016-12-07 09:30:20
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -3810,14 +3808,12 @@ CREATE TABLE `wst_article_cats` (
 -- ----------------------------
 -- Records of wst_article_cats
 -- ----------------------------
-
 INSERT INTO `wst_article_cats` VALUES ('1', '0', '0', '0', '商城快讯', '0', '1');
 INSERT INTO `wst_article_cats` VALUES ('2', '0', '1', '1', '新手上路', '0', '1');
 INSERT INTO `wst_article_cats` VALUES ('3', '0', '1', '1', '如何付款', '0', '1');
 INSERT INTO `wst_article_cats` VALUES ('4', '0', '1', '1', '配送说明', '0', '1');
 INSERT INTO `wst_article_cats` VALUES ('5', '0', '1', '1', '售后服务', '0', '1');
 INSERT INTO `wst_article_cats` VALUES ('6', '0', '1', '1', '常见问题', '0', '1');
-
 
 -- ----------------------------
 -- Table structure for wst_attributes
@@ -4813,7 +4809,8 @@ INSERT INTO `wst_follow` VALUES ('13', '42', '34', '2016-12-01 13:33:11');
 DROP TABLE IF EXISTS `wst_forum`;
 CREATE TABLE `wst_forum` (
   `articleId` int(11) NOT NULL AUTO_INCREMENT,
-  `catId` int(11) NOT NULL,
+  `catId` int(11) NOT NULL COMMENT '二级分类',
+  `parentCatId` int(11) NOT NULL COMMENT '一级分类',
   `articleTitle` varchar(200) NOT NULL,
   `articleImg` varchar(150) NOT NULL,
   `isShow` tinyint(4) NOT NULL DEFAULT '1',
@@ -4828,15 +4825,17 @@ CREATE TABLE `wst_forum` (
   `lastTime` int(11) DEFAULT NULL COMMENT '最后一条回复的时间',
   PRIMARY KEY (`articleId`),
   KEY `catId` (`catId`,`isShow`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wst_forum
 -- ----------------------------
-INSERT INTO `wst_forum` VALUES ('1', '17', '发布测试', '', '1', '1', '<pre><span><b>测试ING<img src=\"http://xiucai.localhost.com/Public/plugins/kindeditor/plugins/emoticons/images/13.gif\" border=\"0\" alt=\"\" />\n<pre><span><b>测试ING<img src=\"http://xiucai.localhost.com/Public/plugins/kindeditor/plugins/emoticons/images/13.gif\" border=\"0\" alt=\"\" /></b></span></pre>\n</b></span></pre>', null, '42', '1480915528', '0', '0', null, null);
-INSERT INTO `wst_forum` VALUES ('2', '7', '凑数分页用', '', '1', '0', '<p>\n	凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用\n</p>\n<p>\n	凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用\n</p>', null, '42', '1480926427', '0', '0', null, null);
-INSERT INTO `wst_forum` VALUES ('3', '17', '发布测试 凑数使用', '', '1', '0', '<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用发布测试 凑数使用发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用发布测试 凑数使用\n</p>', null, '42', '1480928762', '0', '0', null, null);
-INSERT INTO `wst_forum` VALUES ('4', '11', '发布测试 凑数使用 发布测试 凑数使用', '', '1', '0', '<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用发布测试 凑数使用发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用发布测试 凑数使用\n</p>', null, '42', '1480928791', '0', '0', null, null);
+INSERT INTO `wst_forum` VALUES ('1', '17', '4', '发布测试', '', '1', '1', '<pre><span><b>测试ING<img src=\"http://xiucai.localhost.com/Public/plugins/kindeditor/plugins/emoticons/images/13.gif\" border=\"0\" alt=\"\" />\n<pre><span><b>测试ING<img src=\"http://xiucai.localhost.com/Public/plugins/kindeditor/plugins/emoticons/images/13.gif\" border=\"0\" alt=\"\" /></b></span></pre>\n</b></span></pre>', null, '42', '1480915528', '0', '0', null, null);
+INSERT INTO `wst_forum` VALUES ('2', '7', '1', '凑数分页用', '', '1', '0', '<p>\n	凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用\n</p>\n<p>\n	凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用凑数分页用\n</p>', null, '42', '1480926427', '0', '0', null, null);
+INSERT INTO `wst_forum` VALUES ('3', '17', '4', '发布测试 凑数使用', '', '1', '0', '<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用发布测试 凑数使用发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用发布测试 凑数使用\n</p>', null, '42', '1480928762', '0', '0', null, null);
+INSERT INTO `wst_forum` VALUES ('4', '11', '2', '更新测试 凑数使用发布测试 凑数使用', '', '1', '0', '<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用发布测试 凑数使用发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用发布测试 凑数使用\n</p>', null, '42', '1480928791', '0', '0', null, null);
+INSERT INTO `wst_forum` VALUES ('5', '13', '3', '这是第五条帖子 凑数用', '', '1', '0', '<p>\n	这是第五条帖子 凑数用\n</p>\n<p>\n	这是第五条帖子 凑数用这是第五条帖子 凑数用\n</p>\n<p>\n	这是第五条帖子 凑数用这是第五条帖子 凑数用这是第五条帖子 凑数用\n</p>\n<p>\n	这是第五条帖子 凑数用这是第五条帖子 凑数用这是第五条帖子 凑数用这是第五条帖子 凑数用\n</p>\n<p>\n	<br />\n</p>\n<p>\n	这是第五条帖子 凑数用这是第五条帖子 凑数用这是第五条帖子 凑数用这是第五条帖子 凑数用\n</p>\n<p>\n	这是第五条帖子 凑数用这是第五条帖子 凑数用这是第五条帖子 凑数用\n</p>\n<p>\n	这是第五条帖子 凑数用这是第五条帖子 凑数用\n</p>\n<p>\n	这是第五条帖子 凑数用\n</p>', null, '42', '1480994178', '0', '0', null, null);
+INSERT INTO `wst_forum` VALUES ('6', '22', '6', '这是第六条帖子 凑数用', '', '1', '0', '<p>\n	这是第六条帖子 凑数用\n</p>\n<p>\n	<span>这是第六条帖子 凑数用</span><span>这是第六条帖子 凑数用</span>\n</p>\n<p>\n	这是第<span>六</span>条帖子 凑数用这是第<span>六</span>条帖子 凑数用这是第<span>六</span>条帖子 凑数用\n</p>\n<p>\n	这是第<span>六</span>条帖子 凑数用这是第<span>六</span>条帖子 凑数用这是第<span>六</span>条帖子 凑数用这是第<span>六</span>条帖子 凑数用\n</p>\n<p>\n	<br />\n</p>\n<p>\n	这是第五条帖子 凑数用这是第五条帖子 凑数用这是第五条帖子 凑数用这是第五条帖子 凑数用\n</p>\n<p>\n	这是第五条帖子 凑数用这是第五条帖子 凑数用这是第五条帖子 凑数用\n</p>\n<p>\n	这是第五条帖子 凑数用这是第五条帖子 凑数用\n</p>\n<p>\n	这是第五条帖子 凑数用\n</p>', null, '42', '1480994347', '0', '0', null, null);
 
 -- ----------------------------
 -- Table structure for wst_forum_cats
@@ -4851,7 +4850,7 @@ CREATE TABLE `wst_forum_cats` (
   `catSort` int(11) NOT NULL DEFAULT '0',
   `catFlag` tinyint(4) NOT NULL DEFAULT '1',
   `totalNum` int(11) NOT NULL DEFAULT '0' COMMENT '圈子成员数',
-  `key` varchar(255) DEFAULT NULL COMMENT '关键字',
+  `catInfo` varchar(255) DEFAULT NULL COMMENT '圈子简介',
   PRIMARY KEY (`catId`),
   KEY `isShow` (`catType`,`catFlag`,`isShow`) USING BTREE,
   KEY `parentId` (`catFlag`,`parentId`) USING BTREE
@@ -4860,12 +4859,12 @@ CREATE TABLE `wst_forum_cats` (
 -- ----------------------------
 -- Records of wst_forum_cats
 -- ----------------------------
-INSERT INTO `wst_forum_cats` VALUES ('1', '0', '0', '1', '财务圈', '0', '1', '0', '');
-INSERT INTO `wst_forum_cats` VALUES ('2', '0', '0', '1', '税务圈', '0', '1', '0', '');
-INSERT INTO `wst_forum_cats` VALUES ('3', '0', '0', '1', '工作圈', '0', '1', '0', '');
-INSERT INTO `wst_forum_cats` VALUES ('4', '0', '0', '1', '官方圈', '0', '1', '0', '');
-INSERT INTO `wst_forum_cats` VALUES ('5', '0', '0', '1', '考试圈', '0', '1', '0', '');
-INSERT INTO `wst_forum_cats` VALUES ('6', '0', '0', '1', '生活圈', '0', '1', '0', '');
+INSERT INTO `wst_forum_cats` VALUES ('1', '0', '0', '1', '财务圈', '0', '1', '0', '志趣相同的人连接起来，才更有趣。 想法各异的人碰撞起来，才更显热和气儿。分享 分享，才有现在；交流 交流，才有未来。');
+INSERT INTO `wst_forum_cats` VALUES ('2', '0', '0', '1', '税务圈', '0', '1', '0', '税务，不是睡无，也不是一头水雾。是精确的，是有料的。这里汇集税务实际工作的相关涉及。想说什么就说好了，想分享什么就去分享好了，只因我们是税务人er。');
+INSERT INTO `wst_forum_cats` VALUES ('3', '0', '0', '1', '工作圈', '0', '1', '0', '财税人思维，Think Different。你关注的成长，技能，经验正是我们关注的。你想要分享的心得，感想，领悟正是我们努力的。才华，要拿出来晾的；气场，也是要拿出来晒的。');
+INSERT INTO `wst_forum_cats` VALUES ('4', '0', '0', '1', '官方圈', '0', '1', '0', '秀财网官方圈，独家干货，官方公告，秀财网官方专属区域');
+INSERT INTO `wst_forum_cats` VALUES ('5', '0', '0', '1', '考试圈', '0', '1', '1', '考试圈,全方位会计考试干货与您分享,一起探讨如何轻松过关,分享心得,一起走向成功');
+INSERT INTO `wst_forum_cats` VALUES ('6', '0', '0', '1', '生活圈', '0', '1', '2', '财税人生活的那点事儿,在这里可以分享你生活中的喜怒哀乐,让同为财税人的他/她站在您的角度上,为你排忧解难');
 INSERT INTO `wst_forum_cats` VALUES ('7', '1', '0', '1', '资料', '0', '1', '0', null);
 INSERT INTO `wst_forum_cats` VALUES ('8', '1', '0', '1', '实务', '0', '1', '0', null);
 INSERT INTO `wst_forum_cats` VALUES ('9', '1', '0', '1', '问答', '0', '1', '0', null);
@@ -4884,6 +4883,44 @@ INSERT INTO `wst_forum_cats` VALUES ('21', '5', '0', '1', '其它', '0', '1', '0
 INSERT INTO `wst_forum_cats` VALUES ('22', '6', '0', '1', '心得感悟', '0', '1', '0', null);
 INSERT INTO `wst_forum_cats` VALUES ('23', '6', '0', '1', '晒照交流', '0', '1', '0', null);
 INSERT INTO `wst_forum_cats` VALUES ('24', '6', '0', '1', '茶余饭后', '0', '1', '0', null);
+
+-- ----------------------------
+-- Table structure for wst_forum_content
+-- ----------------------------
+DROP TABLE IF EXISTS `wst_forum_content`;
+CREATE TABLE `wst_forum_content` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL COMMENT '评论用户ID',
+  `aid` int(11) NOT NULL COMMENT '评论的哪篇文章',
+  `cid` int(11) DEFAULT NULL COMMENT '评论的哪条评论',
+  `content` varchar(255) NOT NULL COMMENT '评论的内容',
+  `laud` int(11) DEFAULT '0' COMMENT '被赞数',
+  `ctime` int(11) NOT NULL COMMENT '评论时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of wst_forum_content
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for wst_forum_record
+-- ----------------------------
+DROP TABLE IF EXISTS `wst_forum_record`;
+CREATE TABLE `wst_forum_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL COMMENT '用户ID',
+  `cid` int(11) NOT NULL COMMENT '圈子ID',
+  `ctime` int(11) NOT NULL COMMENT '加入时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of wst_forum_record
+-- ----------------------------
+INSERT INTO `wst_forum_record` VALUES ('1', '43', '6', '1480997347');
+INSERT INTO `wst_forum_record` VALUES ('7', '42', '5', '1481023719');
+INSERT INTO `wst_forum_record` VALUES ('6', '42', '6', '1481010314');
 
 -- ----------------------------
 -- Table structure for wst_friendlinks
@@ -6069,7 +6106,7 @@ CREATE TABLE `wst_log_user_logins` (
   PRIMARY KEY (`loginId`),
   KEY `loginTime` (`loginTime`),
   KEY `userId` (`userId`)
-) ENGINE=MyISAM AUTO_INCREMENT=81 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wst_log_user_logins
@@ -6154,6 +6191,12 @@ INSERT INTO `wst_log_user_logins` VALUES ('77', '42', '2016-12-02 13:06:26', '12
 INSERT INTO `wst_log_user_logins` VALUES ('78', '40', '2016-12-02 16:34:53', '127.0.0.1', '0', null);
 INSERT INTO `wst_log_user_logins` VALUES ('79', '40', '2016-12-03 11:35:09', '127.0.0.1', '0', null);
 INSERT INTO `wst_log_user_logins` VALUES ('80', '40', '2016-12-03 11:45:35', '127.0.0.1', '0', null);
+INSERT INTO `wst_log_user_logins` VALUES ('81', '42', '2016-12-05 09:53:13', '127.0.0.1', '0', null);
+INSERT INTO `wst_log_user_logins` VALUES ('82', '42', '2016-12-05 13:53:16', '127.0.0.1', '0', null);
+INSERT INTO `wst_log_user_logins` VALUES ('83', '42', '2016-12-06 09:49:35', '127.0.0.1', '0', null);
+INSERT INTO `wst_log_user_logins` VALUES ('84', '42', '2016-12-06 13:30:14', '127.0.0.1', '0', null);
+INSERT INTO `wst_log_user_logins` VALUES ('85', '42', '2016-12-06 18:13:50', '127.0.0.1', '0', null);
+INSERT INTO `wst_log_user_logins` VALUES ('86', '42', '2016-12-06 18:49:49', '127.0.0.1', '0', null);
 
 -- ----------------------------
 -- Table structure for wst_messages
@@ -7275,7 +7318,7 @@ CREATE TABLE `wst_sign` (
 -- ----------------------------
 -- Records of wst_sign
 -- ----------------------------
-INSERT INTO `wst_sign` VALUES ('1', '42', '1480655616', '1480655616', '1', '1');
+INSERT INTO `wst_sign` VALUES ('1', '42', '1480902805', '1480988982', '3', '2');
 INSERT INTO `wst_sign` VALUES ('2', '40', '1480662876', '1480748726', '3', '2');
 
 -- ----------------------------
@@ -7451,7 +7494,7 @@ INSERT INTO `wst_users` VALUES ('37', 'ceshi62', '1996', '0c3a4081280a5b80af5b70
 INSERT INTO `wst_users` VALUES ('38', 'ceshi63', '8163', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '测试店铺63', '', '15918671987', '', '0', null, '0', '1', '1', '2015-05-26 21:47:10', null, null, '0', null, null);
 INSERT INTO `wst_users` VALUES ('39', 'ceshi64', '3204', '5d50361a4cc2359475c8d08c34fbfcd4', '0', '1', '测试店铺64', '', '15918671857', '', '0', null, '0', '1', '1', '2015-05-26 21:48:43', null, null, '0', null, null);
 INSERT INTO `wst_users` VALUES ('40', 'test123', '9083', '56bf2590b53e8dadb6c47dd81311674f', '0', '1', '', '', '15617859166', '', '0', null, '0', '1', '1', '2016-11-09 10:35:48', '127.0.0.1', '2016-12-03 11:45:35', '0', null, null);
-INSERT INTO `wst_users` VALUES ('42', '15617859168', '3878', '49b103a09ff277c27998d0f14cafdb4e', '0', '0', null, null, '15617859164', '2504585798@qq.com', '0', null, '0', '1', '1', null, '127.0.0.1', '2016-12-02 13:06:26', '0', null, null);
+INSERT INTO `wst_users` VALUES ('42', '15617859168', '3878', '49b103a09ff277c27998d0f14cafdb4e', '0', '0', null, null, '15617859164', '2504585798@qq.com', '0', null, '0', '1', '1', null, '127.0.0.1', '2016-12-06 18:49:49', '0', null, null);
 INSERT INTO `wst_users` VALUES ('43', '15617859167', '8212', '2afc9178a5ff317f816054da34cc9f79', '0', '0', 'uname', null, '15617859167', null, '0', null, '0', '1', '1', '2016-11-10 16:57:15', '127.0.0.1', '2016-11-10 17:53:24', '0', null, null);
 
 -- ----------------------------
@@ -7523,3 +7566,4 @@ CREATE TABLE `wst_user_score` (
 -- ----------------------------
 -- Records of wst_user_score
 -- ----------------------------
+SET FOREIGN_KEY_CHECKS=1;
