@@ -79,7 +79,7 @@
         <!-- header logo: style can be found in header.less -->
         <header class="header">
             <a href="#" class="logo">
-                WST Mall
+               财税网
             </a>
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
@@ -163,24 +163,24 @@
                         <php>if(in_array('spgl_00',$WST_STAFF['grant'])){</php>
                         <li class="treeview">
                             <a href="#">
-                                <span>商品管理</span>
+                                <span>课程管理</span>
                                 <small id='goodsTips' style='display:none' class="badge pull-right bg-green">0</small>
                             </a>
                             <ul class="treeview-menu">
                                 <php>if(in_array('spfl_00',$WST_STAFF['grant'])){</php>
-                                <li><a href="{:U('Admin/GoodsCats/index')}" target='pageContent'>商品分类</a></li>
+                                <li><a href="{:U('Admin/CourseCats/index')}" target='pageContent'>课程分类</a></li>
                                 <php>}</php>
-                                <php>if(in_array('ppgl_00',$WST_STAFF['grant'])){</php>
+                               <!--  <php>if(in_array('ppgl_00',$WST_STAFF['grant'])){</php>
 					            <li><a href="{:U('Admin/Brands/index')}" target='pageContent'>品牌管理</a></li>
-					            <php>}</php>
+					            <php>}</php> -->
                                 <php>if(in_array('splb_00',$WST_STAFF['grant'])){</php>
-					            <li><a href="{:U('Admin/Goods/index')}" target='pageContent'>商品列表</a></li>
+					            <li><a href="{:U('Admin/Course/index')}" target='pageContent'>课程列表</a></li>
 					            <php>}</php>
                                 <php>if(in_array('spsh_00',$WST_STAFF['grant'])){</php>
-					            <li><a href="{:U('Admin/Goods/queryPenddingByPage')}" target='pageContent'>商品审核</a></li>
+					            <li><a href="{:U('Admin/Course/queryPenddingByPage')}" target='pageContent'>课程审核</a></li>
 					            <php>}</php>
                                 <php>if(in_array('sppl_00',$WST_STAFF['grant'])){</php>
-					            <li><a href="{:U('Admin/GoodsAppraises/index')}" target='pageContent'>商品评价</a></li>
+					            <li><a href="{:U('Admin/CourseAppraises/index')}" target='pageContent'>课程评价</a></li>
 					            <php>}</php>
                             </ul>
                         </li>
@@ -221,22 +221,54 @@
                         <php>if(in_array('dpgl_00',$WST_STAFF['grant'])){</php>
                         <li class="treeview">
                             <a href="#">
-                                <span>店铺管理</span>
+                                <span>教师管理</span>
                                 <small id='shopsTips' style='display:none' class="badge pull-right bg-green">3</small>
                             </a>
                             <ul class="treeview-menu">
                                 <php>if(in_array('dplb_01',$WST_STAFF['grant'])){</php>
-                                <li><a href="{:U('Admin/Shops/toEdit')}" target='pageContent' >添加店铺</a></li>
+                                <li><a href="{:U('Admin/Shops/toEdit')}" target='pageContent' >添加教师</a></li>
                                 <php>}</php>
                                 <php>if(in_array('dplb_00',$WST_STAFF['grant'])){</php>
-					            <li><a href="{:U('Admin/Shops/index')}" target='pageContent' >店铺列表</a></li>
+					            <li><a href="{:U('Admin/Shops/index')}" target='pageContent' >教师列表</a></li>
 					            <php>}</php>
                                 <php>if(in_array('dpsh_00',$WST_STAFF['grant'])){</php>
-					            <li><a href="{:U('Admin/Shops/queryPeddingByPage')}" target='pageContent' >店铺审核</a></li>
+					            <li><a href="{:U('Admin/Shops/queryPeddingByPage')}" target='pageContent' >教师审核</a></li>
 					            <php>}</php>
                             </ul>
                         </li>
                         <php>}</php>
+						
+						
+						<php>if(in_array('xxgl_00',$WST_STAFF['grant'])){</php>
+                        <li class="treeview">
+                            <a href="#">
+                                <span>线下管理</span>
+                                <small id='shopsTips' style='display:none' class="badge pull-right bg-green">3</small>
+                            </a>
+                            <ul class="treeview-menu">
+                                <php>if(in_array('xxfl',$WST_STAFF['grant'])){</php>
+                                <li><a href="{:U('Admin/OfflineCats/toEdit')}" target='pageContent' >添加线下分类</a></li>
+                                <php>}</php>
+								 <php>if(in_array('xxfl_02',$WST_STAFF['grant'])){</php>
+                                <li><a href="{:U('Admin/OfflineCats/index')}" target='pageContent' >线下分类列表</a></li>
+                                <php>}</php>
+								
+								
+                                <php>if(in_array('xxhd',$WST_STAFF['grant'])){</php>
+					            <li><a href="{:U('Admin/Offline/index')}" target='pageContent' >添加线下活动</a></li>
+					            <php>}</php>
+								  <php>if(in_array('xxhd_03',$WST_STAFF['grant'])){</php>
+					            <li><a href="{:U('Admin/Offline/index')}" target='pageContent' >线下活动列表</a></li>
+					            <php>}</php>
+                               
+                            </ul>
+                        </li>
+                        <php>}</php>
+						
+						
+						
+						
+						
                         <php>if(in_array('dqgl_00',$WST_STAFF['grant'])){</php>
                         <li class="treeview">
                             <a href="pages/calendar.html">

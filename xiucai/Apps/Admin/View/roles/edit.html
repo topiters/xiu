@@ -79,11 +79,11 @@
              <td>
              <table width='100%'>
                 <tr>
-                   <td rowspan='6' valign='top' width='100'><label><input type='checkbox' class='chk' onclick='javascript:checkModel(this)' value='spgl'/>商品管理</label></td>
-                   <td width='90' colspan='2'><label><input type='checkbox' id='spgl_00' class='chk grant spgl' value='spgl_00' onclick='javascript:checkModel(this)'/>查看商品管理栏目</label></td>                   
+                   <td rowspan='6' valign='top' width='100'><label><input type='checkbox' class='chk' onclick='javascript:checkModel(this)' value='spgl'/>课程管理</label></td>
+                   <td width='90' colspan='2'><label><input type='checkbox' id='spgl_00' class='chk grant spgl' value='spgl_00' onclick='javascript:checkModel(this)'/>查看课程管理栏目</label></td>                   
                 </tr>
                 <tr>
-                  <td width='90'><label><input type='checkbox' class='chk spgl spfl' value='spfl' onclick='javascript:checkModel(this)'/>商品分类</label></td>
+                  <td width='90'><label><input type='checkbox' class='chk spgl spfl' value='spfl' onclick='javascript:checkModel(this)'/>课程分类</label></td>
                   <td>    
                    <label><input type='checkbox' class='chk grant spgl spfl' id='spfl_00' value='spfl_00'/>分类列表</label>
                    <label><input type='checkbox' class='chk grant spgl spfl' id='spfl_01' value='spfl_01'/>新增分类</label>
@@ -91,31 +91,31 @@
                    <label><input type='checkbox' class='chk grant spgl spfl' id='spfl_03' value='spfl_03'/>删除分类</label>
                    </td>
                 </tr>
-                <tr>
-                   <td><label><input type='checkbox' class='chk spgl ppgl' value='ppgl' onclick='javascript:checkModel(this)'/>品牌管理</label></td>
+                 <tr>
+                  <!--  <td><label><input type='checkbox' class='chk spgl ppgl' value='ppgl' onclick='javascript:checkModel(this)'/>品牌管理</label></td> -->
                    <td>
-                   <label><input type='checkbox' class='chk grant spgl ppgl' id='ppgl_00' value='ppgl_00'/>品牌列表</label>
+                  <!--  <label><input type='checkbox' class='chk grant spgl ppgl' id='ppgl_00' value='ppgl_00'/>品牌列表</label>
                    <label><input type='checkbox' class='chk grant spgl ppgl' id='ppgl_01' value='ppgl_01'/>新增品牌</label>
                    <label><input type='checkbox' class='chk grant spgl ppgl' id='ppgl_02' value='ppgl_02'/>修改品牌</label>
-                   <label><input type='checkbox' class='chk grant spgl ppgl' id='ppgl_03' value='ppgl_03'/>删除品牌</label>
+                   <label><input type='checkbox' class='chk grant spgl ppgl' id='ppgl_03' value='ppgl_03'/>删除品牌</label> -->
                    </td>
-                </tr>
+                </tr> 
                 <tr>
-                   <td><label><input type='checkbox' class='chk spgl splb' value='splb' onclick='javascript:checkModel(this)'/>商品列表</label></td>
+                   <td><label><input type='checkbox' class='chk spgl splb' value='splb' onclick='javascript:checkModel(this)'/>课程列表</label></td>
                    <td>
-                   <label><input type='checkbox' class='chk grant spgl splb' id='splb_00' value='splb_00'/>商品列表</label>
-                   <label><input type='checkbox' class='chk grant spgl splb' id='splb_04' value='splb_04'/>商品操作</label>
+                   <label><input type='checkbox' class='chk grant spgl splb' id='splb_00' value='splb_00'/>课程列表</label>
+                   <label><input type='checkbox' class='chk grant spgl splb' id='splb_04' value='splb_04'/>课程操作</label>
                    </td>
                 </tr>
                 <tr>
-                   <td><label><input type='checkbox' class='chk spgl spsh' value='spsh' onclick='javascript:checkModel(this)'/>商品审核</label></td>
+                   <td><label><input type='checkbox' class='chk spgl spsh' value='spsh' onclick='javascript:checkModel(this)'/>课程审核</label></td>
                    <td>
-                   <label><input type='checkbox' class='chk grant spgl spsh' id='spsh_00' value='spsh_00'/>商品列表</label>
-                   <label><input type='checkbox' class='chk grant spgl spsh' id='spsh_04' value='spsh_04'/>商品审核</label>
+                   <label><input type='checkbox' class='chk grant spgl spsh' id='spsh_00' value='spsh_00'/>课程列表</label>
+                   <label><input type='checkbox' class='chk grant spgl spsh' id='spsh_04' value='spsh_04'/>课程审核</label>
                    </td>
                 </tr>
                 <tr>
-                   <td><label><input type='checkbox' class='chk spgl sppl' value='sppl' onclick='javascript:checkModel(this)'/>商品评论</label></td>
+                   <td><label><input type='checkbox' class='chk spgl sppl' value='sppl' onclick='javascript:checkModel(this)'/>课程评论</label></td>
                    <td>
                    <label><input type='checkbox' class='chk grant spgl sppl' id='sppl_00' value='sppl_00'/>评论列表</label>
                    <label><input type='checkbox' class='chk grant spgl sppl' id='sppl_04' value='sppl_04'/>评论操作</label>
@@ -164,24 +164,57 @@
                    </td>
                 </tr>
                 <tr style='border-top:1px solid #dddddd'>
-                   <td rowspan='3' valign='top' width='100'><label><input type='checkbox' class='chk' value='dpgl' onclick='javascript:checkModel(this)'/>店铺管理</label></td>
-                   <td width='90' colspan='2'><label><input type='checkbox' class='chk grant dpgl' id='dpgl_00' value='dpgl_00' onclick='javascript:checkModel(this)'/>查看店铺管理栏目</label></td> 
+                   <td rowspan='3' valign='top' width='100'><label><input type='checkbox' class='chk' value='dpgl' onclick='javascript:checkModel(this)'/>教师端管理</label></td>
+                   <td width='90' colspan='2'><label><input type='checkbox' class='chk grant dpgl' id='dpgl_00' value='dpgl_00' onclick='javascript:checkModel(this)'/>查看教师端管理栏目</label></td> 
                 </tr>
                 <tr> 
-                   <td width='90'><label><input type='checkbox' class='chk dpgl' value='dplb' onclick='javascript:checkModel(this)'/>店铺列表</label></td>
+                   <td width='90'><label><input type='checkbox' class='chk dpgl' value='dplb' onclick='javascript:checkModel(this)'/>教师端列表</label></td>
                    <td>
-                   <label><input type='checkbox' class='chk grant dpgl dplb' id='dplb_00' value='dplb_00'/>店铺列表</label>
-                   <label><input type='checkbox' class='chk grant dpgl dplb' id='dplb_01' value='dplb_01'/>新增店铺</label>
-                   <label><input type='checkbox' class='chk grant dpgl dplb' id='dplb_02' value='dplb_02'/>修改店铺</label>
-                   <label><input type='checkbox' class='chk grant dpgl dplb' id='dplb_03' value='dplb_03'/>删除店铺</label>
+                   <label><input type='checkbox' class='chk grant dpgl dplb' id='dplb_00' value='dplb_00'/>教师端列表</label>
+                   <label><input type='checkbox' class='chk grant dpgl dplb' id='dplb_01' value='dplb_01'/>新增教师端</label>
+                   <label><input type='checkbox' class='chk grant dpgl dplb' id='dplb_02' value='dplb_02'/>修改教师端</label>
+                   <label><input type='checkbox' class='chk grant dpgl dplb' id='dplb_03' value='dplb_03'/>删除教师端</label>
                    </td>
                 </tr>
                 <tr>
-                   <td><label><input type='checkbox' class='chk dpgl'  value='dpsh' onclick='javascript:checkModel(this)'/>店铺审核</label></td>
+                   <td><label><input type='checkbox' class='chk dpgl'  value='dpsh' onclick='javascript:checkModel(this)'/>教师端审核</label></td>
                    <td>
-                   <label><input type='checkbox' class='chk grant dpgl dpsh' id='dpsh_00' value='dpsh_00'/>店铺列表</label>
+                   <label><input type='checkbox' class='chk grant dpgl dpsh' id='dpsh_00' value='dpsh_00'/>教师端列表</label>
                    </td>
                 </tr>
+				
+			
+			
+			
+			
+			
+			 <tr style='border-top:1px solid #dddddd'>
+                   <td rowspan='3' valign='top' width='100'><label><input type='checkbox' class='chk' value='xxgl' onclick='javascript:checkModel(this)'/>线下管理</label></td>
+                   <td width='90' colspan='2'><label><input type='checkbox' class='chk grant xxgl' id='xxgl_00' value='xxgl_00' onclick='javascript:checkModel(this)'/>查看线下管理栏目</label></td> 
+                </tr>
+                <tr> 
+                   <td width='90'><label><input type='checkbox' class='chk  xxgl  xxfl ' value='xxfl' onclick='javascript:checkModel(this)'/>线下分类</label></td>
+                   <td>
+                   <label><input type='checkbox' class='chk grant xxgl  xxfl' id='xxfl_00' value='xxfl_00'/>分类列表</label>
+                   <label><input type='checkbox' class='chk grant xxgl  xxfl' id='xxfl_01' value='xxfl_01'/>新增分类</label>
+                   <label><input type='checkbox' class='chk grant xxgl  xxfl' id='xxfl_02' value='xxfl_02'/>修改分类</label>
+                   <label><input type='checkbox' class='chk grant xxgl  xxfl' id='xxfl_03' value='xxfl_03'/>删除分类</label>
+                   </td>
+                </tr>
+                <tr>
+                   <td><label><input type='checkbox' class='chk xxgl'  value='xxhd' onclick='javascript:checkModel(this)'/>线下活动</label></td>
+                   <td>
+                    <label><input type='checkbox' class='chk grant xxgl xxhd' id='xxhd_00' value='xxhd_00'/>活动列表</label>
+				    <label><input type='checkbox' class='chk grant xxgl xxhd' id='xxhd_01' value='xxhd_02'/>新增活动</label> 
+					<label><input type='checkbox' class='chk grant xxgl xxhd' id='xxhd_03' value='xxhd_03'/>编辑活动</label>
+					<label><input type='checkbox' class='chk grant xxgl xxhd' id='xxhd_04' value='xxhd_04'/>删除活动</label>
+                   </td>
+				   
+                </tr>
+				
+				
+				
+				
                 <tr style='border-top:1px solid #dddddd'>
                    <td rowspan='3' valign='top' width='100'><label><input type='checkbox' value='dqgl' onclick='javascript:checkModel(this)'/>地区管理</label></td>
                    <td width='90' colspan='2'><label><input type='checkbox' class='chk grant dqgl' id='dqgl_00' value='dqgl_00' onclick='javascript:checkModel(this)'/>查看地区管理栏目</label></td>

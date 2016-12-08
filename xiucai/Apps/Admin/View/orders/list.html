@@ -66,7 +66,7 @@
           </select>
        </div>
        <div class='wst-tbar'>
-       店铺：<input type='text' name='shopName' id='shopName' value='{$shopName}'/>  
+       教师：<input type='text' name='shopName' id='shopName' value='{$shopName}'/>  
        订单：<input type='text' name='orderNo' id='orderNo' value='{$orderNo}'/>
   订单状态：  <select name='orderStatus' id='orderStatus'>
              <option value='-9999'>请选择</option>
@@ -78,8 +78,8 @@
              <option value='4'>已到货</option>
              <option value='-100'>用户取消</option>
              <option value='-3'>用户拒收</option>
-             <option value='-4'>店铺同意拒收</option>
-             <option value='-5'>店铺不同意拒收</option>
+             <option value='-4'>教师同意拒收</option>
+             <option value='-5'>教师不同意拒收</option>
           </select>
        <button type="submit" class="btn btn-primary glyphicon glyphicon-search">查询</button> 
        </div>
@@ -109,8 +109,8 @@
                <td width='150'>{$vo['createTime']}</td>
                <td width='120'>
                <if condition='$vo["orderStatus"] eq -3'>用户拒收
-               <elseif condition='$vo["orderStatus"] eq -5'/>店铺不同意拒收
-               <elseif condition='$vo["orderStatus"] eq -4'/>店铺同意拒收
+               <elseif condition='$vo["orderStatus"] eq -5'/>教师不同意拒收
+               <elseif condition='$vo["orderStatus"] eq -4'/>教师同意拒收
 			   <elseif condition='$vo["orderStatus"] eq -2'/>未付款
 			   <elseif condition='($vo["orderStatus"] eq -6) OR ($vo["orderStatus"] eq -7) OR ($vo["orderStatus"] eq -1)'/>用户取消
 			   <elseif condition='$vo["orderStatus"] eq 0'/>未受理

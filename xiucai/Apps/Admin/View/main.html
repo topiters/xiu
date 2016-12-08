@@ -26,10 +26,10 @@
    <body>
       <div class='panel wst-panel-full'>
          <div class="col-xs-12 wstmall-login-tips">
-             <p style='font-size:16px;'>您好，{:session('WST_STAFF.staffName')}，欢迎使用 WSTMall。 您上次登录的时间是 {:session('WST_STAFF.lastTime')} ，IP 是 {:session('WST_STAFF.lastIP')}</p>
+             <p style='font-size:16px;'>您好，{:session('WST_STAFF.staffName')}，欢迎使用 财税网。 您上次登录的时间是 {:session('WST_STAFF.lastTime')} ，IP 是 {:session('WST_STAFF.lastIP')}</p>
          </div>
-         <div class='col-xs-12 wstmall-version-tips'>您有新的版本(<span id='wstmall_version'>0.0.0</span>)可以下载啦~，<a id='wstmall_down' href='' target='_blank'>点击</a>下载</div>
-         <div class='col-xs-12 wstmall-accredit-tips'>系统检测到您未获取授权，点此<a target='_blank' href='http://www.wstmall.net/index.php?m=Home&c=License&a=getLicense'>获取系统授权码</a></div>          
+        <!--  <div class='col-xs-12 wstmall-version-tips'>您有新的版本(<span id='wstmall_version'>0.0.0</span>)可以下载啦~，<a id='wstmall_down' href='' target='_blank'>点击</a>下载</div>
+         <div class='col-xs-12 wstmall-accredit-tips'>系统检测到您未获取授权，点此<a target='_blank' href='http://www.wstmall.net/index.php?m=Home&c=License&a=getLicense'>获取系统授权码</a></div>   -->        
          <div class='row' style='padding-left:10px;margin-right:10px;'>
 	         <div class="col-md-9">
 	           <div class="box-header">
@@ -38,11 +38,11 @@
 	                <tr>
 	                   <td width="20%" align='right'>新增会员数：</td>
 	                   <td width="30%">{$weekInfo.userNew}</td>
-	                   <td width="20%" align='right'>新增店铺数/申请数：</td>
+	                   <td width="20%" align='right'>新增教师数/申请数：</td>
 	                   <td width="30%">{$weekInfo.shopNew}/{$weekInfo.shopApply}</td>
 	                </tr>
 	                <tr>
-	                   <td align='right'>新增商品数：</td>
+	                   <td align='right'>新增课程数：</td>
 	                   <td>{$weekInfo.goodsNew}</td>
 	                   <td align='right'>新增订单数：</td>
 	                   <td>{$weekInfo.ordersNew}</td>
@@ -55,11 +55,11 @@
 	                <tr>
 	                   <td width="20%" align='right'>会员总数：</td>
 	                   <td width="30%">{$sumInfo.userSum}</td>
-	                   <td width="20%" align='right'>店铺总数/申请总数：</td>
+	                   <td width="20%" align='right'>教师总数/申请总数：</td>
 	                   <td width="30%">{$sumInfo.shopSum}/{$sumInfo.shopApplySum}</td>
 	                </tr>
 	                <tr>
-	                   <td align='right'>商品总数：</td>
+	                   <td align='right'>课程总数：</td>
 	                   <td>{$sumInfo.goodsSum}</td>
 	                   <td align='right'>订单总数：</td>
 	                   <td>{$sumInfo.ordersSum}</td>
@@ -81,9 +81,9 @@
 	                </tr>
 	                <tr>
 	                   <td align='right'>问题反馈：</td>
-	                   <td id='webUrl'><a href="{:C('WST_FEEDBACK')}"" target='_blank'>点击反馈</a></td>
-	                   <td align='right'>授权码：</td>
-	                   <td>{$CONF['mallLicense']}</td>
+	                   <td id='webUrl'><a href="" target='_blank'>点击反馈</a></td>
+	                   <!-- <td align='right'>授权码：</td>
+	                   <td>{$CONF['mallLicense']}</td> -->
 	                </tr>
 	                <tr>
 	                   <td align='right'>服务器操作系统：</td>
@@ -103,12 +103,12 @@
 	        <div class="col-md-3">
 	           <div class="box-header" style='margin-bottom:30px;'>
 	             <h4 class='wstmall-intro'>走进我们</h4>
-	             <div><a style='color:#000000' href="{:C('WST_WEB')}" target='_blank'>官网：{:C('WST_WEB')}</a></div>
-	             <div><a style='color:#000000' href="http://bbs.wstmall.net" target='_blank'>使用交流：http://bbs.wstmall.net</a></div>
+	             <div><a style='color:#000000' href="{:C('WST_WEB')}" target='_blank'>官网：www.hchunni168.com</a></div>
+	            <!--  <div><a style='color:#000000' href="http://bbs.wstmall.net" target='_blank'>使用交流：http://bbs.wstmall.net</a></div> -->
 	           </div>
 	           <div class="box-header" style='margin-bottom:30px;'>
 	             <h4 class='wstmall-intro'>开发团队： </h4>
-	             <div>广州商淘信息科技有限公司</div>
+	             <div>河南春泥科技有限公司</div>
 	           </div>
 	           <div class="box-header" style='margin-bottom:30px;'>
 	             <h4 class='wstmall-intro'>我们的理念</h4>
@@ -116,8 +116,8 @@
 	           </div>
 	           <div class="box-header">
 	             <h4 class='wstmall-intro'>商城定制</h4>
-	             <div>电话：020-85289921</div>
-	             <div style='padding-left:5px;'>QQ：707563272</div>
+	             <div>电话：020-0000000</div>
+	             <div style='padding-left:5px;'>QQ：1149100178</div>
 	           </div>
 	        </div>
 	      </div>  

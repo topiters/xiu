@@ -75,8 +75,8 @@
              <select id='areaId2' name='areaId2'>
                <option value=''>请选择</option>
              </select>    
-       店铺名称：<input type='text' id='shopName' name='shopName' class='form-control wst-ipt-10' value='{$shopName}'/> 
-       店铺编号：<input type='text' id='shopSn' name='shopSn' class='form-control wst-ipt-10' value='{$shopSn}'/> 
+       教师端名称：<input type='text' id='shopName' name='shopName' class='form-control wst-ipt-10' value='{$shopName}'/> 
+       教师端编号：<input type='text' id='shopSn' name='shopSn' class='form-control wst-ipt-10' value='{$shopSn}'/> 
   <button type="submit" class="btn btn-primary glyphicon glyphicon-search">查询</button> 
   <php>if(in_array('dplb_01',$WST_STAFF['grant'])){</php>
   <a class="btn btn-success glyphicon glyphicon-plus" href="{:U('Admin/Shops/toEdit')}" style='float:right'>新增</a>
@@ -88,8 +88,8 @@
            <thead>
              <tr>
                <th width='30'>序号</th>
-               <th width='80'>店铺名称</th>
-               <th width='80'>店铺编号</th>
+               <th width='80'>教师端名称</th>
+               <th width='80'>教师端编号</th>
                <th width='80'>店主</th>
                <th width='80'>分类</th>
                <th width='60'>营业状态</th>
