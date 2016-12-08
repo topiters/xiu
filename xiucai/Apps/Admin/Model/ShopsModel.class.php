@@ -1,13 +1,17 @@
 <?php
  namespace Admin\Model;
 /**
- * ============================================================================
- * WSTMall开源商城
- * 官网地址:http://www.wstmall.net
- * 联系QQ:707563272
- * ============================================================================
- * 店铺服务类
- */
+*  教师端文件
+* ==============================================
+* 版权所有 2015-2016 http://www.chunni168.com
+* ----------------------------------------------
+* 这不是一个自由软件，未经授权不许任何使用和传播。
+* ==============================================
+* @date: 2016-11-21
+* @author: top_iter、lnrp
+* @email:2504585798@qq.com
+* @version:
+**/
 class ShopsModel extends BaseModel {
 	
 	/**
@@ -62,7 +66,7 @@ class ShopsModel extends BaseModel {
 		$sdata["areaId1"] = (int)I("areaId1");
 		$sdata["areaId2"] = (int)I("areaId2");
 		$sdata["areaId3"] = (int)I("areaId3");
-		$sdata["goodsCatId1"] = (int)I("goodsCatId1");
+		$sdata["courseCatId1"] = (int)I("courseCatId1");
 		$sdata["shopName"] = I("shopName");
 		$sdata["shopCompany"] = I("shopCompany");
 		$sdata["shopImg"] = I("shopImg");
@@ -184,7 +188,7 @@ class ShopsModel extends BaseModel {
 		$data["areaId1"] = (int)I("areaId1");
 		$data["areaId2"] = (int)I("areaId2");
 		$data["areaId3"] = (int)I("areaId3");
-		$data["goodsCatId1"] = (int)I("goodsCatId1");
+		$data["courseCatId1"] = (int)I("courseCatId1");
 		$data["isSelf"] = (int)I("isSelf",0);
 		if($data["isSelf"]==1){
 			$data["deliveryType"] = 1;
@@ -224,7 +228,7 @@ class ShopsModel extends BaseModel {
 		    	//如果[已通过的店铺]被改为未审核的话也要停止了该店铺的商品
 		    	if($shops['shopStatus']!=$data['shopStatus']){
 					if($data['shopStatus']!=1){
-						$sql = "update __PREFIX__goods set isSale=0,goodsStatus=0 where shopId=".$shopId;
+						$sql = "update __PREFIX__course set isSale=0,courseStatus=0 where shopId=".$shopId;
 			 	        $m->execute($sql);
 			 	        $shopMessage = "您的店铺状态已被改为“未审核”状态，如有疑问请与商场管理员联系。";
 					}
@@ -346,7 +350,7 @@ class ShopsModel extends BaseModel {
 				if($shops['shopStatus']!=$data['shopStatus']){
 					$shopMessage = '';
 					if($data['shopStatus']!=1){
-						$sql = "update __PREFIX__goods set isSale=0,goodsStatus=0 where shopId=".$shopId;
+						$sql = "update __PREFIX__course set isSale=0,courseStatus=0 where shopId=".$shopId;
 			 	        $m->execute($sql);
 			 	        if($data['shopStatus']==0){
 			 	        	$shopMessage = "您的店铺状态已被改为“未审核”状态，如有疑问请与商场管理员联系。";
@@ -378,8 +382,8 @@ class ShopsModel extends BaseModel {
      public function queryByPage(){
         $areaId1 = (int)I('areaId1',0);
      	$areaId2 = (int)I('areaId2',0);
-	 	$sql = "select shopId,shopSn,shopName,u.userName,shopAtive,shopStatus,gc.catName from __PREFIX__shops s,__PREFIX__users u ,__PREFIX__goods_cats gc 
-	 	     where gc.catId=s.goodsCatId1 and s.userId=u.userId and shopStatus=1 and shopFlag=1 ";
+	 	$sql = "select shopId,shopSn,shopName,u.userName,shopAtive,shopStatus,gc.catName from __PREFIX__shops s,__PREFIX__users u ,__PREFIX__course_cats gc 
+	 	     where gc.catId=s.courseCatId1 and s.userId=u.userId and shopStatus=1 and shopFlag=1 ";
 	 	if(I('shopName')!='')$sql.=" and shopName like '%".WSTAddslashes(I('shopName'))."%'";
 	 	if(I('shopSn')!='')$sql.=" and shopSn like '%".WSTAddslashes(I('shopSn'))."%'";
 	 	if($areaId1>0)$sql.=" and areaId1=".$areaId1;
@@ -393,8 +397,8 @@ class ShopsModel extends BaseModel {
      public function queryPeddingByPage(){
         $areaId1 = (int)I('areaId1',0);
      	$areaId2 = (int)I('areaId2',0);
-	 	$sql = "select shopId,shopSn,shopName,u.userName,shopAtive,shopStatus,gc.catName from __PREFIX__shops s,__PREFIX__users u ,__PREFIX__goods_cats gc 
-	 	     where gc.catId=s.goodsCatId1 and s.userId=u.userId and shopStatus<=0 and shopFlag=1";
+	 	$sql = "select shopId,shopSn,shopName,u.userName,shopAtive,shopStatus,gc.catName from __PREFIX__shops s,__PREFIX__users u ,__PREFIX__course_cats gc 
+	 	     where gc.catId=s.courseCatId1 and s.userId=u.userId and shopStatus<=0 and shopFlag=1";
 	 	if(I('shopName')!='')$sql.=" and shopName like '%".WSTAddslashes(I('shopName'))."%'";
 	 	if(I('shopSn')!='')$sql.=" and shopSn like '%".WSTAddslashes(I('shopSn'))."%'";
 	 	if(I('shopStatus',-999)!=-999)$sql.=" and shopStatus =".(int)I('shopStatus');
@@ -418,7 +422,7 @@ class ShopsModel extends BaseModel {
 	 	$shopId = (int)I('id');
 	    $rd = array('status'=>-1);
 	    //下架所有商品
-	    $sql = "update __PREFIX__goods set isSale=0,goodsStatus=-1 where shopId=".$shopId;
+	    $sql = "update __PREFIX__course set isSale=0,courseStatus=-1 where shopId=".$shopId;
 		$this->execute($sql);
 		$sql = "select userId from __PREFIX__shops where shopId=".$shopId;
 		$shop = $this->queryRow($sql);

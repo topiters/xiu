@@ -131,6 +131,8 @@ class StaffsModel extends BaseModel {
 	 		//获取角色权限
 	 		$r = M('roles');
 	 		$rrs = $r->where('roleFlag =1 and roleId='.$staff['staffRoleId'])->find();
+	 		//dump($rrs);
+	 		//exit;
 	 		$staff['roleName'] = $rrs['roleName'];
 	 		$staff['grant'] = explode(',',$rrs['grant']);
 	 		$rd['staff'] = $staff;
