@@ -18,7 +18,8 @@ a {
 	text-decoration:none;
 }
 a:hover {
-	text-decoration:none;color:#f00;
+	text-decoration:none;
+	color:#666;
 }
 .cl{ clear: both;}
 input[type="text"]:focus, input[type="password"]:focus {

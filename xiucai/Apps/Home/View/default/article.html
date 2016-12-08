@@ -26,12 +26,14 @@
                             <div class="r-content">
                                 <!-- 分享收藏 -->
                                 <div class="post-share-collect">
+                                    <if condition="$article['staffId'] eq $user['userId']">
                                     <!--如果是点击用户自己发表的会显示修改和删除-->
                                     <div class="del-edit" style="float: left;">
                                         <a href="{:U('Home/Forum/mod',array('id'=>$article['articleId']))}" target="_blank">修改</a>
                                         <em>|</em>
                                         <a class="del-thread" href="javascript:;">删除</a>
                                     </div>
+                                    </if>
                                     <div class="share-tooltip">
                                         <span><i class="iconfont">&#xe653;</i>分享</span>
                                         <div class="wx-qq" style="display: none;">
@@ -70,16 +72,16 @@
                                         <span>阅读量：<i>{$article.readNum}</i></span>
                                         <span>回复量：<i class="thread-floor-count">{$article.commentNum}</i></span>
                                         <!-- level -->
-                                        <a href="/help/6/#q28" target="_blank" class="" title="经验值：907，等级头衔：意见领袖，了解经验值等级">
-			                    <span class="tag-level tag-level-LV10">
-			                    <i>LV10</i></span>
+                                        <a href="/help/6/#q28" target="_blank" class="" title="经验值：{$article.userScore}，等级头衔：{$article.userRankName}，了解经验值等级">
+			                    <span class="tag-level tag-level-LV{$article.userRankId}">
+			                    <i>LV{$article.userRankId}</i></span>
                                         </a>
                                         <!-- 马甲 -->
                                         <a href="{:U('Home/Users/index',array('id'=>$article['staffId']))}" target="_blank" class="user">{$article.userName}</a><span class="post-time">发表于：{$article.createTime|date='Y-m-d H:i',###}</span>
                                     </div>
                                 </div>
                                 <div id="thread-info-content" class="quan-post-content">
-
+                                    {$article.articleContent}
                                 </div>
 
                                 <!-- 问答详情 导师问答 -->
@@ -91,125 +93,128 @@
                 </div>
 
                 <!-- 回复列表 start-->
+
+                <!--最赞回复-->
+                <if condition="$laudest neq null">
                 <div class="quan-block block-pagination">
                     <h1>最赞回复</h1>
                     <div class="all-post">
                         <div class="quan-post-item clearfix">
                             <div class="fl">
-                                <a href="http://www.xiucai.com/user/313164/" class="block-head common-avatar" target="_blank">
-                                    <img src="http://assets.xiucai.com/assets/img/caiduoduo.png?v=1.10.5" height="65" width="65">
+                                <a href="{:U('Home/Users/index',array('id'=>$laudest[0]['uid']))}" class="block-head common-avatar" target="_blank">
+                                    <img src="{$laudest[0].userPhoto|default='Apps/Home/View/default/img/caiduoduo.png-v=1.10.1.png'}" height="65" width="65">
                                 </a>
                             </div>
                             <div class="r-content">
                                 <div class="quan-post-info quan-post-info-top clearfix">
                                     <div class="fl">
                                         <!-- level -->
-                                        <a href="/help/6/#q28" target="_blank" class="" title="经验值：16，等级头衔：中级粉丝，了解经验值等级">
-			                    <span class="tag-level tag-level-LV2">
-			                    <i>LV2</i></span>
-                                        </a>
+                                        <a href="/help/6/#q28" target="_blank" class="" title="经验值：{$laudest[0]['userTotalScore']}，等级头衔：{$laudest[0]['rank']['rankName']}，了解经验值等级">
+			                    <span class="tag-level tag-level-LV{$laudest[0]['rank']['rankId']}">
+			                    <i>LV{$laudest[0]['rank']['rankId']}</i></span></a>
                                         <!-- 马甲 -->
-                                        <a href="http://www.xiucai.com/user/313164/" class="user" target="_blank">kang</a>
-                                        <span class="post-time">回复于：1个月前</span>
+                                        <a href="{:U('Home/Users/index',array('id'=>$laudest[0]['uid']))}" class="user" target="_blank">{$laudest[0]['loginName']}</a>
+                                        <span class="post-time">回复于：{$laudest[0]['ctime']|mdate}</span>
                                     </div>
                                     <div class="fr">
                                         <span class="tag-most-great">最赞回复</span>
-                                        <span class="tag-floor ">1楼</span>
                                     </div>
                                 </div>
                                 <!-- 帖子部分内容设置不可见 -->
-                                <div class="quan-post-content" id="reply-post-content-121697">
-                                    <p>感谢</p>
-                                </div>
+                                <div class="quan-post-content" id="reply-post-content-{$laudest[0].id}"><p>{$laudest[0]['content']}</p></div>
                                 <div class="quan-post-info ie7-parent-position clearfix">
-                                    <span class="fl" id="reply-modify-time-121697">最后编辑于：2016-08-30 17:28</span>
                                     <div class="fr r-phaise-reply">
-                                        <!--编辑回复操作-->
-
-                                        <a href="javascript:;" class="post-praise agree-reply" data-reply-id="121697">
-                                            <i></i>赞（8）
-                                        </a>
-                                        <a href="javascript:;" id="reply-one-reply-121697" class="post-reply reply-one-reply" data-reply-count="1"><i></i>回复</a>
+                                        <if condition="$laudest[0]['islaud'] eq null">
+                                            <a href="javascript:;" class="post-praise agree-reply" data-reply-id="{$laudest[0].id}">
+                                                <i></i>赞（<span>{$laudest[0].laud}</span>）
+                                            </a>
+                                        <else/>
+                                            <a href="javascript:;" class="post-praise disagree-reply" data-reply-id="{$laudest[0].id}">
+                                                <i></i>取消赞（<span>{$laudest[0].laud}</span>）
+                                            </a>
+                                        </if>
+                                        <a href="javascript:;" id="reply-one-reply-{$laudest[0].id}" class="post-reply reply-one-reply" data-reply-count="{$laudest[0]['children']|count}" name="zan{$laudest[0]['id']}"><i></i>回复</a>
                                     </div>
                                 </div>
 
-                                <div id="reply-board-121697" class="reply-board ">
+                                <div id="reply-board-{$laudest[0]['id']}" class="reply-board ">
                                     <i class="triangle6-red"></i>
-                                    <div class="reply-level1">
+                                    <div class="reply-level1" id="reply-zan{$laudest[0]['id']}">
                                         <div class="quan-post-item clearfix">
                                             <div class="fl">
-                                                <a href="http://www.xiucai.com/user/318438/" class="block-head common-avatar" target="_blank">
-                                                    <img src="http://assets.xiucai.com/assets/img/caiduoduo.png?v=1.10.5" height="50" width="50">
+                                                <a href="{:U('Home/Users/index')}" class="block-head common-avatar" target="_blank">
+                                                    <img src="{$user.userPhoto|default='Apps/Home/View/default/img/caiduoduo.png-v=1.10.1.png'}" height="50" width="50">
                                                 </a>
                                             </div>
                                             <div class="r-content">
                                                 <div><input type="text" class="input-field"></div>
                                                 <div class="posting-box reply-ipt-bar clearfix">
-                                                    <a href="javascript:;" data-reply-id="121697" data-reply-member-id="313164"
-                                                       data-reply-member-name=""
-                                                       class="globe-btn50 has-icon-btn fr reply-to-reply-btn"><i></i>回复</a>
+                                                    <a href="javascript:;" data-reply-id="{$laudest[0]['id']}" data-reply-member-id="{$laudest[0].uid}" data-type="0" data-reply-member-name="" class="globe-btn50 has-icon-btn fr reply-to-reply-btn"><i></i>回复</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!-- 最多显示五条回复 -->
-                                    <div class="quan-post-item clearfix">
-                                        <div class="fl">
-                                            <a href="http://www.xiucai.com/user/405/" class="block-head common-avatar" target="_blank">
-                                                <img src="http://assets.xiucai.com/assets/uploads/avatar/2015/1224/99b97b3d-309c-540f-4395-5d190bbd3c10.jpg?v=0.058550095185637474" height="50" width="50">
-                                            </a>
-                                        </div>
-                                        <div class="r-content">
-                                            <div class="quan-post-info quan-post-info-top">
-                                                <!-- level -->
-                                                <a href="/help/6/#q28" target="_blank" class="" title="经验值：907，等级头衔：意见领袖，了解经验值等级">
-			                    <span class="tag-level tag-level-LV10">
-			                    <i>LV10</i></span></a>
-
-                                                <!-- 马甲 -->
-
-                                                <a href="http://www.xiucai.com/user/405/" class="user" target="_blank">秀财网</a><span class="post-time">回复于：1个月前</span>
-                                            </div>
-                                            <div class="quan-post-content" id="reply-two-post-content-122737">
-                                                我就知道o(*￣▽￣*)o
-                                            </div>
-
-                                            <div class="fr level2-reply">
-                                                <a href="javascript:;" class="hp-reply reply-two-reply"><i></i>回复</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="reply-level2">
+                                    <volist name="laudest[0]['children']" id="vv" key="k">
+                                        <!-- 最多显示五条回复 -->
                                         <div class="quan-post-item clearfix">
                                             <div class="fl">
-                                                <a href="http://www.xiucai.com/user/318438/" class="block-head common-avatar" target="_blank">
-                                                    <img src="http://assets.xiucai.com/assets/img/caiduoduo.png?v=1.10.5" height="50" width="50">
+                                                <a href="{:U('Home/Users/index',array('id'=>$vv['uid']))}" class="block-head common-avatar" target="_blank">
+                                                    <img src="{$vv.userPhoto|default='Apps/Home/View/default/img/caiduoduo.png-v=1.10.1.png'}" height="50" width="50">
                                                 </a>
                                             </div>
                                             <div class="r-content">
-                                                <div>
-                                                    <input type="text" class="input-field" placeholder="回复秀财网：" value="">
-                                                </div>
-                                                <div class="posting-box reply-ipt-bar clearfix">
-                                                    <a href="javascript:;" data-child-id="122737" data-reply-member-id="405"
-                                                       data-reply-member-name="回复秀财网："
-                                                       class="globe-btn50 has-icon-btn fr reply-to-reply-btn"><i></i>回复
+                                                <div class="quan-post-info quan-post-info-top">
+                                                    <!-- level -->
+                                                    <a href="/help/6/#q28" target="_blank" class="" title="经验值：{$vv.userTotalScore}，等级头衔：{$vv.rank.rankName}，了解经验值等级">
+			                                            <span class="tag-level tag-level-LV{$vv.rank.rankId}">
+			                                                <i>LV{$vv.rank.rankId}</i>
+                                                        </span>
                                                     </a>
+
+                                                    <!-- 马甲 -->
+
+                                                    <a href="{:U('Home/Users/index',array('id'=>$vv['uid']))}" class="user" target="_blank">{$vv.loginName}</a><span class="post-time">回复于：{$vv['ctime']|mdate}</span>
+                                                </div>
+                                                <div class="quan-post-content" id="reply-two-post-content-{$vv.id}">
+                                                    {$vv.content}
+                                                </div>
+                                                <div class="fr level2-reply">
+                                                    <a href="javascript:;" class="hp-reply reply-two-reply" name="zan{$vv.id}"><i></i>回复</a>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        <div class="reply-level2" id="reply-zan{$vv.id}">
+                                            <div class="quan-post-item clearfix">
+                                                <div class="fl">
+                                                    <a href="{:U('Home/Users/index')}" class="block-head common-avatar" target="_blank">
+                                                        <img src="{$user.userPhoto|default='Apps/Home/View/default/img/caiduoduo.png-v=1.10.1.png'}" height="50" width="50">
+                                                    </a>
+                                                </div>
+                                                <div class="r-content">
+                                                    <div>
+                                                        <input type="text" class="input-field" placeholder="回复{$vv.loginName}：" value="">
+                                                    </div>
+                                                    <div class="posting-box reply-ipt-bar clearfix">
+                                                        <a href="javascript:;" data-reply-id="{$laudest[0]['id']}" data-reply-member-id="{$vv.uid}" data-type="1" data-reply-member-name="回复{$vv.loginName}：" class="globe-btn50 has-icon-btn fr reply-to-reply-btn"><i></i>回复
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </volist>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
+                <!--最赞回复-->
+                </if>
+                <!--全部回复-->
+                <if condition="$comment neq null">
                 <div id="thread-all-reply-list" class="quan-block block-pagination ">
                     <h1>全部回复<span>（<span class="thread-floor-count">{$article.commentNum}</span>）</span></h1>
                     <div id="all-post-list" class="all-post reletive">
-                        <volist name="comment" id="v">
+                        <volist name="comment" id="v" key="i">
                         <div class="quan-post-item clearfix">
                             <div class="fl">
                                 <a href="{:U('Home/Users/index',array('id'=>$v['uid']))}" class="block-head common-avatar" target="_blank">
@@ -220,324 +225,146 @@
                                 <div class="quan-post-info quan-post-info-top clearfix">
                                     <div class="fl">
                                         <!-- level -->
-                                        <a href="/help/6/#q28" target="_blank" class="" title="经验值：16，等级头衔：中级粉丝，了解经验值等级">
-			                    <span class="tag-level tag-level-LV2">
-			                    <i>LV2</i></span></a>
+                                        <a href="/help/6/#q28" target="_blank" class="" title="经验值：{$v.userTotalScore}，等级头衔：{$v.rank.rankName}，了解经验值等级">
+			                    <span class="tag-level tag-level-LV{$v.rank.rankId}">
+			                    <i>LV{$v.rank.rankId}</i></span></a>
                                         <!-- 马甲 -->
-                                        <a href="http://www.xiucai.com/user/313164/" class="user" target="_blank">kang</a>
+                                        <a href="{:U('Home/Users/index',array('id'=>$v['uid']))}" class="user" target="_blank">{$v.loginName}</a>
                                         <span class="post-time">回复于：{$v['ctime']|mdate}</span>
                                     </div>
                                     <div class="fr">
-			                <span class="tag-floor">
-                                <if condition="$_GET['p'] eq '' or $_GET['p'] eq 1">{$i+1}楼<else/>{($i+1)+($_GET['p']-1)*20}</if>
-			                </span>
+			                            <span class="tag-floor">
+                                        <if condition="$_GET['p'] eq '' or $_GET['p'] eq 1">{$i}楼<else/>{$i+($_GET['p']-1)*20}楼</if>
+			                            </span>
                                     </div>
                                 </div>
                                 <!-- 帖子部分内容设置不可见 -->
-                                <div class="quan-post-content" id="reply-post-content-121697"><p>{$v.content}</p></div>
+                                <div class="quan-post-content" id="reply-post-content-{$v.id}"><p>{$v.content}</p></div>
                                 <div class="quan-post-info ie7-parent-position clearfix">
                                     <div class="fr r-phaise-reply">
-                                        <!--编辑回复操作-->
-                                        <a href="javascript:;" class="post-praise agree-reply" data-reply-id="121697">
-                                            <i></i>赞（{$v.laud}）
-                                        </a>
-                                        <a href="javascript:;" id="reply-one-reply-121697" class="post-reply reply-one-reply" data-reply-count="1"><i></i>回复</a>
+                                        <if condition="$v['islaud'] eq null">
+                                            <a href="javascript:;" class="post-praise agree-reply" data-reply-id="{$v.id}" data-reply-uid="{$v.uid}">
+                                                <i></i>赞（<span>{$v.laud}</span>）
+                                            </a>
+                                            <a href="javascript:;" class="post-praise disagree-reply" data-reply-id="{$v.id}" data-reply-uid="{$v.uid}" style="display:none;">
+                                                <i></i>取消赞（<span>{$v['laud']+1}</span>）
+                                            </a>
+                                            <else/>
+                                            <a href="javascript:;" class="post-praise disagree-reply" data-reply-id="{$v.id}" data-reply-uid="{$v.uid}">
+                                                <i></i>取消赞（<span>{$v.laud}</span>）
+                                            </a>
+                                            <a href="javascript:;" class="post-praise agree-reply" data-reply-id="{$v.id}" data-reply-uid="{$v.uid}" style="display:none;">
+                                                <i></i>赞（<span>{$v['laud']-1}</span>）
+                                            </a>
+                                        </if>
+                                        <a href="javascript:;" id="reply-one-reply-{$v.id}" class="post-reply reply-one-reply" data-reply-count="1" name="{$v.id}"><i></i>回复</a>
                                     </div>
                                 </div>
+                                <div id="reply-board-{$v.id}" class="reply-board ">
+                                    <i class="triangle6-red"></i>
 
-
-                                <volist name="v['children']" id="vv">
-                                    <div id="reply-board-121697" class="reply-board ">
-                                        <i class="triangle6-red"></i>
-                                        <div class="reply-level1">
-                                            <div class="quan-post-item clearfix">
-                                                <div class="fl">
-                                                    <a href="{:U('Home/Users/index',array('id'=>$v['uid']))}" class="block-head common-avatar" target="_blank">
-                                                        <img src="{$v.userPhoto|default='Apps/Home/View/default/img/caiduoduo.png-v=1.10.1.png'}" height="50" width="50">
-                                                    </a>
-                                                </div>
-                                                <div class="r-content">
-                                                    <div><input type="text" class="input-field"></div>
-                                                    <div class="posting-box reply-ipt-bar clearfix">
-                                                        <a href="javascript:;" data-reply-id="121697" data-reply-member-id="313164" data-reply-member-name="" class="globe-btn50 has-icon-btn fr reply-to-reply-btn"><i></i>回复</a>
-                                                    </div>
+                                    <!--一级回复ss-->
+                                    <div class="reply-level1" id="reply-{$v.id}">
+                                        <div class="quan-post-item clearfix">
+                                            <div class="fl">
+                                                <a href="{:U('Home/Users/index')}" class="block-head common-avatar" target="_blank">
+                                                    <img src="{$user.userPhoto|default='Apps/Home/View/default/img/caiduoduo.png-v=1.10.1.png'}" height="50" width="50">
+                                                </a>
+                                            </div>
+                                            <div class="r-content">
+                                                <div><input type="text" class="input-field"></div>
+                                                <div class="posting-box reply-ipt-bar clearfix">
+                                                    <a href="javascript:;" data-reply-id="{$v.id}" data-reply-member-id="{$v.uid}" data-reply-member-name="" data-type="0" class="globe-btn50 has-icon-btn fr reply-to-reply-btn"><i></i>回复</a>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <!--一级回复ee-->
 
+                                    <volist name="v['children']" id="vv" key="k">
                                         <!-- 最多显示五条回复 -->
                                         <div class="quan-post-item clearfix">
                                             <div class="fl">
-                                                <a href="http://www.xiucai.com/user/405/" class="block-head common-avatar" target="_blank">
-                                                    <img src="http://assets.xiucai.com/assets/uploads/avatar/2015/1224/99b97b3d-309c-540f-4395-5d190bbd3c10.jpg?v=0.058550095185637474" height="50" width="50">
+                                                <a href="{:U('Home/Users/index',array('id'=>$vv['uid']))}" class="block-head common-avatar" target="_blank">
+                                                    <img src="{$vv.userPhoto|default='Apps/Home/View/default/img/caiduoduo.png-v=1.10.1.png'}" height="50" width="50">
                                                 </a>
                                             </div>
                                             <div class="r-content">
                                                 <div class="quan-post-info quan-post-info-top">
                                                     <!-- level -->
-                                                    <a href="/help/6/#q28" target="_blank" class="" title="经验值：907，等级头衔：意见领袖，了解经验值等级">
-					                    <span class="tag-level tag-level-LV10">
-					                    <i>LV10</i></span></a>
+                                                    <a href="/help/6/#q28" target="_blank" class="" title="经验值：{$vv.userTotalScore}，等级头衔：{$vv.rank.rankName}，了解经验值等级">
+			                                            <span class="tag-level tag-level-LV{$vv.rank.rankId}">
+			                                                <i>LV{$vv.rank.rankId}</i>
+                                                        </span>
+                                                    </a>
 
                                                     <!-- 马甲 -->
 
-                                                    <a href="http://www.xiucai.com/user/405/" class="user" target="_blank">秀财网</a><span class="post-time">回复于：1个月前</span>
+                                                    <a href="{:U('Home/Users/index',array('id'=>$vv['uid']))}" class="user" target="_blank">{$vv.loginName}</a><span class="post-time">回复于：{$vv['ctime']|mdate}</span>
                                                 </div>
-                                                <div class="quan-post-content" id="reply-two-post-content-122737">
-                                                    我就知道o(*￣▽￣*)o
+                                                <div class="quan-post-content" id="reply-two-post-content-{$vv.id}">
+                                                    {$vv.content}
                                                 </div>
                                                 <div class="fr level2-reply">
-                                                    <a href="javascript:;" class="hp-reply reply-two-reply"><i></i>回复</a>
+                                                    <a href="javascript:;" class="hp-reply reply-two-reply" name="{$vv.id}"><i></i>回复</a>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="reply-level2">
+                                        <div class="reply-level2" id="reply-{$vv.id}">
                                             <div class="quan-post-item clearfix">
                                                 <div class="fl">
-                                                    <a href="http://www.xiucai.com/user/318438/" class="block-head common-avatar" target="_blank">
-                                                        <img src="http://assets.xiucai.com/assets/img/caiduoduo.png?v=1.10.5" height="50" width="50">
+                                                    <a href="{:U('Home/Users/index')}" class="block-head common-avatar" target="_blank">
+                                                        <img src="{$user.userPhoto|default='Apps/Home/View/default/img/caiduoduo.png-v=1.10.1.png'}" height="50" width="50">
                                                     </a>
                                                 </div>
                                                 <div class="r-content">
                                                     <div>
-                                                        <input type="text" class="input-field" placeholder="回复秀财网：" value="">
+                                                        <input type="text" class="input-field" placeholder="回复{$vv.loginName}：" value="">
                                                     </div>
                                                     <div class="posting-box reply-ipt-bar clearfix">
-                                                        <a href="javascript:;" data-child-id="122737" data-reply-member-id="405"
-                                                           data-reply-member-name="回复秀财网："
-                                                           class="globe-btn50 has-icon-btn fr reply-to-reply-btn"><i></i>回复
+                                                        <a href="javascript:;" data-reply-id="{$v.id}" data-reply-member-id="{$vv.uid}" data-type="1" data-reply-member-name="回复{$vv.loginName}：" class="globe-btn50 has-icon-btn fr reply-to-reply-btn"><i></i>回复
                                                         </a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </volist>
+                                    </volist>
+                                </div>
                             </div>
                         </div>
                         </volist>
-
-                        <div class="quan-post-item clearfix">
-                            <div class="fl">
-                                <a href="http://www.xiucai.com/user/3012/" class="block-head common-avatar" target="_blank">
-                                    <img src="http://assets.xiucai.com/assets/uploads/pic/2015/0902/af35b5e8-0941-4602-ad80-a808fede8717.jpg" height="65" width="65">
-                                </a>
-                            </div>
-                            <div class="r-content">
-                                <div class="quan-post-info quan-post-info-top clearfix">
-                                    <div class="fl">
-                                        <!-- level -->
-                                        <a href="/help/6/#q28" target="_blank" class="" title="经验值：65，等级头衔：入门会员，了解经验值等级">
-			                    <span class="tag-level tag-level-LV4">
-			                    <i>LV4</i></span>
-                                        </a>
-                                        <!-- 马甲 -->
-                                        <a href="http://www.xiucai.com/user/3012/" class="user" target="_blank">梁问风</a>
-                                        <span class="post-time">回复于：1个月前</span>
-                                    </div>
-                                    <div class="fr">
-			                <span class="tag-floor floor-top-three">
-			                    2楼
-			                </span>
-                                    </div>
-                                </div>
-                                <!-- 帖子部分内容设置不可见 -->
-                                <div class="quan-post-content" id="reply-post-content-121898"><p>好像发现了个好东西</p></div>
-                                <div class="quan-post-info ie7-parent-position clearfix">
-                                    <span class="fl" id="reply-modify-time-121898">最后编辑于：2016-08-30 17:29</span>
-                                    <div class="fr r-phaise-reply">
-                                        <!--编辑回复操作-->
-                                        <a href="javascript:;" class="post-praise agree-reply" data-reply-id="121898">
-                                            <i></i>赞（3）
-                                        </a>
-                                        <a href="javascript:;" id="reply-one-reply-121898" class="post-reply reply-one-reply" data-reply-count="1"><i></i>回复</a>
-                                    </div>
-                                </div>
-                                <div id="reply-board-121898" class="reply-board ">
-                                    <i class="triangle6-red"></i>
-                                    <div class="reply-level1">
-                                        <div class="quan-post-item clearfix">
-                                            <div class="fl">
-                                                <a href="http://www.xiucai.com/user/318438/" class="block-head common-avatar" target="_blank">
-                                                    <img src="http://assets.xiucai.com/assets/img/caiduoduo.png?v=1.10.5" height="50" width="50">
-                                                </a>
-                                            </div>
-                                            <div class="r-content">
-                                                <div><input type="text" class="input-field"></div>
-                                                <div class="posting-box reply-ipt-bar clearfix">
-                                                    <a href="javascript:;" data-reply-id="121898" data-reply-member-id="3012" data-reply-member-name="" class="globe-btn50 has-icon-btn fr reply-to-reply-btn"><i></i>回复</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- 最多显示五条回复 -->
-                                    <div class="quan-post-item clearfix">
-                                        <div class="fl">
-                                            <a href="http://www.xiucai.com/user/405/" class="block-head common-avatar" target="_blank">
-                                                <img src="http://assets.xiucai.com/assets/uploads/avatar/2015/1224/99b97b3d-309c-540f-4395-5d190bbd3c10.jpg?v=0.058550095185637474" height="50" width="50">
-                                            </a>
-                                        </div>
-                                        <div class="r-content">
-                                            <div class="quan-post-info quan-post-info-top">
-                                                <!-- level -->
-                                                <a href="/help/6/#q28" target="_blank" class="" title="经验值：907，等级头衔：意见领袖，了解经验值等级">
-					                    <span class="tag-level tag-level-LV10">
-					                    <i>LV10</i></span>
-                                                </a>
-                                                <!-- 马甲 -->
-                                                <a href="http://www.xiucai.com/user/405/" class="user" target="_blank">秀财网</a>
-                                                <span class="post-time">回复于：1个月前</span>
-                                            </div>
-                                            <div class="quan-post-content" id="reply-two-post-content-122738">
-                                                有人夸你眼光不错吗？
-                                            </div>
-                                            <div class="fr level2-reply">
-                                                <a href="javascript:;" class="hp-reply reply-two-reply"><i></i>回复</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="reply-level2">
-                                        <div class="quan-post-item clearfix">
-                                            <div class="fl">
-                                                <a href="http://www.xiucai.com/user/318438/" class="block-head common-avatar" target="_blank">
-                                                    <img src="http://assets.xiucai.com/assets/img/caiduoduo.png?v=1.10.5" height="50" width="50">
-                                                </a>
-                                            </div>
-                                            <div class="r-content">
-                                                <div>
-                                                    <input type="text" class="input-field" placeholder="回复秀财网：" value="">
-                                                </div>
-                                                <div class="posting-box reply-ipt-bar clearfix">
-                                                    <a href="javascript:;" data-child-id="122738" data-reply-member-id="405"
-                                                       data-reply-member-name="回复秀财网："
-                                                       class="globe-btn50 has-icon-btn fr reply-to-reply-btn"><i></i>回复
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="quan-post-item clearfix">
-                            <div class="fl">
-                                <a href="http://www.xiucai.com/user/316170/" class="block-head common-avatar" target="_blank">
-                                    <img src="http://q.qlogo.cn/qqapp/101209063/779B9F38DF73735DE4AC3618D2BEAF69/100" height="65" width="65">
-                                </a>
-                            </div>
-                            <div class="r-content">
-                                <div class="quan-post-info quan-post-info-top clearfix">
-                                    <div class="fl">
-                                        <!-- level -->
-                                        <a href="/help/6/#q28" target="_blank" class="" title="经验值：11，等级头衔：中级粉丝，了解经验值等级">
-			                    <span class="tag-level tag-level-LV2">
-			                    <i>LV2</i></span>
-                                        </a>
-                                        <!-- 马甲 -->
-                                        <a href="http://www.xiucai.com/user/316170/" class="user" target="_blank">CC</a>
-                                        <span class="post-time">回复于：1个月前</span>
-                                    </div>
-                                    <div class="fr">
-			                <span class="tag-floor ">
-			                    4楼
-			                </span>
-                                    </div>
-                                </div>
-                                <!-- 帖子部分内容设置不可见 -->
-                                <div class="quan-post-content" id="reply-post-content-122652"><p>这个不错</p></div>
-                                <div class="quan-post-info ie7-parent-position clearfix">
-                                    <span class="fl" id="reply-modify-time-122652">最后编辑于：2016-08-30 17:29</span>
-                                    <div class="fr r-phaise-reply">
-                                        <!--编辑回复操作-->
-                                        <a href="javascript:;" class="post-praise agree-reply" data-reply-id="122652">
-                                            <i></i>赞（2）
-                                        </a>
-                                        <a href="javascript:;" id="reply-one-reply-122652" class="post-reply reply-one-reply" data-reply-count="1"><i></i>回复</a>
-                                    </div>
-                                </div>
-
-                                <div id="reply-board-122652" class="reply-board ">
-                                    <i class="triangle6-red"></i>
-                                    <div class="reply-level1">
-                                        <div class="quan-post-item clearfix">
-                                            <div class="fl">
-                                                <a href="http://www.xiucai.com/user/318438/" class="block-head common-avatar" target="_blank">
-                                                    <img src="http://assets.xiucai.com/assets/img/caiduoduo.png?v=1.10.5" height="50" width="50">
-                                                </a>
-                                            </div>
-                                            <div class="r-content">
-                                                <div><input type="text" class="input-field"></div>
-                                                <div class="posting-box reply-ipt-bar clearfix">
-                                                    <a href="javascript:;" data-reply-id="122652" data-reply-member-id="316170" data-reply-member-name="" class="globe-btn50 has-icon-btn fr reply-to-reply-btn"><i></i>回复</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- 最多显示五条回复 -->
-                                    <div class="quan-post-item clearfix">
-                                        <div class="fl">
-                                            <a href="http://www.xiucai.com/user/405/" class="block-head common-avatar" target="_blank">
-                                                <img src="http://assets.xiucai.com/assets/uploads/avatar/2015/1224/99b97b3d-309c-540f-4395-5d190bbd3c10.jpg?v=0.058550095185637474" height="50" width="50">
-                                            </a>
-                                        </div>
-                                        <div class="r-content">
-                                            <div class="quan-post-info quan-post-info-top">
-                                                <!-- level -->
-                                                <a href="/help/6/#q28" target="_blank" class="" title="经验值：907，等级头衔：意见领袖，了解经验值等级">
-					                    <span class="tag-level tag-level-LV10">
-					                    <i>LV10</i></span>
-                                                </a>
-                                                <!-- 马甲 -->
-                                                <a href="http://www.xiucai.com/user/405/" class="user" target="_blank">秀财网</a>
-                                                <span class="post-time">回复于：1个月前</span>
-                                            </div>
-                                            <div class="quan-post-content" id="reply-two-post-content-122740">
-                                                必须o(*≧▽≦)ツ
-                                            </div>
-                                            <div class="fr level2-reply">
-                                                <a href="javascript:;" class="hp-reply reply-two-reply"><i></i>回复</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="reply-level2">
-                                        <div class="quan-post-item clearfix">
-                                            <div class="fl">
-                                                <a href="http://www.xiucai.com/user/318438/" class="block-head common-avatar" target="_blank">
-                                                    <img src="http://assets.xiucai.com/assets/img/caiduoduo.png?v=1.10.5" height="50" width="50">
-                                                </a>
-                                            </div>
-                                            <div class="r-content">
-                                                <div>
-                                                    <input type="text" class="input-field" placeholder="回复秀财网：" value="">
-                                                </div>
-                                                <div class="posting-box reply-ipt-bar clearfix">
-                                                    <a href="javascript:;" data-child-id="122740" data-reply-member-id="405"
-                                                       data-reply-member-name="回复秀财网："
-                                                       class="globe-btn50 has-icon-btn fr reply-to-reply-btn"><i></i>回复
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                    <!--全部回复-->
+                        <div class="pagination">{$pages}</div>
                     </div>
-
+                    <script>
+                        var uid = '';
+                        $('.reply-one-reply,.reply-two-reply,.reply-to-reply-btn').click(function () {
+                            if (uid == '') {
+                                login();
+                                return false;
+                            } else {
+                                id = $(this).attr('name');
+//                                alert(id);
+                                if ($('#reply-' + id).is(":hidden")) {
+                                    $('#reply-' + id).show();
+                                } else {
+                                    $('#reply-' + id).hide();
+                                }
+                            }
+                        })
+                    </script>
                 </div>
+                </if>
+                <!--全部回复-->
                 <if condition="$_SESSION['WSTMALL']['WST_USER']['userId'] neq ''">
                     <div class="quan-block quan-block-all clearfix">
                         <div class="fl">
                             <a href="javascript:;" class="block-head common-avatar">
-                                <img src="http://assets.xiucai.com/assets/img/caiduoduo.png?v=1.10.5" height="65" width="65">
+                                <img src="{$user.userPhoto|default='Apps/Home/View/default/img/caiduoduo.png-v=1.10.1.png'}" height="65" width="65">
                             </a>
                         </div>
                         <div class="r-content">
                             <div class="editor relative">
-                                <!-- 未登录时显示 -->
                                 <textarea id="answer_content" rows="8" cols="100"> </textarea>
                             </div>
                             <div class="posting-box reply-ipt-bar clearfix">
@@ -546,6 +373,7 @@
                         </div>
                     </div>
                     <else/>
+                    <!-- 未登录时显示 -->
                     <div class="quan-block quan-block-all clearfix">
                         <div class="editor relative">
                             <div class="editor-tips">您需要登录后才可以回帖
@@ -555,6 +383,83 @@
                     </div>
                 </if>
             </div>
+            <script>
+                $('#reply-thread-btn').click(function () {
+                    var exist = {$exist};
+                    if (exist == 0) {
+                        $('#reply-thread-remind-layer').show();
+                    } else {
+                        var content = $('#answer_content').val();
+                        if (content == '') {
+                            WST.msg('内容不能为空');
+                            return false;
+                        }else{
+                            $.ajax({
+                                type: 'post',
+                                url: "{:U('Home/Forum/addReply')}",
+                                data: "aid={$_GET['id']}&uid={$user['userId']}&content="+content,
+                                success: function (data) {
+                                    if (data == 1) {
+                                        WST.msg('发布成功');
+                                        location.reload();
+                                    }
+                                }
+                            })
+                        }
+                    }
+                });
+                $('.reply-to-reply-btn').click(function () {
+                    var node = $(this).parent().prev().children('input');
+                    var content = node.val();
+                    var ctype = $(this).attr('data-type');
+                    var parentId = $(this).attr('data-reply-id');
+                    var cuid = $(this).attr('data-reply-member-id');
+                    $.ajax({
+                        type: 'post',
+                        url: "{:U('Home/Forum/addReply')}",
+                        data: "aid={$_GET['id']}&uid={$user['userId']}&content=" + content + "&parentId="+parentId+"&cuid="+cuid+"&type="+ctype,
+                        success: function (data) {
+                            if (data == 1) {
+                                WST.msg('发布成功');
+                                location.reload();
+                            }
+                        }
+                    })
+                });
+                $('.agree-reply').click(function () {
+                    var cid = $(this).attr('data-reply-id');
+                    var luid = $(this).attr('data-reply-uid');
+                    $.ajax({
+                        type: 'post',
+                        url: "{:U('Home/Forum/addLaud')}",
+                        data: "uid={$user['userId']}&cid=" + cid + "&luid="+luid,
+                        success: function (data) {
+                            if (data == 1) {
+                                WST.msg('点赞成功');
+                                $('.agree-reply').hide();
+                                $('.disagree-reply').show();
+
+                            }
+                        }
+                    })
+                });
+                $('.disagree-reply').click(function () {
+                    var cid = $(this).attr('data-reply-id');
+                    var luid = $(this).attr('data-reply-uid');
+                    $.ajax({
+                        type: 'post',
+                        url: "{:U('Home/Forum/delLaud')}",
+                        data: "uid={$user['userId']}&cid=" + cid + "&luid=" + luid,
+                        success: function (data) {
+                            if (data == 1) {
+                                WST.msg('取消成功');
+                                $('.disagree-reply').hide();
+                                $('.agree-reply').show();
+                            }
+                        }
+                    })
+                })
+            </script>
             <script src="__PUBLIC__/plugins/kindeditor/kindeditor.js"></script>
             <script src="__PUBLIC__/plugins/kindeditor/lang/zh-CN.js"></script>
             <script>
@@ -576,7 +481,6 @@
             </script>
             <!-- right -->
             <div class="quan-side-bar">
-
 
                 <!-- 导师问答 -->
                 <div class="quan-block quan-title-block">
@@ -630,7 +534,6 @@
     </div>
 
 
-
     <!-- 删除帖子 begin -->
     <div id="del-community-layer" class="dialog-board dialog-board-none-title hide">
         <div class="dialog-board-bar">
@@ -663,7 +566,33 @@
         </div>
     </div>
     <!-- 帖子操作 end -->
+    <script>
+        $('.del-thread').click(function () {
+            $('#del-community-layer').show();
+        })
+        $('#del-community-btn').click(function () {
+            $.ajax({
+                type: 'post',
+                url: "{:U('Home/Forum/doDel')}",
+                data: "aid={$_GET['id']}&uid={$user['userId']}",
+                success: function (data) {
+                    if (data == 1) {
+                        $('#option-community-layer').show();
+                    } else {
+                        WST.msg('删除失败');
+                    }
+                }
+            })
+        })
+        $('#option-community-btn').click(function () {
+            $('#del-community-layer').hide();
+            location.href = "{:U('Home/Forum/index')}";
+        })
+    </script>
 
+    <script>
+
+    </script>
     <!-- 回帖加入圈子提醒 begin -->
     <div id="reply-thread-remind-layer" class="dialog-board dialog-board-window dialog-board-red hide">
         <div class="dialog-board-bar">
@@ -679,25 +608,23 @@
             </div>
         </div>
     </div>
+    <script>
+        $('#reply-thread-remind-btn').click(function () {
+            $.ajax({
+                type: 'post',
+                url: "{:U('Home/Forum/addquan')}",
+                data: "cid={$_GET['pid']}&uid={$_SESSION['WSTMALL']['WST_USER']['userId']}",
+                success: function (data) {
+                    if (data == 1) {
+                        WST.msg('加入成功');
+                        location.reload();
+                    }
+                }
+            })
+        })
+    </script>
     <!-- 回帖加入圈子提醒 end -->
 
-    <!-- 下载帖子附件扣除圈币提醒 begin -->
-    <div id="down-thread-file-coin-layer" class="dialog-board dialog-board-window dialog-board-red hide">
-        <div class="dialog-board-bar">
-            <h2>下载提醒</h2>
-            <a href="javascript:;" class="close-dialog-board"></a>
-        </div>
-        <div class="dialog-board-content">
-            <div class="box-container">
-                <p id="down-thread-file-coin-tips" class="text-c-tips"></p>
-                <div class="btn-col2 clearfix">
-                    <a id="down-thread-file-coin-btn" href="javascript:;" class="fl globe-btn50" target="_blank">确认</a>
-                    <a id="down-thread-file-coin-cancel" href="javascript:;" class="fr globe-btn50 globe-btn50-nobg">取消</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 下载帖子附件扣除圈币提醒 end -->
     <div class="dialog-board dialog-board-m dialog-board-m-notitle hide" id="threadWechatDiv">
         <div class="dialog-board-bar">
             <a href="javascript:" class="close-dialog-board iconfont closeThreadWechatDiv">&#xe644;</a>

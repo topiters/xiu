@@ -3,18 +3,6 @@
 /**
  * 判断是否手机访问
  */
-  function  rankUser($score){
-  	
-  	 $rsql="select rankId  from __PREFIX__user_ranks  where  $score <endScore  AND    $score>startScore ";
-  	 $result= D('user_ranks')->query($rsql);
-  	 return  $result['rankId'];
-  	
-  }
-
-
-
-
-
 
 function WSTIsMobile() {
     $_SERVER['ALL_HTTP'] = isset($_SERVER['ALL_HTTP']) ? $_SERVER['ALL_HTTP'] : '';  
@@ -597,16 +585,11 @@ function mdate($time = NULL) {
             break;
     }
     return $text;
-    
-    
-    
-   
-    
-    
-    
-    
-    
-    
-    
-    
+
+}
+
+function rankUser($score) {
+    $rsql = "select rankId,rankName  from __PREFIX__user_ranks  where  $score <= endScore AND $score >= startScore ";
+    $result = D('user_ranks')->query($rsql);
+    return $result[0];
 }

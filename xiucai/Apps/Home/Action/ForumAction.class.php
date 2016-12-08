@@ -69,8 +69,16 @@ class ForumAction extends BaseAction {
         $total = D('forum')->where($where)->count();
         $page = new \Think\Page($total,$limit);
         $article = D('forum')->field('articleId,c.catId,parentCatId,c.catName,articleTitle,staffId,createTime,readNum,commentNum,lastId,lastTime')->join("wst_forum_cats c on wst_forum.catId = c.catId")->where($where)->order($order)->limit($page->firstRow,$limit)->select();
+        //获取用户头像
+        foreach ($article as $k => $v) {
+            $userArr = D('Users')->get($v['staffId']);
+            $article[$k]['userPhoto'] = $userArr['userPhoto'];
+            $userArr = D('Users')->get($v['lastId']);
+            $article[$k]['lastName'] = $userArr['loginName'];
+        }
         $pages = $page->show();
         $this->assign('pages',$pages);
+//        dump($article);die;
         $this->assign('article' , $article);
 
         //推荐阅读
@@ -114,6 +122,12 @@ class ForumAction extends BaseAction {
         $_POST['createTime'] = time();
         $re = D('forum')->add($_POST);
         if ($re){
+            $today = strtotime(date('Y-m-d'));
+            $tomorrow = strtotime(date('Y-m-d' , strtotime('+1 day')));
+            $num = D('forum')->where("createTime between $today and $tomorrow and staffId = {$_POST['staffId']}")->count();
+            if ($num < 10){
+                D('forum_users')->query("update __PREFIX__users set userScore = userScore + 2 , userTotalScore = userTotalScore + 2 where userId = {$_POST['staffId']}");
+            }
             echo 1;
         }
     }
@@ -141,7 +155,7 @@ class ForumAction extends BaseAction {
                 //非第一次签到 更新签到记录时间及天数
                 $now = time();
                 $last = $re['ctime'];
-                if ($now - $last > (60*60*24)){ //两次签到时间大于一天则将连续签到更新为0
+                if ($now - $last > (60*60*24*2)){ //两次签到时间大于一天则将连续签到更新为0
                     $result = D('sign')->execute("update wst_sign set lastTime = {$re['ctime']},ctime = {$now},days = days + 1,rows = 1 where userId = {$uid}");
                     if ($result){
                         echo 1;
@@ -222,9 +236,17 @@ class ForumAction extends BaseAction {
             $total = D('forum')->where($where)->count();
             $this->assign('total',$total);//圈子总帖数
             $page = new \Think\Page($total , $limit);
-            $article = D('forum')->field('articleId,c.catId,parentCatId,c.catName,articleTitle,staffId,createTime,readNum,commentNum,lastId,lastTime')->join("wst_forum_cats c on wst_forum.catId = c.catId")->where($where)->order($order)->limit($page->firstRow , $limit)->select();
+            $article = D('forum')->field('articleId,c.catId,parentCatId,c.catName,articleTitle,staffId,createTime,readNum,commentNum,lastId,lastTime')->join("__FORUM_CATS__ c on __FORUM__.catId = c.catId")->where($where)->order($order)->limit($page->firstRow , $limit)->select();
+            //获取用户头像
+            foreach ($article as $k => $v) {
+                $userArr = D('Users')->get($v['staffId']);
+                $article[$k]['userPhoto'] = $userArr['userPhoto'];
+                $userArr = D('Users')->get($v['lastId']);
+                $article[$k]['lastName'] = $userArr['loginName'];
+            }
             $pages = $page->show();
             $this->assign('pages' , $pages);
+//            dump($article);die;
             $this->assign('article' , $article);
             //更多圈子
             $cats = D('forum_cats')->field('catId,catName,totalNum')->where("parentId = 0 and catFlag = 1 and catId <> {$_GET['id']}")->select();
@@ -244,7 +266,7 @@ class ForumAction extends BaseAction {
             $_POST['ctime'] = time();
             $re = D('forum_record')->add($_POST);
             if ($re){
-                D('forum_cats')->query("update wst_forum_cats set totalNum = totalNum + 1 where catId = {$_POST['cid']}");
+                D('forum_cats')->query("update __PREFIX__forum_cats set totalNum = totalNum + 1 where catId = {$_POST['cid']}");
                 echo 1;
             }
         }
@@ -258,36 +280,22 @@ class ForumAction extends BaseAction {
         if ($_POST['uid'] && $_POST['cid']) {
             $re = D('forum_record')->where("uid = {$_POST['uid']} and cid = {$_POST['cid']}")->delete();
             if ($re) {
-                D('forum_cats')->query("update wst_forum_cats set totalNum = totalNum - 1 where catId = {$_POST['cid']}");
+                D('forum_cats')->query("update __PREFIX__forum_cats set totalNum = totalNum - 1 where catId = {$_POST['cid']}");
                 echo 1;
             }
         }
     }
 
     /**
-     * 获取评论列表
-     */
-    protected function getComList($article , $parent_id = 0) {
-        $arr = D('forum_comment')->where("aid = '".$article."'"." and parentId = '" . $parent_id . "'")->order("ctime desc")->select();
-        if (empty($arr)) {
-            return array();
-        }
-        foreach ($arr as $k => $v) {
-            $userArr = D('Users')->get($v['uid']);
-//            dump($userArr);
-            $arr[$k]['userName'] = $userArr['loginName'];
-            $arr[$k]['userPhoto'] = $userArr['userPhoto'];
-            $arr[$k]["children"] = $this->getComList($article , $v["id"]);
-        }
-        return $arr;
-    }
-
-    /**
      * 文章详页
      */
     public function article() {
-        if ($_GET['id']){
-            D('forum')->query("update wst_forum set readNum = readNum +1 where articleId = {$_GET['id']}");
+        if ($_GET['id'] && $_GET['pid']){
+            $user = session('WST_USER');
+//            dump($user);die;
+            $this->assign('user' , $user);
+            //文章详情
+            D('forum')->query("update __PREFIX__forum set readNum = readNum +1 where articleId = {$_GET['id']}");
             $article = D('forum')->where("articleId = {$_GET['id']}")->find();
             $re = D('forum_cats')->field('catId,catName')->where("catId = {$article['catId']}")->find();
             $article['catName'] = $re['catName'];
@@ -296,18 +304,79 @@ class ForumAction extends BaseAction {
             $re = D('users')->field('userId,loginName,userPhoto')->where("userId = {$article['staffId']}")->find();
             $article['userName'] = $re['loginName'];
             $article['userPhoto'] = $re['userPhoto'];
+            //等级
+            $user = D('Users')->get($article['staffId']);
+            $rank = rankUser($user['userTotalScore']);
+            $article['userRankId'] = $rank['rankId'];
+            $article['userRankName'] = $rank['rankName'];
+            $article['userScore'] = $user['userTotalScore'];
 //            dump($article);die;
             $this->assign('article',$article);
+
+            //最赞评论
+            $laudest = D('forum_comment')->field('id,uid,cuid,loginName,userPhoto,userTotalScore,aid,parentId,content,laud,ctime')->join("__USERS__ u on uid = u.userId")->where("aid = {$_GET['id']} and parentId = 0 and laud <> 0")->order('laud desc')->limit(1)->select();
+            if ($laudest == null){
+                $this->assign('laudest' , $laudest);
+            }else{
+                $laudest[0]['islaud'] = D('forum_comment_laud')->where("uid = {$user['userId']} and cid = {$laudest[0]['id']}")->select();
+                $laudest[0]['rank'] = rankUser($laudest[0]['userTotalScore']);
+                $laudest[0]['children'] = D('forum_comment')->field('id,uid,cuid,type,loginName,userPhoto,userTotalScore,aid,parentId,content,laud,ctime')->join("__USERS__ u on uid = u.userId")->where("aid = {$_GET['id']} and parentId = {$laudest[0]['id']}")->order('ctime asc')->select();
+                echo D('forum_comment')->getLastSql();
+                foreach ($laudest[0]['children'] as $k => $v) {
+                    $laudest[0]['children'][$k]['rank'] = rankUser($v['userTotalScore']);
+                    if ($laudest[0]['children'][$k]['type'] == 1) {
+                        $userArr = D('users')->field('userId,loginName')->where("userId = {$laudest[0]['children'][$k]['cuid']}")->find();
+                        $laudest[0]['children'][$k]['cuName'] = $userArr['loginName'];
+                        $laudest[0]['children'][$k]['content'] = '回复 <a href="' . U('Home/Users/Index' , array('id' => $laudest[0]['children'][$k]['cuid'])) . '">' . $laudest[0]['children'][$k]['cuName'] . '</a> ：' . $laudest[0]['children'][$k]['content'];
+                    }
+                }
+//                dump($laudest);die;
+                $this->assign('laudest' , $laudest);
+            }
+
             //评论列表
-            $totalComment = D('forum_comment')->where("aid = {$_GET['id']}")->count(); //获取评论总数
-            $this->assign('totalComment' , $totalComment);
-            $comment = $this->getComList($_GET['id']);
+            $totalComment = D('forum_comment')->where("aid = {$_GET['id']}")->count();
+            $this->assign('totalComment' , $totalComment);//获取评论总数
+            if ($totalComment == 0) {
+                $this->assign('comment' , '');
+            }else{
+                $total = D('forum_comment')->where("aid = {$_GET['id']} and parentId = 0")->count();
+                $limit = 10;
+                $page = new \Think\Page($total , $limit);
+                $start = $page->firstRow;
+                $comment = D('forum_comment')->field('id,uid,cuid,loginName,userPhoto,userTotalScore,aid,parentId,content,laud,ctime')->join("__USERS__ u on uid = u.userId")->where("aid = {$_GET['id']} and parentId = 0")->order('ctime asc')->limit($start , $limit)->select();
+//            echo D('forum_comment')->getLastSql();die;
+                $pages = $page->show();
+                $this->assign('pages' , $pages);
+                foreach ($comment as $k => $v) {
+                    $comment[$k]['islaud'] = D('forum_comment_laud')->where("uid = {$user['userId']} and cid = {$v['id']}")->select();
+                    $comment[$k]['rank'] = rankUser($v['userTotalScore']);
+                    $comment[$k]['children'] = D('forum_comment')->field('id,uid,cuid,type,loginName,userPhoto,userTotalScore,aid,parentId,content,laud,ctime')->join("__USERS__ u on uid = u.userId")->where("aid = {$_GET['id']} and parentId = {$v['id']}")->order('ctime asc')->select();
+                    foreach ($comment[$k]['children'] as $kk => $vv) {
+                        $comment[$k]['children'][$kk]['rank'] = rankUser($vv['userTotalScore']);
+                        if ($comment[$k]['children'][$kk]['type'] == 1) {
+                            $userArr = D('users')->field('userId,loginName')->where("userId = {$comment[$k]['children'][$kk]['cuid']}")->find();
+                            $comment[$k]['children'][$kk]['cuName'] = $userArr['loginName'];
+                            $comment[$k]['children'][$kk]['content'] = '回复 <a href="' . U('Home/Users/Index' , array('id' => $comment[$k]['children'][$kk]['cuid'])) . '">' . $comment[$k]['children'][$kk]['cuName'] . '</a> ：' . $comment[$k]['children'][$kk]['content'];
+                        }
+                    }
+                }
 //            dump($comment);die;
-            $this->assign('comment',$comment);
+                $this->assign('comment' , $comment);
+            }
+
             //圈子热门
             $hot = D('forum')->where("isShow = 1 and parentCatId = {$article['parentCatId']}")->order('commentNum desc')->limit(0 , 5)->select();
             $this->assign('hot' , $hot);
 //            dump($hot);die;
+            //当前登录用户是否存在该圈子
+            $exist = D('forum_record')->where("cid = {$_GET['pid']} and uid = {$user['userId']}")->find();
+            if ($exist){
+                $exist = 1;
+            }else{
+                $exist = 0;
+            }
+            $this->assign('exist',$exist);
 
             $this->display('default/article');
         }else{
@@ -345,6 +414,70 @@ class ForumAction extends BaseAction {
      * 处理删除
      */
     public function doDel() {
-        echo 1;
+        $this->isLogin();
+        if($_POST['aid'] && $_POST['uid']){
+            $re = D('forum')->where("articleId = {$_POST['aid']} and staffId = {$_POST['uid']}")->delete();
+            if ($re){
+                echo 1;
+            }
+        }
+    }
+
+    /**
+     * 处理点赞
+     */
+    public function addLaud() {
+        $this->isLogin();
+        if ($_POST['uid'] && $_POST['cid']){
+            $re = D('forum_comment_laud')->add($_POST);
+            if ($re) {
+                D('forum_comment')->query("update __PREFIX__forum_comment set laud = laud + 1 where id = {$_POST['cid']}");
+                $today = date("Y-m-d H:i:s" , strtotime(date('Y-m-d')));
+                $tomorrow = date("Y-m-d H:i:s" , strtotime(date('Y-m-d' , strtotime('+1 day'))));
+                $num = D('forum_comment_laud')->where("ctime between '$today' and '$tomorrow' and luid = {$_POST['luid']}")->count();
+                if ($num < 10) {
+                    D('forum_users')->query("update __PREFIX__users set userScore = userScore + 1 , userTotalScore = userTotalScore + 1 where userId = {$_POST['luid']}");
+                }
+                echo 1;
+            }
+        }
+    }
+
+    /**
+     * 删除点赞
+     */
+    public function delLaud() {
+        $this->isLogin();
+        if ($_POST['uid'] && $_POST['cid']) {
+            $re = D('forum_comment_laud')->where("uid = {$_POST['uid']} and cid = {$_POST['cid']}")->delete();
+            if ($re) {
+                D('forum_comment')->query("update __PREFIX__forum_comment set laud = laud - 1 where id = {$_POST['cid']}");
+                D('forum_users')->query("update __PREFIX__users set userScore = userScore - 1 , userTotalScore = userTotalScore - 1 where userId = {$_POST['luid']}");
+                echo 1;
+            }
+        }
+    }
+
+    /**
+     * 用户发表评论
+     */
+    public function addReply() {
+        $this->isLogin();
+        $_POST['ctime'] = time();
+//        dump($_POST);die;
+        $re = D('forum_comment')->add($_POST);
+        if ($re) {
+            D('forum')->query("update __PREFIX__forum set commentNum = commentNum +1 where articleId = {$_POST['aid']}");
+            D('forum')->query("update __PREFIX__forum set lastId = {$_POST['uid']} , lastTime = {$_POST['ctime']} where articleId = {$_POST['aid']}");
+            $today = strtotime(date('Y-m-d'));
+            $tomorrow = strtotime(date('Y-m-d' , strtotime('+1 day')));
+            $num = D('forum_comment')->where("ctime between $today and $tomorrow and uid = {$_POST['uid']}")->count();
+            if ($num < 10) {
+                D('forum_users')->query("update __PREFIX__users set userScore = userScore + 1 , userTotalScore = userTotalScore + 1 where userId = {$_POST['uid']}");
+            }
+            echo 1;
+        }else{
+//            echo D('forum_comment')->getLastSql();
+        }
     }
 }

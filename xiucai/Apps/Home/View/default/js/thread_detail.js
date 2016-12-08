@@ -383,49 +383,49 @@ $(function(){
     });
 
     //回复点赞
-    $(document).on('click', '.agree-reply', function(){
-        //检查帖子是否被锁定
-        if(THREAD_IS_LOCK == 1){
-            //$.xcDialog.alert({'content':'该帖子已被锁定暂不能做任何操作'});
-            return false;
-        }
-
-        //检查是否登录
-        if ($('a.a-login').length > 0) {
-            showLogin();
-            return false;
-        }
-
-        var _this = $(this);
-        var reply_id = $(this).data('reply-id');
-        if($.trim(reply_id) == '' || reply_id == 0){
-            $.xcDialog.alert({'content':'回复操作失败，请稍后再试'});
-            return false;
-        }
-
-        if(!isThreadSubmitting){
-            isThreadSubmitting = true;
-            $.post(agree_rely_url,{id: reply_id},
-                function (data) {
-                    if(data.code == 200){
-                        _this.addClass("scale-animation");
-                        setTimeout(function(){
-                            $(".post-praise").removeClass("scale-animation");
-                        },1000);
-                        _this.html('<i></i>赞（'+data.agree_count+'）');
-                        _this.removeClass('agree-reply').addClass('post-praised');
-
-                        if(data.agree_level_msg != ''){
-                            $.xcDialog.alert({'content':data.agree_level_msg});
-                        }
-                    }else{
-                        $.xcDialog.alert({'content':data.msg});
-                    }
-                    isThreadSubmitting = false;
-                }
-            );
-        }
-    });
+    // $(document).on('click', '.agree-reply', function(){
+    //     //检查帖子是否被锁定
+    //     if(THREAD_IS_LOCK == 1){
+    //         //$.xcDialog.alert({'content':'该帖子已被锁定暂不能做任何操作'});
+    //         return false;
+    //     }
+    //
+    //     //检查是否登录
+    //     if ($('a.a-login').length > 0) {
+    //         showLogin();
+    //         return false;
+    //     }
+    //
+    //     var _this = $(this);
+    //     var reply_id = $(this).data('reply-id');
+    //     if($.trim(reply_id) == '' || reply_id == 0){
+    //         $.xcDialog.alert({'content':'回复操作失败，请稍后再试'});
+    //         return false;
+    //     }
+    //
+    //     if(!isThreadSubmitting){
+    //         isThreadSubmitting = true;
+    //         $.post(agree_rely_url,{id: reply_id},
+    //             function (data) {
+    //                 if(data.code == 200){
+    //                     _this.addClass("scale-animation");
+    //                     setTimeout(function(){
+    //                         $(".post-praise").removeClass("scale-animation");
+    //                     },1000);
+    //                     _this.html('<i></i>赞（'+data.agree_count+'）');
+    //                     _this.removeClass('agree-reply').addClass('post-praised');
+    //
+    //                     if(data.agree_level_msg != ''){
+    //                         $.xcDialog.alert({'content':data.agree_level_msg});
+    //                     }
+    //                 }else{
+    //                     $.xcDialog.alert({'content':data.msg});
+    //                 }
+    //                 isThreadSubmitting = false;
+    //             }
+    //         );
+    //     }
+    // });
 
     //收藏帖子
     $(document).on('click', '#collect-thread', function(){

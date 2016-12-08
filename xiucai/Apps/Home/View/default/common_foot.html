@@ -265,8 +265,15 @@ function userreg(){
 		<a href="javascript:if(confirm(''))window.location=''"target="_blank">高顿网校</a><a href="javascript:if(confirm(''))window.location=''"  target="_blank">高顿财务培训</a></span>
     </div>
 </div>
-
-
+    <script>
+        var uid = '{$_SESSION['WSTMALL']['WST_USER']['userId']}';
+        $('.postThread').click(function () {
+            if (uid == '') {
+                login();
+                return false;
+            }
+        })
+    </script>
 
 <script type="text/javascript">
     $(function(){
