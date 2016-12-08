@@ -1,13 +1,17 @@
 <?php
  namespace Admin\Action;;
 /**
- * ============================================================================
- * WSTMall开源商城
- * 官网地址:http://www.wstmall.net
- * 联系QQ:707563272
- * ============================================================================
- * 店铺控制器
- */
+* 教师段文件
+* ==============================================
+* 版权所有 2015-2016 http://www.chunni168.com
+* ----------------------------------------------
+* 这不是一个自由软件，未经授权不许任何使用和传播。
+* ==============================================
+* @date: 2016-11-21
+* @author: top_iter、lnrp
+* @email:2504585798@qq.com
+* @version:
+**/
 class ShopsAction extends BaseAction{
 	/**
 	 * 跳到新增/编辑页面
@@ -15,8 +19,8 @@ class ShopsAction extends BaseAction{
 	public function toEdit(){
 		$this->isLogin();
 		//获取商品分类信息
-		$m = D('Admin/GoodsCats');
-		$this->assign('goodsCatsList',$m->queryByList());
+		$m = D('Admin/CourseCats');
+		$this->assign('courseCatsList',$m->queryByList());
 		//获取地区信息
 		$m = D('Admin/Areas');
 		$this->assign('areaList',$m->queryShowByList(0));
@@ -149,7 +153,7 @@ class ShopsAction extends BaseAction{
     /**
 	 * 获取待审核的店铺数量
 	 */
-	public function queryPenddingGoodsNum(){
+	public function queryPenddingCourseNum(){
 		$this->isLogin();
     	$m = D('Admin/Shops');
     	$rs = $m->queryPenddingShopsNum();
