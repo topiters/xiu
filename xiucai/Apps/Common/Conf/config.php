@@ -17,7 +17,7 @@
 	    'SESSION_PREFIX' => 'WSTMALL',
         'COOKIE_PREFIX'  => 'WSTMALL',
 		'LOAD_EXT_CONFIG' => 'wst_config',
-		'SHOW_ERROR_PAGE'=>true,
-		'SHOW_PAGE_TRACE' =>true
+		//'SHOW_ERROR_PAGE'=>true,
+		//'SHOW_PAGE_TRACE' =>true
 	);
 ?>
