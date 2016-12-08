@@ -488,7 +488,8 @@
 </div>
 
 				
-
+ 
+   
 
      
     <script src="__PUBLIC__/plugins/formValidator/formValidator-4.1.3.js"></script>
@@ -527,7 +528,9 @@
   
    </script>
    
-   <script>
+<script>
+   
+   
 		$("#face_file").uploadify({
 		   
 			'swf': '__PUBLIC__/plugins/uploadify/uploadify.swf?t={$nowtime}',
@@ -538,18 +541,19 @@
 			 'width':'300',
 			'buttonText': '上传视屏',
 			'fileSizeLimit':'99999999999999',
-			'fileTypeExts': '*.mp4;*.rmvb',
+			'fileTypeExts': '*.mp4;*.rmvb;*flv',
 			'queueSizeLimit': 1,
 			//'debug':true,
 			'onUploadSuccess': function (file, data, response) {
-			     var data=$.parseJSON(data);
-			       //alert();
-				// alert(JSON.stringify(data));
+			var data=jQuery.parseJSON(data);
+			  // var data=eval();
+			     // alert(data);
+			// alert(JSON.stringify(data));
 				 var videodata=data.Filedata.savepath+data.Filedata.savename;
 				//alert(videodata) ;
 			  //var imgsv=" "+eval(data)+" ";
 			   
-				$("#jcrop-x1").val($.trim(videodata));
+			$("#jcrop-x1").val($.trim(videodata));
 				
 			
 				
