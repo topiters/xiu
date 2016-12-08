@@ -321,7 +321,7 @@ class ForumAction extends BaseAction {
                 $laudest[0]['islaud'] = D('forum_comment_laud')->where("uid = {$user['userId']} and cid = {$laudest[0]['id']}")->select();
                 $laudest[0]['rank'] = rankUser($laudest[0]['userTotalScore']);
                 $laudest[0]['children'] = D('forum_comment')->field('id,uid,cuid,type,loginName,userPhoto,userTotalScore,aid,parentId,content,laud,ctime')->join("__USERS__ u on uid = u.userId")->where("aid = {$_GET['id']} and parentId = {$laudest[0]['id']}")->order('ctime asc')->select();
-                echo D('forum_comment')->getLastSql();
+//                echo D('forum_comment')->getLastSql();
                 foreach ($laudest[0]['children'] as $k => $v) {
                     $laudest[0]['children'][$k]['rank'] = rankUser($v['userTotalScore']);
                     if ($laudest[0]['children'][$k]['type'] == 1) {
