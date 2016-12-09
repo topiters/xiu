@@ -201,7 +201,7 @@
                         <span class="point-red" id="total_sign_count_box"><if condition="$sign['days'] neq null">{$sign['days']}<else/>0</if></span>天
                         <span class="signed-qb">
                 		<img src="__ROOT__/Apps/Home/View/default/img/quan/qb.png?v=1.10.5" alt="圈币" height="14" width="20">
-                		<em id="addCoin">7</em>
+                		<em id="addCoin">{$quanBi}</em>
                 	</span>
                     </p>
                     <div class="num-display">
@@ -263,6 +263,9 @@
                                             var now = $('#total_sign_count_box').html();
                                             now = parseInt(now);
                                             $('#total_sign_count_box').html(now + 1);
+                                            var now = $('#addCoin').html();
+                                            now = parseInt(now);
+                                            $('#addCoin').html(now + 1);
                                         } else {
                                             WST.msg('签到失败');
                                         }

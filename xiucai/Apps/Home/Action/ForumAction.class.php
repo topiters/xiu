@@ -14,6 +14,9 @@ class ForumAction extends BaseAction {
     //圈子首页
     public function index() {
         $user = session('WST_USER');
+        $quanBi = D('users')->field('userId,quanBi')->where("userId = {$user['userId']}")->find();
+        $quanBi = $quanBi['quanBi'];
+        $this->assign('quanBi', $quanBi);
         //用户签到数据
         $sign = D('sign')->where("userId = {$user['userId']}")->find();
         $now = time();
@@ -148,6 +151,7 @@ class ForumAction extends BaseAction {
                 $_POST['rows'] = 1;
                 $id = D('sign')->add($_POST);
                 if ($id) {
+                    D('forum_users')->query("update __PREFIX__users set quanBi = quanBi + 1 where userId = {$uid}");
                     echo 1;
                     exit;
                 }
@@ -158,11 +162,13 @@ class ForumAction extends BaseAction {
                 if ($now - $last > (60*60*24*2)){ //两次签到时间大于一天则将连续签到更新为0
                     $result = D('sign')->execute("update wst_sign set lastTime = {$re['ctime']},ctime = {$now},days = days + 1,rows = 1 where userId = {$uid}");
                     if ($result){
+                        D('forum_users')->query("update __PREFIX__users set quanBi = quanBi + 1 where userId = {$uid}");
                         echo 1;
                     }
                 }else{ //两次签到时间小于一天则连续签到+1
                     $result = D('sign')->execute("update wst_sign set lastTime = {$re['ctime']} , ctime = {$now},days = days + 1,rows = rows + 1 where userId = {$uid}");
                     if ($result) {
+                        D('forum_users')->query("update __PREFIX__users set quanBi = quanBi + 1 where userId = {$uid}");
                         echo 1;
                     }
                 }

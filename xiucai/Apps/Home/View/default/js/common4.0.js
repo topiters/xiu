@@ -296,11 +296,11 @@ function setRead(ifDecreaseCount,messageId,sourceId,sourceTypeId,actionType,sour
 /**
  * 注册弹出弹窗
  */
-$(function () {
-    $(".a-register,.reg-btn").on('click',function(){
-        login_register(showRegister());
-    });
-});
+// $(function () {
+//     $(".a-register,.reg-btn").on('click',function(){
+//         login_register(showRegister());
+//     });
+// });
 
 //function login_register(showType){
 //  if(typeof showType!="function"){

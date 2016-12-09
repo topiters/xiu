@@ -30,8 +30,8 @@
                                     <!--如果是点击用户自己发表的会显示修改和删除-->
                                     <div class="del-edit" style="float: left;">
                                         <a href="{:U('Home/Forum/mod',array('id'=>$article['articleId']))}" target="_blank">修改</a>
-                                        <em>|</em>
-                                        <a class="del-thread" href="javascript:;">删除</a>
+                                        <!--<em>|</em>-->
+                                        <!--<a class="del-thread" href="javascript:;">删除</a>-->
                                     </div>
                                     </if>
                                     <div class="share-tooltip">
@@ -109,7 +109,7 @@
                                 <div class="quan-post-info quan-post-info-top clearfix">
                                     <div class="fl">
                                         <!-- level -->
-                                        <a href="/help/6/#q28" target="_blank" class="" title="经验值：{$laudest[0]['userTotalScore']}，等级头衔：{$laudest[0]['rank']['rankName']}，了解经验值等级">
+                                        <a href="#" target="_blank" class="" title="经验值：{$laudest[0]['userTotalScore']}，等级头衔：{$laudest[0]['rank']['rankName']}，了解经验值等级">
 			                    <span class="tag-level tag-level-LV{$laudest[0]['rank']['rankId']}">
 			                    <i>LV{$laudest[0]['rank']['rankId']}</i></span></a>
                                         <!-- 马甲 -->
