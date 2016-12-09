@@ -266,6 +266,44 @@
                         <php>}</php>
 						
 						
+						<php>if(in_array('wdgl_00',$WST_STAFF['grant'])){</php>
+                        <li class="treeview">
+                            <a href="#">
+                                <span>问答管理</span>
+                                <small id='shopsTips' style='display:none' class="badge pull-right bg-green">3</small>
+                            </a>
+                            <ul class="treeview-menu">
+                                <php>if(in_array('wdgl',$WST_STAFF['grant'])){</php>
+                                <li><a href="{:U('Admin/Specialist/toEdit')}" target='pageContent' >问答列表</a></li>
+                                <php>}</php>
+								
+                            </ul>
+                        </li>
+                        <php>}</php>
+						
+							
+						<php>if(in_array('ltgl_00',$WST_STAFF['grant'])){</php>
+                        <li class="treeview">
+                            <a href="#">
+                                <span>论坛管理</span>
+                                <small id='shopsTips' style='display:none' class="badge pull-right bg-green">3</small>
+                            </a>
+                            <ul class="treeview-menu">
+                                <php>if(in_array('ltgl',$WST_STAFF['grant'])){</php>
+                                <li><a href="{:U('Admin/Forum/toEdit')}" target='pageContent' >帖子列表</a></li>
+                                <php>}</php>
+								
+                            </ul>
+                        </li>
+                        <php>}</php>
+						
+						
+						
+						
+						
+						
+						
+						
 						
 						
 						
