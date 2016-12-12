@@ -32,11 +32,20 @@ class LivecastAction extends BaseAction {
             $course = D('course')->where("courseId = $id")->find();
             $catName = D('course_cats')->field('catName')->where("catId = {$course['courseCatId3']}")->find();
             $course['catName'] = $catName['catName'];
+            $course['liveStartTime'] = strtotime($course['liveStartTime']);
+            $course['liveEndTime'] = strtotime($course['liveEndTime']);
             $this->assign('course',$course);
             //导师详情
             $tutor = D('shops')->field('shopId,shopName,shopImg,shopDetails')->where("shopId = {$course['shopId']}")->find();
             $this->assign('tutor',$tutor);
 //            dump($tutor);dump($course);die;
+            //相关课程
+            $cid = $course['courseCatId2'];
+            $related = D('course')->where("courseCatId2 = $cid and courseCatId3 <> {$course['courseCatId3']}")->limit(4)->select();
+            $this->assign('related',$related);
+//            dump($related);die;
+        } else {
+            redirect(U('Home/Livecast/index'));
         }
         $this->display('default/livecast_course');
 	 }

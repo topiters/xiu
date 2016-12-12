@@ -62,7 +62,7 @@
                             <p class="course-biaoqian">
                                 <span class="difficulty">
                                     <switch name="course.courseDifficulty">
-                                        <case value="2">中极课程</case>
+                                        <case value="2">中级课程</case>
                                         <case value="3">高级课程</case>
                                         <default/>初级课程
                                     </switch>
@@ -74,25 +74,33 @@
                             </p>
                         </div>
                         <div class="course-time">
-                            <div class="course-date"><span>{$course['liveStartTime']}</span>至<span>{$course['liveEndTime']}</span> 开课</div>
+                            <div class="course-date"><span>{$course['liveStartTime']|date='y年m月d日 H:i',###}-{$course['liveEndTime']|date='H:i',###}</span> 开课</div>
                             <div class="privileges">
-                                <a href="../../zt/gyzb/index.htm" target="_blank">
-                                    <span class="free-public">免费公益课</span>
-                                </a>
+                                <span class="free-public">
+                                    <switch name="course.is_free">
+                                        <case value="1">免费课</case>
+                                        <case value="2">会员专享课</case>
+                                    </switch>
+                                </span>
                             </div>
                         </div>
                         <ul class="share-enter">
                             <li>
                                 <div class="customize">
-                                    没找到课程，
-                                    <a href="../../zt/course/proposal/index.htm" target="_blank">点我快速定制</a>
+
                                 </div>
                                 <div class="share">
-                                    <span class="fr">(446人报名)</span>
+                                    <span class="fr">({$course.saleCount}人报名)</span>
                                     <em class="iconfont">&#xe653;</em>
                                     分享课程：
-                                    <a href="javascript:" class="iconfont wx">&#xe61f;</a>
-                                    <a href="" class="iconfont qqkj" target="_blank">&#xe602;</a>
+                                    <!-- JiaThis Button BEGIN -->
+                                    <div class="jiathis_style" style="float:right;">
+                                        <a class="jiathis_button_qzone"></a>
+                                        <a class="jiathis_button_tsina"></a>
+                                        <a class="jiathis_button_weixin"></a>
+                                    </div>
+                                    <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+                                    <!-- JiaThis Button END -->
                                 </div>
                             </li>
                             <li id="live-course-status-btn" class="btn-group  ">
@@ -124,25 +132,7 @@
         <div class="details-questions">
             <div id="course-details-box" class="course-details-box jason-details-tab" style="display: block;">
                 <div class="article" style="width: 1200px;">
-                    <div class="course-panel">
-                        <h3 class="panel-title"><em></em>课程简介</h3>
-                        <div class="panel-body">
-                            {$course['courseIntro']}
-                        </div>
-                    </div>
-                    <div class="course-panel">
-                        <h3 class="panel-title"><em></em>课程收益</h3>
-                        <div class="panel-body">
-                            首次增值税申报流程的指导
-                            <br>与财税专家、同行切磋营改增实务问题
-                        </div>
-                    </div>
-                    <div class="course-panel">
-                        <h3 class="panel-title"><em></em>课程大纲</h3>
-                        <div class="panel-body">
-                            {$course['courseDesc']}
-                        </div>
-                    </div>
+                    {$course['courseDesc']}
                     <div class="course-panel">
                         <h3 class="panel-title"><em></em>老师简介</h3>
                         <div class="panel-body">
@@ -242,78 +232,34 @@
                 <!-- 视频课程 begin -->
                 <div id="course-list-content">
                     <ul class="clearfix">
+                        <volist name="related" id="v" empty="暂无相关课程">
                         <li>
-                            <a href="#" target="_blank" data-opt_value="相关课程">
+                            <a href="{:U('Home/Livecast/course',array('id'=>$v['courseId']))}" target="_blank" data-opt_value="相关课程">
                                 <div class="course-list-img">
-                                    <img width="280" height="160" src="img/bd660b10-c0f1-d195-08b5-8778a600c062.jpg" alt="营改增对企业税负管理的影响 ">
+                                    <img width="280" height="160" src="__ROOT__/{$v.courseThums}" alt="{$v.courseName}">
                                 </div>
                                 <h5>
-                                    <span>营改增对企业税负管理的影响 </span>
+                                    <span>{$v.courseName}</span>
                                 </h5>
                                 <div class="tips">
-                                    <span>中级课程</span>
+                                    <span>
+                                        <switch name="v.courseDifficulty">
+                                        <case value="2">中级课程</case>
+                                        <case value="3">高级课程</case>
+                                        <default/>初级课程
+                                    </switch>
+                                    </span>
                                     <em>|</em>
-                                    <span>1134人已学</span>
+                                    <span>{$v.saleCount}人已学</span>
                                 </div>
+                                <if condition="$v['shopPrice'] eq 0">
                                 <div class="cost">
                                     <span class="l toll">会员免费看</span>
                                 </div>
+                                </if>
                             </a>
                         </li>
-                        <li>
-                            <a href="../610/index.htm" target="_blank" data-opt_value="相关课程">
-                                <div class="course-list-img">
-                                    <img width="280" height="160" src="img/bd660b10-c0f1-d195-08b5-8778a600c062.jpg" alt=" 18个房地产、建筑业精选问题答疑汇总">
-                                </div>
-                                <h5>
-                                    <span> 18个房地产、建筑业精选问题答疑汇总</span>
-                                </h5>
-                                <div class="tips">
-                                    <span>中级课程</span>
-                                    <em>|</em>
-                                    <span>437人已学</span>
-                                </div>
-                                <div class="cost">
-                                    <span class="l toll">会员免费看</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="../530/index.htm" target="_blank" data-opt_value="相关课程">
-                                <div class="course-list-img">
-                                    <img width="280" height="160" src="img/bd660b10-c0f1-d195-08b5-8778a600c062.jpg" alt="有问必答之建筑业营改增答疑专场">
-                                </div>
-                                <h5>
-                                    <span>有问必答之建筑业营改增答疑专场</span>
-                                </h5>
-                                <div class="tips">
-                                    <span>初级课程</span>
-                                    <em>|</em>
-                                    <span>1123人已学</span>
-                                </div>
-                                <div class="cost">
-                                    <span class="l toll">会员免费看</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="../515/index.htm" target="_blank" data-opt_value="相关课程">
-                                <div class="course-list-img">
-                                    <img width="280" height="160" src="img/bd660b10-c0f1-d195-08b5-8778a600c062.jpg" alt="外贸企业发生退运后的综合实务处">
-                                </div>
-                                <h5>
-                                    <span>外贸企业发生退运后的综合实务处</span>
-                                </h5>
-                                <div class="tips">
-                                    <span>中级课程</span>
-                                    <em>|</em>
-                                    <span>308人已学</span>
-                                </div>
-                                <div class="cost">
-                                    <span class="l toll">会员免费看</span>
-                                </div>
-                            </a>
-                        </li>
+                        </volist>
                     </ul>
                 </div>
             </div>
@@ -324,12 +270,12 @@
     <!-- 课程大纲-->
     <div id="add-course-file-layer"></div>
 </div>
-<script type="text/javascript" src="js/jquery-1.9.0.js"></script>
-<script type="text/javascript" src="js/dialog-plus.js"></script>
-<script type="text/javascript" src="js/common4.0.js"></script>
-<script type="text/javascript" src="js/jquery.enplaceholder.js"></script>
-<script type="text/javascript" src="js/memberInfoDialog.js"></script>
-<script type="text/javascript" src="js/focusUser.js"></script>
-<script type="text/javascript" src="js/icheck.min.js"></script>
-<script type="text/javascript" src="js/login.js"></script>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/jquery-1.9.0.js"></script>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/dialog-plus.js"></script>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/common4.0.js"></script>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/jquery.enplaceholder.js"></script>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/memberInfoDialog.js"></script>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/focusUser.js"></script>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/icheck.min.js"></script>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/login.js"></script>
 <include file="./Apps/Home/View/default/common_foot.html"/>
