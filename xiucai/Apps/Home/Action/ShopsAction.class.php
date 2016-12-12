@@ -411,13 +411,13 @@ class ShopsAction extends BaseAction {
 	public function ask(){
 	
 		$this->isShopLogin();
+		$type = I('type');
 		$shopId = (int)session('WST_USER.shopId');
 		$shopReply = D('Home/Shops');
-		$replylist=$shopReply->getShopsreply($shopId);
+		$replylist=$shopReply->getShopsreply($shopId,$type);
 		//$replylist['totalPage']=100;
 		$this->assign('replylist',$replylist);
-		
-		
+//		dump($replylist['root']);die;
 		$this->display("default/shops/ask");
 	
 	}

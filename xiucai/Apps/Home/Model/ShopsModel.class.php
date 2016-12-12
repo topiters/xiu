@@ -919,24 +919,22 @@ class ShopsModel extends BaseModel {
 	 * 
 	 */
 	
-	public function getShopsreply($shopId = 0){
-		
-		$shopId = ($shopId>0)?$shopId:(int)I("shopId");
-		$sql = "SELECT u.userPhoto,u.loginName,u.userId,q.id,q.title,q.ctime,an.*  FROM __PREFIX__questions q Left join  __PREFIX__users  u  ON  u.userId=q.userId
-		LEFT JOIN  __PREFIX__answers an ON an.id=qId   WHERE  q.shopId = $shopId";
-		
-		
-		$sql .= " ORDER BY q.ctime  desc";
-		$rs = $this->pageQuery($sql,I('p'),30);
-		return $rs;
-		
-		
-		
+	public function getShopsreply($shopId = 0,$type = 'answered'){
+        if ($type == 'unanswered') {
+            $shopId = ($shopId > 0) ? $shopId : (int)I("shopId");
+            $sql = "SELECT u.userPhoto,u.loginName,u.userId,q.id as questionId,q.title,q.ctime  FROM __PREFIX__questions q LEFT JOIN  __PREFIX__users  u  ON  u.userId=q.userId  WHERE  q.shopId = $shopId AND is_answered = 0";
+            $sql .= " ORDER BY q.ctime  desc";
+            $rs = $this->pageQuery($sql , I('p') , 30);
+            return $rs;
+        } else {
+            $shopId = ($shopId > 0) ? $shopId : (int)I("shopId");
+            $sql = "SELECT u.userPhoto,u.loginName,u.userId,q.id as questionId,q.title,q.ctime,an.*  FROM __PREFIX__questions q Left join  __PREFIX__users  u  ON  u.userId=q.userId
+		LEFT JOIN  __PREFIX__answers an ON q.id=an.qId   WHERE  q.shopId = $shopId AND is_answered = 1";
+            $sql .= " ORDER BY q.ctime  desc";
+            $rs = $this->pageQuery($sql , I('p') , 30);
+            return $rs;
+        }
+
 	}
-	
-	
-	
-	
-	
-	 
+
 }
