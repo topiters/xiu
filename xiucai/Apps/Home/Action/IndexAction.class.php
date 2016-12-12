@@ -19,13 +19,21 @@ class IndexAction extends BaseAction {
 		$this->assign('catList',$catList);
    		//分类广告
    		$catAds = $ads->getAdsByCat($areaId2);
+   		
+   		//首页推荐课程
+   		$course=D('Home/Course');
+   		$cArr=array('isHot'=>1,'courseFlag'=>1,'isRecomm'=>1,'isSale'=>1);
+   		$courseIndex=$course->where($cArr)->limit(4)->select();
+   		$this->assign('courseIndex',$courseIndex);
+   		
+   		
+   		
+   		
+   		
+   		
    		$this->assign('catAds',$catAds);
    		$this->assign('ishome',1);
-   		if(I("changeCity")){
-   			echo $_SERVER['HTTP_REFERER'];
-   		}else{
-   			$this->display("default/index");
-   		}
+   		$this->display("default/index");
     }
     /**
      * 广告记数

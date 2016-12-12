@@ -279,8 +279,8 @@
                 </div>
             </div>
             <div class="course-list-title relative">
-                <span>推荐<em>专题</em></span>打包学习，快速成长
-                <a href="course/zt/index.htm"   class="link-more">查看更多&raquo;</a>
+                <span>推荐<em>课程</em></span>打包学习，快速成长
+                <a href="{:U('Home/Course/index')}"   class="link-more">查看更多&raquo;</a>
             </div>
             <div class="subject-list clearfix">
                 <div class="devaluation">
@@ -289,14 +289,18 @@
                     </a>
                 </div>
                 <ul class="clearfix">
+				<volist   name="courseIndex"  id="data" >
                     <li>
-                        <a href="course/zt/xykz/index.htm"  target="_blank">
+                        <a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$data['courseId']))}"  target="_blank">
                             <div class="subject-wrap relative">
-                                <img src="__ROOT__/Apps/Home/View/default/img/bd660b10-c0f1-d195-08b5-8778a600c062.jpg"   alt="Excel效率加速器——函数在财务工作中的应用">
+                                <img src="__ROOT__/{$data['courseThums']}" title="{$data['courseName']}" alt="{$data['courseName']}">
                             </div>
                         </a>
                     </li>
-                    <li>
+					
+				</volist>	
+					
+                  <!--   <li>
                         <a href="course/zt/xykz/index.htm"  target="_blank">
                             <div class="subject-wrap relative">
                                 <img src="__ROOT__/Apps/Home/View/default/img/bd660b10-c0f1-d195-08b5-8778a600c062.jpg"   alt="Excel效率加速器——函数在财务工作中的应用">
@@ -316,7 +320,7 @@
                                 <img src="__ROOT__/Apps/Home/View/default/img/bd660b10-c0f1-d195-08b5-8778a600c062.jpg"   alt=" ">
                             </div>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
