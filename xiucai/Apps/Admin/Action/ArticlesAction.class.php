@@ -1,5 +1,5 @@
 <?php
- namespace Admin\Action;;
+ namespace Admin\Action;
 /**
  * ============================================================================
  * WSTMall开源商城
@@ -13,6 +13,7 @@ class ArticlesAction extends BaseAction{
 	 * 跳到新增/编辑页面
 	 */
 	public function toEdit(){
+//        dump($_SESSION);die;
 		$this->isLogin();
 	    $m = D('Admin/Articles');
     	$object = array();

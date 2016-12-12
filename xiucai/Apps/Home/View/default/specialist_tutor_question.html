@@ -131,7 +131,7 @@
                         <div class="module-body bd">
                             <div>
                                 <div class="answer-list">
-                                    <foreach name="qArr" item="v">
+                                    <volist name="qArr" id="v" empty="暂无信息。">
                                     <dl>
                                         <dt>
                                             <a href="{:U('Home/Users/index',array('id'=>$v['userId']))}" class="photo" target="_blank">
@@ -149,12 +149,13 @@
                                             </p>
                                         </dd>
                                     </dl>
-                                    </foreach>
+                                    </volist>
                                 </div>
-
+                                <if condition="$page neq null">
                                 <div style="width: 100%;height: 80px;text-align: center;box-sizing: border-box;">
 					    			{$page}
-					    		</div> 
+					    		</div>
+                                </if>
                             </div>
                         </div>
                     </div>

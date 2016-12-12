@@ -71,16 +71,19 @@ class SpecialModel extends BaseModel {
 	    $limit = 10;
         $pager = new \Think\Page($num , $limit);
         $arr = D('questions')->where("shopId = $id and is_answered = 1")->limit($pager->firstRow,$limit)->select();
-        $arr['page'] = $pager->show();
-        foreach ($arr as $k => $v){
-            //获取用户头像
-            $userArr = D('Users')->get($v['userId']);
-            $arr[$k]['userPhoto'] = $userArr['userPhoto'];
-            $arr[$k]['loginName'] = $userArr['loginName'];
-            //获取该问题的答案
-            $answer = D('answers')->where("qid = {$v['id']} and shopId = {$id}")->find();
-            $arr[$k]['answer'] = $answer['content'];
+        if ($arr != null){
+            $arr['page'] = $pager->show();
+            foreach ($arr as $k => $v) {
+                //获取用户头像
+                $userArr = D('Users')->get($v['userId']);
+                $arr[$k]['userPhoto'] = $userArr['userPhoto'];
+                $arr[$k]['loginName'] = $userArr['loginName'];
+                //获取该问题的答案
+                $answer = D('answers')->where("qid = {$v['id']} and shopId = {$id}")->find();
+                $arr[$k]['answer'] = $answer['content'];
+            }
         }
+
         return $arr;
 	}
 }

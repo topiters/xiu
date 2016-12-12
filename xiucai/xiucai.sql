@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2016-12-08 17:49:33
+Date: 2016-12-11 23:50:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -96,7 +96,6 @@ CREATE TABLE `wst_answers` (
 -- Records of wst_answers
 -- ----------------------------
 INSERT INTO `wst_answers` VALUES ('1', '1', '34', '无可奉告', '1480484994');
-INSERT INTO `wst_answers` VALUES ('2', '4', '34', '我也不知道', '1480485998');
 
 -- ----------------------------
 -- Table structure for wst_areas
@@ -4832,9 +4831,8 @@ CREATE TABLE `wst_forum` (
 -- ----------------------------
 INSERT INTO `wst_forum` VALUES ('1', '17', '4', '发布测试', '', '1', '1', '<pre><span><b>测试ING<img src=\"http://xiucai.localhost.com/Public/plugins/kindeditor/plugins/emoticons/images/13.gif\" border=\"0\" alt=\"\" />\n<pre><span><b>测试ING<img src=\"http://xiucai.localhost.com/Public/plugins/kindeditor/plugins/emoticons/images/13.gif\" border=\"0\" alt=\"\" /></b></span></pre>\n</b></span></pre>', null, '42', '1480915528', '1', '0', null, null);
 INSERT INTO `wst_forum` VALUES ('3', '17', '4', '发布测试 凑数使用', '', '1', '0', '<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用发布测试 凑数使用发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用发布测试 凑数使用\n</p>', null, '42', '1480928762', '0', '0', null, null);
-INSERT INTO `wst_forum` VALUES ('4', '11', '2', '更新测试 凑数使用发布测试 凑数使用', '', '1', '0', '<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用发布测试 凑数使用发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用发布测试 凑数使用\n</p>', null, '42', '1480928791', '249', '15', '42', '1481189680');
-INSERT INTO `wst_forum` VALUES ('5', '13', '3', '这是第五条帖子 凑数用', '', '1', '0', '<p>\n	这是第五条帖子 凑数用\n</p>\n<p>\n	这是第五条帖子 凑数用这是第五条帖子 凑数用\n</p>\n<p>\n	这是第五条帖子 凑数用这是第五条帖子 凑数用这是第五条帖子 凑数用\n</p>\n<p>\n	这是第五条帖子 凑数用这是第五条帖子 凑数用这是第五条帖子 凑数用这是第五条帖子 凑数用\n</p>\n<p>\n	<br />\n</p>\n<p>\n	这是第五条帖子 凑数用这是第五条帖子 凑数用这是第五条帖子 凑数用这是第五条帖子 凑数用\n</p>\n<p>\n	这是第五条帖子 凑数用这是第五条帖子 凑数用这是第五条帖子 凑数用\n</p>\n<p>\n	这是第五条帖子 凑数用这是第五条帖子 凑数用\n</p>\n<p>\n	这是第五条帖子 凑数用\n</p>', null, '42', '1480994178', '1', '0', null, null);
-INSERT INTO `wst_forum` VALUES ('6', '22', '6', '这是第六条帖子 凑数用', '', '1', '0', '<p>\n	这是第六条帖子 凑数用\n</p>\n<p>\n	<span>这是第六条帖子 凑数用</span><span>这是第六条帖子 凑数用</span>\n</p>\n<p>\n	这是第<span>六</span>条帖子 凑数用这是第<span>六</span>条帖子 凑数用这是第<span>六</span>条帖子 凑数用\n</p>\n<p>\n	这是第<span>六</span>条帖子 凑数用这是第<span>六</span>条帖子 凑数用这是第<span>六</span>条帖子 凑数用这是第<span>六</span>条帖子 凑数用\n</p>\n<p>\n	<br />\n</p>\n<p>\n	这是第五条帖子 凑数用这是第五条帖子 凑数用这是第五条帖子 凑数用这是第五条帖子 凑数用\n</p>\n<p>\n	这是第五条帖子 凑数用这是第五条帖子 凑数用这是第五条帖子 凑数用\n</p>\n<p>\n	这是第五条帖子 凑数用这是第五条帖子 凑数用\n</p>\n<p>\n	这是第五条帖子 凑数用\n</p>', null, '42', '1480994347', '3', '0', null, null);
+INSERT INTO `wst_forum` VALUES ('4', '11', '2', '更新测试 凑数使用发布测试 凑数使用', '', '1', '0', '<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用发布测试 凑数使用发布测试 凑数使用\n</p>\n<p>\n	发布测试 凑数使用发布测试 凑数使用\n</p>', null, '42', '1480928791', '251', '15', '42', '1481189680');
+INSERT INTO `wst_forum` VALUES ('5', '13', '3', '这是第五条帖子 凑数用', '', '1', '0', '<p>\n	这是第五条帖子 凑数用\n</p>\n<p>\n	这是第五条帖子 凑数用这是第五条帖子 凑数用\n</p>\n<p>\n	这是第五条帖子 凑数用这是第五条帖子 凑数用这是第五条帖子 凑数用\n</p>\n<p>\n	这是第五条帖子 凑数用这是第五条帖子 凑数用这是第五条帖子 凑数用这是第五条帖子 凑数用\n</p>\n<p>\n	<br />\n</p>\n<p>\n	这是第五条帖子 凑数用这是第五条帖子 凑数用这是第五条帖子 凑数用这是第五条帖子 凑数用\n</p>\n<p>\n	这是第五条帖子 凑数用这是第五条帖子 凑数用这是第五条帖子 凑数用\n</p>\n<p>\n	这是第五条帖子 凑数用这是第五条帖子 凑数用\n</p>\n<p>\n	这是第五条帖子 凑数用\n</p>', null, '42', '1480994178', '6', '0', null, null);
 
 -- ----------------------------
 -- Table structure for wst_forum_cats
@@ -4853,7 +4851,7 @@ CREATE TABLE `wst_forum_cats` (
   PRIMARY KEY (`catId`),
   KEY `isShow` (`catType`,`catFlag`,`isShow`) USING BTREE,
   KEY `parentId` (`catFlag`,`parentId`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wst_forum_cats
@@ -6093,7 +6091,7 @@ CREATE TABLE `wst_log_staff_logins` (
   PRIMARY KEY (`loginId`),
   KEY `loginTime` (`loginTime`),
   KEY `staffId` (`staffId`)
-) ENGINE=MyISAM AUTO_INCREMENT=186 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=196 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wst_log_staff_logins
@@ -6106,6 +6104,16 @@ INSERT INTO `wst_log_staff_logins` VALUES ('182', '1', '2016-11-14 13:37:46', '1
 INSERT INTO `wst_log_staff_logins` VALUES ('183', '1', '2016-11-15 11:32:47', '127.0.0.1');
 INSERT INTO `wst_log_staff_logins` VALUES ('184', '1', '2016-11-19 11:47:36', '127.0.0.1');
 INSERT INTO `wst_log_staff_logins` VALUES ('185', '1', '2016-11-24 17:40:33', '127.0.0.1');
+INSERT INTO `wst_log_staff_logins` VALUES ('186', '1', '2016-12-09 10:39:47', '127.0.0.1');
+INSERT INTO `wst_log_staff_logins` VALUES ('187', '1', '2016-12-09 10:42:02', '127.0.0.1');
+INSERT INTO `wst_log_staff_logins` VALUES ('188', '1', '2016-12-09 10:56:47', '127.0.0.1');
+INSERT INTO `wst_log_staff_logins` VALUES ('189', '1', '2016-12-10 14:51:20', '127.0.0.1');
+INSERT INTO `wst_log_staff_logins` VALUES ('190', '1', '2016-12-11 14:36:35', '127.0.0.1');
+INSERT INTO `wst_log_staff_logins` VALUES ('191', '1', '2016-12-11 18:57:44', '127.0.0.1');
+INSERT INTO `wst_log_staff_logins` VALUES ('192', '1', '2016-12-11 19:09:46', '127.0.0.1');
+INSERT INTO `wst_log_staff_logins` VALUES ('193', '1', '2016-12-11 20:43:57', '127.0.0.1');
+INSERT INTO `wst_log_staff_logins` VALUES ('194', '1', '2016-12-11 20:46:14', '127.0.0.1');
+INSERT INTO `wst_log_staff_logins` VALUES ('195', '1', '2016-12-11 20:47:28', '127.0.0.1');
 
 -- ----------------------------
 -- Table structure for wst_log_sys_moneys
@@ -6145,7 +6153,7 @@ CREATE TABLE `wst_log_user_logins` (
   PRIMARY KEY (`loginId`),
   KEY `loginTime` (`loginTime`),
   KEY `userId` (`userId`)
-) ENGINE=MyISAM AUTO_INCREMENT=90 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=94 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wst_log_user_logins
@@ -6239,6 +6247,10 @@ INSERT INTO `wst_log_user_logins` VALUES ('86', '42', '2016-12-06 18:49:49', '12
 INSERT INTO `wst_log_user_logins` VALUES ('87', '42', '2016-12-07 10:03:34', '127.0.0.1', '0', null);
 INSERT INTO `wst_log_user_logins` VALUES ('88', '42', '2016-12-08 10:57:13', '127.0.0.1', '0', null);
 INSERT INTO `wst_log_user_logins` VALUES ('89', '42', '2016-12-08 17:37:38', '127.0.0.1', '0', null);
+INSERT INTO `wst_log_user_logins` VALUES ('90', '42', '2016-12-09 09:03:30', '127.0.0.1', '0', null);
+INSERT INTO `wst_log_user_logins` VALUES ('91', '42', '2016-12-09 10:12:11', '127.0.0.1', '0', null);
+INSERT INTO `wst_log_user_logins` VALUES ('92', '44', '2016-12-09 10:20:13', '127.0.0.1', '0', null);
+INSERT INTO `wst_log_user_logins` VALUES ('93', '42', '2016-12-09 11:59:15', '127.0.0.1', '0', null);
 
 -- ----------------------------
 -- Table structure for wst_messages
@@ -6585,13 +6597,12 @@ CREATE TABLE `wst_questions` (
 -- ----------------------------
 -- Records of wst_questions
 -- ----------------------------
-INSERT INTO `wst_questions` VALUES ('1', '40', '我有个问题', null, '1480484984', '34', '1');
+INSERT INTO `wst_questions` VALUES ('1', '42', '我有个问题', null, '1480484984', '34', '1');
 INSERT INTO `wst_questions` VALUES ('2', '40', '发布个问题找人来解答', null, '1480485838', '0', '0');
-INSERT INTO `wst_questions` VALUES ('3', '40', '发布完问题 窗口关闭', null, '1480485959', '0', '0');
-INSERT INTO `wst_questions` VALUES ('4', '40', '发布完问题 窗口关闭长度长度长度长度长度长度长度长度长度长度长度', null, '1480485978', '34', '1');
-INSERT INTO `wst_questions` VALUES ('5', '40', '111', null, '1480502537', '0', '0');
+INSERT INTO `wst_questions` VALUES ('3', '43', '发布完问题 窗口关闭', null, '1480485959', '0', '0');
+INSERT INTO `wst_questions` VALUES ('4', '42', '发布完问题 窗口关闭长度长度长度长度长度长度长度长度长度长度长度', null, '1480485978', '34', '1');
 INSERT INTO `wst_questions` VALUES ('6', '40', '222', null, '1480502611', '0', '0');
-INSERT INTO `wst_questions` VALUES ('7', '40', '', null, '1480502666', '0', '0');
+INSERT INTO `wst_questions` VALUES ('7', '40', '233333', null, '1480502666', '0', '0');
 INSERT INTO `wst_questions` VALUES ('8', '40', 'null', null, '1480502690', '0', '0');
 
 -- ----------------------------
@@ -6613,7 +6624,7 @@ CREATE TABLE `wst_roles` (
 -- ----------------------------
 INSERT INTO `wst_roles` VALUES ('1', '商品管理员', 'spfl_00,spfl_01,spfl_02,spfl_03,ppgl_00,ppgl_01,ppgl_02,ppgl_03,splb_00,splb_04,splb_03,spsh_00,spsh_04,spsh_03,sppl_00,sppl_04,sppl_03', '2014-11-02 12:07:12', '1');
 INSERT INTO `wst_roles` VALUES ('2', '门店管理员', 'dplb_00,dplb_01,dplb_02,dplb_03,dpsh_00,dpsh_04,dpsh_03', '2014-11-02 12:09:05', '1');
-INSERT INTO `wst_roles` VALUES ('3', '系统管理员', 'spgl_00,spfl_00,spfl_01,spfl_02,spfl_03,ppgl_00,ppgl_01,ppgl_02,ppgl_03,splb_00,splb_04,spsh_00,spsh_04,sppl_00,sppl_04,sppl_03,ddgl_00,ddlb_00,ddts_00,ddts_04,tk_00,tk_04,js_00,js_04,bbtj_00,dttj_00,dpgl_00,dplb_00,dplb_01,dplb_02,dplb_03,dpsh_00,dqgl_00,dqlb_00,dqlb_01,dqlb_02,dqlb_03,sqlb_00,sqlb_01,sqlb_02,sqlb_03,wzgl_00,wzlb_00,wzlb_01,wzlb_02,wzlb_03,wzfl_00,wzfl_01,wzfl_02,wzfl_03,hygl_00,hydj_00,hydj_01,hydj_02,hydj_03,hylb_00,hylb_01,hylb_02,hylb_03,hyzh_00,hyzh_04,xtgl_00,jsgl_00,jsgl_01,jsgl_02,jsgl_03,zylb_00,zylb_01,zylb_02,zylb_03,dlrz_00,scsz_00,scxx_00,scxx_02,dhgl_00,dhgl_01,dhgl_02,dhgl_03,yqlj_00,yqlj_01,yqlj_02,yqlj_03,gggl_00,gggl_01,gggl_02,gggl_03,ggwzgl_00,ggwzgl_01,ggwzgl_02,ggwzgl_03,yhgl_00,yhgl_01,yhgl_02,yhgl_03,zfgl_00,zfgl_01,zfgl_02,zfgl_03', '2014-11-02 12:09:09', '1');
+INSERT INTO `wst_roles` VALUES ('3', '系统管理员', 'spgl_00,spfl_00,spfl_01,spfl_02,spfl_03,ppgl_00,ppgl_01,ppgl_02,ppgl_03,splb_00,splb_04,spsh_00,spsh_04,sppl_00,sppl_04,sppl_03,ddgl_00,ddlb_00,ddts_00,ddts_04,tk_00,tk_04,js_00,js_04,bbtj_00,dttj_00,dpgl_00,dplb_00,dplb_01,dplb_02,dplb_03,dpsh_00,dqgl_00,dqlb_00,dqlb_01,dqlb_02,dqlb_03,sqlb_00,sqlb_01,sqlb_02,sqlb_03,wzgl_00,wzlb_00,wzlb_01,wzlb_02,wzlb_03,wzfl_00,wzfl_01,wzfl_02,wzfl_03,hygl_00,hydj_00,hydj_01,hydj_02,hydj_03,hylb_00,hylb_01,hylb_02,hylb_03,hyzh_00,hyzh_04,xtgl_00,jsgl_00,jsgl_01,jsgl_02,jsgl_03,zylb_00,zylb_01,zylb_02,zylb_03,dlrz_00,scsz_00,scxx_00,scxx_02,dhgl_00,dhgl_01,dhgl_02,dhgl_03,yqlj_00,yqlj_01,yqlj_02,yqlj_03,gggl_00,gggl_01,gggl_02,gggl_03,ggwzgl_00,ggwzgl_01,ggwzgl_02,ggwzgl_03,yhgl_00,yhgl_01,yhgl_02,yhgl_03,zfgl_00,zfgl_01,zfgl_02,zfgl_03,xxgl_00,xxfl_00,xxfl_01,xxfl_02,xxfl_03,xxhd_00,xxhd_01,xxhd_02,xxhd_03,xxhd_04,xxfl,xxhd,xxgl,wdgl,wdgl_00,wdlb,wdlb_00,wdlb_02,wdlb_03,ltgl,ltgl_00,ltlb_00,ltlb_01,ltlb_02,ltlb_03', '2014-11-02 12:09:09', '1');
 INSERT INTO `wst_roles` VALUES ('4', '客服', 'sppl_00,sppl_04,sppl_03', '2014-12-20 00:08:53', '1');
 
 -- ----------------------------
@@ -7355,13 +7366,14 @@ CREATE TABLE `wst_sign` (
   `days` int(11) NOT NULL DEFAULT '0' COMMENT '签到总天数',
   `rows` int(11) NOT NULL DEFAULT '0' COMMENT '连续签到天数',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wst_sign
 -- ----------------------------
-INSERT INTO `wst_sign` VALUES ('1', '42', '1481076826', '1481189869', '5', '1');
+INSERT INTO `wst_sign` VALUES ('1', '42', '1481189869', '1481249682', '6', '2');
 INSERT INTO `wst_sign` VALUES ('2', '40', '1480662876', '1480748726', '3', '2');
+INSERT INTO `wst_sign` VALUES ('3', '44', null, '1481250034', '1', '1');
 
 -- ----------------------------
 -- Table structure for wst_staffs
@@ -7390,7 +7402,7 @@ CREATE TABLE `wst_staffs` (
 -- ----------------------------
 -- Records of wst_staffs
 -- ----------------------------
-INSERT INTO `wst_staffs` VALUES ('1', 'admin', '0a4834b6c2912e594bbc581c902838a8', '9365', 'admin', '001', 'Upload/staffs/2015-04/55306cf76bc1f.jpg', '3', '1', '1', '1', '2014-04-06 11:47:20', '2016-11-24 17:40:33', '127.0.0.1');
+INSERT INTO `wst_staffs` VALUES ('1', 'admin', '0a4834b6c2912e594bbc581c902838a8', '9365', 'admin', '001', 'Upload/staffs/2015-04/55306cf76bc1f.jpg', '3', '1', '1', '1', '2014-04-06 11:47:20', '2016-12-11 20:47:28', '127.0.0.1');
 INSERT INTO `wst_staffs` VALUES ('14', 'system', 'a0da805e0b77f6cc05cdf0ef6ca8caad', '2508', '系统管理员', 'sn001', null, '3', '1', '1', '1', '2014-12-20 00:13:36', null, null);
 INSERT INTO `wst_staffs` VALUES ('15', 'goodsAdmin', '1600195af828b21c1f586b1e01cb89fc', '1729', '商品管理员', 'sn001', 'Upload/staffs/2014-12/5496376a7ff89.jpg', '1', '1', '1', '1', '2014-12-21 10:58:40', null, null);
 
@@ -7485,6 +7497,7 @@ CREATE TABLE `wst_users` (
   `userScore` int(11) DEFAULT '0',
   `userPhoto` varchar(150) DEFAULT NULL,
   `userTotalScore` int(11) DEFAULT '0',
+  `quanBi` int(11) DEFAULT '0' COMMENT '圈币',
   `userStatus` tinyint(4) DEFAULT '1',
   `userFlag` tinyint(4) DEFAULT '1',
   `createTime` datetime DEFAULT NULL,
@@ -7499,45 +7512,46 @@ CREATE TABLE `wst_users` (
   KEY `userPhone` (`userPhone`),
   KEY `userEmail` (`userEmail`),
   KEY `userType` (`userType`,`userFlag`)
-) ENGINE=MyISAM AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wst_users
 -- ----------------------------
-INSERT INTO `wst_users` VALUES ('9', 'gd_guangzhou', '7902', 'd6a3fe736d32101b2070e4d7667db639', '0', '1', '广东广州店铺', null, '15918671994', null, '4000', null, '4000', '1', '1', '2015-05-08 10:29:39', '127.0.0.1', '2016-09-05 21:45:43', '0', null, null);
-INSERT INTO `wst_users` VALUES ('10', 'gd_shenzhen', '1679', '7fdc1a0615463a521a59d1da3fb49e5b', '0', '1', '广东深圳店铺', null, '15918671194', null, '0', null, '0', '1', '1', '2015-05-08 10:34:26', null, null, '0', null, null);
-INSERT INTO `wst_users` VALUES ('11', 'gd_zhuhai', '9254', '5dd44b6e13011dcaec803ebb71eee9ed', '0', '1', '广东珠海店铺', null, '15918671294', null, '0', null, '0', '1', '1', '2015-05-08 10:35:55', null, null, '0', null, null);
-INSERT INTO `wst_users` VALUES ('12', 'gd_shantou', '9880', 'ab9496339c7c82a54e04ed88cef3a88e', '0', '1', '广东汕头店铺', null, '15918671394', null, '0', null, '0', '1', '1', '2015-05-08 10:37:31', null, null, '0', null, null);
-INSERT INTO `wst_users` VALUES ('13', 'gd_shaoguan', '5234', '6dc085c2ffe8d99a1cce1f7d772ab23b', '0', '1', '广东韶关店铺', null, '15918671494', null, '0', null, '0', '1', '1', '2015-05-08 10:38:47', null, null, '0', null, null);
-INSERT INTO `wst_users` VALUES ('14', 'gd_foshan', '3896', 'f40f40cbe332a15292f9324d962422a2', '0', '1', '广东佛山店铺', null, '15918671594', null, '0', null, '0', '1', '1', '2015-05-08 10:39:51', null, null, '0', null, null);
-INSERT INTO `wst_users` VALUES ('15', '13763316008_b', '6834', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '张测试', '', '13763316008', '', '1', null, '1', '1', '1', '2015-05-10 22:49:23', '101.46.63.120', '2015-06-01 21:22:19', '0', null, null);
-INSERT INTO `wst_users` VALUES ('16', 'ceshi1', '2885', '7e9b1a3e2a390f5da94b1b36e754c976', '0', '1', '测试店铺1', null, '15918671993', null, '0', null, '0', '1', '1', '2015-05-12 22:16:17', '103.199.87.218', '2015-05-31 22:43:31', '0', null, null);
-INSERT INTO `wst_users` VALUES ('17', 'ceshi2', '4644', '202cd234d8619d8b26ab8b2197e965ad', '0', '1', '测试店铺2', '', '15918671694', '', '0', null, '0', '1', '1', '2015-05-12 22:17:50', '103.199.87.218', '2015-05-31 17:18:26', '0', null, null);
-INSERT INTO `wst_users` VALUES ('18', 'ceshi3', '8150', 'eabc4d39c913b6e78f4756ae2a1daf2a', '0', '1', '测试店铺3', '', '15918671794', '', '0', null, '0', '1', '1', '2015-05-12 22:32:48', '103.199.87.218', '2015-05-31 21:58:08', '0', null, null);
-INSERT INTO `wst_users` VALUES ('19', 'ceshi21', '4334', '060ee46489799f04ad97b3d11f49f2b8', '0', '1', '测试店铺21', null, '15918671894', null, '0', null, '0', '1', '1', '2015-05-13 15:07:05', '223.73.155.87', '2015-05-26 21:52:51', '0', null, null);
-INSERT INTO `wst_users` VALUES ('20', 'ceshi22', '1466', '453e4fd1d9a7d33a6f5c4bd0bb1fc44b', '0', '1', '测试店铺22', null, '15918671094', null, '0', null, '0', '1', '1', '2015-05-13 15:08:14', '103.199.87.218', '2015-06-01 08:32:52', '0', null, null);
-INSERT INTO `wst_users` VALUES ('21', 'ceshi23', '4380', 'cd9a2715fdb1c8771122f978903ca74e', '0', '1', '测试店铺23', null, '15918670994', null, '0', null, '0', '1', '1', '2015-05-13 15:09:24', null, null, '0', null, null);
-INSERT INTO `wst_users` VALUES ('22', 'ceshi24', '3677', '06521bce3982f140212989e332488e72', '0', '1', '测试店铺24', null, '15928671994', null, '0', null, '0', '1', '1', '2015-05-13 15:10:47', null, null, '0', null, null);
-INSERT INTO `wst_users` VALUES ('23', '865984518_g', '9799', 'd5e8ee584602dce671a305c69da92f0e', '0', '0', '', '', '', '865984518@qq.com', '0', null, '0', '1', '1', '2015-05-21 14:08:24', null, null, '0', null, null);
-INSERT INTO `wst_users` VALUES ('24', 'ceshi31', '2518', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '测试店铺31', '', '15918671996', '', '0', null, '0', '1', '1', '2015-05-26 21:06:03', '211.136.253.232', '2015-05-27 10:17:08', '0', null, null);
-INSERT INTO `wst_users` VALUES ('25', 'ceshi32', '8937', '2e59831193563c21a51b275788229f98', '0', '1', '测试店铺32', '', '15918671997', '', '0', null, '0', '1', '1', '2015-05-26 21:08:13', '103.199.87.218', '2015-06-01 11:34:34', '0', null, null);
-INSERT INTO `wst_users` VALUES ('26', 'ceshi33', '1867', '845aa09ad90841fccdf865def2c80755', '0', '1', '测试店铺33', '', '15918671991', '', '0', null, '0', '1', '1', '2015-05-26 21:09:53', '103.199.87.218', '2015-06-01 11:53:52', '0', null, null);
-INSERT INTO `wst_users` VALUES ('27', 'ceshi34', '4588', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '测试店铺34', '', '15918671998', '', '0', null, '0', '1', '1', '2015-05-26 21:11:23', null, null, '0', null, null);
-INSERT INTO `wst_users` VALUES ('28', 'ceshi41', '7274', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '测试店铺41', '', '15918671992', '', '0', null, '0', '1', '1', '2015-05-26 21:14:00', '211.136.253.198', '2015-05-27 14:54:22', '0', null, null);
-INSERT INTO `wst_users` VALUES ('29', 'ceshi42', '4880', '947a7d3678d8bd05c7f21cfd0c5be50d', '0', '1', '测试店铺42', '', '15918671990', '', '0', null, '0', '1', '1', '2015-05-26 21:20:27', '103.199.87.218', '2015-06-01 19:04:36', '0', null, null);
-INSERT INTO `wst_users` VALUES ('30', 'ceshi43', '1630', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '测试店铺43', '', '15918671989', '', '0', null, '0', '1', '1', '2015-05-26 21:22:06', null, null, '0', null, null);
-INSERT INTO `wst_users` VALUES ('31', 'ceshi44', '4123', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '测试店铺44', '', '15918671980', '', '0', null, '0', '1', '1', '2015-05-26 21:24:36', null, null, '0', null, null);
-INSERT INTO `wst_users` VALUES ('32', 'ceshi51', '3092', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '测试店铺51', '', '15918671988', '', '0', null, '0', '1', '1', '2015-05-26 21:30:17', '223.73.155.87', '2015-05-27 20:55:46', '0', null, null);
-INSERT INTO `wst_users` VALUES ('33', 'ceshi52', '9160', '6276f96ad761e03f633d1a1b484156d8', '0', '1', '测试店铺52', '', '15918671881', '', '0', null, '0', '1', '1', '2015-05-26 21:32:01', '103.199.87.218', '2015-06-01 20:32:34', '0', null, null);
-INSERT INTO `wst_users` VALUES ('34', 'ceshi53', '9425', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '测试店铺53', '', '15918671812', '', '0', null, '0', '1', '1', '2015-05-26 21:33:27', null, null, '0', null, null);
-INSERT INTO `wst_users` VALUES ('35', 'ceshi54', '3157', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '测试店铺54', '', '15918671834', '', '0', null, '0', '1', '1', '2015-05-26 21:40:20', null, null, '0', null, null);
-INSERT INTO `wst_users` VALUES ('36', 'ceshi61', '1934', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '测试店铺61', '', '15918671833', '', '0', null, '0', '1', '1', '2015-05-26 21:42:59', '223.73.155.87', '2015-05-27 22:24:04', '0', null, null);
-INSERT INTO `wst_users` VALUES ('37', 'ceshi62', '1996', '0c3a4081280a5b80af5b70967cb6252a', '0', '1', '测试店铺62', '', '15918671867', '', '0', null, '0', '1', '1', '2015-05-26 21:45:22', '103.199.87.218', '2015-06-01 21:44:20', '0', null, null);
-INSERT INTO `wst_users` VALUES ('38', 'ceshi63', '8163', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '测试店铺63', '', '15918671987', '', '0', null, '0', '1', '1', '2015-05-26 21:47:10', null, null, '0', null, null);
-INSERT INTO `wst_users` VALUES ('39', 'ceshi64', '3204', '5d50361a4cc2359475c8d08c34fbfcd4', '0', '1', '测试店铺64', '', '15918671857', '', '0', null, '0', '1', '1', '2015-05-26 21:48:43', null, null, '0', null, null);
-INSERT INTO `wst_users` VALUES ('40', 'test123', '9083', '56bf2590b53e8dadb6c47dd81311674f', '0', '1', '', '', '15617859166', '', '0', null, '0', '1', '1', '2016-11-09 10:35:48', '127.0.0.1', '2016-12-03 11:45:35', '0', null, null);
-INSERT INTO `wst_users` VALUES ('42', '15617859168', '3878', '49b103a09ff277c27998d0f14cafdb4e', '0', '0', null, null, '15617859164', '2504585798@qq.com', '14', null, '764', '1', '1', null, '127.0.0.1', '2016-12-08 17:37:38', '0', null, null);
-INSERT INTO `wst_users` VALUES ('43', '15617859167', '8212', '2afc9178a5ff317f816054da34cc9f79', '0', '0', 'uname', null, '15617859167', null, '0', null, '0', '1', '1', '2016-11-10 16:57:15', '127.0.0.1', '2016-11-10 17:53:24', '0', null, null);
+INSERT INTO `wst_users` VALUES ('9', 'gd_guangzhou', '7902', 'd6a3fe736d32101b2070e4d7667db639', '0', '1', '广东广州店铺', null, '15918671994', null, '4000', null, '4000', '0', '1', '1', '2015-05-08 10:29:39', '127.0.0.1', '2016-09-05 21:45:43', '0', null, null);
+INSERT INTO `wst_users` VALUES ('10', 'gd_shenzhen', '1679', '7fdc1a0615463a521a59d1da3fb49e5b', '0', '1', '广东深圳店铺', null, '15918671194', null, '0', null, '0', '0', '1', '1', '2015-05-08 10:34:26', null, null, '0', null, null);
+INSERT INTO `wst_users` VALUES ('11', 'gd_zhuhai', '9254', '5dd44b6e13011dcaec803ebb71eee9ed', '0', '1', '广东珠海店铺', null, '15918671294', null, '0', null, '0', '0', '1', '1', '2015-05-08 10:35:55', null, null, '0', null, null);
+INSERT INTO `wst_users` VALUES ('12', 'gd_shantou', '9880', 'ab9496339c7c82a54e04ed88cef3a88e', '0', '1', '广东汕头店铺', null, '15918671394', null, '0', null, '0', '0', '1', '1', '2015-05-08 10:37:31', null, null, '0', null, null);
+INSERT INTO `wst_users` VALUES ('13', 'gd_shaoguan', '5234', '6dc085c2ffe8d99a1cce1f7d772ab23b', '0', '1', '广东韶关店铺', null, '15918671494', null, '0', null, '0', '0', '1', '1', '2015-05-08 10:38:47', null, null, '0', null, null);
+INSERT INTO `wst_users` VALUES ('14', 'gd_foshan', '3896', 'f40f40cbe332a15292f9324d962422a2', '0', '1', '广东佛山店铺', null, '15918671594', null, '0', null, '0', '0', '1', '1', '2015-05-08 10:39:51', null, null, '0', null, null);
+INSERT INTO `wst_users` VALUES ('15', '13763316008_b', '6834', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '张测试', '', '13763316008', '', '1', null, '1', '0', '1', '1', '2015-05-10 22:49:23', '101.46.63.120', '2015-06-01 21:22:19', '0', null, null);
+INSERT INTO `wst_users` VALUES ('16', 'ceshi1', '2885', '7e9b1a3e2a390f5da94b1b36e754c976', '0', '1', '测试店铺1', null, '15918671993', null, '0', null, '0', '0', '1', '1', '2015-05-12 22:16:17', '103.199.87.218', '2015-05-31 22:43:31', '0', null, null);
+INSERT INTO `wst_users` VALUES ('17', 'ceshi2', '4644', '202cd234d8619d8b26ab8b2197e965ad', '0', '1', '测试店铺2', '', '15918671694', '', '0', null, '0', '0', '1', '1', '2015-05-12 22:17:50', '103.199.87.218', '2015-05-31 17:18:26', '0', null, null);
+INSERT INTO `wst_users` VALUES ('18', 'ceshi3', '8150', 'eabc4d39c913b6e78f4756ae2a1daf2a', '0', '1', '测试店铺3', '', '15918671794', '', '0', null, '0', '0', '1', '1', '2015-05-12 22:32:48', '103.199.87.218', '2015-05-31 21:58:08', '0', null, null);
+INSERT INTO `wst_users` VALUES ('19', 'ceshi21', '4334', '060ee46489799f04ad97b3d11f49f2b8', '0', '1', '测试店铺21', null, '15918671894', null, '0', null, '0', '0', '1', '1', '2015-05-13 15:07:05', '223.73.155.87', '2015-05-26 21:52:51', '0', null, null);
+INSERT INTO `wst_users` VALUES ('20', 'ceshi22', '1466', '453e4fd1d9a7d33a6f5c4bd0bb1fc44b', '0', '1', '测试店铺22', null, '15918671094', null, '0', null, '0', '0', '1', '1', '2015-05-13 15:08:14', '103.199.87.218', '2015-06-01 08:32:52', '0', null, null);
+INSERT INTO `wst_users` VALUES ('21', 'ceshi23', '4380', 'cd9a2715fdb1c8771122f978903ca74e', '0', '1', '测试店铺23', null, '15918670994', null, '0', null, '0', '0', '1', '1', '2015-05-13 15:09:24', null, null, '0', null, null);
+INSERT INTO `wst_users` VALUES ('22', 'ceshi24', '3677', '06521bce3982f140212989e332488e72', '0', '1', '测试店铺24', null, '15928671994', null, '0', null, '0', '0', '1', '1', '2015-05-13 15:10:47', null, null, '0', null, null);
+INSERT INTO `wst_users` VALUES ('23', '865984518_g', '9799', 'd5e8ee584602dce671a305c69da92f0e', '0', '0', '', '', '', '865984518@qq.com', '0', null, '0', '0', '1', '1', '2015-05-21 14:08:24', null, null, '0', null, null);
+INSERT INTO `wst_users` VALUES ('24', 'ceshi31', '2518', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '测试店铺31', '', '15918671996', '', '0', null, '0', '0', '1', '1', '2015-05-26 21:06:03', '211.136.253.232', '2015-05-27 10:17:08', '0', null, null);
+INSERT INTO `wst_users` VALUES ('25', 'ceshi32', '8937', '2e59831193563c21a51b275788229f98', '0', '1', '测试店铺32', '', '15918671997', '', '0', null, '0', '0', '1', '1', '2015-05-26 21:08:13', '103.199.87.218', '2015-06-01 11:34:34', '0', null, null);
+INSERT INTO `wst_users` VALUES ('26', 'ceshi33', '1867', '845aa09ad90841fccdf865def2c80755', '0', '1', '测试店铺33', '', '15918671991', '', '0', null, '0', '0', '1', '1', '2015-05-26 21:09:53', '103.199.87.218', '2015-06-01 11:53:52', '0', null, null);
+INSERT INTO `wst_users` VALUES ('27', 'ceshi34', '4588', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '测试店铺34', '', '15918671998', '', '0', null, '0', '0', '1', '1', '2015-05-26 21:11:23', null, null, '0', null, null);
+INSERT INTO `wst_users` VALUES ('28', 'ceshi41', '7274', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '测试店铺41', '', '15918671992', '', '0', null, '0', '0', '1', '1', '2015-05-26 21:14:00', '211.136.253.198', '2015-05-27 14:54:22', '0', null, null);
+INSERT INTO `wst_users` VALUES ('29', 'ceshi42', '4880', '947a7d3678d8bd05c7f21cfd0c5be50d', '0', '1', '测试店铺42', '', '15918671990', '', '0', null, '0', '0', '1', '1', '2015-05-26 21:20:27', '103.199.87.218', '2015-06-01 19:04:36', '0', null, null);
+INSERT INTO `wst_users` VALUES ('30', 'ceshi43', '1630', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '测试店铺43', '', '15918671989', '', '0', null, '0', '0', '1', '1', '2015-05-26 21:22:06', null, null, '0', null, null);
+INSERT INTO `wst_users` VALUES ('31', 'ceshi44', '4123', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '测试店铺44', '', '15918671980', '', '0', null, '0', '0', '1', '1', '2015-05-26 21:24:36', null, null, '0', null, null);
+INSERT INTO `wst_users` VALUES ('32', 'ceshi51', '3092', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '测试店铺51', '', '15918671988', '', '0', null, '0', '0', '1', '1', '2015-05-26 21:30:17', '223.73.155.87', '2015-05-27 20:55:46', '0', null, null);
+INSERT INTO `wst_users` VALUES ('33', 'ceshi52', '9160', '6276f96ad761e03f633d1a1b484156d8', '0', '1', '测试店铺52', '', '15918671881', '', '0', null, '0', '0', '1', '1', '2015-05-26 21:32:01', '103.199.87.218', '2015-06-01 20:32:34', '0', null, null);
+INSERT INTO `wst_users` VALUES ('34', 'ceshi53', '9425', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '测试店铺53', '', '15918671812', '', '0', null, '0', '0', '1', '1', '2015-05-26 21:33:27', null, null, '0', null, null);
+INSERT INTO `wst_users` VALUES ('35', 'ceshi54', '3157', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '测试店铺54', '', '15918671834', '', '0', null, '0', '0', '1', '1', '2015-05-26 21:40:20', null, null, '0', null, null);
+INSERT INTO `wst_users` VALUES ('36', 'ceshi61', '1934', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '测试店铺61', '', '15918671833', '', '0', null, '0', '0', '1', '1', '2015-05-26 21:42:59', '223.73.155.87', '2015-05-27 22:24:04', '0', null, null);
+INSERT INTO `wst_users` VALUES ('37', 'ceshi62', '1996', '0c3a4081280a5b80af5b70967cb6252a', '0', '1', '测试店铺62', '', '15918671867', '', '0', null, '0', '0', '1', '1', '2015-05-26 21:45:22', '103.199.87.218', '2015-06-01 21:44:20', '0', null, null);
+INSERT INTO `wst_users` VALUES ('38', 'ceshi63', '8163', 'fc9fb3a4db2ebb524be31925435987dc', '0', '1', '测试店铺63', '', '15918671987', '', '0', null, '0', '0', '1', '1', '2015-05-26 21:47:10', null, null, '0', null, null);
+INSERT INTO `wst_users` VALUES ('39', 'ceshi64', '3204', '5d50361a4cc2359475c8d08c34fbfcd4', '0', '1', '测试店铺64', '', '15918671857', '', '0', null, '0', '0', '1', '1', '2015-05-26 21:48:43', null, null, '0', null, null);
+INSERT INTO `wst_users` VALUES ('40', 'test123', '9083', '56bf2590b53e8dadb6c47dd81311674f', '0', '1', '', '', '15617859166', '', '0', null, '0', '0', '1', '1', '2016-11-09 10:35:48', '127.0.0.1', '2016-12-03 11:45:35', '0', null, null);
+INSERT INTO `wst_users` VALUES ('42', '15617859168', '3878', '49b103a09ff277c27998d0f14cafdb4e', '0', '0', null, null, '15617859164', '2504585798@qq.com', '14', null, '764', '1', '1', '1', null, '127.0.0.1', '2016-12-09 11:59:15', '0', null, null);
+INSERT INTO `wst_users` VALUES ('43', '15617859167', '8212', '2afc9178a5ff317f816054da34cc9f79', '0', '0', 'uname', null, '15617859167', null, '0', null, '0', '0', '1', '1', '2016-11-10 16:57:15', '127.0.0.1', '2016-11-10 17:53:24', '0', null, null);
+INSERT INTO `wst_users` VALUES ('44', '15515515515', '5063', 'ddca1733ba7e550625b9b342ae4c9bd0', '0', '0', 'testtest', null, '15515515515', null, '0', null, '0', '1', '1', '1', '2016-12-09 10:20:13', '127.0.0.1', '2016-12-09 10:20:13', '0', null, null);
 
 -- ----------------------------
 -- Table structure for wst_user_address
@@ -7586,8 +7600,8 @@ CREATE TABLE `wst_user_ranks` (
 -- ----------------------------
 -- Records of wst_user_ranks
 -- ----------------------------
-INSERT INTO `wst_user_ranks` VALUES ('1', '初级粉丝', '0', '100', '100', '2016-12-01 00:00:00');
-INSERT INTO `wst_user_ranks` VALUES ('2', '中级粉丝', '101', '250', '100', '2016-12-01 00:00:00');
+INSERT INTO `wst_user_ranks` VALUES ('1', '初级粉丝', '0', '100', '100', '0000-00-00 00:00:00');
+INSERT INTO `wst_user_ranks` VALUES ('2', '中级粉丝', '101', '250', '100', '0000-00-00 00:00:00');
 INSERT INTO `wst_user_ranks` VALUES ('3', '高级粉丝', '251', '500', '100', '0000-00-00 00:00:00');
 INSERT INTO `wst_user_ranks` VALUES ('4', '入门会员', '501', '750', '100', '0000-00-00 00:00:00');
 INSERT INTO `wst_user_ranks` VALUES ('5', '正式会员', '751', '1000', '100', '0000-00-00 00:00:00');
@@ -7595,7 +7609,7 @@ INSERT INTO `wst_user_ranks` VALUES ('6', '核心会员', '1001', '1500', '100',
 INSERT INTO `wst_user_ranks` VALUES ('7', '铁杆会员', '1501', '2000', '100', '0000-00-00 00:00:00');
 INSERT INTO `wst_user_ranks` VALUES ('8', '知名人士', '2001', '5000', '100', '0000-00-00 00:00:00');
 INSERT INTO `wst_user_ranks` VALUES ('9', '人气楷模', '5001', '10000', '100', '0000-00-00 00:00:00');
-INSERT INTO `wst_user_ranks` VALUES ('10', '意见领袖', '10001', '20001', '100', '0000-00-00 00:00:00');
+INSERT INTO `wst_user_ranks` VALUES ('10', '意见领袖', '10001', '20000', '100', '0000-00-00 00:00:00');
 INSERT INTO `wst_user_ranks` VALUES ('11', '武林盟主', '20001', '50000', '100', '0000-00-00 00:00:00');
 INSERT INTO `wst_user_ranks` VALUES ('12', '一代宗师', '50001', '100000', '100', '0000-00-00 00:00:00');
 INSERT INTO `wst_user_ranks` VALUES ('13', '进阶元老', '100001', '150000', '100', '0000-00-00 00:00:00');

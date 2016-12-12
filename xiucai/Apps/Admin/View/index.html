@@ -273,15 +273,15 @@
                                 <small id='shopsTips' style='display:none' class="badge pull-right bg-green">3</small>
                             </a>
                             <ul class="treeview-menu">
-                                <php>if(in_array('wdgl',$WST_STAFF['grant'])){</php>
-                                <li><a href="{:U('Admin/Specialist/toEdit')}" target='pageContent' >问答列表</a></li>
+                                <php>if(in_array('wdlb',$WST_STAFF['grant'])){</php>
+                                <li><a href="{:U('Admin/Specialist/index')}" target='pageContent' >问答列表</a></li>
                                 <php>}</php>
 								
                             </ul>
                         </li>
                         <php>}</php>
 						
-							
+
 						<php>if(in_array('ltgl_00',$WST_STAFF['grant'])){</php>
                         <li class="treeview">
                             <a href="#">
@@ -289,24 +289,18 @@
                                 <small id='shopsTips' style='display:none' class="badge pull-right bg-green">3</small>
                             </a>
                             <ul class="treeview-menu">
-                                <php>if(in_array('ltgl',$WST_STAFF['grant'])){</php>
-                                <li><a href="{:U('Admin/Forum/toEdit')}" target='pageContent' >帖子列表</a></li>
+                                <php>if(in_array('ltlb_00',$WST_STAFF['grant'])){</php>
+                                <li><a href="{:U('Admin/ForumQuan/quan')}" target="pageContent">圈子列表</a></li>
+                                <php>}</php>
+                                <php>if(in_array('ltlb_01',$WST_STAFF['grant'])){</php>
+                                <li><a href="{:U('Admin/Forum/index')}" target='pageContent'>帖子列表</a></li>
                                 <php>}</php>
 								
                             </ul>
                         </li>
                         <php>}</php>
 						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
+
                         <php>if(in_array('dqgl_00',$WST_STAFF['grant'])){</php>
                         <li class="treeview">
                             <a href="pages/calendar.html">
