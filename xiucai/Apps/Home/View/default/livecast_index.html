@@ -97,7 +97,7 @@
                               <div class="right">
                                   <ul>
                                       <li>
-                                          <span>{$v['liveStartTime']}</span>至<span>{$v['liveEndTime']}</span>
+                                          <span>{$v['liveStartTime']|Date='y年m月d日     H:i',###}-{$v['liveEndTime']|Date='H:i',###}</span>
                                       </li>
                                       <li class="btn">
                                           <a href="{:U('Home/Livecast/course',array('id'=>$v['courseId']))}" class="tw questioning">去报名</a>

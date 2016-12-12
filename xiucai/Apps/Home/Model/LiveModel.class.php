@@ -14,7 +14,20 @@ class LiveModel extends BaseModel {
 	 	    from __PREFIX__course c,__PREFIX__course_cats cc,__PREFIX__shops s 
 	 	    where c.courseCatId3=cc.catId and c.shopId = s.shopId and is_live = 2";
         $sql .= ' order by liveTime desc';
-        return $this->pageQuery($sql);
+       $result= $this->pageQuery($sql);
+     if($result['root']){
+     	foreach ($result['root'] as $k=>$v){
+     		
+     		$result['root'][$k]['liveStartTime']=strtotime($v['liveStartTime']);
+     		$result['root'][$k]['liveEndTime']=strtotime($v['liveEndTime']);
+     		
+     	}
+     	
+     	
+     }  
+     //var_dump($result['root']);
+      // exit;
+        return  $result;
 	}
 
 }
