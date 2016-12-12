@@ -8,15 +8,53 @@ namespace Home\Action;
  * 会员控制器
  */
 class OfflineAction extends BaseAction {
+	
+	
+	
+	public function __construct(){
+		parent::__construct();
+	
+	  $cate=D('offline_cats')->where(array('catFlag'=>1,'isShow'=>1))->select();
+	  $this->assign('cate',$cate);
+	}
     /**
-     * 跳去直播界面
+     * 
      */
-	  //圈子首页
+	  //首页
 	 public function index(){
+	 	
+	 	$cat=I('cat');//子类
+	 	$pcat=I('pcat');//父类
+	 	if($cat){
+	 	$map['catId']=$cat;
+	 	}
+	 	if($pcat){
+	 		$map['parentId']=$pcat;
+	 	}
+	 	$map['isShow']=1;
+	 	
+	 	$offlist=D('offline')->where($map)->limit(20)->select();
+	 	$this->assign('offlist',$offlist);
+	 	
 		 
 		 $this->display('default/offline_index');
 		 
 	 }
+	 //详情
+	 public function details(){
+	 	
+	 	
+	 	$catId=I('catId');//子类
+	 		
+	 	$this->display('default/offline_details');
+	 		
+	 }
+	 
+	 
+	 
+	 
+	 
+	 
 	 
 	   //我的圈子
 	  public function myindex(){
@@ -24,139 +62,7 @@ class OfflineAction extends BaseAction {
 		 $this->display('default/my_index');
 		 
 	 }
-	public function login(){
-		//如果已经登录了则直接跳去后台
-		$USER = session('WST_USER');
-		if(!empty($USER) && $USER['userId']!=''){
-			$this->redirect("Users/index");
-		}
-		if(isset($_COOKIE["loginName"])){
-			$this->assign('loginName',$_COOKIE["loginName"]);
-		}else{
-			$this->assign('loginName','');
-		}
-		$this->assign('qqBackUrl',urlencode(WSTDomain()."/Wstapi/thridLogin/qqlogin.php"));
-		$this->assign('wxBackUrl',urlencode(WSTDomain()."/Wstapi/thridLogin/wxlogin.php"));
-		$this->display('default/login');
-	}
 	
-	
-	/**
-	 * 用户退出
-	 */
-	public function logout(){
-		session('WST_USER',null);
-		setcookie("loginPwd", null);
-		echo "1";
-	}
-	
-	/**
-     * 注册界面
-     * 
-     */
-	public function regist(){
-		if(isset($_COOKIE["loginName"])){
-			$this->assign('loginName',$_COOKIE["loginName"]);
-		}else{
-			$this->assign('loginName','');
-		}
-		$this->display('default/regist');
-	}
-
-	/**
-	 * 验证登陆
-	 * 
-	 */
-	public function checkLogin(){
-	    $rs = array();
-	    $rs["status"]= 1;
-		/* if(!$this->checkVerify("4") && ($GLOBALS['CONFIG']["captcha_model"]["valueRange"]!="" && strpos($GLOBALS['CONFIG']["captcha_model"]["valueRange"],"3")>=0)){			
-			$rs["status"]= -1;//验证码错误
-		}else{ */
-			$m = D('Home/Users');			
-			$res = $m->checkLogin();
-			if (!empty($res)){
-				if($res['userFlag'] == 1){
-					session('WST_USER',$res);
-					unset($_SESSION['toref']);
-					if(strripos($_SESSION['refer'],"regist")>0 || strripos($_SESSION['refer'],"logout")>0 || strripos($_SESSION['refer'],"login")>0){
-						$rs["refer"]= __ROOT__;
-					}						
-				}else if($res['status'] == -1){
-					$rs["status"]= -2;//登陆失败，账号或密码错误
-				}
-			} else {
-				$rs["status"]= -2;//登陆失败，账号或密码错误
-			}
-			
-			$rs["refer"]= $rs['refer']?$rs['refer']:__ROOT__;
-		
-		echo json_encode($rs);
-	}
-
-	/**
-	 * 新用户注册
-	 */
-	public function toRegist(){
-		
-		$m = D('Home/Users');
-		$res = array();
-		$nameType = (int)I("nameType");
-		if($nameType!=3 && !$this->checkVerify("3")){			
-			$res['status'] = -4;
-			$res['msg'] = '验证码错误!';
-		}else{			
-			$res = $m->regist();
-			if($res['userId']>0){//注册成功			
-				//加载用户信息				
-				$user = $m->get($res['userId']);
-				if(!empty($user))session('WST_USER',$user);
-				
-			}
-		}
-		echo json_encode($res);
-
-	}
-    
- 	/**
-	 * 获取验证码
-	 */
-	public function getPhoneVerifyCode(){
-		$userPhone = WSTAddslashes(I("userPhone"));
-		$rs = array();
-		if(!preg_match("#^13[\d]{9}$|^14[5,7]{1}\d{8}$|^15[^4]{1}\d{8}$|^17[0,6,7,8]{1}\d{8}$|^18[\d]{9}$#",$userPhone)){
-			$rs["msg"] = '手机号格式不正确!';
-			echo json_encode($rs);
-			exit();
-		}
-		$m = D('Home/Users');
-		$rs = $m->checkUserPhone($userPhone,(int)session('WST_USER.userId'));
-		if($rs["status"]!=1){
-			$rs["msg"] = '手机号已存在!';
-			echo json_encode($rs);
-			exit();
-		}
-		$phoneVerify = rand(100000,999999);
-		$msg = "欢迎您注册成为".$GLOBALS['CONFIG']['mallName']."会员，您的注册验证码为:".$phoneVerify."，请在30分钟内输入。【".$GLOBALS['CONFIG']['mallName']."】";
-		$rv = D('Home/LogSms')->sendSMS(0,$userPhone,$msg,'getPhoneVerifyByRegister',$phoneVerify);
-		if($rv['status']==1){
-			session('VerifyCode_userPhone',$phoneVerify);
-			session('VerifyCode_userPhone_Time',time());
-			//$rs["phoneVerifyCode"] = $phoneVerify;
-		}
-		echo json_encode($rv);
-	}
-   /**
-    * 会员中心页面
-    */
-	/* public function index(){
-		$this->isUserLogin();
-		$this->redirect("Orders/queryByPage");
-	} */
-	
-   /**
-    * 跳到修改用户密码
-    */
 	public function toEditPass(){
 		$this->isLogin();
 		$this->assign("umark","toEditPass");

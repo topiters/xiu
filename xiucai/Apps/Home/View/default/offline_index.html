@@ -28,36 +28,7 @@
 </script>
 <div id="main">
     <script>document.body.style.backgroundColor='#fff';</script>
-	<div class="nav_left">
-		<ul>
-			<li class="nav_left_li">
-				全部分类
-			</li>
-			<li>
-				内控与合规
-			</li>
-			<li>
-				计划与分析
-			</li>
-			<li>
-				成本控制与绩效提升
-			</li>
-			
-			<li>
-				资本运作及现金管理
-			</li>
-			<li>
-				税务申报与发票管理
-			</li>
-			<li>
-				跨境税收实务
-			</li>
-			<li>
-				税务战略与管理
-			</li>
-		</ul>
-		<img src="__ROOT__/Apps/Home/View/default/img/course/kecheng_banner.jpg" width="351px" height="228px" /><!---->
-	</div>
+	<include file="./Apps/Home/View/default/offline_left.html" />
 	<div class="xianxia_right">
 		<div class="xianxia_top">
 			<ul>
@@ -108,7 +79,43 @@
 			</div>
 			<div class="data_list_xianxia">
 				<ul>
+				
+				<volist   name="offlist"   id="data">
 					<li>
+						<table>
+							<tr>
+								<td rowspan="3">
+									<a   href="{:U('Offline/details',array('catId'=>$data['offlineId']))}"   target="_blank" > <img width="280" height="160" src="__ROOT__/{$data['offFile']}"   alt="{$data['offlineKey']}" /></a>
+								</td>
+								<td>
+								<a   href="{:U('Offline/details',array('catId'=>$data['offlineId']))}"   target="_blank" >	<h3>{$data['offlineKey']}</h3></a>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<font>
+										{$data['offlineContent']}
+									</font>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<font>讲师：<span>陈东</span></font>
+									<span style="float: right;">
+										<font>时间：<font style="color: #FF7545;">{$data['offStartDate']}至{$data['offEndDate']}</font></font>
+										&nbsp;&nbsp;&nbsp;&nbsp;
+										<font>地点：<font style="color: #FF7545;">广州</font></font>	
+									</span>
+																	
+								</td>
+							</tr>
+							
+						</table>
+					</li>
+					
+					</volist>
+					
+					<!-- <li>
 						<table>
 							<tr>
 								<td rowspan="3">
@@ -171,39 +178,7 @@
 							</tr>
 							
 						</table>
-					</li>
-					<li>
-						<table>
-							<tr>
-								<td rowspan="3">
-									 <img width="280" height="160" src="__ROOT__/Apps/Home/View/default/img/course/freecourse0.jpg"   alt="存货跌价准备实战宝典" />
-								</td>
-								<td>
-									<h3>中外籍雇员个人所得税合规划与筹划技巧透视(上海)</h3>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<font>
-										本课程将全面梳理企业常见员工个人税问题，探讨我国个税改革趋势。上海地区个税征管执行口径等热门问题。
-										本课程将全面梳理企业常见员工个人税问题，探讨我国个税改革趋势。上海地区个税征管执行口径等热门问题。
-									</font>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<font>讲师：<span>陈东</span></font>
-									<span style="float: right;">
-										<font>时间：<font style="color: #FF7545;">2016年09月21日</font></font>
-										&nbsp;&nbsp;&nbsp;&nbsp;
-										<font>地点：<font style="color: #FF7545;">广州</font></font>	
-									</span>
-																	
-								</td>
-							</tr>
-							
-						</table>
-					</li>
+					</li> -->
 				</ul>
 			</div>
 		</div>
