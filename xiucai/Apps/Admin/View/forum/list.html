@@ -34,6 +34,22 @@
 				});
 	   }});
    }
+   function toggleIsTop(t, v) {
+       Plugins.waitTips({title: '信息提示', content: '正在操作，请稍后...'});
+       $.post("{:U('Admin/Forum/editiIsTop')}", {isTop: t, id: v}, function (data, textStatus) {
+           var json = WST.toJson(data);
+           if (json.status == '1') {
+               Plugins.setWaitTipsMsg({
+                   content: '操作成功', timeout: 1000, callback: function () {
+                       location.reload();
+                   }
+               });
+           } else {
+               Plugins.closeWindow();
+               Plugins.Tips({title: '信息提示', icon: 'error', content: '操作失败!', timeout: 1000});
+           }
+       });
+   }
    </script>
    <body class='wst-page'>
        <form method='post' action='{:U("Admin/Forum/index")}'>
@@ -50,6 +66,7 @@
                  <th>标题</th>
                  <th width='100'>发帖人</th>
                  <th width="70">所属圈子</th>
+                 <th width="100">是否置顶</th>
                  <th width='150'>发布时间</th>
                  <th width='200'>操作</th>
              </tr>
@@ -61,6 +78,31 @@
                  <td>{$vo['articleTitle']}</td>
                  <td>{$vo['loginName']}</td>
                  <td>{$vo['catName']}</td>
+                 <td>
+                     <div class="dropdown">
+                         <if condition="$vo['isTop']==0">
+                             <button class="btn btn-danger dropdown-toggle wst-btn-dropdown" type="button" data-toggle="dropdown">
+                                 置顶
+                                 <span class="caret"></span>
+                             </button>
+                             <else/>
+                             <button class="btn btn-success dropdown-toggle wst-btn-dropdown" type="button" data-toggle="dropdown">
+                                 取消置顶
+                                 <span class="caret"></span>
+                             </button>
+                         </if>
+                         <php>if(in_array('ltlb_03',$WST_STAFF['grant'])){</php>
+                         <ul class="dropdown-menu" role="menu">
+                             <li role="presentation">
+                                 <a role="menuitem" tabindex="-1" href="javascript:toggleIsTop(1,{$vo['articleId']})">置顶</a>
+                             </li>
+                             <li role="presentation">
+                                 <a role="menuitem" tabindex="-1" href="javascript:toggleIsTop(0,{$vo['articleId']})">取消置顶</a>
+                             </li>
+                         </ul>
+                         <php>}</php>
+                     </div>
+                 </td>
                  <td>{$vo['createTime']|date='Y-m-d H:i:s',###}</td>
                  <td>
                      <php>if(in_array('ltlb_02',$WST_STAFF['grant'])){</php>

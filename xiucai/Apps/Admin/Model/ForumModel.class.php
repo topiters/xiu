@@ -17,7 +17,7 @@ class ForumModel extends BaseModel {
      * 分页列表 D('forum')
      */
     public function queryByPage() {
-        $sql = "select a.articleTitle,a.articleId,a.createTime,c.catName,s.loginName
+        $sql = "select a.articleTitle,a.articleId,a.createTime,a.isTop,c.catName,s.loginName
 	 	    from __PREFIX__forum a,__PREFIX__forum_cats c,__PREFIX__users s 
 	 	    where a.parentCatId=c.catId and a.staffId = s.userId ";
         if (I('keyword') != '') $sql .= " and articleTitle like '%" . WSTAddslashes(I('keyword')) . "%'";
@@ -186,6 +186,20 @@ class ForumModel extends BaseModel {
     public function del() {
         $rd = array('status' => -1);
         $rs = $this->delete((int)I('id'));
+        if (false !== $rs) {
+            $rd['status'] = 1;
+        }
+        return $rd;
+    }
+
+    /**
+     * 显示分类是否显示/隐藏
+     */
+    public function editiIsTop() {
+        $rd = array('status' => -1);
+        if (I('id' , 0) == 0) return $rd;
+        $this->isTop = ((int)I('isTop') == 1) ? 1 : 0;
+        $rs = $this->where("articleId=" . (int)I('id' , 0))->save();
         if (false !== $rs) {
             $rd['status'] = 1;
         }

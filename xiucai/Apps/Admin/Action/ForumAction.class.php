@@ -122,11 +122,11 @@ class ForumAction extends BaseAction {
     /**
      * 显示商品是否显示/隐藏
      */
-    public function editiIsShow() {
+    public function editiIsTop() {
         $this->isLogin();
         $this->checkPrivelege('ltlb_03');
         $m = D('Admin/Forum');
-        $rs = $m->editiIsShow();
+        $rs = $m->editiIsTop();
         $this->ajaxReturn($rs);
     }
 
