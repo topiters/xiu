@@ -327,12 +327,16 @@ class ShopsAction extends BaseAction {
 			  $this->error('课程名称不能为空');
 			}
 			$data['courseTime']=$_POST['courseTime'];
-			$data['is_live']=$_POST['is_live'];
+			$data['is_live']=(int)$_POST['is_live'];
 			$data['is_free']=(int)$_POST['is_free'];
-			if($data['is_free']==2){
-				
-				$data['shopPrice']=$_POST['shopPrice'];
+			
+			if($data['is_live']==1){
+			$data['liveStartTime']=$_POST['liveStartTime'];
+			$data['liveEndTime']=$_POST['liveEndTime'];
+			
 			}
+				$data['shopPrice']=$_POST['shopPrice'];
+				$data['marketPrice']=$_POST['marketPrice'];
 			
 			//$data['shopId']= (int)session('WST_USER.shopId');
 			$data['isBest']= ((int)I('isBest')==1)?1:0;
