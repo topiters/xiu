@@ -1,0 +1,28 @@
+
+	<div class="nav_left">
+		<ul>
+		<?php $k=0;?>
+		   <volist  name="cate"  id="vo">
+		<?php $k++;if($k==1){ ;?>
+		
+			<li class="nav_left_li">
+				<a  href="{:U('Home/Offline/index',array('pcat'=>$vo['parentId']))}"  target="" >全部分类</a>
+			</li>
+			<?php   };?>
+			
+			
+			
+		    <li>
+				<a  href="{:U('Home/Offline/index',array('cat'=>$vo['catId']))}"  target="" >{$vo['catName']}</a>
+			</li>
+			
+			
+			
+			</volist>
+			
+		
+
+		</ul>
+		<img src="__ROOT__/Apps/Home/View/default/img/course/kecheng_banner.jpg" width="351px" height="228px" /><!---->
+	</div>
+	
