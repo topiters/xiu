@@ -51,7 +51,7 @@
                  <th width='80'>提问者</th>
                  <th width="80">解答状态</th>
                  <th width='150'>发布时间</th>
-                 <th width='280'>操作</th>
+                 <th width='200'>操作</th>
              </tr>
            </thead>
            <tbody>
@@ -70,9 +70,6 @@
                  </td>
                  <td>{$vo['ctime']|date='Y-m-d H:i:s',###}</td>
                  <td>
-                     <php>if(in_array('wdlb_02',$WST_STAFF['grant'])){</php>
-                     <a class="btn btn-default glyphicon glyphicon-pencil" href="{:U('Admin/Specialist/reply',array('id'=>$vo['id']))}">回复</a>&nbsp;
-                     <php>}</php>
                      <php>if(in_array('wdlb_02',$WST_STAFF['grant'])){</php>
                      <a class="btn btn-default glyphicon glyphicon-list-alt" href="{:U('Admin/Specialist/replyList',array('id'=>$vo['id']))}">查看回复</a>&nbsp;
                      <php>}</php>
