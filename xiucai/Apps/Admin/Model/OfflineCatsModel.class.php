@@ -1,37 +1,33 @@
 <?php
-namespace Admin\Model;
+ namespace Admin\Model;
 /**
-*  课程分类文件
-* ==============================================
-* 版权所有 2015-2016 http://www.chunni168.com
-* ----------------------------------------------
-* 这不是一个自由软件，未经授权不许任何使用和传播。
-* ==============================================
-* @date: 2016-11-21
-* @author: top_iter、lnrp
-* @email:2504585798@qq.com
-* @version:
-**/
+ * ============================================================================
+ * WSTMall开源商城
+ * 官网地址:http://www.wstmall.net
+ * 联系QQ:707563272
+ * ============================================================================
+ * 文章分类服务类
+ */
 class OfflineCatsModel extends BaseModel {
     /**
 	  * 新增
 	  */
 	 public function insert(){
 	 	$rd = array('status'=>-1);
+	 	$id = (int)I("id",0);
 		$data = array();
+		$data["parentId"] = (int)I("parentId");
+		$data["catType"] = (int)I("catType",0);
+		$data["isShow"] = (int)I("isShow",1);
 		$data["catName"] = I("catName");
-		if($this->checkEmpty($data,true)){
-			$data["parentId"] = I("parentId",0);
-		    $data["isShow"] = (int)I("isShow",0);
-			$data["catSort"] = (int)I("catSort",0);
-			$data["catFlag"] = 1;;
+		$data["catSort"] = (int)I("catSort",0);
+		$data["catFlag"] = 1;
+	    if($this->checkEmpty($data,true)){
 			$rs = $this->add($data);
-			if($rs){
+		    if(false !== $rs){
 				$rd['status']= 1;
 			}
 		}
-		//发生数据修改,清空分类缓存
-		S('tree',null);
 		return $rd;
 	 } 
      /**
@@ -41,21 +37,16 @@ class OfflineCatsModel extends BaseModel {
 	 	$rd = array('status'=>-1);
 	 	$id = (int)I("id",0);
 		$data = array();
+		$data["isShow"] = (int)I("isShow");
 		$data["catName"] = I("catName");
+		$data["catSort"] = (int)I("catSort");
 	    if($this->checkEmpty($data)){
-	    	$data["isShow"] = (int)I("isShow",0);
-	    	$data["isFloor"] = (int)I("isFloor",0);
-	    	$data["catSort"] = (int)I("catSort",0);
-			$rs = $this->where("catFlag=1 and catId=".$id)->save($data);
+		    $rs = $this->where("catId=".(int)I('id',0))->save($data);
 			if(false !== $rs){
-				if ($data['isShow'] == 0) {//修改子栏目是否隐藏
-					$this->editiIsShow();
-				}
 				$rd['status']= 1;
+				
 			}
 		}
-		//发生数据修改,清空分类缓存
-		S('tree',null);
 		return $rd;
 	 } 
 	 /**
@@ -67,175 +58,112 @@ class OfflineCatsModel extends BaseModel {
 		$data = array();
 		$data["catName"] = I("catName");
 	    if($this->checkEmpty($data)){
-			$rs = $this->where("catFlag=1 and catId=".$id)->save($data);
+			$rs = $this->where("catFlag=1 and catId=".(int)I('id'))->save($data);
 			if(false !== $rs){
 				$rd['status']= 1;
 			}
 		}
-		//发生数据修改,清空分类缓存
-		S('tree',null);
 		return $rd;
 	 }
 	 /**
 	  * 获取指定对象
 	  */
-     public function get($id){
-		return $this->where("catId=".(int)$id)->find();
+     public function get(){
+		return $this->where("catId=".(int)I('id'))->find();
+	 }
+	 /**
+	  * 分页列表
+	  */
+     public function queryByPage(){
+	 	$sql = "select * from __PREFIX__offline_cats order by catSort asc";
+		return $this->pageQuery($sql);
 	 }
 	 /**
 	  * 获取列表
 	  */
-	  public function queryByList($pid = 0){
-	     $rs = $this->where('catFlag=1 and parentId='.(int)$pid)->select(); 
-		 return $rs;
+	  public function queryByList($pid){
+	     return $this->where('catFlag=1 and parentId='.$pid)->order('catSort asc,catId asc')->select(); 
 	  }
-	  /**
-	   * 获取树形分类
-	   */
-	  public function getCatAndChild(){
-	  	  //判断是否存在缓存
-	  	  $tree = S('tree');
-	  	  if($tree)
-	  	  	return $tree;
-	  	  $data = D('course_cats')->select();
-	  	  $rs1 = $this->getTree($data);
-	  	  //存一份缓存
-	  	  S('tree',$rs1,3600*24*3);
-	  	  return $rs1;
-	  }
-	  /**
-	  *	获取树形分类
-	  */
-	   public function getTree($data, $parentId=0)
-	   {
-		    $arr = array();
-		    foreach($data as $k=>$v)
-		    {
-		        if($v['parentId']==$parentId && $v['catFlag']==1)
-		        {
-		            //再查找该分类下是否还有子分类
-		            $v['child'] = $this->getTree($data, $v['catId']);
-		            //统计child
-		            $v['childNum'] = count($v['child']);
-		            //将找到的分类放回该数组中
-		            $arr[]=$v;
-		        }
-		    }
-		    return $arr;
-	   }
-
-
-
 	 /**
 	  * 迭代获取下级
-	  * 获取一个分类下的所有子级分类id
 	  */
-	public function getChild($pid=1)
-    {
-        $model = D('course_cats');
-        $data = $model->select();
-        //获取该分类id下的所有子级分类id
-        $ids = $this->_getChild($data, $pid, true);//每次调用都清空一次数组
-        //把自己也放进来
-        array_unshift($ids, $pid);
-        return $ids;
-    }
-
-    public function _getChild($data, $pid, $isClear=false)
-    {
-        static $ids = array();
-        if($isClear)//是否清空数组
-        	$ids = array();
-        foreach($data as $k=>$v)
-        {
-            if($v['parentId']==$pid && $v['catFlag']==1)
-            {
-                $ids[] = $v['catId'];//将找到的下级分类id放入静态数组
-                //再找下当前id是否还存在下级id
-                $this->_getChild($data, $v['catId']);
-            }
-        }
-        return $ids;
-    }
-
-
-
+	 public function getChild($ids = array(),$pids = array()){
+	 	$sql = "select catId from __PREFIX__offline_cats where catFlag=1 and parentId in(".implode(',',$pids).")";
+	 	$rs = $this->query($sql);
+	 	if(count($rs)>0){
+	 		$cids = array();
+		 	foreach ($rs as $key =>$v){
+		 		$cids[] = $v['catId'];
+		 	}
+		 	$ids = array_merge($ids,$cids);
+		 	return $this->getChild($ids,$cids);
+		 	
+	 	}else{
+	 		return $ids;
+	 	}
+	 }
+	  
 	 /**
 	  * 删除
 	  */
 	 public function del(){
 	 	$rd = array('status'=>-1);
 	 	//获取子集
-		$id = (int)I('id');
-	 	$ids = $this->getChild($id);
-
-	 	//把相关的商品下架了
-	 	$sql = "update __PREFIX__course set isSale=0 where courseCatId1 in(".implode(',',$ids).")";
-	 	$this->execute($sql);
-	 	$sql = "update __PREFIX__course set isSale=0 where courseCatId2 in(".implode(',',$ids).")";
-	 	$this->execute($sql);
-	 	$sql = "update __PREFIX__course set isSale=0 where courseCatId3 in(".implode(',',$ids).")";
-	 	$this->execute($sql);
-	 	//设置商品分类为删除状态
+	 	$ids = array();
+		$ids[] = (int)I('id');
+	 	$ids = $this->getChild($ids,$ids);
 	 	$this->catFlag = -1;
 		$rs = $this->where(" catId in(".implode(',',$ids).")")->save();
 	    if(false !== $rs){
 		   $rd['status']= 1;
 		}
-		//发生数据修改,清空分类缓存
-		S('tree',null);
 		return $rd;
 	 }
 	 /**
-	  * 显示分类是否显示/隐藏
+	  * 显示商品是否显示/隐藏
 	  */
 	 public function editiIsShow(){
 	 	$rd = array('status'=>-1);
-	 	if(I('id',0)==0)return $rd;
-	 	$isShow = (int)I('isShow');
+	 	$id = (int)I('id');
+	 	if($id==0)return $rd;
 	 	//获取子集
-		$id = (int)I('id');
-	 	$ids = $this->getChild($id);
+	 	$ids = array();
+		$ids[] = $id;
+	 	$ids = $this->getChild($ids,$ids);
 
-	 	if($isShow!=1){
-	 		//把相关的商品下架了
-		 	$sql = "update __PREFIX__course set isSale=0 where courseCatId1 in(".implode(',',$ids).")";
-		 	$this->execute($sql);
-		 	$sql = "update __PREFIX__course set isSale=0 where courseCatId2 in(".implode(',',$ids).")";
-		 	$this->execute($sql);
-		 	$sql = "update __PREFIX__course set isSale=0 where courseCatId3 in(".implode(',',$ids).")";
-		 	$this->execute($sql);
-	 	}
-	 	$this->isShow = ($isShow==1)?1:0;
+	 	$this->isShow = (I('isShow')==1)?1:0;
 	 	$rs = $this->where("catId in(".implode(',',$ids).")")->save();
 	    if(false !== $rs){
 			$rd['status']= 1;
 		}
-		//发生数据修改,清空分类缓存
-		S('tree',null);
 	 	return $rd;
 	 }
+
 	 /**
-	 *  是否推荐
-	 */
-	 public function editIsFloor(){
-	 	$rd = array('status'=>-1);
-	 	if(I('id',0)==0)return $rd;
-	 	$isFloor = (int)I('isFloor',1);
-	 	//获取子集
-		$id = (int)I('id');
-	 	$ids = implode(',',$this->getChild($id));
-	 	//设置该id以及其下级分类是否显示
-	 	$rs = $this->where("catId in($ids)")->setField('isFloor',$isFloor);
-	 	//echo $this->getLastSql();
-	 	//dump($rs);die;
-	 	if($rs !== false)
-	 		$rd['status']=1;
-	 	//发生数据修改,清空分类缓存
-		S('tree',null);
-	 	return $rd;
+	  * 获取所有的类别，并且添加层级
+	  */
+	 public function getCatLists(){	
+	 	$sql = "select * from __PREFIX__offline_cats where catFlag = 1 order by catSort asc";
+	 	$catList = $this->query($sql);
+	 	if ($catList !== false) {	 		
+	 		$catList = self::unlimitedForLevel($catList);	 		
+	 	}
+	 	return $catList;
 	 }
 
-
+	 Static Public function unlimitedForLevel($cate,$html='&nbsp;&nbsp;',$parentId=0,$level=0){
+		$arr = array();
+		foreach ($cate as $v) {
+			if ($v['parentId'] == $parentId) {
+				$v['level'] = $level + 1;
+				$html2 = $level==0 ? '' : '|--';//生成目录|--
+				$v['html'] = str_repeat($html,$level).$html2;
+				$v['catName'] = $v['html'].$v['catName'];
+				$arr[]=$v;
+				$arr = array_merge($arr,self::unlimitedForLevel($cate,$html,$v['catId'],$level + 1));
+			}
+		}
+		return $arr;
+	}
 };
 ?>
