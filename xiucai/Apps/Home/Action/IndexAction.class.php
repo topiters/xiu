@@ -12,26 +12,32 @@ class IndexAction extends BaseAction {
     public function index(){
     	//var_dump($GLOBALS['CONFIG']['captcha_model']);//0,1,2,3,4,5" 
    		$ads = D('Home/Ads');
-   		$areaId2 = $this->getDefaultCity();
+   	
    		//获取分类
 		$gcm = D('Home/GoodsCats');
 		$catList = $gcm->getGoodsCatsAndGoodsForIndex($areaId2);
 		$this->assign('catList',$catList);
-   		//分类广告
-   		$catAds = $ads->getAdsByCat($areaId2);
-   		
+   	
    		//首页推荐课程
    		$course=D('Home/Course');
-   		$cArr=array('isHot'=>1,'courseFlag'=>1,'isRecomm'=>1,'isSale'=>1);
+   		$cArr=array('courseFlag'=>1,'isRecomm'=>1,'isSale'=>1);
    		$courseIndex=$course->where($cArr)->limit(4)->select();
    		$this->assign('courseIndex',$courseIndex);
+   		//首页精品课程
+   		$jArr=array('isBest'=>1,'courseFlag'=>1,'isSale'=>1,'courseStatus'=>1);
+   		$courseIsBest=$course->where($jArr)->limit(18)->select();
+   		$this->assign('courseIsBest',$courseIsBest);
+   		
+   		//首页Banner广告位
+   		$adArr=array('adPositionId'=>1);
+   		$aArrIndex=$ads->where($adArr)->select();
+   		$this->assign('aArrIndex',$aArrIndex);
    		
    		
    		
    		
    		
-   		
-   		$this->assign('catAds',$catAds);
+   	
    		$this->assign('ishome',1);
    		$this->display("default/index");
     }
