@@ -19,6 +19,9 @@ class LiveModel extends BaseModel {
             foreach ($result['root'] as $k => $v) {
                 $result['root'][$k]['liveStartTime'] = strtotime($v['liveStartTime']);
                 $result['root'][$k]['liveEndTime'] = strtotime($v['liveEndTime']);
+                if ($result['root'][$k]['liveEndTime'] < time()) {
+                    $result['root'][$k]['invalid'] = 1;
+                }
             }
         }
         return  $result;

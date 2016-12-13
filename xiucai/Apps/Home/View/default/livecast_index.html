@@ -100,7 +100,11 @@
                                           <span>{$v['liveStartTime']|Date='y年m月d日 H:i',###}-{$v['liveEndTime']|Date='H:i',###}</span>
                                       </li>
                                       <li class="btn">
-                                          <a href="{:U('Home/Livecast/course',array('id'=>$v['courseId']))}" class="tw questioning">去报名</a>
+                                          <if condition="$v['invalid'] eq 1">
+                                              <a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$v['courseId']))}" class="tw questioning">回看</a>
+                                              <else/>
+                                              <a href="{:U('Home/Livecast/course',array('id'=>$v['courseId']))}" class="tw questioning">去报名</a>
+                                          </if>
                                       </li>
                                       <li>
                                           <span>({$v['saleCount']}人报名)</span>
