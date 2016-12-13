@@ -116,8 +116,12 @@
                 <div class="quan-main">
                     <div class="module introduction">
                         <h3>Ta的简介</h3>
-                        <p id="jianjie1">{$sArr['shopDetails']|WSTMSubstr=###,0,5}<a href="javascript:">展开>></a></p>
-                        <p id="jianjie2" style="display: none;">{$sArr['shopDetails']}</p>
+                        <if condition="$sArr['shopDetails'] neq ''">
+                            <p id="jianjie1">{$sArr['shopDetails']|WSTMSubstr=###,0,15}<a href="javascript:">展开>></a></p>
+                            <p id="jianjie2" style="display: none;">{$sArr['shopDetails']}</p>
+                            <else/>
+                            <p id="jianjie1">暂无信息~</p>
+                        </if>
                     </div>
                     <script>
                         $('#jianjie1 a').click(function () {
