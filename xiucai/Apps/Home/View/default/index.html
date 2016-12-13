@@ -31,12 +31,15 @@
             </div>
             <div class="bd">
                 <ul>
+				<volist   name="aArrIndex"  id="vo" >
                     <li style="background-color:#31a2e3;">
-                        <a href="#"   target="_blank"  class="hit-count" data-id="149">
-                            <img src="__ROOT__/Apps/Home/View/default/img/c83166c3-3219-9907-701b-1e89f4e3bb45.jpg" alt=" "/>
+                        <a href="{$vo['adURL']}"   target="_blank"  class="hit-count" data-id="{$vo['adId']}">
+                            <img src="__ROOT__/{$vo['adFile']}"  alt="{$vo['adName']} "   title="{$vo['adName']}" />
                         </a>
                     </li>
-                    <li style="background-color:#6ed4c9;">
+					
+					</volist>
+                   <!--  <li style="background-color:#6ed4c9;">
                         <a href="#"  target="_blank"  class="hit-count" data-id="148">
                             <img src="__ROOT__/Apps/Home/View/default/img/c83166c3-3219-9907-701b-1e89f4e3bb45.jpg" alt=" "/>
                         </a>
@@ -55,7 +58,7 @@
                         <a href="#"  target="_blank"  class="hit-count" data-id="100">
                             <img src="__ROOT__/Apps/Home/View/default/img/c83166c3-3219-9907-701b-1e89f4e3bb45.jpg"   alt=" "/>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
             <a href="javascript:" class="prev"></a>
@@ -300,27 +303,7 @@
 					
 				</volist>	
 					
-                  <!--   <li>
-                        <a href="course/zt/xykz/index.htm"  target="_blank">
-                            <div class="subject-wrap relative">
-                                <img src="__ROOT__/Apps/Home/View/default/img/bd660b10-c0f1-d195-08b5-8778a600c062.jpg"   alt="Excel效率加速器——函数在财务工作中的应用">
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="course/zt/xykz/index.htm"  target="_blank">
-                            <div class="subject-wrap relative">
-                                <img src="__ROOT__/Apps/Home/View/default/img/bd660b10-c0f1-d195-08b5-8778a600c062.jpg"   alt="Excel效率加速器——函数在财务工作中的应用">
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="course/zt/ysgl/index.htm" target="_blank">
-                            <div class="subject-wrap relative">
-                                <img src="__ROOT__/Apps/Home/View/default/img/bd660b10-c0f1-d195-08b5-8778a600c062.jpg"   alt=" ">
-                            </div>
-                        </a>
-                    </li> -->
+                 
                 </ul>
             </div>
         </div>
@@ -342,120 +325,195 @@
                         <div class="course-list course-list-new">
                             <div>
                                 <ul class="clearfix">
+								
+								<volist   name="courseIsBest"  id="data"     offset="0"  length="6">
                                     <li>
-                                        <a href="course/692/index.htm"  target="_blank">
+                                        <a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$data['courseId']))}"  target="_blank">
                                             <div class="course-list-img">
-                                                <img width="280" height="160" src="__ROOT__/Apps/Home/View/default/img/caijing.jpg"   alt="案例分享——制造型企业废料内审实务攻略" class="lazy" />
+                                                <img width="280" height="160" src="__ROOT__/{$data['courseThums']}"   alt="{$data['courseThums']}"  title="{$data['courseName']}"  class="lazy" />
                                             </div>
                                             <h5>
-                                                <span>案例分享——制造型企业废料内审实务攻略</span>
+                                                <span>{$data['courseName']}</span>
                                             </h5>
                                             <div class="tips">
+											<if condition=" $data['difficulty']  eq  1" >
+                                                <span>初级课程</span>
+											</if>	
+											<if condition=" $data['difficulty']  eq  2" >
                                                 <span>中级课程</span>
+											</if>	
+											<if condition=" $data['difficulty']  eq  3" >
+                                                <span>中级课程</span>
+											</if>	
+												
+												
                                                 <em>|</em>
-                                                <span>740人已学</span>
+                                                <span>{$data['isSale']}人已学</span>
                                             </div>
-                                            <div class="cost">
+											<if condition=" $data['is_free']  eq  2" >
+                                              <div class="cost">
                                                 <span class="l toll">会员免费看</span>
                                             </div>
+											
+											<else/>
+											
+											  <div class="cost">
+                                                <span class="l toll">{$data['shopPrice']}</span>
+                                            </div>
+											</if>
+                                           
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="course/625/index.htm" target="_blank">
-                                            <div class="course-list-img">
-                                                <img width="280" height="160" src="__ROOT__/Apps/Home/View/default/img/caijing.jpg"   alt="案例分享——制造型企业废料内审实务攻略" class="lazy" />
-                                            </div>
-                                            <h5>
-                                                <span>怎样降低坏账损失？——教你如何开展应收账款保理</span>
-                                            </h5>
-                                            <div class="tips">
-                                                <span>中级课程</span>
-                                                <em>|</em>
-                                                <span>750人已学</span>
-                                            </div>
-                                            <div class="cost">
-                                                <span class="l toll">会员免费看</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="course/692/index.htm"  target="_blank">
-                                            <div class="course-list-img">
-                                                <img width="280" height="160" src="__ROOT__/Apps/Home/View/default/img/caijing.jpg"  alt="案例分享——制造型企业废料内审实务攻略" class="lazy" />
-                                            </div>
-                                            <h5>
-                                                <span>案例分享——制造型企业废料内审实务攻略</span>
-                                            </h5>
-                                            <div class="tips">
-                                                <span>中级课程</span>
-                                                <em>|</em>
-                                                <span>740人已学</span>
-                                            </div>
-                                            <div class="cost">
-                                                <span class="l toll">会员免费看</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="course/692/index.htm" target="_blank">
-                                            <div class="course-list-img">
-                                                <img width="280" height="160" src="__ROOT__/Apps/Home/View/default/img/caijing.jpg"   alt="案例分享——制造型企业废料内审实务攻略" class="lazy" />
-                                            </div>
-                                            <h5>
-                                                <span>案例分享——制造型企业废料内审实务攻略</span>
-                                            </h5>
-                                            <div class="tips">
-                                                <span>中级课程</span>
-                                                <em>|</em>
-                                                <span>740人已学</span>
-                                            </div>
-                                            <div class="cost">
-                                                <span class="l toll">会员免费看</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="course/692/index.htm" target="_blank">
-                                            <div class="course-list-img">
-                                                <img width="280" height="160" src="__ROOT__/Apps/Home/View/default/img/caijing.jpg"   alt="案例分享——制造型企业废料内审实务攻略" class="lazy" />
-                                            </div>
-                                            <h5>
-                                                <span>案例分享——制造型企业废料内审实务攻略</span>
-                                            </h5>
-                                            <div class="tips">
-                                                <span>中级课程</span>
-                                                <em>|</em>
-                                                <span>740人已学</span>
-                                            </div>
-                                            <div class="cost">
-                                                <span class="l toll">会员免费看</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="course/692/index.htm"  target="_blank">
-                                            <div class="course-list-img">
-                                                <img width="280" height="160" src="__ROOT__/Apps/Home/View/default/img/caijing.jpg"   alt="案例分享——制造型企业废料内审实务攻略" class="lazy" />
-                                            </div>
-                                            <h5>
-                                                <span>案例分享——制造型企业废料内审实务攻略</span>
-                                            </h5>
-                                            <div class="tips">
-                                                <span>中级课程</span>
-                                                <em>|</em>
-                                                <span>740人已学</span>
-                                            </div>
-                                            <div class="cost">
-                                                <span class="l toll">会员免费看</span>
-                                            </div>
-                                        </a>
-                                    </li>
+								</volist>	
+									
+									
+                                
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>           
             </div>
+			
+			
+			
+			<div class="course-content course-new-content">
+                <div class="index-course clearfix">
+                    <div class="course-l   course-l-swgl  ">
+                        <a href="course/cate/75/index.htm"  >
+                            <p class="title">财务管理</p>
+                            <p class="describe">财务职业成长之路</p>
+                            <p class="linkmore">查看全部<em></em></p>
+                            <img src="__ROOT__/Apps/Home/View/default/img/idx-course-p4.png-v=1.10.1.png"   alt="" width="260" height="341">   
+                        </a>
+                        <i class="r-triangle   r-swgl-triangle  "></i>
+                    </div>
+                    <div class="course-r">
+                        <div class="course-list course-list-new">
+                            <div>
+                                <ul class="clearfix">
+								
+								<volist   name="courseIsBest"  id="data"     offset="6"  length="6">
+                                    <li>
+                                        <a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$data['courseId']))}"  target="_blank">
+                                            <div class="course-list-img">
+                                                <img width="280" height="160" src="__ROOT__/{$data['courseThums']}"   alt="{$data['courseThums']}"  title="{$data['courseName']}"  class="lazy" />
+                                            </div>
+                                            <h5>
+                                                <span>{$data['courseName']}</span>
+                                            </h5>
+                                            <div class="tips">
+											<if condition=" $data['difficulty']  eq  1" >
+                                                <span>初级课程</span>
+											</if>	
+											<if condition=" $data['difficulty']  eq  2" >
+                                                <span>中级课程</span>
+											</if>	
+											<if condition=" $data['difficulty']  eq  3" >
+                                                <span>中级课程</span>
+											</if>	
+												
+												
+                                                <em>|</em>
+                                                <span>{$data['isSale']}人已学</span>
+                                            </div>
+											<if condition=" $data['is_free']  eq  2" >
+                                              <div class="cost">
+                                                <span class="l toll">会员免费看</span>
+                                            </div>
+											
+											<else/>
+											
+											  <div class="cost">
+                                                <span class="l toll">{$data['shopPrice']}</span>
+                                            </div>
+											</if>
+                                           
+                                        </a>
+                                    </li>
+								</volist>	
+									
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>           
+            </div>
+			
+			
+			
+			
+			
+			
+			<div class="course-content course-new-content">
+                <div class="index-course clearfix">
+                    <div class="course-l   course-l-swgl  ">
+                        <a href="course/cate/75/index.htm"  >
+                            <p class="title">财务管理</p>
+                            <p class="describe">财务职业成长之路</p>
+                            <p class="linkmore">查看全部<em></em></p>
+                            <img src="__ROOT__/Apps/Home/View/default/img/idx-course-p4.png-v=1.10.1.png"   alt="" width="260" height="341">   
+                        </a>
+                        <i class="r-triangle   r-swgl-triangle  "></i>
+                    </div>
+                    <div class="course-r">
+                        <div class="course-list course-list-new">
+                            <div>
+                                <ul class="clearfix">
+                                  	
+								<volist   name="courseIsBest"  id="data"     offset="13"  length="6">
+                                    <li>
+                                        <a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$data['courseId']))}"  target="_blank">
+                                            <div class="course-list-img">
+                                                <img width="280" height="160" src="__ROOT__/{$data['courseThums']}"   alt="{$data['courseThums']}"  title="{$data['courseName']}"  class="lazy" />
+                                            </div>
+                                            <h5>
+                                                <span>{$data['courseName']}</span>
+                                            </h5>
+                                            <div class="tips">
+											<if condition=" $data['difficulty']  eq  1" >
+                                                <span>初级课程</span>
+											</if>	
+											<if condition=" $data['difficulty']  eq  2" >
+                                                <span>中级课程</span>
+											</if>	
+											<if condition=" $data['difficulty']  eq  3" >
+                                                <span>中级课程</span>
+											</if>	
+												
+												
+                                                <em>|</em>
+                                                <span>{$data['isSale']}人已学</span>
+                                            </div>
+											<if condition=" $data['is_free']  eq  2" >
+                                              <div class="cost">
+                                                <span class="l toll">会员免费看</span>
+                                            </div>
+											
+											<else/>
+											
+											  <div class="cost">
+                                                <span class="l toll">{$data['shopPrice']}</span>
+                                            </div>
+											</if>
+                                           
+                                        </a>
+                                    </li>
+								</volist>	
+									
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>           
+            </div>
+			
+			
+			
+			
+			
+			
+			
         </div>
     </div>
     <div class="dialog-board dialog-board-window hide" id="weekOfflineDiv">
