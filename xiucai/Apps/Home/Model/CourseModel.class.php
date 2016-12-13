@@ -902,12 +902,12 @@ class CourseModel extends BaseModel {
 		$hotcourse = S("WST_CACHE_HOT_GOODS_".$shopId);
 		if(!$hotcourse){
 			//热销排名
-			$sql = "SELECT sp.shopName, g.saleCount totalnum, sp.shopId , g.courseId , g.courseName,g.courseImg, g.courseThums,g.shopPrice,g.marketPrice, g.courseSn 
+			$sql = "SELECT sp.shopName, g.saleCount totalnum, sp.shopId , g.courseId , g.courseName,g.courseImg, g.courseThums,g.shopPrice,g.marketPrice,g.courseDifficulty, g.courseSn 
 							FROM __PREFIX__course g,__PREFIX__shops sp 
 							WHERE g.shopId = sp.shopId AND g.courseFlag = 1 AND sp.shopFlag=1 AND sp.shopStatus=1 AND g.isSale = 1 AND g.courseStatus = 1 AND sp.shopId = $shopId
-							ORDER BY g.saleCount desc limit 5";	
+							ORDER BY g.saleCount desc limit 5";
 			$hotcourse = $this->query($sql);
-			S("WST_CACHE_HOT_GOODS_".$shopId,$hotcourse,86400);
+			S("WST_CACHE_HOT_GOODS_".$shopId,$hotcourse,3600);
 		}
 		for($i=0;$i<count($hotcourse);$i++){
 			$hotcourse[$i]["courseName"] = WSTMSubstr($hotcourse[$i]["courseName"],0,25);

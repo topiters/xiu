@@ -14,10 +14,6 @@ class LivecastAction extends BaseAction {
 	 
 	 public function index(){
          $page = D('Live')->getList();
-         
-         
-         
-         
          $pager = new \Think\Page($page['total'] , $page['pageSize'] , I());// 实例化分页类 传入总记录数和每页显示的记录数
          $page['pager'] = $pager->show();
          $this->assign('page' , $page);
@@ -48,10 +44,32 @@ class LivecastAction extends BaseAction {
             $related = D('course')->where("courseCatId2 = $cid and courseCatId3 <> {$course['courseCatId3']}")->limit(4)->select();
             $this->assign('related',$related);
 //            dump($related);die;
+            //判断登录用户是否已经报名该课程
+            $user = session('WST_USER');
+            $re = D('course_record')->where("uid = {$user['userId']} and cid =".I('id'))->find();
+            if ($re) {
+                $this->assign('sign' , 2);
+            } else {
+                $this->assign('sign' , 1);
+            }
+            $this->display('default/livecast_course');
         } else {
             redirect(U('Home/Livecast/index'));
         }
-        $this->display('default/livecast_course');
+
     }
 
+    /**
+     * 报名课程
+     */
+    public function sign() {
+        if ($_POST) {
+            $_POST['ctime'] = time();
+            $re = D('course_record')->add($_POST);
+            if ($re) {
+                D('course')->query("update __PREFIX__course set saleCount = saleCount + 1 where courseId = {$_POST['cid']}");
+                echo 1;
+            }
+        }
+    }
 }

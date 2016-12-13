@@ -182,12 +182,24 @@
                                                             <span>{$v['courseName']}</span>
                                                         </h5>
                                                         <div class="tips">
-                                                            <span>中级课程</span>
+                                                            <span>
+                                                                <switch name="v.courseDifficulty">
+                                                                <case value="2">中级课程</case>
+                                                                <case value="3">高级课程</case>
+                                                                <default/>初级课程
+                                                                </switch>
+                                                            </span>
                                                             <em>|</em>
-                                                            <span>357人已学</span>
+                                                            <span>{$v['totalNum']|default=0}人已学</span>
                                                         </div>
                                                         <div class="cost">
-                                                            <span class="l toll">会员免费看</span>
+                                                            <span class="l toll">
+                                                                <if condition="$v['shopPrice'] eq ''">
+                                                                    会员免费看
+                                                                    <else/>
+                                                                    {$v['shopPrice']}
+                                                                </if>
+                                                            </span>
                                                         </div>
                                                     </a>
                                                 </li>
