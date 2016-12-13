@@ -140,39 +140,32 @@
                             <div>
                                 <p class="courses-type">秀财说</p>                             
                                 <div class="courses-list">
-                                    <div class="courses-item">
-                                        <div class="courses-item-head">
-                                            <img src="__ROOT__/Apps/Home/View/default/img/turtor/0817fb57-1390-cdeb-7ccb-2ef4a2225f79.jpg"  alt="">
-                                            <p><span >09月21日14:00</span><em>446人参与</em></p>
+
+                                    <volist name="live['root']" id="v" empty="暂无信息~">
+                                        <div class="courses-item">
+                                            <div class="courses-item-head">
+                                                <img src="__ROOT__/{$v.courseThums}" alt="">
+                                                <p><span>{$v['liveStartTime']|Date='m月d日H:i',###}</span><em> {$v['saleCount']}人参与</em></p>
+                                            </div>
+                                            <div class="courses-item-body">
+                                                <a href="#">
+                                                    {$v.courseName}
+                                                </a>
+                                            </div>
+                                            <div class="courses-item-footer">
+                                                <ul>
+                                                    <li class="w100">
+                                                        <if condition="$v['invalid'] eq 1">
+                                                            <a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$v['courseId']))}" target="_blank">观看回播</a>
+                                                            <else/>
+                                                            <a href="{:U('Home/Livecast/course',array('id'=>$v['courseId']))}" class="btn" target="_blank">去报名 </a>
+                                                        </if>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                        <div class="courses-item-body">
-                                            <a href="#" >
-                                               	 怎样对成本中心进行业绩评价
-                                            </a>
-                                        </div>
-                                        <div class="courses-item-footer">
-                                            <ul>
-                                                <li class="w100"><a href="../../live/647/index.htm"  class="btn" target="_blank">去报名 </a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="courses-item">
-                                        <div class="courses-item-head">
-                                            <img src="__ROOT__/Apps/Home/View/default/img/turtor/56e8624e-8336-53fe-3fc3-d1eb5bc59538.jpg" alt="">
-                                            <p><span >03月24日20:00</span><em>418人参与</em></p>
-                                        </div>
-                                        <div class="courses-item-body">
-                                            <a href="../../live/428/index.htm" >
-                                            	盘点财会职场白金岗位——探秘成本经理
-                                            </a>
-                                        </div>
-                                        <div class="courses-item-footer">
-                                            <ul>
-                                                <li><a href="javascript:if(confirm(''))window.location=''"  target="_blank">课程笔记</a></li>
-                                                <li ><a href="shuiwuguanli_chouhua.html"  target="_blank">观看回播</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    </volist>
+
                                 </div>                                        
                                 <p class="courses-type">录播课程</p>
 

@@ -104,6 +104,10 @@ class SpecialistAction extends BaseAction {
             //热播课程
             $course = D('Course')->getHotCourse($arr['shopId']);
             $this->assign('course',$course);
+            //秀财说
+            $live = D('Live')->live($sid);
+            $this->assign('live' , $live);
+//            dump($live);die;
             $this->display('default/specialist_tutor_info');
         }else{
             redirect(U('Home/specialist/index'));
