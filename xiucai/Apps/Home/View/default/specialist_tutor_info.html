@@ -59,9 +59,9 @@
                     <div class="wnjh">问答导师，为您解惑</div>
                 </div>
                 <script>
-                    var uid = {$user.userId};
+                    var uid = '{$user.userId}';
                     $('.sure_focus_user').click(function () {
-                        if (uid != null){
+                        if (uid != ''){
                             $.ajax({
                                 type:'post',
                                 url:"{:U('Home/specialist/add')}",
@@ -82,10 +82,12 @@
                                     }
                                 }
                             })
+                        } else {
+                            login();
                         }
                     })
                     $('.cancel_focus_user').click(function () {
-                        if (uid != null){
+                        if (uid != ''){
                             $.ajax({
                                 type: 'post',
                                 url: "{:U('Home/specialist/del')}",
@@ -104,6 +106,8 @@
                                     }
                                 }
                             })
+                        } else {
+                            login();
                         }
                     })
                 </script>

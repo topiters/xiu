@@ -313,7 +313,7 @@
                                                                 <img src="__ROOT__/{$data['userPhoto']|default='Apps/Home/View/default/img/caiduoduo.png-v=1.10.1.png'}" alt="{$data['loginName']}"/>
                                                             </a>
                                                             <if condition=" $_GET['type'] eq 'unanswered'">
-                                                                <a href="jieda" class="title" target="_blank">{$data['title']}</a>
+                                                                <a href="javascript:" class="title answer" target="_blank" data-id="{$data['questionId']}">{$data['title']}</a>
                                                                 <else/>
                                                                 <a href="#" class="title">{$data['title']}</a>
                                                             </if>
@@ -429,12 +429,12 @@
 <div id="answer" class="hide" style="width: 100%;height: 100%;position: fixed;top: 0;left: 0;background: rgba(0,0,0,0.5);z-index: 9999;">
     <form action="" method="post">
         <div id="ask-teacher" class="dialog-board ">
-            <div class="close_icon tiwen_close" style="cursor: pointer;" onclick="answer_close();">
+            <div class="close_icon answer_close" style="cursor: pointer;" onclick="answer_close();">
                 <img src="__ROOT__/Apps/Home/View/default/img/login/close_icon.png"/></div>
             <div class="dialog-board-bar" style="line-height: 24px;height: 24px;margin-top: 10px;">
-                <h4 class="course-join-title">问题问题问题问题问问题问题问题问题问题问题问题问题问题问题问题问题问题问题问题</h4>
+                <h4 class="course-join-title" style="text-align: left;padding: 10px;"></h4>
             </div>
-            <div>
+            <div style="margin-top: 25px">
                 <div class="box-container">
                     <p class="row-label"><label>您的回复</label></p>
                     <p  class="ipt-border">
@@ -444,7 +444,7 @@
                         <script type="text/plain" id="myEditor" style="width:555px;height:240px;"></script>
                     </div>
                     <div class="b-tips clearfix">
-                        <input type="hidden" id="tutor_member_id" name="shopId"/>
+                        <input type="hidden" id="question_id" name="qId"/>
                         <a id="ask-guider" href="javascript:;" class="fr globe-btn50 globe-btn50-nobg" onclick="answer_send();">回复</a>
                     </div>
                 </div>
@@ -452,7 +452,42 @@
         </div>
     </form>
 </div>
-
+<script>
+    $('.answer').click(function () {
+        var html = $(this).html();
+        $('.course-join-title').html(html);
+        var qid = $(this).attr('data-id');
+        $('#question_id').val(qid);
+        $('#answer').show();
+    });
+    $('.answer_close').click(function () {
+        $('#answer').hide();
+    });
+    function answer_send() {
+        var qId = $('#question_id').val();
+        var shopId = '{$_SESSION['WSTMALL']['WST_USER']['shopId']}';
+        var content = $('#thread_title').val();
+        if (content == '') {
+            WST.msg('内容不能为空!');
+            return false;
+        }
+        $.ajax({
+            url:"{:U('Home/Shops/answer')}",
+            data:"qId="+qId+"&shopId="+shopId+"&content="+content,
+            type:'post',
+            success:function (data) {
+                if (data == 1) {
+                    $('#answer').hide();
+                    WST.msg('回复成功');
+                    location.reload();
+                } else {
+                    $('#answer').hide();
+                    WST.msg('未知错误');
+                }
+            }
+        })
+    }
+</script>
 
 <script>
     // alert({$Page['totalPage']});

@@ -190,7 +190,11 @@ class UsersAction extends BaseAction {
 		$this->assign('userresult',$result);
 		
 		//var_dump($result);exit;
-		
+
+        //近期直播
+        $arr = D('Live')->related();
+        $this->assign('relatedArr' , $arr);
+
 		$this->display("default/users/index");
 	}
 	

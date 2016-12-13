@@ -88,6 +88,11 @@ class ForumAction extends BaseAction {
         $tuijian = D('forum')->where('isShow = 1')->order('commentNum desc')->limit(0,5)->select();
         $this->assign('tuijian' , $tuijian);
 //        dump($tuijian);die;
+
+        //近期直播
+        $arr = D('Live')->related();
+        $this->assign('relatedArr' , $arr);
+//        dump($arr);die;
         $this->display('default/forum_index');
     }
 
@@ -257,6 +262,9 @@ class ForumAction extends BaseAction {
             //更多圈子
             $cats = D('forum_cats')->field('catId,catName,totalNum')->where("parentId = 0 and catFlag = 1 and catId <> {$_GET['id']}")->select();
             $this->assign('cats' , $cats);
+            //近期直播
+            $arr = D('Live')->related();
+            $this->assign('relatedArr' , $arr);
             $this->display('default/quanzi');
         }else{
             $this->redirect(U('Home/Forum/index'));

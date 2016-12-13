@@ -48,6 +48,6 @@ class LivecastAction extends BaseAction {
             redirect(U('Home/Livecast/index'));
         }
         $this->display('default/livecast_course');
-	 }
-    
+    }
+
 }

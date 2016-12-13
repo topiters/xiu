@@ -238,44 +238,31 @@
                 </div>
                 <!-- 后台推送直播课程，如果没有则提取最新 -->
                 <div class="quan-block quan-title-block">
-                    <h2 class="relative"><em></em>近期直播<a href="" target="_blank" class="link-more">更多 &raquo;</a></h2>
+                    <h2 class="relative">
+                        <em></em>近期直播<a href="{:U('Home/Livecast/index')}" target="_blank" class="link-more">更多 &raquo;</a>
+                    </h2>
                     <div class="live-slider">
                         <div class="bd">
                             <ul class="clearfix">
-                                <li>
-                                    <a data-id="658" href="/live/658/" target="_blank" class="hit_count">
-                                        <img src="http://assets.xiucai.com/assets/uploads/pic/2015/1211/d7b8c99a-ecbb-5b5e-c018-d73e81dafe17.jpg" width="224" height="128">
-                                        <div class="quan-course">
-                                            <p class="quan-course-title">税务行政复议实战案例分析</p>
-                                            <p class="quan-course-date">10月14日<span>14:00~15:00</span></p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a data-id="662" href="/live/662/" target="_blank" class="hit_count">
-                                        <img src="http://assets.xiucai.com/assets/uploads/pic/2016/0202/75a39d2e-0c9f-b97e-3ede-9b558f6ae12f.jpg" width="224" height="128">
-                                        <div class="quan-course">
-                                            <p class="quan-course-title">食堂经费（员工餐费）涉税分析与处理</p>
-                                            <p class="quan-course-date">10月17日<span>14:00~15:00</span></p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a data-id="665" href="/live/665/" target="_blank" class="hit_count">
-                                        <img src="http://assets.xiucai.com/assets/uploads/pic/2016/1011/b606a694-ed6a-f3c0-01e0-c46b0282c8e8.jpg" width="224" height="128">
-                                        <div class="quan-course">
-                                            <p class="quan-course-title">舌尖上的会计之一道名菜的成本管控经</p>
-                                            <p class="quan-course-date">10月18日<span>20:00~21:30</span></p>
-                                        </div>
-                                    </a>
-                                </li>
+                                <volist name="relatedArr['root']" id="v" empty="暂无信息~">
+                                    <li>
+                                        <a data-id="{$v.courseId}" href="{:U('Home/Livecast/course',array('id'=>$v['courseId']))}" target="_blank" class="hit_count">
+                                            <img src="__ROOT__/{$v.courseThums}" width="224" height="128">
+                                            <div class="quan-course">
+                                                <p class="quan-course-title">{$v.courseName}</p>
+                                                <p class="quan-course-date"><span>{$v['liveStartTime']|Date='y年m月d日 H:i',###}~{$v['liveEndTime']|Date='H:i',###}</span>
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </volist>
                             </ul>
                         </div>
                         <div class="hd">
                             <ul>
-                                <li class="on"></li>
-                                <li></li>
-                                <li></li>
+                                <volist name="relatedArr['root']" id="v">
+                                    <li></li>
+                                </volist>
                             </ul>
                         </div>
                     </div>

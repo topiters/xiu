@@ -865,47 +865,34 @@
                 </div>
             </div>
             <div class="quan-block quan-title-block">
-        		<h2 class="relative"><em></em>近期直播<a href="" target="_blank" class="link-more">查看更多 &raquo;</a></h2>
-        		<div class="live-slider">
-		            <div class="bd">
-		                <ul class="clearfix">
-		                    <li>
-		                        <a href="/live/655/" target="_blank">
-		                            <img src="http://assets.xiucai.com/assets/uploads/pic/2016/0111/e58b3252-ac54-6439-3bfe-457e7b4431b2.jpg" width="224" height="128">
-		                            <div class="quan-course">
-		                                <p class="quan-course-title">非居民企业税收政策分析之投资所得处理</p>
-		                                <p class="quan-course-date">10月10日<span>14:00~15:00</span></p>
-		                            </div>
-		                        </a>
-		                    </li>
-		                    <li>
-		                        <a href="/live/660/" target="_blank">
-		                            <img src="http://assets.xiucai.com/assets/uploads/pic/2016/0928/9dfa803c-cc32-5cd1-1d02-42d77f32ebc1.jpg" width="224" height="128">
-		                            <div class="quan-course">
-		                                <p class="quan-course-title">关于股权激励和技术出资的重大优惠政策解析</p>
-		                                <p class="quan-course-date">10月11日<span>14:00~15:00</span></p>
-		                            </div>
-		                        </a>
-		                    </li>
-		                    <li>
-		                        <a href="/live/657/" target="_blank">
-		                            <img src="http://assets.xiucai.com/assets/uploads/pic/2016/0930/12007425-1f59-6501-4048-8061b6ee4154.jpg" width="224" height="128">
-		                            <div class="quan-course">
-		                                <p class="quan-course-title">财税战略之如何建立防控风险的税务管理体系</p>
-		                                <p class="quan-course-date">10月12日<span>14:00~15:00</span></p>
-		                            </div>
-		                        </a>
-		                    </li>
-		                </ul>
-		            </div>
-		            <div class="hd">
-		                <ul>
-		                    <li></li>
-		                    <li></li>
-		                    <li></li>
-		                </ul>
-		            </div>
-	        	</div>
+				<h2 class="relative">
+					<em></em>近期直播<a href="{:U('Home/Livecast/index')}" target="_blank" class="link-more">更多 &raquo;</a>
+				</h2>
+				<div class="live-slider">
+					<div class="bd">
+						<ul class="clearfix">
+							<volist name="relatedArr['root']" id="v" empty="暂无信息~">
+								<li>
+									<a data-id="{$v.courseId}" href="{:U('Home/Livecast/course',array('id'=>$v['courseId']))}" target="_blank" class="hit_count">
+										<img src="__ROOT__/{$v.courseThums}" width="224" height="128">
+										<div class="quan-course">
+											<p class="quan-course-title">{$v.courseName}</p>
+											<p class="quan-course-date"><span>{$v['liveStartTime']|Date='y年m月d日 H:i',###}~{$v['liveEndTime']|Date='H:i',###}</span>
+											</p>
+										</div>
+									</a>
+								</li>
+							</volist>
+						</ul>
+					</div>
+					<div class="hd">
+						<ul>
+							<volist name="relatedArr['root']" id="v">
+								<li></li>
+							</volist>
+						</ul>
+					</div>
+				</div>
     		</div>
     		<div class="quan-block quan-title-block">
                 <h2 class="relative">
@@ -943,5 +930,6 @@
         </div>
     </div>
 </div></div>
-
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/jquery.SuperSlide.2.1.1.js?v=1.10.5"></script>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/thread_detail.js?v=1.10.5"></script>
   <include file="./Apps/Home/View/default/common_foot.html" />

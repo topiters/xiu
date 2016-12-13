@@ -409,7 +409,7 @@ class ShopsAction extends BaseAction {
 	
 	//教师段端问答
 	public function ask(){
-	
+
 		$this->isShopLogin();
 		$type = I('type');
 		$shopId = (int)session('WST_USER.shopId');
@@ -421,12 +421,22 @@ class ShopsAction extends BaseAction {
 		$this->display("default/shops/ask");
 	
 	}
-	
-	
-	
-	
-	
-	
+
+    /**
+     * 处理回答
+     */
+    public function answer() {
+        if ($_POST['qId'] && $_POST['shopId'] && $_POST['content']){
+            $_POST['ctime'] = time();
+            $re = D('answers')->add($_POST);
+            if ($re) {
+                D('shops')->query("update __PREFIX__shops set shopAnswers = shopAnswers + 1 where shopId = {$_POST['shopId']}");
+                D('questions')->query("update __PREFIX__questions set is_answered = 1 where id = {$_POST['qId']}");
+                echo 1;
+            }
+        }
+	}
+
 	
 	/**
 	 * 设置教师端资料
