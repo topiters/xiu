@@ -14,6 +14,10 @@ class LivecastAction extends BaseAction {
 	 
 	 public function index(){
          $page = D('Live')->getList();
+         
+         
+         
+         
          $pager = new \Think\Page($page['total'] , $page['pageSize'] , I());// 实例化分页类 传入总记录数和每页显示的记录数
          $page['pager'] = $pager->show();
          $this->assign('page' , $page);
