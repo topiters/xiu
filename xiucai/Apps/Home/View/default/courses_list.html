@@ -35,7 +35,7 @@
                     <ul>
                         <volist name="c2cat" id="vol2">
                             <li>
-                                <a<if condition="$vol2['catId']  eq  $c2Id "> class="check" style="background:#4196FF;"
+                                <a <if condition="$vol2['catId']  eq  $c2Id "> class="check" style="background:#4196FF;"
                                 </if>
                                 data="{$vol2['catId']}" onClick="queryGoods(this,3);" > {$vol2["catName"]}</a>
                             </li>
