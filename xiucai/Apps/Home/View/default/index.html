@@ -32,7 +32,7 @@
             <div class="bd">
                 <ul>
 				<volist   name="aArrIndex"  id="vo" >
-                    <li style="background-color:#31a2e3;">
+                    <li style="background-color:{$vo['adBgcolor']};">
                         <a href="{$vo['adURL']}"   target="_blank"  class="hit-count" data-id="{$vo['adId']}">
                             <img src="__ROOT__/{$vo['adFile']}"  alt="{$vo['adName']} "   title="{$vo['adName']}" />
                         </a>
@@ -197,87 +197,48 @@
             </div>
         	<div class="course-list-title">
                 <span>最新<em>新课</em></span>好课天天有
-                <a href="course/index.htm"  class="link-more">查看更多&raquo;</a>
+                <a href="{:U('Home/Course/index')}"  class="link-more">查看更多&raquo;</a>
             </div>
             <div id="news-course" class="">
                 <div class="show-zone course-list">
                     <ul class="clearfix">
+					<volist   name="newCourse"  id="datas">
                         <li id="li_703">
-                            <a href="course/703/index.htm" tppabs="http://www.xiucai.com/course/703/" target="_blank">
+                            <a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$datas['courseId']))}" target="_blank">
                                 <div class="course-list-img">
-                                    <img width="280" height="160" src="__ROOT__/Apps/Home/View/default/img/34ba92d4-a5b6-2f77-dffa-d9a524212a1f.jpg"   alt="预算考核之KPI制定与目标责任书">                 
+                                    <img width="280" height="160" src="__ROOT__/{$datas['courseThums']}"   alt="{$datas['courseThums']}"  title="{$datas['courseName']}" />                 
                                 </div>
                                 <h5>
-                                    <span>预算考核之KPI制定与目标责任书</span>
+                                    <span>{$datas['courseName']}</span>
                                 </h5>
                                 <div class="tips">
-                                    <span>中级课程</span>
+                                   	<if condition=" $datas['difficulty']  eq  1" >
+                                                <span>初级课程</span>
+											</if>	
+											<if condition=" $datas['difficulty']  eq  2" >
+                                                <span>中级课程</span>
+											</if>	
+											<if condition=" $datas['difficulty']  eq  3" >
+                                                <span>中级课程</span>
+											</if>	
                                     <em>|</em>
-                                    <span>126人已学</span>
-                                </div>                              
-                                <div class="cost">
-                                     <span class="l toll">会员免费看</span>                                                                                                                                                     
+                                    <span>{$datas['isSale']}人已学</span>
                                 </div>
+                               	<if condition=" $datas['is_free']  eq  2" >
+                                              <div class="cost">
+                                                <span class="l toll">会员免费看</span>
+                                            </div>
+											
+											<else/>
+											
+											  <div class="cost">
+                                                <span class="l toll">{$datas['shopPrice']}</span>
+                                            </div>
+											</if>
                             </a>
                         </li>
-
-                        <li id="li_702">
-                            <a href="course/702/index.htm" tppabs="http://www.xiucai.com/course/702/" target="_blank">
-                                <div class="course-list-img">
-                                    <img width="280" height="160" src="__ROOT__/Apps/Home/View/default/img/34ba92d4-a5b6-2f77-dffa-d9a524212a1f.jpg"   alt="预算考核之KPI制定与目标责任书">                 
-                                </div>
-                                <h5>
-                                    <span>第10课  动态透视图VS传统图表优劣</span>
-                                </h5>
-                                <div class="tips">
-                                    <span>初级课程</span>
-                                    <em>|</em>
-                                    <span>134人已学</span>
-                                </div>
-                                <div class="cost">
-                                    <span class="l toll">会员免费看</span>
-                                </div>
-                            </a>
-                        </li>
-
-                        <li id="li_701">
-                            <a href="course/701/index.htm"  target="_blank">
-                                <div class="course-list-img">
-                                    <img width="280" height="160" src="__ROOT__/Apps/Home/View/default/img/34ba92d4-a5b6-2f77-dffa-d9a524212a1f.jpg"   alt="预算考核之KPI制定与目标责任书">                 
-                                </div>
-                                <h5>
-                                    <span>第9课  透视表的条件格式高级应用</span>
-                                </h5>
-                                <div class="tips">
-                                    <span>初级课程</span>
-                                    <em>|</em>
-                                    <span>130人已学</span>
-                                </div>
-                                <div class="cost">
-                                    <span class="l toll">会员免费看</span>
-                                </div>
-                            </a>
-                        </li>
-
-                        <li id="li_700">
-                            <a href="course/700/index.htm" target="_blank">
-                                <div class="course-list-img">
-                                    <img width="280" height="160" src="__ROOT__/Apps/Home/View/default/img/34ba92d4-a5b6-2f77-dffa-d9a524212a1f.jpg"   alt="预算考核之KPI制定与目标责任书">                 
-                                </div>
-                                <h5>
-                                    <span>财务人跨界必须掌握的思路与技巧</span>
-                                </h5>
-                                <div class="tips">
-                                    <span>高级课程</span>
-                                    <em>|</em>
-                                    <span>466人已学</span>
-                                </div>
-                                <div class="cost">
-                                    <span class="l toll">会员免费看</span>
-                                </div>
-                            </a>
-                        </li>
-
+                   </volist>
+                      
                      </ul>
                 </div>
             </div>
@@ -381,8 +342,8 @@
                 <div class="index-course clearfix">
                     <div class="course-l   course-l-swgl  ">
                         <a href="course/cate/75/index.htm"  >
-                            <p class="title">财务管理</p>
-                            <p class="describe">财务职业成长之路</p>
+                            <p class="title">税务实操管理</p>
+                            <p class="describe">税务实操成长之路</p>
                             <p class="linkmore">查看全部<em></em></p>
                             <img src="__ROOT__/Apps/Home/View/default/img/idx-course-p4.png-v=1.10.1.png"   alt="" width="260" height="341">   
                         </a>
@@ -449,8 +410,8 @@
                 <div class="index-course clearfix">
                     <div class="course-l   course-l-swgl  ">
                         <a href="course/cate/75/index.htm"  >
-                            <p class="title">财务管理</p>
-                            <p class="describe">财务职业成长之路</p>
+                            <p class="title">会计核算</p>
+                            <p class="describe">会计核算成长之路</p>
                             <p class="linkmore">查看全部<em></em></p>
                             <img src="__ROOT__/Apps/Home/View/default/img/idx-course-p4.png-v=1.10.1.png"   alt="" width="260" height="341">   
                         </a>

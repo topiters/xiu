@@ -11,7 +11,7 @@ class IndexAction extends BaseAction {
 	 */
     public function index(){
     	//var_dump($GLOBALS['CONFIG']['captcha_model']);//0,1,2,3,4,5" 
-   		$ads = D('Home/Ads');
+   		$ads = D('Ads');
    	
    		//获取分类
 		$gcm = D('Home/GoodsCats');
@@ -29,13 +29,15 @@ class IndexAction extends BaseAction {
    		$this->assign('courseIsBest',$courseIsBest);
    		
    		//首页Banner广告位
-   		$adArr=array('adPositionId'=>1);
+   		$adArr=array('adPositionId'=>-1);
    		$aArrIndex=$ads->where($adArr)->select();
+		//var_dump($aArrIndex);
    		$this->assign('aArrIndex',$aArrIndex);
    		
-   		
-   		
-   		
+   		//首页最新课程
+   		$nArr=array('isNew'=>1,'courseFlag'=>1,'isSale'=>1,'courseStatus'=>1);
+   		$newCourse=$course->where($nArr)->limit(4)->select();
+   		$this->assign('newCourse',$newCourse);
    		
    	
    		$this->assign('ishome',1);
