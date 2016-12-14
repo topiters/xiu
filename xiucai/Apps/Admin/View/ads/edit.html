@@ -8,6 +8,8 @@
       <link href="__PUBLIC__/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
       <link href="__ROOT__/Apps/Admin/View/css/AdminLTE.css" rel="stylesheet" type="text/css" />
       <link rel="stylesheet" href="__ROOT__/Apps/Admin/View/css/daterangepicker/daterangepicker-bs3.css">
+	    <link rel="stylesheet" href="__ROOT__/Apps/Admin/View/css/jquery.bigcolorpicker.css">
+	  
       <link href="__ROOT__/Apps/Admin/View/css/upload.css" rel="stylesheet" type="text/css" />
       <link rel="stylesheet" type="text/css" href="__PUBLIC__/plugins/webuploader/webuploader.css" />
       <!--[if lt IE 9]>
@@ -17,6 +19,7 @@
       <script src="__PUBLIC__/js/jquery.min.js"></script>
       <script src="__PUBLIC__/plugins/bootstrap/js/bootstrap.min.js"></script>
       <script src="__ROOT__/Apps/Admin/View/js/daterangepicker.js"></script>
+	   <script src="__ROOT__/Apps/Admin/View/js/jquery.bigcolorpicker.min.js"></script>
       <script src="__PUBLIC__/js/common.js"></script>
       <script src="__PUBLIC__/plugins/plugins/plugins.js"></script>
       <script src="__PUBLIC__/plugins/formValidator/formValidator-4.1.3.js"></script>
@@ -31,6 +34,7 @@
 	        "DOMAIN" : "{:WSTDomain()}"
    };
    $(function () {
+       $("#adBg").bigColorpicker("adBg");
 	   changAdCat(document.getElementById('adPositionId'));
 	   $.formValidator.initConfig({
 		   theme:'Default',mode:'AutoTip',formID:"myform",debug:true,submitOnce:true,onSuccess:function(){
@@ -41,6 +45,8 @@
 	   
 	   $("#adPositionId").formValidator({onFocus:"请选择广告位置"}).inputValidator({min:1,onError: "请选择广告位置"});
 	   $("#adName").formValidator({empty:false,onFocus:"请输入广告标题"}).inputValidator({min:1,onError: "请输入广告标题"});
+	    $("#adBg").formValidator({empty:false,onFocus:"请输入广告背景色"}).inputValidator({min:1,onError: "请输入广告背景色"});
+	   
 	   $('#adDateRange').daterangepicker({format:'YYYY-MM-DD',separator:' 至 '});
 	   <if condition="$object['adId'] !=0 ">
 	   getAreaList("areaId2",{$object.areaId1},0,{$object.areaId2},function(){
@@ -113,6 +119,7 @@
    function edit(){
 	   var params = WST.fillForm('.ipt');
 	   var date = $('#adDateRange').val().split(' 至 ');
+	   
 	   params.adStartDate = date[0];
 	   params.adEndDate = date[1];
 	   if(params.adFile==''){
@@ -245,6 +252,12 @@
                 <input id="adFile" name="adFile" class="text wstipt ipt" tabindex="3" autocomplete="off" style="" type="hidden" value="{$object.adFile}"/>
                 </div>
              	
+             </td>
+           </tr>
+		    <tr>
+             <th align='right'>背景色：</th>
+             <td>
+             <input type='text' id='adBg' class="form-control wst-ipt ipt" value='{$object.adBgcolor}'/>
              </td>
            </tr>
            <tr>
