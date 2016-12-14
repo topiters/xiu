@@ -1,21 +1,23 @@
 <?php
 namespace Home\Action;
 /**
- * ============================================================================
- * 联系QQ:1149100178
- * ============================================================================
- * 商品控制器
- */
+*  课程文件
+* ==============================================
+* 版权所有 2015-2016 http://www.chunni168.com
+* ----------------------------------------------
+* 这不是一个自由软件，未经授权不许任何使用和传播。
+* ==============================================
+* @date: 2016-11-21
+* @author: top_iter、lnrp
+* @email:2504585798@qq.com
+* @version:
+**/
 class CourseAction extends BaseAction {
 	
 	
 	/**
 	 * 课程列表
 	 */
-	
-	
-	
-	
 	
 	public function  index(){
 		$mcourses = D('Home/Course');
@@ -32,10 +34,12 @@ class CourseAction extends BaseAction {
 		if($is_hot){
 			$this->assign('is_hot',$is_hot);
 		}
-		$is_live=(int)I("is_live",0);
+		
+		//是否直播
+	/* 	$is_live=(int)I("is_live",0);
 		if($is_live){
 			$this->assign('is_live',$is_live);
-		}
+		} */
 		    $is_free=(int)I("is_free",0);
 		if($is_free){
 			$this->assign('is_free',$is_free);
@@ -99,6 +103,9 @@ class CourseAction extends BaseAction {
 		//->assign('packages',$packages);
 		
 		$coursesDetails = $courses->getCourseDetails($obj);
+		
+		//var_dump($coursesDetails);
+		//exit;
 		if($kcode==$scrictCode || ($coursesDetails["isSale"]==1 && $coursesDetails["courseStatus"]==1)){
 			if($kcode==$scrictCode){//来自后台管理员
 				$this->assign('comefrom',1);
@@ -108,10 +115,10 @@ class CourseAction extends BaseAction {
 			if($coursesDetails["shopAtive"]==0){
 				$shopServiceStatus = 0;
 			}
-			$coursesDetails["serviceEndTime"] = str_replace('.5',':30',$coursesDetails["serviceEndTime"]);
-			$coursesDetails["serviceEndTime"] = str_replace('.0',':00',$coursesDetails["serviceEndTime"]);
-			$coursesDetails["serviceStartTime"] = str_replace('.5',':30',$coursesDetails["serviceStartTime"]);
-			$coursesDetails["serviceStartTime"] = str_replace('.0',':00',$coursesDetails["serviceStartTime"]);
+		//	$coursesDetails["serviceEndTime"] = str_replace('.5',':30',$coursesDetails["serviceEndTime"]);
+		//	$coursesDetails["serviceEndTime"] = str_replace('.0',':00',$coursesDetails["serviceEndTime"]);
+		//	$coursesDetails["serviceStartTime"] = str_replace('.5',':30',$coursesDetails["serviceStartTime"]);
+		//	$coursesDetails["serviceStartTime"] = str_replace('.0',':00',$coursesDetails["serviceStartTime"]);
 			$coursesDetails["shopServiceStatus"] = $shopServiceStatus;
 			$coursesDetails['coursesDesc'] = htmlspecialchars_decode($coursesDetails['coursesDesc']);
 			

@@ -34,7 +34,7 @@ function goToPay(){
 		return false;
 	} */
 	jQuery.post( Think.U('Home/Cart/checkCartCourseStock') ,{},function(data) {
-		alert( JSON.stringify(data));
+		//alert( JSON.stringify(data));
 		var goodsInfo = WST.toJson(data);
       		
 		for(var i=0;i<goodsInfo.length;i++){

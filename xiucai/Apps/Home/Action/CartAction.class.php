@@ -21,7 +21,7 @@ class CartAction extends BaseAction {
 		$cartInfo = $m->getCartInfo();
 		//dump($cartInfo);
    		$pnow = (int)I("pnow",0);
-   		$this->assign('cartInfo',$v=$cartInfo);
+   		$this->assign('cartInfo',$cartInfo);
   // 	dump($v);
    	//	exit;
    		$this->display('default/cart_pay_list');//

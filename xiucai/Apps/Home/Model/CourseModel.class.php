@@ -124,7 +124,7 @@ class CourseModel extends BaseModel {
 		}
 	   	$groupBy .= " group by courseId ";
 	   	//排序-暂时没有按好评度排
-	   	$orderFile = array('1'=>'saleCount','6'=>'saleCount','7'=>'saleCount','8'=>'shopPrice','9'=>'(totalScore/totalUsers)','10'=>'saleTime',''=>'saleTime','12'=>'saleCount','13'=>'is_new','is_hot'=>14);
+	   	$orderFile = array('1'=>'saleCount','6'=>'saleCount','7'=>'saleCount','8'=>'shopPrice','9'=>'(totalScore/totalUsers)','10'=>'saleTime',''=>'saleTime','12'=>'saleCount','13'=>'isNew','isHot'=>14);
 	   	$orderSort = array('0'=>'ASC','1'=>'DESC');
 		$orderBy .= " ORDER BY ".$orderFile[$mark]." ".$orderSort[$msort].",courseId ";
 
@@ -166,17 +166,23 @@ class CourseModel extends BaseModel {
 	 */
 	public function getCourseDetails($obj){		
 		$courseId = $obj["courseId"];
-		$sql = "SELECT sc.catName,sc2.catName as pCatName, g.*,shop.shopName,shop.deliveryType,ga.id courseAttrId,ga.attrPrice,ga.attrStock,
+		/* $sql = "SELECT sc.catName,sc2.catName as pCatName, g.*,shop.shopName,shop.deliveryType,ga.id courseAttrId,ga.attrPrice,ga.attrStock,
 				shop.shopAtive,shop.shopTel,shop.shopDetails,shop.shopAddress,shop.deliveryTime,shop.isInvoice, shop.deliveryStartMoney,g.courseStock,shop.deliveryFreeMoney,shop.qqNo,shop.isDistributAll,
-				shop.deliveryMoney ,g.courseSn,g.courseTime,g.courseDifficulty,g.courseIntro,g.courseFor,shop.serviceStartTime,shop.serviceEndTime FROM __PREFIX__course g left join __PREFIX__course_attributes ga on g.courseId=ga.courseId and ga.isRecomm=1, __PREFIX__shops shop, __PREFIX__shops_cats sc 
+				shop.deliveryMoney ,g.courseSn,g.courseTime,g.courseDifficulty,g.courseIntro,g.courseFor,shop.serviceStartTime,shop.serviceEndTime FROM __PREFIX__course g , __PREFIX__shops shop, __PREFIX__shops_cats sc 
 				LEFT JOIN __PREFIX__shops_cats sc2 ON sc.parentId = sc2.catId
 				WHERE g.courseId = $courseId AND shop.shopId=sc.shopId AND sc.catId=g.shopCatId1 AND g.shopId = shop.shopId AND g.courseFlag = 1 ";		
+		 */
+		
+		$sql="SELECT g.*,shop.shopName,shop.deliveryType,shop.shopAtive,shop.shopTel,shop.shopDetails,shop.shopAddress,shop.deliveryTime,shop.isInvoice, shop.deliveryStartMoney,g.courseStock,shop.deliveryFreeMoney,shop.qqNo,shop.isDistributAll,shop.deliveryMoney ,g.courseSn,g.courseTime,g.courseDifficulty,g.courseIntro,g.courseFor,shop.serviceStartTime,shop.serviceEndTime FROM __PREFIX__course g , __PREFIX__shops shop WHERE g.courseId = $courseId AND  g.shopId = shop.shopId AND g.courseFlag = 1 ;";
+		
+		
+		
 		$rs = $this->query($sql);
 		
-		if(!empty($rs) && $rs[0]['courseAttrId']>0){
-			$rs[0]['shopPrice'] = $rs[0]['attrPrice'];
-			$rs[0]['courseStock'] = $rs[0]['attrStock'];
-		}
+		//if(!empty($rs) && $rs[0]['courseAttrId']>0){
+		//	$rs[0]['shopPrice'] = $rs[0]['attrPrice'];
+		//	$rs[0]['courseStock'] = $rs[0]['attrStock'];
+		//}
 		return $rs[0];
 	}
 	
@@ -1001,13 +1007,13 @@ class CourseModel extends BaseModel {
 	/**
 	 * 查询课程简单信息
 	 */
-	public function getcourseSimpInfo($courseId,$courseAttrId){
+	public function getcourseSimpInfo($courseId){
 		$sql = "SELECT g.*,sp.shopId,sp.shopName,sp.deliveryFreeMoney,sp.deliveryMoney,sp.deliveryStartMoney,sp.isInvoice,sp.serviceStartTime startTime,sp.serviceEndTime endTime,sp.deliveryType 
 				FROM __PREFIX__course g, __PREFIX__shops sp 
 				WHERE g.shopId = sp.shopId AND g.courseId = $courseId AND g.isSale=1 AND g.courseFlag = 1 AND g.courseStatus = 1";
 		$rs = $this->queryRow($sql);
 		if(empty($rs))return array();
-	    if($rs['attrCatId']>0){
+	  /*   if($rs['attrCatId']>0){
         	$sql = "select ga.id,ga.attrPrice,ga.attrStock,a.attrName,ga.attrVal,ga.attrId from __PREFIX__attributes a,__PREFIX__course_attributes ga
 			        where a.attrId=ga.attrId and a.catId=".$rs['attrCatId']." 
 			        and ga.courseId=".$rs['courseId']." and id=".$courseAttrId;
@@ -1020,8 +1026,8 @@ class CourseModel extends BaseModel {
 				$rs['shopPrice'] = $priceAttrs['attrPrice'];
 				$rs['courseStock'] = $priceAttrs['attrStock'];
 			}
-        }
-        $rs['courseAttrId'] = (int)$rs['courseAttrId'];
+        } */
+       // $rs['courseAttrId'] = (int)$rs['courseAttrId'];
 		return $rs;
 		
 	}

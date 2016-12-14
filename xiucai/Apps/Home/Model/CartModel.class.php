@@ -23,17 +23,17 @@ class CartModel extends BaseModel {
 		//判断一下该课程是否正常	出售
 		$userId = (int)session('WST_USER.userId');
 		$courseId = (int)I("courseId");
-		$courseAttrId = (int)I("courseAttrId");
-        $course = D('Home/course')->getcourseSimpInfo($courseId,$courseAttrId);
+		//$courseAttrId = (int)I("courseAttrId");
+        $course = D('Home/course')->getcourseSimpInfo($courseId);
         if(empty($course))return array('status'=>-1,'msg'=>'找不到指定的课程!');
         if($course['courseStock']<=0)return array('status'=>-1,'msg'=>'对不起，课程'.$course['courseName'].'库存不足!');
 		$courseCnt = ((int)I("gcount")>0)?(int)I("gcount"):1;
 		$isCheck = 1;
 		$rs = false;
-		$sql = "select * from __PREFIX__cart where userId=$userId and courseId=$courseId and courseAttrId=$courseAttrId and packageId=0";
+		$sql = "select * from __PREFIX__cart where userId=$userId and courseId=$courseId and packageId=0";
 		$row = $this->queryRow($sql);
 		//课程订单中是否存在
-		$sqla = "select * from __PREFIX__order_course where userId=$userId and courseId=$courseId and courseAttrId=$courseAttrId ";
+		$sqla = "select * from __PREFIX__order_course where userId=$userId and courseId=$courseId  ";
 		$rows = $this->queryRow($sqla);
 		if($rows['id']){
 			
@@ -54,14 +54,16 @@ class CartModel extends BaseModel {
 			$data["userId"] = $userId;
 			$data["courseId"] = $courseId;
 			$data["isCheck"] = $isCheck;
-			$data["courseAttrId"] = $courseAttrId;
+			//$data["courseAttrId"] = $courseAttrId;
 			$data["courseCnt"] = $courseCnt;
 			$rs = $m->add($data);
+			
+			if(false !== $rs){
+				$rd['status']= 1;
+				$rd['msg']="课程成功放入购物车";
+			}
 		}
-		if(false !== $rs){
-			$rd['status']= 1;
-			$rd['msg']="课程成功放入购物车";
-		}
+		
 		return $rd;
 	}
 	
@@ -217,7 +219,7 @@ class CartModel extends BaseModel {
 		
 		$sql = "select * from __PREFIX__cart where userId = $userId and packageId>0 group by batchNo";
 		$shopcart = $this->query($sql);
-		print_r($pkgList);
+		//print_r($pkgList);
 		for($i=0;$i<count($shopcart);$i++){
 			$ccourse = $shopcart[$i];
 			$package = array();
@@ -252,10 +254,10 @@ class CartModel extends BaseModel {
 						WHERE g.courseId = $courseId AND g.shopId = shop.shopId AND g.courseFlag = 1 and g.isSale=1 and g.courseStatus=1 ";
 				$course = $this->queryRow($sql);
 				if($course==null)continue;
-				//如果课程有价格属性的话则获取其价格属性
-				if(!empty($course) && $course['attrCatId']>0){
+				//如果课程有价格属性的话则获取其价格属性//&& $course['attrCatId']>0
+				if(!empty($course) ){
 						
-					$sql = "select ga.id,ga.attrPrice,ga.attrStock,a.attrName,ga.attrVal,ga.attrId from __PREFIX__attributes a,__PREFIX__course_attributes ga
+					/* $sql = "select ga.id,ga.attrPrice,ga.attrStock,a.attrName,ga.attrVal,ga.attrId from __PREFIX__attributes a,__PREFIX__course_attributes ga
 				         	where a.attrId=ga.attrId and a.catId=".$course['attrCatId']." and a.isPriceAttr=1
 				          	and ga.courseId=".$courseId." and id=".$courseAttrId;
 					$priceAttrs = $this->queryRow($sql);
@@ -269,13 +271,13 @@ class CartModel extends BaseModel {
 						$pckMinStock = ($pckMinStock==0 || $course['courseStock']<$pckMinStock)?$course['courseStock']:$pckMinStock;
 						$pkgShopPrice += $course['shopPrice'];
 					}
-				}else{
+				}else{ */
 					$course['oshopPrice'] = $course['shopPrice'];
 					$course['shopPrice'] = ($course['shopPrice']>$diffPrice)?($course['shopPrice']-$diffPrice):$course['shopPrice'];
 					$pckMinStock = ($pckMinStock==0 || $course['courseStock']<$pckMinStock)?$course['courseStock']:$pckMinStock;
 					$pkgShopPrice += $course['shopPrice'];
 				}
-				$course['courseAttrId'] = (int)$course['courseAttrId'];
+				//$course['courseAttrId'] = (int)$course['courseAttrId'];
 				
 				$course["cnt"] = $pcourse["courseCnt"];
 				
@@ -308,7 +310,7 @@ class CartModel extends BaseModel {
 		for($i=0;$i<count($shopcart);$i++){
 			$ccourse = $shopcart[$i];
 			$courseId = (int)$ccourse["courseId"];
-			$courseAttrId = (int)$ccourse["courseAttrId"];
+			//$courseAttrId = (int)$ccourse["courseAttrId"];
 			$sql = "SELECT  g.courseThums,g.courseId,g.shopPrice,g.isBook,g.courseName,g.shopId,g.courseStock,g.shopPrice,g.attrCatId,shop.shopName,shop.qqNo,shop.deliveryType,shop.shopAtive,
 					shop.shopTel,shop.shopAddress,shop.deliveryTime,shop.isInvoice, shop.deliveryStartMoney,
 					shop.deliveryFreeMoney,shop.deliveryMoney ,g.courseSn,shop.serviceStartTime,shop.serviceEndTime
@@ -317,7 +319,7 @@ class CartModel extends BaseModel {
 			$course = $this->queryRow($sql);
 			if($course==null)continue;
 		    //如果课程有价格属性的话则获取其价格属性
-		    if(!empty($course) && $course['attrCatId']>0){
+		   /*  if(!empty($course) && $course['attrCatId']>0){
 		    	
 			    $sql = "select ga.id,ga.attrPrice,ga.attrStock,a.attrName,ga.attrVal,ga.attrId from __PREFIX__attributes a,__PREFIX__course_attributes ga
 			             where a.attrId=ga.attrId and a.catId=".$course['attrCatId']." and a.isPriceAttr=1 
@@ -332,7 +334,7 @@ class CartModel extends BaseModel {
 				}
 			}
 			$course['courseAttrId'] = (int)$course['courseAttrId'];
-			
+			 */
 			if($course["isBook"]==1){
 				$course["courseStock"] = $course["courseStock"]+$course["bookQuantity"];
 			}

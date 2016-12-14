@@ -13,14 +13,16 @@ function addCart(courseId,type,attrId,courseThums){
 	var params = {};
 	params.courseId = courseId;
 	params.gcount = 1;
-	params.courseAttrId =attrId;
+	//params.courseAttrId =attrId;
 	params.rnd = Math.random();
 	//alert(JSON.stringify(WST));
 	//params.courseAttrId = $('#shopGoodsPrice_'+courseId).attr('dataId');
 	//$("#flyItem img").attr("src",WST.DOMAIN  +"/"+ courseThums)
 	jQuery.post(Think.U('Home/Cart/addToCartAjax') ,params,function(data) {
+		
+		//alert(JSON.stringify(data));
 		var json = WST.toJson(data);
-	
+	     
 		if(json.status==1){
 			
 			if(type==1){
