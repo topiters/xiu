@@ -78,6 +78,6 @@
 }
 
 .bigpicker-bgimage{
-	background-image:url(../images/big_bgcolor.jpg);
+	background-image:url('./images/big_bgcolor.jpg');
 }
 

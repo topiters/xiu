@@ -34,7 +34,7 @@
 	        "DOMAIN" : "{:WSTDomain()}"
    };
    $(function () {
-       $("#adBg").bigColorpicker("adBg");
+       $("#adBgcolor").bigColorpicker("adBgcolor");
 	   changAdCat(document.getElementById('adPositionId'));
 	   $.formValidator.initConfig({
 		   theme:'Default',mode:'AutoTip',formID:"myform",debug:true,submitOnce:true,onSuccess:function(){
@@ -45,7 +45,7 @@
 	   
 	   $("#adPositionId").formValidator({onFocus:"请选择广告位置"}).inputValidator({min:1,onError: "请选择广告位置"});
 	   $("#adName").formValidator({empty:false,onFocus:"请输入广告标题"}).inputValidator({min:1,onError: "请输入广告标题"});
-	    $("#adBg").formValidator({empty:false,onFocus:"请输入广告背景色"}).inputValidator({min:1,onError: "请输入广告背景色"});
+	    $("#adBgcolor").formValidator({empty:false,onFocus:"请输入广告背景色"}).inputValidator({min:1,onError: "请输入广告背景色"});
 	   
 	   $('#adDateRange').daterangepicker({format:'YYYY-MM-DD',separator:' 至 '});
 	   <if condition="$object['adId'] !=0 ">
@@ -257,7 +257,7 @@
 		    <tr>
              <th align='right'>背景色：</th>
              <td>
-             <input type='text' id='adBg' class="form-control wst-ipt ipt" value='{$object.adBgcolor}'/>
+             <input type='text' id='adBgcolor'   name="adBgcolor" class="form-control wst-ipt ipt" value='{$object.adBgcolor}'/>
              </td>
            </tr>
            <tr>

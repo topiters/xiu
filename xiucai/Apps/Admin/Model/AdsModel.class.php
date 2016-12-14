@@ -17,10 +17,13 @@ class AdsModel extends BaseModel {
 		$data = array();
 		$data["positionType"] = (int)I("positionType");
 		$data["adPositionId"] = (int)I("adPositionId");
+		$data["adBgcolor"] = I("adBgcolor");
 		$data["adFile"] = I("adFile");
 		$data["adStartDate"] = I("adStartDate");
 		$data["adEndDate"] = I("adEndDate");
 		$data["adSort"] = I("adSort",0);
+		
+		
 		if($this->checkEmpty($data,true)){
 			$data["adName"] = I("adName");
 		    $data["adURL"] = I("adURL");
@@ -43,17 +46,20 @@ class AdsModel extends BaseModel {
 	 	$id = (int)I("id",0);
 	 	$data["positionType"] = (int)I("positionType");
 		$data["adPositionId"] = (int)I("adPositionId");
+		$data["adBgcolor"] = I("adBgcolor");
 		$data["adFile"] = I("adFile");
 		$data["adStartDate"] = I("adStartDate");
 		$data["adEndDate"] = I("adEndDate");
 		$data["adSort"] = (int)I("adSort",0);
+		//var_dump($data);
+	//	exit;
 	    if($this->checkEmpty($data,true)){	
 	    	$data["adName"] = I("adName");
 			$data["adURL"] = I("adURL");
-	    	$data["areaId1"] = (int)I("areaId1");
-			$data["areaId2"] = (int)I("areaId2");
-			$data["areaId3"] = I("areaId3");
-			$data["communityId"] = I("communityId");
+	    //	$data["areaId1"] = (int)I("areaId1");
+		//	$data["areaId2"] = (int)I("areaId2");
+		//	$data["areaId3"] = I("areaId3");
+		//	$data["communityId"] = I("communityId");
 		    $rs = $this->where("adId=".$id)->save($data);
 			if(false !== $rs){
 				$rd['status']= 1;
