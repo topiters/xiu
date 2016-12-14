@@ -86,14 +86,7 @@ function tiwen_send() {
 <script>
     $(function () {
         $("input[name='mobile_login']").click(function () {
-            //登录成功之后
-            //先让非导航的右边显示登录之后的样子
-            $("#feinav_dlzq").css({"display": "none"});
-            $("#feinav_dlzh").css({"display": "block"});//显示用户信息
-            //再让黑色导航的右边显示登录之后的样子
-            $(".head_dhzx").css({"display": "none"});
-            $("#user_nodl").css({"display": "none"});
-            $("#login_dl").css({"display": "block"});
+
 
             var loginName = $.trim($('#loginName').val());
             var loginPwd = $.trim($('#loginPwd').val());
@@ -130,6 +123,14 @@ function tiwen_send() {
                     var data = $.parseJSON(data);
                     if (data.status == '1') {
                         WST.msg('登录成功...', {offset: '250px'});
+                        //登录成功之后
+                        //先让非导航的右边显示登录之后的样子
+//                        $("#feinav_dlzq").css({"display": "none"});
+//                        $("#feinav_dlzh").css({"display": "block"});//显示用户信息
+//                        //再让黑色导航的右边显示登录之后的样子
+//                        $(".head_dhzx").css({"display": "none"});
+//                        $("#user_nodl").css({"display": "none"});
+//                        $("#login_dl").css({"display": "block"});
                         //location.reload();
                         location.href = data.refer;
                     } else if (data.status == '-2') {

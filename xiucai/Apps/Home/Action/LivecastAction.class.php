@@ -72,4 +72,11 @@ class LivecastAction extends BaseAction {
             }
         }
     }
+    
+    /**
+     * 直播页面
+     */
+    public function live() {
+        echo '正在进入直播间...';
+    }
 }

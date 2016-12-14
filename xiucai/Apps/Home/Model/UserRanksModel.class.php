@@ -20,7 +20,7 @@ class UserRanksModel extends BaseModel {
 	  /**
 	   * 获取用户等级
 	   */
-	  function getUserRank(){
+	  public function getUserRank(){
 	  	$userId = (int)session('WST_USER.userId');
 	  	$sql = "select userId,userScore,userTotalScore from __PREFIX__users WHERE userId=$userId ";
 	  	$user = $this ->queryRow($sql);

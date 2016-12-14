@@ -62,9 +62,9 @@
             <dl class="option">
                 <dt class="middle">排序：</dt>
                 <dd class="btn-group">
-                    <a href="{:U('Home/specialist/index')}" tppabs="http://www.xiucai.com/tutor/" <if condition="$_GET['sort'] eq null"> class="on" </if>><span>综合</span></a>
-                    <a href="{:U('Home/specialist/index',array('c1Id'=>$_GET['c1Id'],'c2Id'=>$_GET['c2Id'],'sort'=>1))}" tppabs="http://www.xiucai.com/tutor/?sort=1" <if condition="$_GET['sort'] eq 1"> class="on"</if>><span>解答数</span></a>
-                    <a href="{:U('Home/specialist/index',array('c1Id'=>$_GET['c1Id'],'c2Id'=>$_GET['c2Id'],'sort'=>3))}" tppabs="http://www.xiucai.com/tutor/?sort=3" <if condition="$_GET['sort'] eq 3"> class="on"</if>><span>满意度</span></a>
+                    <a href="{:U('Home/specialist/index')}"  <if condition="$_GET['sort'] eq null"> class="on" </if>><span>综合</span></a>
+                    <a href="{:U('Home/specialist/index',array('c1Id'=>$_GET['c1Id'],'c2Id'=>$_GET['c2Id'],'sort'=>1))}"  <if condition="$_GET['sort'] eq 1"> class="on"</if>><span>解答数</span></a>
+                    <a href="{:U('Home/specialist/index',array('c1Id'=>$_GET['c1Id'],'c2Id'=>$_GET['c2Id'],'sort'=>3))}"  <if condition="$_GET['sort'] eq 3"> class="on"</if>><span>满意度</span></a>
                 </dd>
                 <dd class="first-dd"></dd>
             </dl>

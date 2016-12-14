@@ -69,6 +69,16 @@
         })
     })
     $('#ask_question_btn').click(function () {
+        var title = $('#thread_title').val();
+        if (title == '') {
+            alert('请输入标题!');
+            return false;
+        }
+        var content = $('#content').val();
+        if (content == '') {
+            alert('请输入内容!');
+            return false;
+        }
         var value = $('#quan_id').val();
         if (value == '') {
             alert('请选择圈子!');

@@ -5,59 +5,16 @@
             <div class="quan-main">
                 <!-- quan-slider begin -->
                 <div class="quan-slider">
-                    <div class="hd">
-                        <!--<ul>
-                            <li class="on"></li>
-                            <li ></li>
-                            <li ></li>
-                            <li ></li>
-                        </ul>-->
-                    </div>
                     <div class="bd">
                         <ul>
                             <li>
-                                <a data-id="89" href="http://www.xiucai.com/live/652/" target="_blank" class="hit_count clearfix">
+                                <a data-id="{$relatedArr.root.0.courseId}" href="{:U('Home/Livecast/course',array('id'=>$relatedArr['root'][0]['courseId']))}" target="_blank" class="hit_count clearfix">
                                     <div class="fl">
-                                        <img src="http://assets.xiucai.com/assets/uploads/pic/2016/0919/62215ef6-b9a4-1696-956d-3edc16861ea3.jpg"/>
+                                        <img src="__ROOT__/{$relatedArr.root.0.courseThums}"/>
                                     </div>
                                     <div class="intro-detail">
-                                        <h2>困境中扭亏为盈——看财务分析如何助力决策</h2>
-                                        <p>
-                                            财务分析人员在公司里就像迷一般的存在，他们隶属于财务部却从来不做凭证，然而他们具有最全面的知识，能读懂所谓“数据背后的故事”，能恰如其分地运用财务知识帮助企业达成目标。 </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a data-id="88" href="http://www.xiucai.com/course/zt/yyzj/" target="_blank" class="hit_count clearfix">
-                                    <div class="fl">
-                                        <img src="http://assets.xiucai.com/assets/uploads/pic/2016/0914/4fd8ac21-e056-df41-89c0-eaa5ded55925.jpg"/>
-                                    </div>
-                                    <div class="intro-detail">
-                                        <h2>营运资金管理分析专题</h2>
-                                        <p>本次课程，我们专门从营运资金管理的角度，学习洞察营运能力的分析方法与关键指标，以及如何为企业的营运管理把脉建言，大量公司案例，等你一起来分析。 </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a data-id="80" href="http://www.xiucai.com/vocation/aptitude/" target="_blank" class="hit_count clearfix">
-                                    <div class="fl">
-                                        <img src="http://assets.xiucai.com/assets/uploads/pic/2016/0829/2250775b-638a-ce3e-9da2-3184e31f985a.jpg"/>
-                                    </div>
-                                    <div class="intro-detail">
-                                        <h2>职业资质课程</h2>
-                                        <p>初级会计实务、中级会计实务、CMA、ACCA，为不同阶段的你，量身定制。</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a data-id="73" href="http://www.xiucai.com/zt/cma/" target="_blank" class="hit_count clearfix">
-                                    <div class="fl">
-                                        <img src="http://assets.xiucai.com/assets/uploads/pic/2016/0815/8ca3f9e3-b4f0-4430-43ac-9c6c71380233.jpg"/>
-                                    </div>
-                                    <div class="intro-detail">
-                                        <h2>秀财网CMA注册管理会计师项目</h2>
-                                        <p>
-                                            CMA逐渐成为全球财务管理者的职业典范的象征，世界500强企业更视CMA资格为衡量专业财务管理者职业水准和职业道德的最佳标准。2009年CMA刚登陆中国就被财政部、国资委、商务部、总会计师…</p>
+                                        <h2>{$relatedArr.root.0.courseName}</h2>
+                                        <p>{$relatedArr.root.0.courseIntro}</p>
                                     </div>
                                 </a>
                             </li>

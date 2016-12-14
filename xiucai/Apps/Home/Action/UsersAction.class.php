@@ -165,9 +165,6 @@ class UsersAction extends BaseAction {
 		 $specialist=D('Shops')->where(array('shopStatus'=>1,'shopFlag'=>1))->limit(3)->select();
 		foreach($specialist  as  $k=>$v){
 			$specialist[$k]['shopGoodat']=explode(',' , $v['shopGoodat']);
-			
-			
-			
 		}
 		//var_dump($specialist);
 		// exit;

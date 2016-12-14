@@ -173,6 +173,7 @@ class BaseAction extends Controller {
 	 */
 	public function getVerify(){
 		// 导入Image类库
+        ob_clean();
     	$Verify = new \Think\Verify();
     	$Verify->length   = 4;
     	$Verify->entry();
