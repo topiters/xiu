@@ -69,7 +69,7 @@
                 <dd class="first-dd"></dd>
             </dl>
             <div class="list-item" id="tutor-list-content">
-                <foreach name="pages['root']" item="v">
+                <foreach name="pages['root']" item="v" empty="">
 		        <div class="teacher">
 		            <div class="left">
 		                <a target="_blank" href="{:U('Home/specialist/tutor',array('id'=>$v['shopId']))}" >
