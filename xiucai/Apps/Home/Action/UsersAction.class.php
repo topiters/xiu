@@ -138,15 +138,14 @@ class UsersAction extends BaseAction {
     */
 	public function index(){
 		$this->isUserLogin();
-		
 		$USER = session('WST_USER');
-		//var_dump($USER);
-		//exit;
 		session('WST_USER.loginTarget','User');
 		//判断会员等级
 		$rm = D('Home/UserRanks');
 		$USER["userRank"] = $rm->getUserRank();
-		
+        $USER["userFollow"] = D('follow')->where("userId = {$USER['userId']}")->count();
+		$this->assign('WST_USER',$USER);
+//        dump($USER);exit;
 		//var_dump($USER["userRank"]);
 		
 		//获取订单列表
@@ -162,6 +161,10 @@ class UsersAction extends BaseAction {
 		$this->assign("orderList",$orderList);
 		$this->assign("statusList",$statusList);
 		//我的问答
+        $myquestion = D('questions')->field('id,title')->where("userId = {$USER['userId']}")->select();
+        $this->assign('myquestion',$myquestion);
+//        dump($myquestion);die;
+        //老师列表
 		 $specialist=D('Shops')->where(array('shopStatus'=>1,'shopFlag'=>1))->limit(3)->select();
 		foreach($specialist  as  $k=>$v){
 			$specialist[$k]['shopGoodat']=explode(',' , $v['shopGoodat']);
@@ -170,18 +173,47 @@ class UsersAction extends BaseAction {
 		// exit;
 		 $this->assign('specialist',$specialist);
 		//我的圈子动态
-		
+		//1我加入的圈子
+        $forum = D('forum_record')->field('cid,catName')->join("__FORUM_CATS__  on cid = catId")->where("uid = {$USER['userId']}")->select();
+        $this->assign('forum',$forum);
+//        dump($forum);die;
+        //2我的发帖
+        $where = "wst_forum.isShow = 1 and staffId = {$USER['userId']}";
+        $order = 'articleId desc';
+        $article = D('forum')->field('articleId,wst_forum.catId,wst_forum.parentCatId,c.catName,articleTitle,staffId,createTime,readNum,commentNum,lastId,lastTime')->join("wst_forum_cats c on wst_forum.parentCatId = c.catId")->where($where)->order($order)->select();
+//        dump($article);die;
+        $this->assign('article' , $article);
+        //3我的回复
+        $mycomment = D('forum_comment')->field('id,uid,cuid,aid,catId,parentCatId,articleTitle,content,parentId,ctime')->join("__FORUM__ on aid = articleId")->where("uid = {$USER['userId']}")->order('ctime desc')->select();
+        foreach ($mycomment as $k=>$v) {
+            if ($v['parentId'] != 0) {
+                $mycomment[$k]['cuname'] = D('users')->field('loginName')->where("userId = {$v['cuid']}")->find();
+                $mycomment[$k]['cuname'] = $mycomment[$k]['cuname']['loginName'];
+            }
+        }
+        $this->assign('mycomment',$mycomment);
+//        dump($mycomment);die;
+        //4回复我的
+        $comment = D('forum_comment')->field('id,uid,cuid,aid,catId,parentCatId,articleTitle,content,parentId,ctime')->join("__FORUM__ on aid = articleId")->where("cuid = {$USER['userId']}")->order('ctime desc')->select();
+        foreach ($comment as $k => $v) {
+            $comment[$k]['loginName'] = D('users')->field('loginName')->where("userId = {$v['uid']}")->find();
+            $comment[$k]['loginName'] = $comment[$k]['loginName']['loginName'];
+            $comment[$k]['userPhoto'] = D('users')->field('userPhoto')->where("userId = {$v['uid']}")->find();
+            $comment[$k]['userPhoto'] = $comment[$k]['userPhoto']['userPhoto'];
+        }
+        $this->assign('comment' , $comment);
+//        dump($comment);die;
 		//我的课程
 	
 		$userId=$obj["userId"];
 		//SELECT o.orderId,o.orderNo ,c.courseId ,oc.courseId FROM  wst_orders o LEFT JOIN   wst_order_course  oc  ON  o.orderId=oc.orderId  left join   wst_course c   ON  c.courseId=oc.courseId   where o.orderStatus=2 AND o.userId=42; 
-		$sql=" SELECT o.orderId,o.orderNo,c.courseId ,c.videoPath,c.courseName,c.courseTime,c.courseDifficulty,c.is_free,c.saleCount,c.courseThums FROM  wst_orders o LEFT JOIN   wst_order_course  oc  ON  o.orderId=oc.orderId  left join   wst_course c   ON  c.courseId=oc.courseId   where o.orderStatus=2 AND o.userId=$userId ";
+		$sql=" SELECT o.orderId,o.orderNo,c.courseId ,c.videoPath,c.courseName,c.courseTime,c.courseDifficulty,c.is_free,c.saleCount,c.courseThums FROM  wst_orders o LEFT JOIN   wst_order_course  oc  ON  o.orderId=oc.orderId  left join   wst_course c   ON  c.courseId=oc.courseId   where o.orderStatus=2 AND o.userId=$userId";
+
 		$result=D('Orders')->query($sql);
 		//foreach ($result  as  $k=>$v){
 	
 		//}
-		//var_dump($result);
-		//exit;
+//		dump($result);exit;
 	//	setVpath($userId,$result['videoPath']);
 	
 		$this->assign('userresult',$result);

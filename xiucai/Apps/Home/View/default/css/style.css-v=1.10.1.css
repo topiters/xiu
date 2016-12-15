@@ -120,7 +120,7 @@ table th,table td{vertical-align: middle;}
 /*index begin*/
 .container{
     margin: 0 auto;
-    width: 1200px;
+    width: 1250px;
     color: #333;
 }
 .container900{
@@ -5657,7 +5657,7 @@ input[type="button"].reset-btn{
 }
 .my-qa-list .null{
 	text-align: center;
-	padding-top: 110px;
+	/*padding-top: 110px;*/
 	font-size: 18px;
 }
 .my-qa-list .null>img{

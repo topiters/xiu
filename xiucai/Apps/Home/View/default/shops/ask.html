@@ -309,7 +309,7 @@
                                                 <volist name="replylist['root']" id="data">
                                                     <dl>
                                                         <dt>
-                                                            <a href="" class="photo" target="_blank">
+                                                            <a href="{:U('Home/Users/index',array('id'=>$data['userId']))}" class="photo" target="_blank">
                                                                 <img src="__ROOT__/{$data['userPhoto']|default='Apps/Home/View/default/img/caiduoduo.png-v=1.10.1.png'}" alt="{$data['loginName']}"/>
                                                             </a>
                                                             <if condition=" $_GET['type'] eq 'unanswered'">
@@ -320,7 +320,7 @@
                                                         </dt>
                                                         <if condition="$_GET['type'] neq 'unanswered'">
                                                             <dd>
-                                                                <a href="" class="photo">
+                                                                <a href="#" class="photo">
                                                                     <img src="__ROOT__/{$WST_USER['shopImg']|default='Apps/Home/View/default/img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg'}" alt="{$WST_USER['loginName']}"/>
                                                                 </a>
                                                                 <p class="answer">

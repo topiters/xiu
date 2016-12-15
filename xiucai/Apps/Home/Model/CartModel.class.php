@@ -416,9 +416,9 @@ class CartModel extends BaseModel {
 					$package["packageName"] = $pkg["packageName"];
 					$package["shopId"] = $pkg["shopId"];
 				}
-				//$courseAttrId = (int)$pcourse["courseAttrId"];
+				$courseAttrId = (int)$pcourse["courseAttrId"];
 				$obj["courseId"] = $courseId;
-				//$obj["courseAttrId"] = $courseAttrId;
+				$obj["courseAttrId"] = $courseAttrId;
 				$course = $mcourse->getcourseForCheck($obj);
 				
 				$course['oshopPrice'] = $course['shopPrice'];
