@@ -294,10 +294,8 @@ class CourseModel extends BaseModel {
 		$shopCatId1 = (int)I('shopCatId1',0);
 		$shopCatId2 = (int)I('shopCatId2',0);
 		$courseName = WSTAddslashes(I('courseName'));
-		$sql = "select g.courseId,g.courseSn,g.courseName,g.courseImg,g.courseThums,g.shopPrice,g.courseStock,g.saleCount,g.isSale,g.isRecomm,g.isHot,g.isBest,g.isNew,ga.isRecomm as attIsRecomm from __PREFIX__course g
-				left join __PREFIX__course_attributes ga on g.courseId = ga.courseId and ga.isRecomm = 1
-				where g.courseFlag=1 
-		     and g.shopId=".$shopId." and g.courseStatus=1 and g.isSale=1 ";
+		$sql = "select g.courseId,g.courseSn,g.courseName,g.courseImg,g.courseThums,g.shopPrice,g.courseStock,g.saleCount,g.isSale,g.isRecomm,g.isHot,g.isBest,g.isNew from __PREFIX__course g
+	    where g.courseFlag=1 and g.shopId=".$shopId." and g.courseStatus=1 and g.isSale=1 ";
 		if($shopCatId1>0)$sql.=" and g.shopCatId1=".$shopCatId1;
 		if($shopCatId2>0)$sql.=" and g.shopCatId2=".$shopCatId2;
 		if($courseName!='')$sql.=" and (g.courseName like '%".$courseName."%' or g.courseSn like '%".$courseName."%') ";
