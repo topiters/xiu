@@ -64,6 +64,9 @@ class PaymentsAction extends BaseAction{
 		$payments = $pm->getList();
 		$this->assign("payments",$payments["onlines"]);
 
+
+		//1481769431467
+        //14817694668842
 		$obj["orderId"] = (int)I("orderId");
 		$data = $morders->getPayOrders($obj);
 		$orders = $data["orders"];
@@ -78,7 +81,7 @@ class PaymentsAction extends BaseAction{
 	/**
 	 * 支付结果同步回调
 	 */
-	function response(){
+	public function response(){
 		$request = $_GET;
 		unset($request['_URL_']);
 		$pay_res = D('Payments')->notify($request);
@@ -93,7 +96,7 @@ class PaymentsAction extends BaseAction{
 	/**
 	 * 支付结果异步回调
 	 */
-	function notify(){
+	public function notify(){
 		$pm = D('Home/Payments');
 		$request = $_POST;
 		$pay_res = $pm->notify($request);

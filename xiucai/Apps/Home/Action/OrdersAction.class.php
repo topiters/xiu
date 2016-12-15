@@ -194,7 +194,9 @@ class OrdersAction extends BaseAction {
 		$this->isUserLogin();
 		//$maddress = D('Home/UserAddress');
 		$mcart = D('Home/Cart');
-		$rdata = $mcart->getPayCart();	
+		$rdata = $mcart->getPayCart();
+		dump($rdata);die;
+
 	    if($rdata["cartnull"]==1){
 			$this->assign("fail_msg",'不能提交空课程的订单!');
 			$this->display('default/order_fail');
@@ -207,8 +209,8 @@ class OrdersAction extends BaseAction {
 		//exit;
 		$shopColleges = $rdata["shopColleges"];
 		$distributAll = $rdata["distributAll"]; 
-		$startTime = $rdata["startTime"];
-		$endTime = $rdata["endTime"];
+		//$startTime = $rdata["startTime"];
+		//$endTime = $rdata["endTime"];
 		$gtotalMoney = $rdata["gtotalMoney"];//课程总价（去除配送费）
 		$totalMoney = $rdata["totalMoney"];//课程总价（含配送费）
 		$totalCnt = $rdata["totalCnt"];

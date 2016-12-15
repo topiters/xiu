@@ -244,7 +244,7 @@ function submitOrder(){
 	var flag = true;
 
 	
-	var ll = layer.msg('正在提交订单，请稍候...', {icon: 16,shade: [0.5, '#B3B3B3']});
+	var ll = layer.msg('正在处理，请稍候...', {icon: 16,shade: [0.5, '#B3B3B3']});
 	jQuery.post(Think.U('Home/Course/checkCourseStock') ,{},function(data) {
 		var courseInfo = WST.toJson(data);	
 		layer.close(ll);
@@ -309,7 +309,7 @@ function submitOrder(){
 			return ;
 		}
        */
-		var ll = layer.msg('提交订单，请稍候...', {icon: 16,shade: [0.5, '#B3B3B3']});
+		var ll = layer.msg('正在提交订单，请稍候...', {icon: 16,shade: [0.5, '#B3B3B3']});
 		jQuery.post(Think.U('Home/Orders/submitOrder') ,params,function(data) {
 			 var json = WST.toJson(data);	
 			 if(json.status==1){
@@ -353,7 +353,7 @@ function getPayUrl(){
 			var garr = new Array();
 			for(var i=0;i<rlist.length;i++){
 				garr.push(rlist[i].courseName+rlist[i].courseAttrName);
-				rlist[i].courseAttrName
+				rlist[i].courseAttrName;
 			}
 			WST.msg('订单中课程【'+garr.join("，")+'】库存不足，不能进行支付。', {icon: 5});
 			
