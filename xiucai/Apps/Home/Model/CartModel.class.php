@@ -217,158 +217,54 @@ class CartModel extends BaseModel {
 		$totalMoney = 0;
 		$cartcourse = array();
 		
-		$sql = "select * from __PREFIX__cart where userId = $userId and packageId>0 group by batchNo";
+		$sql = "select * from __PREFIX__cart where userId = $userId  ";
 		$shopcart = $this->query($sql);
-		//print_r($pkgList);
-		for($i=0;$i<count($shopcart);$i++){
-			$ccourse = $shopcart[$i];
-			$package = array();
-			$batchNo = $ccourse["batchNo"];
-			$package["batchNo"] = $batchNo;
-			$pkgShopPrice = 0;
-			$pckMinStock = 0;
-			$ischk = 0;
-			$sql = "select * from __PREFIX__cart where userId = $userId and batchNo=$batchNo";
-			$pkgList = $this->query($sql);
-			
-			for($j=0;$j<count($pkgList);$j++){
-				$pcourse = $pkgList[$j];
-				$packageId = $pcourse["packageId"];
-				$courseId = (int)$pcourse["courseId"];
-				$package["packageId"] = $packageId;
-				$package["courseCnt"] = (int)$pcourse["courseCnt"];
-				
-				$sql = "select p.shopId, p.packageName, gp.diffPrice from __PREFIX__course_packages gp, __PREFIX__packages p where p.packageId =$packageId and gp.packageId=p.packageId and gp.courseId = $courseId";
-				$pkg = $this->queryRow($sql);
-				
-				$diffPrice = (float)$pkg["diffPrice"];
-				if($pkg["shopId"]>0){
-					$package["packageName"] = $pkg["packageName"];
-					$package["shopId"] = $pkg["shopId"];
-				}
-				$courseAttrId = (int)$pcourse["courseAttrId"];
-				$sql = "SELECT  g.courseThums,g.courseId,g.shopPrice,g.isBook,g.courseName,g.shopId,g.courseStock,g.shopPrice,g.attrCatId,shop.shopName,shop.qqNo,shop.deliveryType,shop.shopAtive,
-						shop.shopTel,shop.shopAddress,shop.deliveryTime,shop.isInvoice, shop.deliveryStartMoney,
-						shop.deliveryFreeMoney,shop.deliveryMoney ,g.courseSn,shop.serviceStartTime,shop.serviceEndTime
-						FROM __PREFIX__course g, __PREFIX__shops shop
-						WHERE g.courseId = $courseId AND g.shopId = shop.shopId AND g.courseFlag = 1 and g.isSale=1 and g.courseStatus=1 ";
-				$course = $this->queryRow($sql);
-				if($course==null)continue;
-				//如果课程有价格属性的话则获取其价格属性//&& $course['attrCatId']>0
-				if(!empty($course) ){
-						
-					/* $sql = "select ga.id,ga.attrPrice,ga.attrStock,a.attrName,ga.attrVal,ga.attrId from __PREFIX__attributes a,__PREFIX__course_attributes ga
-				         	where a.attrId=ga.attrId and a.catId=".$course['attrCatId']." and a.isPriceAttr=1
-				          	and ga.courseId=".$courseId." and id=".$courseAttrId;
-					$priceAttrs = $this->queryRow($sql);
-					if(!empty($priceAttrs)){
-						$course['courseAttrId'] = $priceAttrs['id'];
-						$course['attrName'] = $priceAttrs['attrName'];
-						$course['attrVal'] = $priceAttrs['attrVal'];
-						$course['oshopPrice'] = $priceAttrs['attrPrice'];
-						$course['shopPrice'] = ($priceAttrs['attrPrice']>$diffPrice)?($priceAttrs['attrPrice']-$diffPrice):$priceAttrs['attrPrice'];
-						$course['courseStock'] = $priceAttrs['attrStock'];
-						$pckMinStock = ($pckMinStock==0 || $course['courseStock']<$pckMinStock)?$course['courseStock']:$pckMinStock;
-						$pkgShopPrice += $course['shopPrice'];
-					}
-				}else{ */
-					$course['oshopPrice'] = $course['shopPrice'];
-					$course['shopPrice'] = ($course['shopPrice']>$diffPrice)?($course['shopPrice']-$diffPrice):$course['shopPrice'];
-					$pckMinStock = ($pckMinStock==0 || $course['courseStock']<$pckMinStock)?$course['courseStock']:$pckMinStock;
-					$pkgShopPrice += $course['shopPrice'];
-				}
-				//$course['courseAttrId'] = (int)$course['courseAttrId'];
-				
-				$course["cnt"] = $pcourse["courseCnt"];
-				
-				$course["ischk"] = $pcourse["isCheck"];
-				if($course["ischk"]==1){
-					$ischk = 1;
-					$totalMoney += $course["cnt"]*$course["shopPrice"];
-					$cartcourse[$course["shopId"]]["ischk"] = 1;
-				}
-				
-				$package["course"][] = $course;
-				$cartcourse[$course["shopId"]]["shopId"] = $course["shopId"];//店铺ID
-				$cartcourse[$course["shopId"]]["shopName"] = $course["shopName"];//店铺名
-				$cartcourse[$course["shopId"]]["qqNo"] = $course["qqNo"];//店铺名
-				$cartcourse[$course["shopId"]]["shopAtive"] = $course["shopAtive"];
-				$cartcourse[$course["shopId"]]["deliveryFreeMoney"] = $course["deliveryFreeMoney"];//店铺免运费最低金额
-				$cartcourse[$course["shopId"]]["deliveryMoney"] = $course["deliveryMoney"];//店铺配送费
-				$cartcourse[$course["shopId"]]["deliveryStartMoney"] = $course["deliveryStartMoney"];//店铺配送费
-				$cartcourse[$course["shopId"]]["totalCnt"] = $cartcourse[$course["shopId"]]["totalCnt"]+$ccourse["courseCnt"];
-				$cartcourse[$course["shopId"]]["totalMoney"] = $cartcourse[$course["shopId"]]["totalMoney"]+(($course["ischk"]==1)?$course["cnt"]*$course["shopPrice"]:0);
-			}
-			$package["courseStock"] = $pckMinStock;
-			$package["shopPrice"] = $pkgShopPrice;
-			$package["ischk"] = $ischk;
-			$cartcourse[$course["shopId"]]["packages"][] = $package;
-			
-		}
-		$sql = "select * from __PREFIX__cart where userId = $userId and packageId=0";
-		$shopcart = $this->query($sql);
-		for($i=0;$i<count($shopcart);$i++){
-			$ccourse = $shopcart[$i];
-			$courseId = (int)$ccourse["courseId"];
-			//$courseAttrId = (int)$ccourse["courseAttrId"];
-			$sql = "SELECT  g.courseThums,g.courseId,g.shopPrice,g.isBook,g.courseName,g.shopId,g.courseStock,g.shopPrice,g.attrCatId,shop.shopName,shop.qqNo,shop.deliveryType,shop.shopAtive,
-					shop.shopTel,shop.shopAddress,shop.deliveryTime,shop.isInvoice, shop.deliveryStartMoney,
-					shop.deliveryFreeMoney,shop.deliveryMoney ,g.courseSn,shop.serviceStartTime,shop.serviceEndTime
-					FROM __PREFIX__course g, __PREFIX__shops shop
-					WHERE g.courseId = $courseId AND g.shopId = shop.shopId AND g.courseFlag = 1 and g.isSale=1 and g.courseStatus=1 ";
-			$course = $this->queryRow($sql);
-			if($course==null)continue;
-		    //如果课程有价格属性的话则获取其价格属性
-		   /*  if(!empty($course) && $course['attrCatId']>0){
-		    	
-			    $sql = "select ga.id,ga.attrPrice,ga.attrStock,a.attrName,ga.attrVal,ga.attrId from __PREFIX__attributes a,__PREFIX__course_attributes ga
-			             where a.attrId=ga.attrId and a.catId=".$course['attrCatId']." and a.isPriceAttr=1 
-			             and ga.courseId=".$courseId." and id=".$courseAttrId;
-				$priceAttrs = $this->queryRow($sql);
-				if(!empty($priceAttrs)){
-					$course['courseAttrId'] = $priceAttrs['id'];
-					$course['attrName'] = $priceAttrs['attrName'];
-					$course['attrVal'] = $priceAttrs['attrVal'];
-					$course['shopPrice'] = $priceAttrs['attrPrice'];
-					$course['courseStock'] = $priceAttrs['attrStock'];
-				}
-			}
-			$course['courseAttrId'] = (int)$course['courseAttrId'];
-			 */
-			if($course["isBook"]==1){
-				$course["courseStock"] = $course["courseStock"]+$course["bookQuantity"];
-			}
-			$course["cnt"] = $ccourse["courseCnt"];
-			$course["ischk"] = $ccourse["isCheck"];
-			if($course["ischk"]==1){
-				$totalMoney += $course["cnt"]*$course["shopPrice"];
-				$cartcourse[$course["shopId"]]["ischk"] = 1;
-			}
-
-			$cartcourse[$course["shopId"]]["shopcourse"][] = $course;
-			$cartcourse[$course["shopId"]]["shopId"] = $course["shopId"];//店铺ID
-			$cartcourse[$course["shopId"]]["shopName"] = $course["shopName"];//店铺名
-			$cartcourse[$course["shopId"]]["qqNo"] = $course["qqNo"];//店铺名
-			$cartcourse[$course["shopId"]]["shopAtive"] = $course["shopAtive"];
-			$cartcourse[$course["shopId"]]["deliveryFreeMoney"] = $course["deliveryFreeMoney"];//店铺免运费最低金额
-			$cartcourse[$course["shopId"]]["deliveryMoney"] = $course["deliveryMoney"];//店铺配送费
-			$cartcourse[$course["shopId"]]["deliveryStartMoney"] = $course["deliveryStartMoney"];//店铺配送费
-			$cartcourse[$course["shopId"]]["totalCnt"] = $cartcourse[$course["shopId"]]["totalCnt"]+$ccourse["courseCnt"];
-			$cartcourse[$course["shopId"]]["totalMoney"] = $cartcourse[$course["shopId"]]["totalMoney"]+(($course["ischk"]==1)?$course["cnt"]*$course["shopPrice"]:0);
-		}
-
-		$cartInfo = array();
-		$cartInfo["gtotalMoney"] = $totalMoney;
 		
-		foreach($cartcourse as $key=> $cshop){
-			if($cshop["totalMoney"]<$cshop["deliveryFreeMoney"] && $cshop["ischk"]==1){
-				$totalMoney = $totalMoney + $cshop["deliveryMoney"];
-			}
-		}
 		
-		$cartInfo["totalMoney"] = $totalMoney;
-		$cartInfo["cartcourse"] = $cartcourse;
-		//print_r($cartInfo);
+		
+	  if($shopcart){
+	  	
+	  	
+	  	
+	  		foreach ($shopcart  as  $k=>$v){
+	  			
+
+	  			$courseId=$v['courseId'];
+	  			$sql = "SELECT  g.courseThums,g.courseId,g.shopPrice,g.isBook,g.courseName,g.shopId,g.courseStock,g.shopPrice,g.attrCatId,shop.shopName,shop.qqNo,shop.deliveryType,shop.shopAtive,
+	  			shop.shopTel,shop.shopAddress,shop.deliveryTime,shop.isInvoice, shop.deliveryStartMoney,
+	  			shop.deliveryFreeMoney,shop.deliveryMoney ,g.courseSn,shop.serviceStartTime,shop.serviceEndTime
+	  			FROM __PREFIX__course g   left join __PREFIX__shops shop  ON  g.shopId = shop.shopId
+	  			WHERE g.courseId = $courseId AND  g.courseFlag = 1 and g.isSale=1 and g.courseStatus=1 ";
+	  			$course = $this->queryRow($sql);
+	  			
+	  			if($course){
+	  				//总数量
+	  				$cartcourse['total']+=1;
+	  				$cartcourse['totalMoney']+=$course['shopPrice'];
+	  				
+	  			}
+	  			
+	  			
+	  			
+	  			$cartcourse['carinfo'][$k]=$course;
+	  			
+	  			
+	  		}
+	  	
+	  	  return  $cartcourse;
+	  
+	  	
+	  
+	  
+	  	
+	  }
+		
+		
+		
+		
+			
+			
+			
 		return $cartInfo;
 		
 	}
@@ -377,145 +273,33 @@ class CartModel extends BaseModel {
 		
 		$userId = (int)session('WST_USER.userId');
 		$mcourse = D('Home/course');
-		//$maddress = D('Home/UserAddress');
-		
-		$cartcourse = array();
-		
-		$shopColleges = array();
-		$distributAll = array();
-		$startTime = 0;
-		$endTime = 24;
-		
-		$totalMoney = 0;
-		$totalCnt = 0;
-		
-		$sql = "select * from __PREFIX__cart where userId = $userId and packageId>0 group by batchNo";
-		$shopcart = $this->query($sql);
-		for($i=0;$i<count($shopcart);$i++){
-			$ccourse = $shopcart[$i];
-			$package = array();
-			$batchNo = $ccourse["batchNo"];
-			$package["batchNo"] = $batchNo;
-			$pkgShopPrice = 0;
-			$pckMinStock = 0;
-			$ischk = 0;
-			$sql = "select * from __PREFIX__cart where userId = $userId and batchNo=$batchNo";
-			$pkgList = $this->query($sql);
-			for($j=0;$j<count($pkgList);$j++){
-				$pcourse = $pkgList[$j];
-				$packageId = $pcourse["packageId"];
-				$courseId = (int)$pcourse["courseId"];
-				$package["packageId"] = $packageId;
-				$package["courseCnt"] = (int)$pcourse["courseCnt"];
-		
-				$sql = "select p.shopId, p.packageName, gp.diffPrice from __PREFIX__course_packages gp, __PREFIX__packages p where p.packageId =$packageId and gp.packageId=p.packageId and gp.courseId = $courseId";
-				$pkg = $this->queryRow($sql);
-		
-				$diffPrice = (float)$pkg["diffPrice"];
-				if($pkg["shopId"]>0){
-					$package["packageName"] = $pkg["packageName"];
-					$package["shopId"] = $pkg["shopId"];
-				}
-				$courseAttrId = (int)$pcourse["courseAttrId"];
-				$obj["courseId"] = $courseId;
-				$obj["courseAttrId"] = $courseAttrId;
-				$course = $mcourse->getcourseForCheck($obj);
+			//in (".implode(",",$npIds).")
+			$sql = "select c.*,cu.* from __PREFIX__cart c Left JOIN __PREFIX__course cu  ON cu.courseId=c.courseId  where c.userId = $userId and isCheck=2";
+		$result=$mcourse->query($sql);
+		if($result){
+			  $total='';
+			  $amount='';
+			foreach ($result as $k=>$v){
+				$total+=(int)$v['shopPrice'];
+				$amount+=(int)$v['courseCnt'];
 				
-				$course['oshopPrice'] = $course['shopPrice'];
-				$course['shopPrice'] = ($course['shopPrice']>$diffPrice)?($course['shopPrice']-$diffPrice):$course['shopPrice'];
-				$pckMinStock = ($pckMinStock==0 || $course['courseStock']<$pckMinStock)?$course['courseStock']:$pckMinStock;
-				$pkgShopPrice += $course['shopPrice'];
 				
-
-				$course["cnt"] = $pcourse["courseCnt"];
-				$course["ischk"] = $pcourse["isCheck"];
-				$totalMoney += $course["cnt"]*$course["shopPrice"];
-				$cartcourse[$course["shopId"]]["ischk"] = 1;
-				$package["course"][] = $course;
-		
-				$distributAll[$package["shopId"]] = $course["isDistributAll"];
-				
-				$cartcourse[$course["shopId"]]["shopId"] = $course["shopId"];//店铺ID
-				$cartcourse[$course["shopId"]]["shopName"] = $course["shopName"];//店铺名
-				$cartcourse[$course["shopId"]]["qqNo"] = $course["qqNo"];//店铺名
-				$cartcourse[$course["shopId"]]["shopAtive"] = $course["shopAtive"];
-				
-				$cartcourse[$course["shopId"]]["deliveryFreeMoney"] = $course["deliveryFreeMoney"];//店铺免运费最低金额
-				$cartcourse[$course["shopId"]]["deliveryMoney"] = $course["deliveryMoney"];//店铺配送费
-				$cartcourse[$course["shopId"]]["deliveryStartMoney"] = $course["deliveryStartMoney"];//店铺配送费
-				$cartcourse[$course["shopId"]]["totalCnt"] = $cartcourse[$course["shopId"]]["totalCnt"]+$ccourse["courseCnt"];
-				$cartcourse[$course["shopId"]]["totalMoney"] = $cartcourse[$course["shopId"]]["totalMoney"]+($course["cnt"]*$course["shopPrice"]);
 			}
+			$cartInfo['goods']= $result;
+			$cartInfo['totalMoney']=$total;
+			$cartInfo['amount']=$amount;
+			 return $cartInfo;
 			
-			//$ommunitysId = $maddress->getShopCommunitysId($package["shopId"]);
-			//$shopColleges[$package["shopId"]] = $ommunitysId;
-					
-			$package["courseStock"] = $pckMinStock;
-			$package["shopPrice"] = $pkgShopPrice;
-			$cartcourse[$course["shopId"]]["packages"][] = $package;
-				
-		}
-		
-		$sql = "select * from __PREFIX__cart where userId = $userId and isCheck=1 and courseCnt>0 and packageId=0";
-		$shopcart = $this->query($sql);
-		
-		for($i=0;$i<count($shopcart);$i++){
-			$ccourse = $shopcart[$i];
-			$obj["courseId"] = (int)$ccourse["courseId"];
-			$obj["courseAttrId"] = (int)$ccourse["courseAttrId"];
 			
-			$course = $mcourse->getcourseForCheck($obj);
-			if($course["isBook"]==1){
-				$course["courseStock"] = $course["courseStock"]+$course["bookQuantity"];
-			}
-			$course["ischk"] = $ccourse["isCheck"];
-			$course["cnt"] = $ccourse["courseCnt"];
-			$totalCnt += $ccourse["courseCnt"];
-			$totalMoney += $course["cnt"]*$course["shopPrice"];
-			//$communitysId = $maddress->getShopCommunitysId($course["shopId"]);
-		     //	$shopColleges[$course["shopId"]] = $ommunitysId;
-			$distributAll[$course["shopId"]] = $course["isDistributAll"];
-			if($startTime<$course["startTime"]){
-				$startTime = $course["startTime"];
-			}
-			if($endTime>$course["endTime"]){
-				$endTime = $course["endTime"];
-			}
-		
-			$cartcourse[$course["shopId"]]["shopcourse"][] = $course;
+		}else{
 			
-			$cartcourse[$course["shopId"]]["shopId"] = $course["shopId"];//店铺ID
-			$cartcourse[$course["shopId"]]["shopName"] = $course["shopName"];//店铺名
-			$cartcourse[$course["shopId"]]["qqNo"] = $course["qqNo"];//店铺名
-			$cartcourse[$course["shopId"]]["shopAtive"] = $course["shopAtive"];
-			
-			$cartcourse[$course["shopId"]]["deliveryFreeMoney"] = $course["deliveryFreeMoney"];//店铺免运费最低金额
-			$cartcourse[$course["shopId"]]["deliveryMoney"] = $course["deliveryMoney"];//店铺配送费
-			$cartcourse[$course["shopId"]]["deliveryStartMoney"] = $course["deliveryStartMoney"];//店铺配送费
-			$cartcourse[$course["shopId"]]["totalCnt"] = $cartcourse[$course["shopId"]]["totalCnt"]+$ccourse["courseCnt"];
-			$cartcourse[$course["shopId"]]["totalMoney"] = $cartcourse[$course["shopId"]]["totalMoney"]+($course["cnt"]*$course["shopPrice"]);
+			return false;
 			
 		}
-		$rdata["gtotalMoney"] = $totalMoney;//课程总价（去除配送费）
-		foreach($cartcourse as $key=> $cshop){
-			if($cshop["totalMoney"]<$cshop["deliveryFreeMoney"]){
-				$totalMoney = $totalMoney + $cshop["deliveryMoney"];
-			}
-		}
+	
 		
-		if(empty($cartcourse)){
-			$rdata["cartnull"] = 1;
-			return $rdata;
-		}
-		$rdata["totalMoney"] = $totalMoney;//课程总价（含配送费）
-		$rdata["totalCnt"] = $totalCnt;
+	
 		
-		$rdata["cartcourse"] = $cartcourse;
-		$rdata["distributAll"] = $distributAll;
-		$rdata["shopColleges"] = $shopColleges;
-		$rdata["startTime"] = $startTime;
-		$rdata["endTime"] = $endTime;
-		return $rdata;
 	}
 	/**
 	 * 检测购物车中课程库存
@@ -531,16 +315,16 @@ class CartModel extends BaseModel {
 		for($i=0;$i<count($shopcart);$i++){
 			$ccourse = $shopcart[$i];
 			$courseId = (int)$ccourse["courseId"];
-			$courseAttrId = (int)$ccourse["courseAttrId"];
+			//$courseAttrId = (int)$ccourse["courseAttrId"];
 			
 			$obj = array();
 			$obj["courseId"] = $courseId;
-			$obj["courseAttrId"] = $courseAttrId;
+			//$obj["courseAttrId"] = $courseAttrId;
 			$course = $mcourse->getcourseStock($obj);
 			if($course["isBook"]==1){
 				$course["courseStock"] = $course["courseStock"]+$course["bookQuantity"];
 			}
-			$course['courseAttrId'] = $courseAttrId;
+			//$course['courseAttrId'] = $courseAttrId;
 			$course["cnt"] = $ccourse["courseCnt"];
 			$course["stockStatus"] = ($course["courseStock"]>=$course["cnt"])?1:0;		
 			$cartcourse[] = $course;
@@ -590,7 +374,7 @@ class CartModel extends BaseModel {
 		$rd = array('status'=>-1);
 		$userId = (int)session('WST_USER.userId');
 		$courseId = (int)I("courseId");
-		$courseAttrId = (int)I("courseAttrId");
+		//$courseAttrId = (int)I("courseAttrId");
 		$sql = "delete from __PREFIX__cart where userId=$userId and courseId=$courseId and courseAttrId=$courseAttrId and packageId=0";
 		$rs = $this->execute($sql);
 		if(false !== $rs){
