@@ -303,8 +303,8 @@ class CartAction extends BaseAction {
 			}
 			   $result=$m->query($sql);
 			   
-			  var_dump($m->getLastSql());
-			  exit;
+			//  var_dump($m->getLastSql());
+			//  exit;
 			
 				$this->ajaxReturn(array('status'=>1));
 			
