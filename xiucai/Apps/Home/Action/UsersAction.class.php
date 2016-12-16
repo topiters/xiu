@@ -139,14 +139,15 @@ class UsersAction extends BaseAction {
 	public function index(){
 		$this->isUserLogin();
 		$USER = session('WST_USER');
-		session('WST_USER.loginTarget','User');
+        $USER = D('users')->where("userId = {$USER['userId']}")->find();
 		//判断会员等级
 		$rm = D('Home/UserRanks');
 		$USER["userRank"] = $rm->getUserRank();
         $USER["userFollow"] = D('follow')->where("userId = {$USER['userId']}")->count();
+        $USER['industry'] = D('shop_industry')->where("id = {$USER['industry']}")->find();
+        $USER['industry'] = $USER['industry']['name'];
 		$this->assign('WST_USER',$USER);
 //        dump($USER);exit;
-		//var_dump($USER["userRank"]);
 		
 		//获取订单列表
 		$morders = D('Home/Orders');
@@ -251,21 +252,50 @@ class UsersAction extends BaseAction {
 	 */
 	public function toEdit(){
 		$this->isLogin();
-		$m = D('Home/Users');
-		$obj["userId"] = session('WST_USER.userId');
-		$user = $m->getUserById($obj);
-	
-		//判断会员等级
-		$USER = session('WST_USER');
-		$rm = D('Home/UserRanks');
-		$USER["userRank"] = $rm->getUserRank();
-		session('WST_USER',$USER);
-		
-		$this->assign("user",$user);
-		$this->assign("umark","toEditUser");
-		$this->display("default/users/edit_user");
+		$oldPhoto = $_POST['userPhoto'];
+//		echo __ROOT__ . "/" . $oldPhoto;die;
+        $_POST['userPhoto'] = $this->uploadUserPic();
+		$re = D('users')->where("userId = {$_POST['userId']}")->save($_POST);
+		if ($re) {
+		    unlink(__ROOT__ . "/" . $oldPhoto);
+		    successS('保存成功' , U('Home/Users/index'));
+        } else {
+		    alert('保存失败');
+        }
 	}
-	
+
+    /**
+     * @return bool
+     * 头像上传
+     */
+    public function uploadUserPic() {
+        $config = array(
+            'maxSize'  => 0 , //上传的文件大小限制 (0-不做限制)
+            'exts'     => array('jpg' , 'png' , 'gif' , 'jpeg') , //允许上传的文件后缀
+            'rootPath' => './Upload/' , //保存根路径
+            'driver'   => 'LOCAL' , // 文件上传驱动
+            'subName'  => array('date' , 'Y-m') ,
+            'savePath' => I('dir' , 'uploads') . "/"
+        );
+        $dirs = explode("," , C("WST_UPLOAD_DIR"));
+        if (!in_array(I('dir' , 'uploads') , $dirs)) {
+            echo '非法文件目录！';
+            return false;
+        }
+
+        $upload = new \Think\Upload($config);
+        $rs = $upload->upload($_FILES);
+        //dump($rs);
+        //exit;
+        $Filedata = key($_FILES);
+        if (!$rs) {
+            $this->error($upload->getError());
+        } else {
+            $rs[$Filedata]['savepath'] = "Upload/" . $rs[$Filedata]['savepath'] . $rs[$Filedata]['savename'];
+            return $rs[$Filedata]['savepath'];
+        }
+    }
+
 	/**
 	 * 跳去修改买家资料
 	 */

@@ -485,18 +485,19 @@
                         <div class="about_feedback" id="ulli-item1">
                             <form action="{:U('Home/Users/toEdit')}" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="userId" value="{$WST_USER.userId}">
+                                <input type="hidden" name="userPhoto" value="{$WST_USER.userPhoto}">
                                 <table class="laoshiinfotable">
                                     <tr>
                                         <td>姓名：</td>
                                         <td>
-                                            <input type="text" class="" name="shopName" placeholder="请输入姓名" value="{$WST_USER.loginName}"/>
+                                            <input type="text" class="" name="loginName" placeholder="请输入姓名" value="{$WST_USER.loginName}"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>性别：</td>
                                         <td>
-                                            <input type="radio" value="1" name="sex" <eq name="WST_USER['userSex']" value="1"> checked</eq> />男
-                                            <input type="radio" value="0" name="sex" <eq name="WST_USER['userSex']" value="0"> checked</eq> />女
+                                            <input type="radio" value="1" name="userSex" <eq name="WST_USER['userSex']" value="1"> checked</eq> />男
+                                            <input type="radio" value="0" name="userSex" <eq name="WST_USER['userSex']" value="0"> checked</eq> />女
                                         </td>
                                     </tr>
 
@@ -509,7 +510,7 @@
                                     <tr>
                                         <td>行业：</td>
                                         <td>
-                                            <select name="shopIndustry">
+                                            <select name="industry">
                                                 <option value="1"
                                                 <eq name="WST_USER['industry']" value="1"> selected</eq>
                                                 >制药/医疗</option>
@@ -560,7 +561,7 @@
                                         <td class="shanchang">
 
                                             <div class="shuru-left" style="width:500px;">
-                                                <input type="text" name="shopGoodat" id="gongsitext" value="{$WST_USER['company']}" placeholder="公司"/>
+                                                <input type="text" name="company" id="gongsitext" value="{$WST_USER['company']}" placeholder="公司"/>
                                             </div>
                                         </td>
                                     </tr>
@@ -569,7 +570,7 @@
                                         <td class="shanchang">
 
                                             <div class="shuru-left" style="width:500px;">
-                                                <input type="text" name="shopGoodat" id="zhiwutext" value="{$WST_USER['job']}" placeholder="职务"/>
+                                                <input type="text" name="job" id="zhiwutext" value="{$WST_USER['job']}" placeholder="职务"/>
 
                                             </div>
                                         </td>
@@ -577,7 +578,7 @@
                                     <tr>
                                         <td>简介：</td>
                                         <td class="jianjie">
-                                            <textarea name="shopDetails" class="jianjietext" rows="10" cols="94">   {$WST_USER['info']}</textarea>
+                                            <textarea name="info" class="jianjietext" rows="10" cols="94">{$WST_USER['info']}</textarea>
                                         </td>
                                     </tr>
                                     <tr>
@@ -597,15 +598,14 @@
         <!--账号设置-->
 <div class="hp-side-bar">
     <div class="quan-block quan-hp-block">
-        <div class="edit-info"><a href="" class="globe-btn50">账号设置</a></div>
         <form id="member_editor_form" name="member_editor" action="" enctype="multipart/form-data" method="post" onsubmit="return true;">
         <a href="javascript:;" class="user-head">
-            <span class="head90-mask"></span>
+            <!--<span class="head90-mask"></span>-->
             <img id="avatar" src="{$WST_USER.userPhoto|default='/Apps/Home/View/default/img/caiduoduo.png-v=1.10.1.png'}" height="90" width="90"  alt="{$WST_USER.loginName}">
             <div class="head-mask head-mask90"></div>
                         <div id="avatarProfileUpload"></div>
-            <input type="hidden" name="avatar" id="head_pic" value="/assets/__ROOT__/Apps/Home/View/default/img/caiduoduo.png"/>
-            <input type="hidden" name="avatar_large" id="head_pic_large" value="/assets/__ROOT__/Apps/Home/View/default/img/caiduoduo.png"/>
+            <input type="hidden" name="avatar" id="head_pic" value="__ROOT__/Apps/Home/View/default/img/caiduoduo.png"/>
+            <input type="hidden" name="avatar_large" id="head_pic_large" value="__ROOT__/Apps/Home/View/default/img/caiduoduo.png"/>
             <input type="hidden" id="img" name="img" />
             <input type="hidden" id="x" name="x" value="0" />
             <input type="hidden" id="y" name="y" value="0" />
@@ -616,7 +616,7 @@
         </form>
         <div class="hp-user-zone" id="personal-info-div">
             <p class="user-name">
-                <a href="/vip/" target="_blank" class="vip" title="了解秀财会员"><img src="__ROOT__/{$WST_USER.userPhoto|default='Apps/Home/View/default/img/vip.png'}" width="16" height="12" alt="会员特权" border="0"></a>
+                <a href="#" class="vip" title="了解秀财会员"><img src="__ROOT__/Apps/Home/View/default/img/vip.png" width="16" height="12" alt="会员特权" border="0"></a>
                 <strong id="nickname-span">{$WST_USER.loginName}</strong>
             </p>
             <!-- 用户等级展示 -->
@@ -637,13 +637,13 @@
                 <div class="info-item">
                     <!-- 显示15个字 -->
                     <i class="company"></i>
-                    <span id="company-span">{$WST_USER.loginName}</span>
+                    <span id="company-span">{$WST_USER.company}</span>
                 </div>
                 <div class="info-item">
-                    <i class="industry"></i><span id="bussiness_name-span">制药/医疗</span>
+                    <i class="industry"></i><span id="bussiness_name-span">{$WST_USER.industry}</span>
                 </div>
                 <div class="info-item">
-                    <i class="position"></i><span id="position-span">税务专员</span>
+                    <i class="position"></i><span id="position-span">{$WST_USER.job}</span>
                 </div>
             </div>
         </div>
