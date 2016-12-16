@@ -197,24 +197,29 @@ class OrdersAction extends BaseAction {
 		$rdata = $mcart->getPayCart();
 		dump($rdata);die;
 
+		
+	//var_dump($rdata);
+	//exit;
 	    if($rdata["cartnull"]==1){
 			$this->assign("fail_msg",'不能提交空课程的订单!');
 			$this->display('default/order_fail');
 			exit();
 		}
 		
+
 		//dump($rdata );
 		$catcourse = $rdata["cartcourse"];
 		//dump($catcourse);
 		//exit;
 		$shopColleges = $rdata["shopColleges"];
 		$distributAll = $rdata["distributAll"]; 
-		//$startTime = $rdata["startTime"];
-		//$endTime = $rdata["endTime"];
+		$startTime = $rdata["startTime"];
+		$endTime = $rdata["endTime"];
 		$gtotalMoney = $rdata["gtotalMoney"];//课程总价（去除配送费）
 		$totalMoney = $rdata["totalMoney"];//课程总价（含配送费）
 		$totalCnt = $rdata["totalCnt"];
    
+
 		$userId = session('WST_USER.userId');
 		//获取地址列表
        // $areaId2 = $this->getDefaultCity();
@@ -230,7 +235,7 @@ class OrdersAction extends BaseAction {
 		//$m = D('Home/Areas');
 		///$provinces = $m->getProvinceList();
 		//->assign("provinces",$provinces);
-		
+		/* 
 		if($endTime==0){
 			$endTime = 24;
 			$cstartTime = (floor($startTime))*4;
@@ -251,11 +256,9 @@ class OrdersAction extends BaseAction {
 		$this->assign("endTime",$cendTime);
 		$this->assign("shopColleges",$shopColleges);
 		$this->assign("distributAll",$distributAll);
-		$this->assign("catcourse",$catcourse);
-		$this->assign("gtotalMoney",$gtotalMoney);
-		$this->assign("totalMoney",$totalMoney);
-		$this->assign("totalCnt",$totalCnt);
-		$um = D('Home/Users');
+		$this->assign("catcourse",$catcourse); */
+	
+	/* 	$um = D('Home/Users');
 		$user = $um->getUserById(array("userId"=>session('WST_USER.userId')));
 		$this->assign("userScore",$user['userScore']);
 		$useScore = $baseScore*floor($user["userScore"]/$baseScore);
@@ -263,9 +266,10 @@ class OrdersAction extends BaseAction {
 		if($totalMoney<$scoreMoney){//订单金额小于积分金额
 			$useScore = $baseScore*floor($totalMoney/$baseMoney);
 			$scoreMoney = $baseMoney*floor($totalMoney/$baseMoney);
-		}
+		} */
 		$this->assign("canUserScore",$useScore);
 		$this->assign("scoreMoney",$scoreMoney);
+		$this->assign("cartInfo",$rdata);
 		$this->display('default/check_order');
 	}
 	
@@ -486,5 +490,29 @@ class OrdersAction extends BaseAction {
 		$statusList = $morders->getShopOrderStatusCount($obj);
 		$this->ajaxReturn($statusList);
 	}
+	
+	public function getCourseStock(){
+		$this->isUserLogin();
+		  $id=I('id');
+		  $USER = session('WST_USER');
+		  sleep(1);
+		 $result= D('cart')->where(array('userId'=> $USER['userId'],'isCheck'=>2))->delete();
+		  if($result){
+		  	
+		  	
+		  	$this->ajaxReturn($result);
+		  	
+		  }
+		  
+		  
+		  
+		
+		
+	}
+	
+	
+	
+	
+	
 	
 }
