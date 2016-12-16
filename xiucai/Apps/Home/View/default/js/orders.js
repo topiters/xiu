@@ -242,14 +242,23 @@ function delAddress(addressId){
 }
 function submitOrder(){
 	var flag = true;
-
-	
+    var totalMoney=$('#submit-order').attr("data-total");
+	    totalMoney=parseInt(totalMoney);
+	 if(!totalMoney){ 
+      layer.msg('没有订单可提交', {icon: 16,shade: [0.5, '#B3B3B3']});
+	  layer.close(ll);
+	 return  false;
+	 }
 	var ll = layer.msg('正在处理，请稍候...', {icon: 16,shade: [0.5, '#B3B3B3']});
-	jQuery.post(Think.U('Home/Course/checkCourseStock') ,{},function(data) {
-		var courseInfo = WST.toJson(data);	
+	jQuery.post(Think.U('Home/Orders/getCourseStock') ,{id:1},function(data) {
+		//var courseInfo = WST.toJson(data);	
 		layer.close(ll);
 		
-		for(var i=0;i<courseInfo.length;i++){
+		location.href=Think.U('Home/Payments/toPay');
+		
+		
+		
+	/* 	for(var i=0;i<courseInfo.length;i++){
 			var course = courseInfo[i];
 			
 			if(course.isSale<1){
@@ -266,7 +275,7 @@ function submitOrder(){
 		}
 		
 		var params = {};
-		params.payway=1;
+		params.payway=1; */
 		/* params.consigneeId = $("#consigneeId").val();	
 		if(!$("#consignee2").is(":hidden")){
 			WST.msg("请先保存收货人信息",{icon: 5});
@@ -309,19 +318,21 @@ function submitOrder(){
 			return ;
 		}
        */
-		var ll = layer.msg('正在提交订单，请稍候...', {icon: 16,shade: [0.5, '#B3B3B3']});
+
+		/* var ll = layer.msg('提交订单，请稍候...', {icon: 16,shade: [0.5, '#B3B3B3']});
+
 		jQuery.post(Think.U('Home/Orders/submitOrder') ,params,function(data) {
 			 var json = WST.toJson(data);	
 			 if(json.status==1){
 				 if(params.payway==1){
-					 location.href=Think.U('Home/Payments/toPay');
+					 
 				 }else{
 					 location.href=Think.U('Home/Orders/orderSuccess');
 				 }
 			 }else{
 				 WST.msg(json.msg, {icon: 5});
 			 }  
-		});
+		}); */
 	});
 }
 
