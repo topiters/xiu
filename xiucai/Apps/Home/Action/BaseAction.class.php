@@ -24,8 +24,10 @@ class BaseAction extends Controller {
 		//dump($v);
 		//dump($GLOBALS['CONFIG']);
 		WSTAutoByCookie();
-		$this->assign("WST_USER",session('WST_USER'));
-		//dump(session('WST_USER'));
+        $USER = session('WST_USER');
+        $WST_USER = D('users')->where("userId = {$USER['userId']}")->find();
+		$this->assign("WST_USER", $WST_USER);
+//		dump(session('WST_USER'));die;
 		$this->assign("WST_IS_LOGIN",(session('WST_USER.userId')>0)?1:0);
 		$areas= D('Home/Areas');
 		$areaId2 = $this->getDefaultCity();
@@ -55,7 +57,7 @@ class BaseAction extends Controller {
 			if(IS_AJAX){
 				$this->ajaxReturn(array('status'=>-999,'url'=>'Users/login'));
 			}else{
-				$this->redirect("Users/login");
+				$this->redirect("Index/index");
 			}
 		}
 	}
@@ -68,7 +70,7 @@ class BaseAction extends Controller {
 			if(IS_AJAX){
 				$this->ajaxReturn(array('status'=>-999,'url'=>'Shops/login'));
 			}else{
-				$this->redirect("Shops/login");
+				$this->redirect("Index/index");
 			}
 		}
 	}

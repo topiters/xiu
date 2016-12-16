@@ -139,12 +139,13 @@ class UsersAction extends BaseAction {
 	public function index(){
 		$this->isUserLogin();
 		$USER = session('WST_USER');
-        $USER = D('users')->where("userId = {$USER['userId']}")->find();
+		$id = $USER['userId'];
+        $USER = D('users')->where("userId = $id")->find();
 		//判断会员等级
 		$rm = D('Home/UserRanks');
 		$USER["userRank"] = $rm->getUserRank();
-        $USER["userFollow"] = D('follow')->where("userId = {$USER['userId']}")->count();
-        $USER['industry'] = D('shop_industry')->where("id = {$USER['industry']}")->find();
+        $USER["userFollow"] = D('follow')->where("userId = $id")->count();
+        $USER['industry'] = D('shop_industry')->where("id = $id")->find();
         $USER['industry'] = $USER['industry']['name'];
 		$this->assign('WST_USER',$USER);
 //        dump($USER);exit;
@@ -207,7 +208,7 @@ class UsersAction extends BaseAction {
 		//我的课程
 	
 		$userId=$obj["userId"];
-		//SELECT o.orderId,o.orderNo ,c.courseId ,oc.courseId FROM  wst_orders o LEFT JOIN   wst_order_course  oc  ON  o.orderId=oc.orderId  left join   wst_course c   ON  c.courseId=oc.courseId   where o.orderStatus=2 AND o.userId=42; 
+		//SELECT o.orderId,o.orderNo ,c.courseId ,oc.courseId FROM  wst_orders o LEFT JOIN   wst_order_course  oc  ON  o.orderId=oc.orderId  left join   wst_course c   ON  c.courseId=oc.courseId   where o.orderStatus=2 AND o.userId=42;
 		$sql=" SELECT o.orderId,o.orderNo,c.courseId ,c.videoPath,c.courseName,c.courseTime,c.courseDifficulty,c.is_free,c.saleCount,c.courseThums FROM  wst_orders o LEFT JOIN   wst_order_course  oc  ON  o.orderId=oc.orderId  left join   wst_course c   ON  c.courseId=oc.courseId   where o.orderStatus=2 AND o.userId=$userId";
 
 		$result=D('Orders')->query($sql);
