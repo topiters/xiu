@@ -145,7 +145,7 @@ class UsersAction extends BaseAction {
 		$rm = D('Home/UserRanks');
 		$USER["userRank"] = $rm->getUserRank();
         $USER["userFollow"] = D('follow')->where("userId = $id")->count();
-        $USER['industry'] = D('shop_industry')->where("id = $id")->find();
+        $USER['industry'] = D('shop_industry')->where("id = {$USER['industry']}")->find();
         $USER['industry'] = $USER['industry']['name'];
 		$this->assign('WST_USER',$USER);
 //        dump($USER);exit;
