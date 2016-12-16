@@ -71,7 +71,7 @@ $(function() {
 		$(".wst-nvg-cat-dw").show();
 	});
     
-    checkCart();
+    //checkCart();
     
 	$("#wst-nvg-cart").click(function(){
 		if($(".wst-cart-box").is(':hidden')){
