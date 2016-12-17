@@ -19,7 +19,10 @@ class CartAction extends BaseAction {
     public function toCart(){
    		$m = D('Home/Cart');
 		$cartInfo = $m->getCartInfo();
-//		dump($cartInfo);die;
+
+		//dump($cartInfo);die;
+		//exit;
+
    		$pnow = (int)I("pnow",0);
    		$this->assign('cartInfo',$cartInfo);
   // 	dump($v);
