@@ -217,7 +217,7 @@ class CartModel extends BaseModel {
 		$totalMoney = 0;
 		$cartcourse = array();
 		
-		$sql = "select * from __PREFIX__cart where userId = $userId  ";
+		$sql = "select * from __PREFIX__cart where userId = $userId AND  isCheck=1 ";
 		$shopcart = $this->query($sql);
 		
 		

@@ -69,8 +69,9 @@
 	                                </a>
 	                            </div>                                                                                                          
 	                        </div>
+							
 	                        <div class="right">
-	                            <a href="javascript:;" class="btn-default" id="submit-order"     onClick="javascript:submitOrder();"   >提交订单</a>
+	                            <a href="javascript:;" class="btn-default" id="submit-order"   data-total="{$cartInfo['totalMoney']}"  onClick="javascript:submitOrder();"   >提交订单</a>
 	                            <span class="count">已选<em>{$cartInfo['amount']}</em>门课程  订单总额：<b>￥{$cartInfo['totalMoney']}</span>
 	                        </div>
 	                    </div>
