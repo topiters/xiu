@@ -623,12 +623,12 @@
             <div class="user-level-display border-b-e6 clearfix">
                 <p class="clearfix">
                     <a href="#" title="圈币" class="fl">
-                        <span class="tag-qb"><img src="__ROOT__/Apps/Home/View/default/images/qb.png" alt="圈币" height="14" width="19">{$WST_USER.quanBi}</span>
+                        <span class="tag-qb"><img src="__ROOT__/Apps/Home/View/default/images/qb.png" alt="圈币" height="14" width="19">{$WST_USER.quanBi|default=0}</span>
                     </a>
                     <span class="fr r-wrap">
 					<a href="#"  class="" title="经验值等级">
-                    <span class="tag-level tag-level-LV{$WST_USER.userRank.rankId}">
-                    <i>LV{$WST_USER.userRank.rankId}</i></span>
+                    <span class="tag-level tag-level-LV{$WST_USER.userRank.rankId|default=1}">
+                    <i>LV{$WST_USER.userRank.rankId|default=1}</i></span>
 					</a>
 					</span>
                 </p>
@@ -636,14 +636,13 @@
             <div class="hp-user-info">
                 <div class="info-item">
                     <!-- 显示15个字 -->
-                    <i class="company"></i>
-                    <span id="company-span">{$WST_USER.company}</span>
+                    <i class="company"></i><span id="company-span">{$WST_USER.company|default='未知'}</span>
                 </div>
                 <div class="info-item">
-                    <i class="industry"></i><span id="bussiness_name-span">{$WST_USER.industry}</span>
+                    <i class="industry"></i><span id="bussiness_name-span">{$WST_USER.industry|default='未知'}</span>
                 </div>
                 <div class="info-item">
-                    <i class="position"></i><span id="position-span">{$WST_USER.job}</span>
+                    <i class="position"></i><span id="position-span">{$WST_USER.job|default='未知'}</span>
                 </div>
             </div>
         </div>
@@ -661,16 +660,16 @@
             <li>关注：{$WST_USER.userFollow}</li>
         </ul>
     </div>
-            <div class="quan-block quan-title-block">
-                <h2 class="relative"><em></em>获取圈币<a href="" target="_blank" class="link-more">查看更多 &raquo;</a></h2>
-                <div class="hp-task-show">
-                    <p class="task-undo clearfix">
-                        <span class="fl"><strong>绑定邮箱</strong></span>
-                        <span class="fr">奖：<span class="dark-red">1圈币</span></span>
-                    </p>
-                    <p class="task-describe">任务描述：进入安全中心绑定邮箱账号，并且登录邮箱激活<a href="" target="_blank" class="link-text">去做任务 &raquo;</a></p>
-                </div>
-            </div>
+            <!--<div class="quan-block quan-title-block">-->
+                <!--<h2 class="relative"><em></em>获取圈币<a href="" target="_blank" class="link-more">查看更多 &raquo;</a></h2>-->
+                <!--<div class="hp-task-show">-->
+                    <!--<p class="task-undo clearfix">-->
+                        <!--<span class="fl"><strong>绑定邮箱</strong></span>-->
+                        <!--<span class="fr">奖：<span class="dark-red">1圈币</span></span>-->
+                    <!--</p>-->
+                    <!--<p class="task-describe">任务描述：进入安全中心绑定邮箱账号，并且登录邮箱激活<a href="" target="_blank" class="link-text">去做任务 &raquo;</a></p>-->
+                <!--</div>-->
+            <!--</div>-->
             <div class="quan-block quan-title-block">
 				<h2 class="relative">
 					<em></em>近期直播<a href="{:U('Home/Livecast/index')}" target="_blank" class="link-more">更多 &raquo;</a>
@@ -701,16 +700,16 @@
 					</div>
 				</div>
     		</div>
-    		<div class="quan-block quan-title-block">
-                <h2 class="relative">
-                	<em></em>最近访客
-                </h2>
-                <div class="hp-task-show">
-                	<div class="self_fangke">
-                		<img src="__ROOT__/Apps/Home/View/default/img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" />
-                	</div>
-                </div>
-            </div>
+    		<!--<div class="quan-block quan-title-block">-->
+                <!--<h2 class="relative">-->
+                	<!--<em></em>最近访客-->
+                <!--</h2>-->
+                <!--<div class="hp-task-show">-->
+                	<!--<div class="self_fangke">-->
+                		<!--<img src="__ROOT__/Apps/Home/View/default/img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" />-->
+                	<!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
         </div>
 <!--头像弹层-->
 <div class="pop_bg hide" id="pop_bg">

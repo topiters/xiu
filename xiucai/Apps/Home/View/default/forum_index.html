@@ -269,14 +269,14 @@
                     <ul class="circle-list">
                         <volist name="tuijian" id="v" offset="0" length="3">
                         <li class="rank-top">
-                            <a data-id="{$v.articleId}" href="{:U('Home/forum/article',array('id'=>$v['articleId']))}" target="_blank" class="clearfix hit_count" title="{$v.articleTitle}">
+                            <a data-id="{$v.articleId}" href="{:U('Home/forum/article',array('cid'=>$v['catId'],'pid'=>$v['parentCatId'],'id'=>$v['articleId']))}" target="_blank" class="clearfix hit_count" title="{$v.articleTitle}">
                                 <span class="rank-num">{$i}</span><span class="rank-discuss">{$v.articleTitle}</span>
                             </a>
                         </li>
                         </volist>
                         <volist name="tuijian" id="v" offset="3" length="7">
                         <li>
-                            <a data-id="{$v.articleId}" href="{:U('Home/forum/article',array('id'=>$v['articleId']))}" target="_blank" class="clearfix hit_count" title="{$v.articleTitle}">
+                            <a data-id="{$v.articleId}" href="{:U('Home/forum/article',array('cid'=>$v['catId'],'pid'=>$v['parentCatId'],'id'=>$v['articleId']))}" target="_blank" class="clearfix hit_count" title="{$v.articleTitle}">
                                 <span class="rank-num">{$i+3}</span><span class="rank-discuss">{$v.articleTitle}</span>
                             </a>
                         </li>
