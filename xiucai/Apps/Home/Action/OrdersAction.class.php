@@ -195,7 +195,7 @@ class OrdersAction extends BaseAction {
 		//$maddress = D('Home/UserAddress');
 		$mcart = D('Home/Cart');
 		$rdata = $mcart->getPayCart();
-		dump($rdata);die;
+		//dump($rdata);die;
 
 		
 	//var_dump($rdata);

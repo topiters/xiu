@@ -20,11 +20,11 @@ class IndexAction extends BaseAction {
    	
    		//首页推荐课程
    		$course=D('Home/Course');
-   		$cArr=array('courseFlag'=>1,'isRecomm'=>1,'isSale'=>1);
+   		$cArr=array('courseFlag'=>1,'isAdminRecom'=>1,'isSale'=>1);
    		$courseIndex=$course->where($cArr)->limit(4)->select();
    		$this->assign('courseIndex',$courseIndex);
    		//首页精品课程
-   		$jArr=array('isBest'=>1,'courseFlag'=>1,'isSale'=>1,'courseStatus'=>1);
+   		$jArr=array('isAdminBest'=>1,'courseFlag'=>1,'isSale'=>1,'courseStatus'=>1);
    		$courseIsBest=$course->where($jArr)->limit(18)->select();
    		$this->assign('courseIsBest',$courseIsBest);
    		
