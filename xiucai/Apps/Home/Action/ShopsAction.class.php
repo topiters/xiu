@@ -330,11 +330,15 @@ class ShopsAction extends BaseAction {
 			$data['is_live']=(int)$_POST['is_live'];
 			$data['is_free']=(int)$_POST['is_free'];
 			
-			if($data['is_live']==1){
+			
+			
+			if($data['is_live']==2){
 			$data['liveStartTime']=$_POST['liveStartTime'];
 			$data['liveEndTime']=$_POST['liveEndTime'];
 			
 			}
+			//var_dump($data);
+			//exit;
 				$data['shopPrice']=$_POST['shopPrice'];
 				$data['marketPrice']=$_POST['marketPrice'];
 			
