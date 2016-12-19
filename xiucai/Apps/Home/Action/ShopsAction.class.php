@@ -278,6 +278,7 @@ class ShopsAction extends BaseAction {
 	}
 	//添加课程
 	public function addcourse(){
+//	    dump($_POST);die;
 		$USER = session('WST_USER');
 		//查询教师状态
 		$shopId = (int)session('WST_USER.shopId');
@@ -329,13 +330,10 @@ class ShopsAction extends BaseAction {
 			$data['courseTime']=$_POST['courseTime'];
 			$data['is_live']=(int)$_POST['is_live'];
 			$data['is_free']=(int)$_POST['is_free'];
-			
-			
-			
 			if($data['is_live']==2){
 			$data['liveStartTime']=$_POST['liveStartTime'];
 			$data['liveEndTime']=$_POST['liveEndTime'];
-			
+
 			}
 			//var_dump($data);
 			//exit;
@@ -375,21 +373,10 @@ class ShopsAction extends BaseAction {
 				
 				$this->error('课程添加失败');
 			}
-			
-			
-			
-			
-	
-			
 		}else{
 			//$courseCats=WSTGoodsCats();
 		//	var_dump($courseCats);
 			//exit;
-			
-			
-			
-			
-			
 			$this->assign('nowtime',time());
 			$this->display("default/shops/addcourse");
 		}
