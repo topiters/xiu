@@ -391,15 +391,16 @@
                                 <table class="order-tablet operate-tablet">
                                     <colgroup>
                                         <col width="15%">
-                                        <col width="44%">
+                                        <col width="54%">
+                                        <col width="0%">
                                         <col width="13%">
-                                        <col width="13%">
-                                        <col width="15%">
+                                        <col width="18%">
                                     </colgroup>
                                     <tbody>
                                     <tr>
                                         <td class="align-l">订单信息</td>
                                         <td class="col-l-p">&nbsp;</td>
+                                        <td></td>
                                         <td>订单金额（元）</td>
                                         <td>操作</td>
                                     </tr>
@@ -407,13 +408,13 @@
                                 </table>
                             </form>
 							<volist    name="orderList['root']"    id="order"    key='key1'>
-                            <table class="order-tablet tablet-b order-pr0">
+                            <table class="order-tablet tablet-b order-pr0" id="order{$order['orderId']}">
                                 <colgroup>
                                     <col width="15%">
-                                    <col width="44%">
+                                    <col width="54%">
+                                    <col width="0%">
                                     <col width="13%">
-                                    <col width="13%">
-                                    <col width="15%">
+                                    <col width="18%">
                                 </colgroup>
                                 <tbody>
 								
@@ -424,7 +425,7 @@
                                             	下单时间：<em>{$order['createTime']}</em>
                                             </span>
                                             <span>
-                                            	订单编号：<em>{$order['orderunique']}</em>
+                                            	订单编号：<em>{$order['orderNo']}</em>
                                             </span>
                                             <span>
                                             	课程数：<em><?php echo count($order['courselist']) ;?> 门</em>                                                                                                       
@@ -441,37 +442,24 @@
 											
                                         </td>
                                         <td class="align-l valign-t col-l-p pl-20">
-										
                                             <a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$goods['courseId']))}" class="c-title" target="_blank">
                                             	{$goods['courseName']}
                                             </a>
 									
                                         </td>
+                                        <td rowspan="1"></td>
                                         <td rowspan="1" class="col-font"><b>￥{$goods['coursePrice']}</b></td>
-                                        <td rowspan="1" id="order-status-1476078729">
-                                            <p class="a-gap">
-                                                <if condition='$order["payType"] eq 1'>
-                                                    <if condition='$order["orderStatus"] eq -2'>
-                                                        <span class="pay-txt">等待付款</span>
-                                                    </if>
+                                        <td rowspan="1" class="l-td-p" data-order-id="{$order['orderId']}" id="order-option-{$order['orderId']}">
+                                                <if condition='$order["orderStatus"] eq -2'>
+                                                    <a href="javascript:;" onclick="toPay({$order['orderId']})" class="globe-btn50 globe-btn50-ss">立即支付</a>
+                                                    <p class="cancel-order course-order">
+                                                        <a href="javascript:;" class="order-status" onclick="delOrder({$order['orderId']})">取消订单</a>
+                                                    </p>
+                                                    <elseif condition='$order["orderStatus"] eq 2'/>
+                                                    <p class="cancel-order course-order">
+                                                        <a href="javascript:;" class="order-status">已完成</a>
+                                                    </p>
                                                 </if>
-                                            </p>
-                                            <p class="a-gap">
-                                            	<a href="#e" class="order-detail">订单详情</a>
-                                            </p>
-                                            </td>
-                                        <td rowspan="1" class="l-td-p" data-order-id="1476078729" id="order-option-1476078729">
-                                            <p><span class="pay-limit">剩余1小时16分</span></p>
-														<if condition='$order["payType"] eq 1'>
-       						          	<if condition='$order["orderStatus"] eq -2'>
-											
-                                            <a href="javascript:;" onclick="toPay({$order['orderId']})" class="globe-btn50 globe-btn50-ss" >立即支付</a>
-											
-											</if>
-       						             </if>
-                                            <p class="cancel-order course-order">
-                                                <a href="javascript:;" class="order-status">取消订单</a>
-                                            </p>                                                                                                                                                                  
                                         </td>
                                     </tr>
 									</volist>                                                                                                                                 
@@ -591,7 +579,18 @@
                         </div>
                     </div>
            		</div>
-				
+                <script>
+                    function delOrder(id) {
+                        var params = {};
+                        params.orderId = id;
+                        jQuery.post(Think.U('Home/Orders/delOrder'), params, function (data) {
+                            if (data == 1) {
+                                WST.msg('取消成功');
+                                $('#order'+id).hide();
+                            }
+                        })
+                    }
+                </script>
             </div>
 		</div>
 	</div>
@@ -660,16 +659,6 @@
             <li>关注：{$WST_USER.userFollow}</li>
         </ul>
     </div>
-            <!--<div class="quan-block quan-title-block">-->
-                <!--<h2 class="relative"><em></em>获取圈币<a href="" target="_blank" class="link-more">查看更多 &raquo;</a></h2>-->
-                <!--<div class="hp-task-show">-->
-                    <!--<p class="task-undo clearfix">-->
-                        <!--<span class="fl"><strong>绑定邮箱</strong></span>-->
-                        <!--<span class="fr">奖：<span class="dark-red">1圈币</span></span>-->
-                    <!--</p>-->
-                    <!--<p class="task-describe">任务描述：进入安全中心绑定邮箱账号，并且登录邮箱激活<a href="" target="_blank" class="link-text">去做任务 &raquo;</a></p>-->
-                <!--</div>-->
-            <!--</div>-->
             <div class="quan-block quan-title-block">
 				<h2 class="relative">
 					<em></em>近期直播<a href="{:U('Home/Livecast/index')}" target="_blank" class="link-more">更多 &raquo;</a>
@@ -700,16 +689,6 @@
 					</div>
 				</div>
     		</div>
-    		<!--<div class="quan-block quan-title-block">-->
-                <!--<h2 class="relative">-->
-                	<!--<em></em>最近访客-->
-                <!--</h2>-->
-                <!--<div class="hp-task-show">-->
-                	<!--<div class="self_fangke">-->
-                		<!--<img src="__ROOT__/Apps/Home/View/default/img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg" />-->
-                	<!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
         </div>
 <!--头像弹层-->
 <div class="pop_bg hide" id="pop_bg">
@@ -736,6 +715,7 @@
         </div>
     </div>
 </div></div>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/usercom.js"></script>
 <script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/jquery.SuperSlide.2.1.1.js?v=1.10.5"></script>
 <script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/thread_detail.js?v=1.10.5"></script>
   <include file="./Apps/Home/View/default/common_foot.html" />

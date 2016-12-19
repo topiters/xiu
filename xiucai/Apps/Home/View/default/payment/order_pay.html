@@ -9,33 +9,29 @@
                     <img src="http://assets.xiucai.com/assets/img/icon/success-icon2.png?v=1.10.5" height="30" widht="30" alt="">
                 </div>
                 <div class="g-col">
-                    <p class="tips-l">订单提交成功，请您在 <span class="color-orange">72小时</span> 内完成支付，否则订单将被取消</p>
-                    <p>订单号：1476078729</p>
+                    <p class="tips-l">订单提交成功</p>
+                    <p>订单号：<volist name="orders" id="v"><if condition="$i neq 1">/{$v[0]['orderNo']}<else/>
+                        {$v[0]['orderNo']}</if></volist></p>
                 </div>
                 <div class="g-col g-col-r">
-                    <p class="tips-l">应付金额：<span class="color-orange">¥49.00</span></p>
-                    <p><span class="drop-down">订单详情<i class="triangle-down t-gray-10"></i></span></p>
+                    <p class="tips-l">应付金额：<span class="color-orange">¥{$needPay}</span></p>
                 </div>
             </div>
-            <ul class="o-s-detail">
-                <li class="summary">课程数：1 门</li>
-                <li>企业会计准则解释第7号（三）<span class="price">1*¥49.00</span></li>
-            </ul>
         </div>
 
         <div class="order-way-block">
             <p class="title">选择支付方式：</p>
             <div>
                 <ul class="right-choose pay-way-l clearfix" type="pay_bank">
-                    <li class="cur" value="default">
-                        <img src="http://assets.xiucai.com/assets/img/pay/zfb.jpg?v=1.10.5" alt="支付宝" height="25" width="75">
+                    <li class="cur" value="zfb">
+                        <img src="__ROOT__/Apps/Home/View/default/img/pay/zfb.jpg" alt="支付宝" height="25" width="75">
                     </li>
                     <li value="wx">
-                        <img src="http://assets.xiucai.com/assets/img/pay/wx.jpg?v=1.10.5" alt="微信" height="30" width="102">
+                        <img src="__ROOT__/Apps/Home/View/default/img/pay/wx.jpg" alt="微信" height="30" width="102">
                     </li>
-                    <input type="hidden" id="pay_bank" value="default">
                 </ul>
             </div>
+
             <p class="o-w-btn">
                 <a href="javascript:;" class="globe-btn50 globe-btn-h40" id="pay" target="_blank">立即支付</a>
             </p>
@@ -48,7 +44,43 @@
                 </ul>
                 <p>客服热线：021-51855362</p>
             </div>
+            <script>
+                $(".pay-way-l").on("click", "li", function () {
+                    $(".pay-way-l").children("li").removeClass('cur');
+                    $(this).addClass("cur");
+                });
+                $('#pay').click(function () {
+                    var way = $('.cur').attr('value');
+                    if (way == 'wx') {
+                        var orderId = '{$_GET['orderId']}';
+                        $.ajax({
+                            url:"{:U('Home/Payments/getWeixinURL')}",
+                            data:"orderId="+orderId,
+                            success:function (data) {
+                                if (data.url) {
+//                                    $('#imageCode').attr('src',data.url);
+                                    WST.msg('正在跳转..');
+                                    location.href=data.url;
+                                } else {
+                                    WST.msg('未知错误..');
+                                }
+                            }
+                        })
+//                        $('#payImage').show();
+                    }
+                })
+            </script>
         </div>
+    </div>
+    <div class="dialog-board dialog-board-m hide" id="payImage">
+        <div class="dialog-board-bar">
+            <a class="close-dialog-board closePayCallbackDiv"></a>
+        </div>
+
+        <div class="c-text-btn">
+            <img src="http://paysdk.weixin.qq.com/example/qrcode.php?data=" alt="" id="imageCode"/>
+        </div>
+
     </div>
     <div class="dialog-board dialog-board-m hide" id="payCallbackDiv">
         <div class="dialog-board-bar">
@@ -80,6 +112,11 @@
         </div>
     </div>
 </div>
+<script>
+    $('.closePayCallbackDiv').click(function () {
+        $('.dialog-board').hide();
+    })
+</script>
 <script src="__ROOT__/Apps/Home/View/default/js/cartpaylist.js"></script>
 
 <include file="./Apps/Home/View/default/common_foot.html" />
