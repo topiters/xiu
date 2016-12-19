@@ -191,6 +191,7 @@ class OrdersAction extends BaseAction {
 	 * 核对订单信息
 	 */
 	public function checkOrderInfo(){
+	    //dump($_SESSION);die;
 		$this->isUserLogin();
 		//$maddress = D('Home/UserAddress');
 		$mcart = D('Home/Cart');
@@ -270,6 +271,7 @@ class OrdersAction extends BaseAction {
 		$this->assign("canUserScore",$useScore);
 		$this->assign("scoreMoney",$scoreMoney);
 		$this->assign("cartInfo",$rdata);
+//		dump($rdata);die;
 		$this->display('default/check_order');
 	}
 	
@@ -347,7 +349,21 @@ class OrdersAction extends BaseAction {
 	
 		$this->display("default/users/orders/details");
 	}
-	
+
+    /**
+     * 删除订单
+     */
+    public function delOrder() {
+        $this->isUserLogin();
+        if ($_POST['orderId']) {
+            $re1 = D('orders')->where("orderId = {$_POST['orderId']}")->delete();
+            $re2 = D('order_course')->where("orderId = {$_POST['orderId']}")->delete();
+            if ($re1 && $re2){
+                echo 1;
+            }
+        }
+    }
+
 	/*************************************************************************/
 	/********************************商家訂單管理*****************************/
 	/*************************************************************************/

@@ -87,110 +87,90 @@ class CartAction extends BaseAction {
 	 * 检测购物车中商品库存
 	 * 
 	 */
-	public function checkCartCourseStock(){
-		$m = D('car');
-		$mcourse = D('Home/course');
-		$userId = (int)session('WST_USER.userId');
-		$cartcourse = array();
-		$courseArr=I('id');
-		//如果提交的课程id存在
-		if($courseArr){
-			
-			if(strpos($courseArr,','))
-			//in (".implode(",",$npIds).")
-			{$sql = "select cc.*, uu.loginName from __PREFIX__cart  cc  Left JOIN    __PREFIX__users uu  ON uu.userId=cc.userId  where userId = $userId and courseId  in (".implode(",",$courseArr).")";
-			}else{
-				$courseArr=(int)$courseArr;
-				$sql = "select cc.* ,uu.loginName from __PREFIX__cart cc  Left JOIN    __PREFIX__users uu  ON uu.userId=cc.userId   where cc.userId = $userId  AND  courseId=$courseArr ";
-					
-				
-			}
-			
-		}else{
-		//不存在默认
-		$sql = "select cc.* ,uu.loginName from __PREFIX__cart cc  Left JOIN    __PREFIX__users uu  ON uu.userId=cc.userId   where cc.userId = $userId";
-		
-		}
-		
-		$carInfo=$m->query($sql);
-		
-		if($carInfo){
-			
-			foreach ($carInfo  as $k =>$v){
-				
-				
-				//var_dump($v);
-				//exit;
-				  $courseId=$v['courseId'];
-				  $sqla="select cc.*, p.*  FROM __PREFIX__course cc LEFT JOIN  __PREFIX__shops p  ON  p.shopId=cc.shopId where  cc.courseId=$courseId" ;  
-				  
-				  $courseInfo=$mcourse->query($sqla);
-				  
-				 
-				  
-				 // var_dump( $courseInfo);
-				//  exit;
-				 if($courseInfo){
-				 	//$clength=count($courseInfo);
-				 	//dump( $courseInfo);
-				 	//exit;
-				 	foreach($courseInfo as $kk=>$val){
-				 		//var_dump($val['shopId']);
-				 		//exit;
-				 		$orderCourse['orderNo']='tax'.time().rand(1000,9999);//订单号
-				 		$orderCourse['shopId']=$val['shopId'];
-				 		$orderCourse['totalMoney']=$val['shopPrice'];
-				 		$orderCourse['userId']=$userId;
-				 		$orderCourse['createTime']=time();
-				 		$order_course=D('orders')->add($orderCourse);
-				 		
-				 		//var_dump($order_course);
-				 		//exit;
-				 		
-				 		if($order_course){
-				 				
-				 			$data['orderId']=$order_course;
-				 			$data['courseId']=$val['courseId'];
-				 			$data['courseNums']=1;
-				 			$data['coursePrice']=$val['shopPrice'];
-				 			$data['courseName']=$val['courseName'];
-				 			$data['courseThums']=$val['courseThums'];
-				 			$data['buyerName']=$v['loginName'];
-				 			
-				 			//var_dump($data);
-				 			//exit;
-				 			$od=D('order_course')->add($data);
-				 			
-				 			if($od){
-				 				$datas=array('isCheck'=>2);
-				 			D('cart')->where(array('userId'=>$userId,'courseId'=>$val['courseId']))->save($datas);
-				 				
-				 				
-				 			}
-				 			
-				 				
-				 				
-				 		}
-				 		
-				 		
-				 		
-				 		
-				 	}
-				 	
-			
-				 }
-				  
-  
-				  
-			}
-			
-			$carStatus['status']=1;
-		}else{
-			
-			
-			$carStatus['status']=-1;
-			
-		}
+    public function checkCartCourseStock() {
+        $session = '';
+        $m = D('car');
+        $mcourse = D('Home/course');
+        $userId = (int)session('WST_USER.userId');
+        $cartcourse = array();
+        $courseArr = I('id');
+        //如果提交的课程id存在
+        if ($courseArr) {
+
+            if (strpos($courseArr , ',')) //in (".implode(",",$npIds).")
+            {
+                $sql = "select cc.*, uu.loginName from __PREFIX__cart  cc  Left JOIN    __PREFIX__users uu  ON uu.userId=cc.userId  where userId = $userId and courseId  in (" . implode("," , $courseArr) . ")";
+            } else {
+                $courseArr = (int)$courseArr;
+                $sql = "select cc.* ,uu.loginName from __PREFIX__cart cc  Left JOIN    __PREFIX__users uu  ON uu.userId=cc.userId   where cc.userId = $userId  AND  courseId=$courseArr ";
+            }
+        } else {
+            //不存在默认
+            $sql = "select cc.* ,uu.loginName from __PREFIX__cart cc  Left JOIN    __PREFIX__users uu  ON uu.userId=cc.userId   where cc.userId = $userId";
+
+        }
+
+        $carInfo = $m->query($sql);
+
+        if ($carInfo) {
+
+            foreach ($carInfo as $k => $v) {
+//                dump($v);
+//                exit;
+                $courseId = $v['courseId'];
+                $sqla = "select cc.*, p.*  FROM __PREFIX__course cc LEFT JOIN  __PREFIX__shops p  ON  p.shopId=cc.shopId where  cc.courseId=$courseId";
+
+                $courseInfo = $mcourse->query($sqla);
+                // var_dump( $courseInfo);
+                //  exit;
+                if ($courseInfo) {
+                    //$clength=count($courseInfo);
+                    //dump( $courseInfo);
+                    //exit;
+                    foreach ($courseInfo as $kk => $val) {
+                        //var_dump($val['shopId']);
+                        //exit;
+
+                        $orderCourse['orderNo'] = 'tax' . time() . rand(1000 , 9999);//订单号
+                        $orderCourse['shopId'] = $val['shopId'];
+                        $orderCourse['totalMoney'] = $val['shopPrice'];
+                        $orderCourse['userId'] = $userId;
+                        $orderCourse['payType'] = 1;
+                        $orderCourse['createTime'] = date('Y-m-d H:i:s' , time());
+                        $order_course = D('orders')->add($orderCourse);
+
+
+                        if ($order_course) {
+                            if ($k > 0) {
+                                $session .= '/' . $order_course;
+                            } else {
+                                $session = $order_course;
+                            }
+                            $data['orderId'] = $order_course;
+                            $data['courseId'] = $val['courseId'];
+                            $data['courseNums'] = 1;
+                            $data['coursePrice'] = $val['shopPrice'];
+                            $data['courseName'] = $val['courseName'];
+                            $data['courseThums'] = $val['courseThums'];
+                            $data['buyerName'] = $v['loginName'];
+
+                            //var_dump($data);
+                            //exit;
+                            $od = D('order_course')->add($data);
+
+                            if ($od) {
+                                $datas = array('isCheck' => 2);
+                                D('cart')->where(array('userId' => $userId , 'courseId' => $val['courseId']))->save($datas);
+                            }
+                        }
+                    }
+                }
+            }
+            $carStatus['status'] = 1;
+            session('order' , $session);
+        } else {
+            $carStatus['status'] = -1;
+        }
  
 	   
 		

@@ -45,7 +45,7 @@ class PaymentsAction extends BaseAction{
 			if($orderId>0){
 				$pkey = $obj["userId"]."@".$orderId."@1";
 			}else{
-				$pkey = $obj["userId"]."@".session("WST_ORDER_UNIQUE")."@2";
+				$pkey = $obj["userId"]."@".session("order")."@1";
 			}
 			$data["url"] = U('Home/WxPay/createQrcode',array("pkey"=>base64_encode($pkey)));
 		}
@@ -63,14 +63,15 @@ class PaymentsAction extends BaseAction{
 		$pm = D('Home/Payments');
 		$payments = $pm->getList();
 		$this->assign("payments",$payments["onlines"]);
-
-
-		//1481769431467
-        //14817694668842
 		$obj["orderId"] = (int)I("orderId");
+		$ogj['orderType'] = 1;
 		$data = $morders->getPayOrders($obj);
 		$orders = $data["orders"];
-		$needPay = $data["needPay"];
+		$needPay = 0;
+        foreach ($orders as $v) {
+            $needPay += $v[0]['coursePrice'];
+		}
+//		dump($orders);die;
 		$this->assign("orderId",$obj["orderId"]);
 		$this->assign("orders",$orders);
 		$this->assign("needPay",$needPay);

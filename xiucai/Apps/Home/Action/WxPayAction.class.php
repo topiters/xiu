@@ -34,6 +34,7 @@ class WxPayAction extends BaseAction {
 	public function createQrcode() {
 		$pkey = base64_decode ( I ( "pkey" ) );
 		$pkeys = explode ( "@", $pkey );
+//		dump($pkeys);
 		$pflag = true;
 		if (count ( $pkeys ) != 3) {
 			$this->assign ( 'out_trade_no', "" );
@@ -45,6 +46,10 @@ class WxPayAction extends BaseAction {
 			
 			$orders = $data ["orders"];
 			$needPay = $data ["needPay"];
+            foreach ($orders as $v) {
+                $needPay += $v[0]['coursePrice'];
+            }
+
 			if($needPay>0){
 				
 				$this->assign ( "orders", $orders );
@@ -66,7 +71,7 @@ class WxPayAction extends BaseAction {
 				$wxQrcodePay->SetParameter ( "input_charset", "UTF-8" );
 				// 获取统一支付接口结果
 				$wxQrcodePayResult = $wxQrcodePay->getResult ();
-				
+//                dump($wxQrcodePayResult);die;
 				// 商户根据实际情况设置相应的处理流程
 				if ($wxQrcodePayResult ["return_code"] == "FAIL") {
 					// 商户自行增加处理流程
