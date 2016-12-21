@@ -47,7 +47,7 @@ class CourseModel extends BaseModel {
 			$words = explode(" ",$keyWords);
 		}
 		
-		$sqla = "SELECT  g.courseId,courseSn,courseName,courseThums,courseStock,g.saleCount,p.shopId,marketPrice,shopPrice,ga.id courseAttrId,saleTime,totalScore,totalUsers ";
+		$sqla = "SELECT  g.courseId,g.createTime,g.is_free,g.courseSn,g.courseName,g.courseThums,g.courseStock,g.saleCount,p.shopId,g.marketPrice,g.shopPrice,ga.id courseAttrId,saleTime,totalScore,totalUsers ";
 		//$sqlb = "SELECT max(shopPrice) maxShopPrice  ";
 		$sqlc = " FROM __PREFIX__course g 
 				left join __PREFIX__course_attributes ga on g.courseId=ga.courseId and ga.isRecomm=1
@@ -62,7 +62,7 @@ class CourseModel extends BaseModel {
 			$sqld .=" , __PREFIX__shops_communitys sc ";
 		}
 		
-		$where = " WHERE g.shopId = p.shopId AND  g.coursestatus=1 AND g.courseFlag = 1 and g.isSale=1 ";
+		$where = " WHERE g.shopId = p.shopId AND  g.coursestatus=1 AND g.courseFlag = 1 and g.isSale=1 and  g.is_live=1";//非直播课
 		//$where2 = " AND p.areaId2 = $areaId2 AND p.isDistributAll=0 ";
 		$where3 = " AND p.isDistributAll=1 ";
 		if($areaId3>0 || $communityId>0){

@@ -1,0 +1,36 @@
+<include file="./Apps/Home/View/default/common_head.html" />
+
+<style>
+#main{
+	width: 1200px;
+	margin: 30px auto;
+}
+.close_icon{
+	z-index: 8888;
+}
+.model_login span{
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border: 1px solid #fff;
+}
+</style>
+
+<div id="video-container" style="margin: 0px auto;">
+
+</div>
+
+ <script src="https://player.polyv.net/livescript/liveplayer.js"></script>
+<div id='player'></div>
+<script type="text/javascript">
+var player = polyvObject('#player').livePlayer({
+'width':'498',
+'height':'409',
+'flashvars':{"is_barrage":"on"},
+'uid':'a840a520ab',
+'vid':'107389'
+});
+</script>
+<div  style="clear:both;"></div>
+
+ <include file="./Apps/Home/View/default/common_foot.html" />

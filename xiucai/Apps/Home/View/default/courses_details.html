@@ -140,13 +140,15 @@ var WST = ThinkPHP = window.Think = {
                     <div class="introduction">
                        {$coursesDetails['courseIntro']}
                     </div>
+					
+					<if  condition="$coursesDetails['is_free']   eq  1"  >
                     <div class="vip_course">
                     	<!--会员课程课程-->
 	                    <div class="level">
 	                        <p class="member">
 	                           <!-- <span>会员专享</span>-->
 	                            <span>￥{$coursesDetails['shopPrice']}</span>
-	                            <em class="use-live-course-code-btn">使用听课码</em>                                                                                        
+	                          <!--   <em class="use-live-course-code-btn">使用听课码</em>      -->                                                                                   
 	                        </p>
 	                    </div>
 	                    <div class="btn-group-box">
@@ -155,17 +157,26 @@ var WST = ThinkPHP = window.Think = {
 	                        <a href="javascript:;" class="btn-default now-to-learn">会员免费看</a>
 	                    </div>
                     </div>
-                    <div class="free_course hide">
-                    	<div class="level">
+					
+					</if>
+						<if  condition="$coursesDetails['is_free']   eq  2"  >
+                    <div class="vip_course">
+                    	<!--会员课程课程-->
+	                    <div class="level">
 	                        <p class="member">
-	                           <!-- <span>免费课</span>-->
-	                            <span>免费</span>                                                                                       
+	                           <!-- <span>会员专享</span>-->
+	                            <span>免费课</span>
+	                          <!--   <em class="use-live-course-code-btn">使用听课码</em>     -->                                                                                    
 	                        </p>
 	                    </div>
 	                    <div class="btn-group-box">
-	                        <a href="javascript:;" class="btn-default now-to-learn">立即学习</a>
+	                        <a href="{:U('Home/course/views',array('vid'=>$coursesDetails['courseId']  ))}" class="btn-default lijibuy_btn"  >立即学习</a>
+							
+	                       <!--  <a href="javascript:;" class="btn-default now-to-learn">会员免费看</a> -->
 	                    </div>
                     </div>
+					</if>
+				
                     <p class="vip-tips-msg"></p>
                 </div>
             </div>

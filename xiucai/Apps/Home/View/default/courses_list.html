@@ -61,7 +61,7 @@
                     </ul>
                 </dd>
             </dl>
-            <div id="course_type">
+           <!--  <div id="course_type">
                 <dl>
                     <dt>类型：</dt>
                     <dt class="all">
@@ -80,7 +80,7 @@
                         </ul>
                     </dd>
                 </dl>
-            </div>
+            </div> -->
         </div>
 
         <div class="bgc">
@@ -118,15 +118,26 @@
                                 <span>{$course['courseName']}</span>
                             </h5>
                             <div class="tips clearfix">
-                                <span class="l">2016年09月19日</span>
-                                <span class="l null-width"></span>
-                                <span class="l">14:00~15:00</span><em class="l">|</em><span class="l">415人预约</span>
+                               <!--  <span class="l">{$course['createTime']}</span> -->
+								<if  condition="$course['is_free']  eq  1"  >
+								 <span class="l">会员&nbsp;&nbsp;</span>
+                                 <span class="l">&nbsp;&nbsp;￥{$course['shopPrice']}</span>
+								 </if>
+								<em class="l">|</em><span class="l">{$course['saleCount']}人订购</span>
                             </div>
-                            <div class="course-play "></div>
-                            <span class="course-free"></span>
-                            <div class="cost">
+						
+                            <!--  <div class="course-play "></div> -->
+							
+						
+								<if  condition="$course['is_free']  eq  2"  >
+                              <span class="course-free"></span>
+                              <div class="cost">
                                 <span class="l free">免费</span>
-                            </div>
+                               </div>
+				
+							
+		
+								</if>
                         </a>
                     </li>
                 </volist>

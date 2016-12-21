@@ -461,8 +461,22 @@ class CourseAction extends BaseAction {
 	
     
  
-    
-    
+    //直接观看
+    public  function  views(){
+    	
+    	$this->isUserLogin();
+    	$userId = (int)session('WST_USER.userId');
+    	$vid=I('vid');
+    	$courseOne=D('course')->where(array('courseId'=>$vid))->find();
+    	
+    	$this->assign('courseOne',$courseOne);
+    	
+    	$this->display('default/users/views');
+    	
+    	
+    	
+    	
+    }
     
     
     
