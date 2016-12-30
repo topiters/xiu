@@ -11,6 +11,33 @@ class LivecastAction extends BaseAction {
     /**
      * 跳去直播界面
      */
+	 public function _initialize() {
+		header ( "Content-type: text/html; charset=utf-8" );
+		vendor ( 'WxPay.WxPayConf' );
+		vendor ( 'WxPay.WxQrcodePay' );
+
+		$this->wxpayConfig = C ( 'WxPayConf' );
+		
+		//var_dump($this->wxpayConfig);//array(2) { ["NOTIFY_URL"]=> string(55) "http://tax.hntax168.cn/Wstapi/payment/notify_weixin.php" ["CURL_TIMEOUT"]=> int(30) } 
+		//exit;
+		$m = D ( 'Home/Payments' );
+		$this->wxpay = $m->getPayment ( "weixin" );
+		$this->wxpayConfig ['appid'] = $this->wxpay ['appId']; // 微信公众号身份的唯一标识
+		$this->wxpayConfig ['appsecret'] = $this->wxpay ['appsecret']; // JSAPI接口中获取openid
+		$this->wxpayConfig ['mchid'] = $this->wxpay ['mchId']; // 受理商ID
+		$this->wxpayConfig ['key'] = $this->wxpay ['apiKey']; // 商户支付密钥Key
+		$this->wxpayConfig ['notifyurl'] = $this->wxpayConfig ['NOTIFY_URL'];
+		//$this->wxpayConfig ['returnurl'] = "/index.php?m=Home&c=WxPay&a=paySuccess";
+		// 初始化WxPayConf_pub
+		
+		//var_dump($this->wxpayConfig );exit;
+		$wxpaypubconfig = new \WxPayConf ( $this->wxpayConfig );
+		//var_dump($wxpaypubconfig::$APPID);
+		//exit;
+	}
+	 
+	 
+	 
 	 
 	 public function index(){
          $page = D('Live')->getList();
@@ -50,15 +77,84 @@ class LivecastAction extends BaseAction {
             $re = D('course_record')->where("uid = {$user['userId']} and cid =".I('id'))->find();
             if ($re) {
                 $this->assign('sign' , 2);
-                $this->assign('sign_id' ,$res['id']);
+                $this->assign('sign_id' ,$re['id']);
             } else {
                 $this->assign('sign' , 1);
             }
+			
+			
+			
+			// 使用统一支付接口
+				$wxQrcodePay = new \WxQrcodePay ();
+				$wxQrcodePay->setParameter ( "body", "直播课程费用" ); // 商品描述 
+				$timeStamp = time ();
+				$out_trade_no = "$timeStamp";
+				//$out_trade_no = "1000001|1000002";
+				$wxQrcodePay->setParameter ( "out_trade_no", "$out_trade_no" ); // 商户订单号
+				$wxQrcodePay->setParameter ( "total_fee", $course['shopPrice'] * 100 ); // 总金额
+				$wxQrcodePay->setParameter ( "notify_url", C ( 'WxPayConf.NOTIFY_URL' ) ); // 通知地址
+				$wxQrcodePay->setParameter ( "trade_type", "NATIVE" ); // 交易类型
+				$wxQrcodePay->setParameter ( "attach", "100" ); // 附加数据
+				$wxQrcodePay->setParameter ( "detail", $user['userId'].'@'.$course['courseId']);//附加数据
+				$wxQrcodePay->SetParameter ( "input_charset", "UTF-8" );
+				// 获取统一支付接口结果
+				$wxQrcodePayResult = $wxQrcodePay->getResult ();
+                // dump($wxQrcodePayResult);die;
+				// 商户根据实际情况设置相应的处理流程
+				if ($wxQrcodePayResult ["return_code"] == "FAIL") {
+					// 商户自行增加处理流程
+					echo "通信出错：" . $wxQrcodePayResult ['return_msg'] . "<br>";
+				} elseif ($wxQrcodePayResult ["result_code"] == "FAIL") {
+					// 商户自行增加处理流程
+					echo "错误代码：" . $wxQrcodePayResult ['err_code'] . "<br>";
+					echo "错误代码描述：" . $wxQrcodePayResult ['err_code_des'] . "<br>";
+				} elseif ($wxQrcodePayResult ["code_url"] != NULL) {
+					// 从统一支付接口获取到code_url
+					$code_url = $wxQrcodePayResult ["code_url"];
+					// 商户自行增加处理流程
+				}
+				
+				//$this->assign ( 'orderCount', $orderCount );
+				$this->assign ( 'out_trade_no', $out_trade_no );
+				$this->assign ( 'code_url', $code_url );
+				$this->assign ( 'wxQrcodePayResult', $wxQrcodePayResult );
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
             $this->display('default/livecast_course');
         } else {
             redirect(U('Home/Livecast/index'));
         }
     }
+	
+	
+	public function livePay(){
+		
+		
+		
+		
+		
+	}
+	
+	
+	public function getPayStatus(){
+		
+		
+		
+	}
+	
+	
+	
+	
+	
 
     /**
      * 报名课程
@@ -70,7 +166,7 @@ class LivecastAction extends BaseAction {
             $re = D('course_record')->add($_POST);
             if ($re) {
                 D('course')->query("update __PREFIX__course set saleCount = saleCount + 1 where courseId = {$_POST['cid']}");
-                echo 1;
+                echo  $re ;
             }
         }
     }
@@ -79,12 +175,12 @@ class LivecastAction extends BaseAction {
      * 直播页面
      */
     public function live() {
-    /* 	$this->isUserLogin();
+  	$this->isUserLogin();
     	$user=session('WST_USER');
     	$cid=I('id');//报名id
     	$courseId=I('courseId');//课程id
-    	$uid = $USER['userId'];
-    	 $re = D('course_record')->where("uid = {$user['userId']} and cid =".I('id'))->find();
+    	$uid = $user['userId'];
+    	 $re = D('course_record')->where("uid = {$user['userId']} and id =".I('id'))->find();
     	if(!$re){
     		
     		$this->error('没有报名该直播。。。');
@@ -95,7 +191,7 @@ class LivecastAction extends BaseAction {
     	$liveOne=D('course')->where(array('courseId'=>$courseId))->find();
     	if($liveOne){
     	$this->assign('lid',$liveOne['vid']);
-    	} */
+    	} 
     
     	
     	$this->display('default/living');

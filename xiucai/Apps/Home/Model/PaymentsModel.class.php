@@ -227,7 +227,9 @@ class PaymentsModel extends BaseModel {
                     $arr['uid'] = $userId;
                     $arr['cid'] = $goodsId;
                     $arr['ctime'] = time();
-                    D('course_record')->add($arr);
+                    $sign_id = D('course_record')->add($arr);
+
+					
                 }
             }
             if($orderType==1){
@@ -254,6 +256,9 @@ class PaymentsModel extends BaseModel {
             }
         }
         
+		
+		
+		
         return $rd;
     }
     

@@ -171,6 +171,52 @@ class WxPayAction extends BaseAction {
 			} else {
 				// 此处应该更新一下订单状态，商户自行增删操作
 				$order = $wxQrcodePay->getData ();
+				
+				if($order ["attach"]=='100'){
+				$trade_no = $order["transaction_id"];	
+				$total_fee = $order ["total_fee"];	
+					
+				$pkeys = explode ( "@", $order['detail'] );	
+				 $userId=$pkeys[0];
+				$courseId=$pkeys[1];	
+				$payCourse=D('course')->where(array('courseId'=>$courseId))->find();
+				if(
+				$payCourse
+				){
+				$datav['orderNo']=$trade_no;//订单号
+                $datav['shopId']=$payCourse['shopId'];
+				$datav['totalMoney']=$total_fee;
+				$datav['orderStatus']=2;
+				$datav['userId']=$userId;
+				$datav['payType']=1;
+				$datav['createTime']=date('Y-m-d H:i:s');
+				
+				 $orderLiveId=D('orders')->add($datav);
+                 if($orderLiveId){
+				   $datam['orderId']= $orderLiveId;
+				   $datam['courseId']= $courseId;
+				   $datam['courseNums']= 1;
+				   $datam['coursePrice']=$total_fee;
+				  $datam['courseName']=$payCourse['courseName'];
+				  $datam['courseThums']=$payCourse['courseThums'];
+				   D('order_course')->add($datam);	
+					
+					}
+					
+				}
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				}
+				
+				
 				$trade_no = $order["transaction_id"];
 				$total_fee = $order ["total_fee"];
 				$pkey = $order ["attach"] ;
@@ -190,6 +236,9 @@ class WxPayAction extends BaseAction {
 				// 支付成功业务逻辑
 				$payments = $pm->complatePay ( $obj );
 				S ("$out_trade_no",$total_fee);
+			
+				
+				
 				echo "SUCCESS";
 			}
 		}
