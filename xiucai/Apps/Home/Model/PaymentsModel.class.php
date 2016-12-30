@@ -178,10 +178,10 @@ class PaymentsModel extends BaseModel {
 		
 		if($orderType==1){
 			$sqlv = "select sum(needPay) needPay from __PREFIX__orders where userId=$userId and orderId = $orderId and payType = 1 and needPay > 0 and orderFlag=1 and orderStatus=-2";
-			$sql = "select og.orderId,og.goodsId,og.goodsNums,og.goodsAttrId from __PREFIX__order_goods og, __PREFIX__orders o where o.userId=$userId and og.orderId = o.orderId AND o.orderId = $orderId and o.payType = 1 and o.needPay > 0 and o.orderFlag=1 and o.orderStatus=-2";
+			$sql = "select og.orderId,og.courseId,og.courseNums,og.courseAttrId from __PREFIX__order_course og, __PREFIX__orders o where o.userId=$userId and og.orderId = o.orderId AND o.orderId = $orderId and o.payType = 1 and o.needPay > 0 and o.orderFlag=1 and o.orderStatus=-2";
 		}else{
 			$sqlv = "select sum(needPay) needPay from __PREFIX__orders where userId=$userId and orderunique = '$orderunique' and payType = 1 and needPay > 0 and orderFlag=1 and orderStatus=-2";
-			$sql = "select og.orderId,og.goodsId,og.goodsNums,og.goodsAttrId from __PREFIX__order_goods og, __PREFIX__orders o where o.userId=$userId and og.orderId = o.orderId AND o.orderunique = '$orderunique' and o.payType = 1 and o.needPay > 0 and o.orderFlag=1 and o.orderStatus=-2";
+			$sql = "select og.orderId,og.courseId,og.courseNums,og.courseAttrId from __PREFIX__order_course og, __PREFIX__orders o where o.userId=$userId and og.orderId = o.orderId AND o.orderunique = '$orderunique' and o.payType = 1 and o.needPay > 0 and o.orderFlag=1 and o.orderStatus=-2";
 		}
 		$opay = $this->queryRow($sqlv);
 		$needPay = (float)$opay["needPay"];
@@ -189,7 +189,7 @@ class PaymentsModel extends BaseModel {
 			return $rd;
 		}
 		
-		$goodslist = $this->query($sql);
+		$courselist = $this->query($sql);
 		$data = array();
 		$data["needPay"] = 0;
 		$data["isPay"] = 1;
@@ -206,14 +206,14 @@ class PaymentsModel extends BaseModel {
 		if(false !== $rs){
 			$rd['status']= 1;
 			//修改库存
-			foreach ($goodslist as $key=> $sgoods){
-				$goodsId = $sgoods['goodsId'];
-				$goodsNums = $sgoods['goodsNums'];
-				$goodsAttrId = $sgoods['goodsAttrId'];
-				$sql="update __PREFIX__goods set goodsStock=goodsStock-".$goodsNums." where goodsId=".$goodsId;
+			foreach ($courselist as $key=> $scourse){
+				$courseId = $scourse['courseId'];
+				$courseNums = $scourse['courseNums'];
+				$courseAttrId = $scourse['courseAttrId'];
+				$sql="update __PREFIX__course set courseStock=courseStock-".$courseNums." where courseId=".$courseId;
 				$this->execute($sql);
-				if((int)$goodsAttrId>0){
-					$sql="update __PREFIX__goods_attributes set attrStock=attrStock-".$goodsNums." where id=".$goodsAttrId;
+				if((int)$courseAttrId>0){
+					$sql="update __PREFIX__course_attributes set attrStock=attrStock-".$courseNums." where id=".$courseAttrId;
 					$this->execute($sql);
 				}
 			}
