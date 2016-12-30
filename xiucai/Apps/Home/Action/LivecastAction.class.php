@@ -119,16 +119,7 @@ class LivecastAction extends BaseAction {
 				$this->assign ( 'code_url', $code_url );
 				$this->assign ( 'wxQrcodePayResult', $wxQrcodePayResult );
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
             $this->display('default/livecast_course');
         } else {
             redirect(U('Home/Livecast/index'));
