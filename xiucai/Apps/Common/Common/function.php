@@ -97,7 +97,18 @@ function WSTSendSMS2($phoneNumer,$content){
  * @param unknown_type $content
  */
 function WSTSendSMS($phoneNumer,$content){
-	$url = 'http://utf8.sms.webchinese.cn/?Uid='.$GLOBALS['CONFIG']['smsKey'].'&Key='.$GLOBALS['CONFIG']['smsPass'].'&smsMob='.$phoneNumer.'&smsText='.$content;
+	$accountSid="aaf98f894c9d994b014ca1fd595e0358";//主账号
+	$AppID="8a48b5514da42dc3014dadbd605405a7";//appid
+	$AppTOKEN="9964514651ed42ad8d37a50c5e711f52";//TOKEN
+	$times=time();
+	$SigParameter=$AppID.$AppTOKEN.$times;
+	$SigParameter=md5($SigParameter);
+	//https://app.cloopen.com:8883/2013-12-26/Accounts/{accountSid}/SMS/TemplateSMS?sig={SigParameter}
+	$url="https://app.cloopen.com:8883/2013-12-26/Accounts/{$accountSid}/SMS/TemplateSMS?sig={$SigParameter}";
+	$url=$url.$content;
+	
+	
+	//$url = 'http://utf8.sms.webchinese.cn/?Uid='.$GLOBALS['CONFIG']['smsKey'].'&Key='.$GLOBALS['CONFIG']['smsPass'].'&smsMob='.$phoneNumer.'&smsText='.$content;
 	$ch=curl_init($url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);//设置否输出到页面
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30 ); //设置连接等待时间
