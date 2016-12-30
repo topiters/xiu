@@ -72,6 +72,7 @@
                                 课程标签：
                                 <span>[{$course.catName}]</span>
                             </p>
+                            <h1>课程价格：{$course.shopPrice}</h1>
                         </div>
                         <div class="course-time">
                             <div class="course-date"><span>{$course['liveStartTime']|date='y年m月d日 H:i',###}-{$course['liveEndTime']|date='H:i',###}</span> 开课</div>
@@ -152,75 +153,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="aside" style="display:none;">
-                    <div class="quan-block quan-list3-block">
-                        <h2><em></em>导师问答</h2>
-                        <ul class="list-no-p">
-                            <li>
-                                <a href="turtor_info.html" target="_blank">
-                                    <div class="clearfix">
-                                        <div class="l-avatar block-head">
-                                            <img src="img/course/5a8cba2f-7666-dd13-edbd-15c539b3caba.jpg" alt="" height="50" width="50">
-                                            <em><img src="img/course/tag-V.png-v=1.10.1.png" alt="" title="认证导师" height="17" width="17"/></em>
-                                        </div>
-                                        <div class="r-info">
-                                            <p class="name">赵珈宜</p>
-                                            <p class="job">专业服务/教育/培训</p>
-                                        </div>
-                                    </div>
-                                    <div class="specializes">
-                                        <span><em></em><i>会计处理</i></span>
-                                        <span><em></em><i>税务稽查</i></span>
-                                        <span><em></em><i>税种及政策</i></span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="turtor_info.html" target="_blank">
-                                    <div class="clearfix">
-                                        <div class="l-avatar block-head">
-                                            <img src="img/course/5a8cba2f-7666-dd13-edbd-15c539b3caba.jpg" alt="" height="50" width="50">
-                                            <em><img src="img/course/tag-V.png-v=1.10.1.png" alt="" title="认证导师" height="17" width="17"/></em>
-                                        </div>
-                                        <div class="r-info">
-                                            <p class="name">马强</p>
-                                            <p class="job">专业服务/教育/培训</p>
-                                        </div>
-                                    </div>
-                                    <div class="specializes">
-                                        <span><em></em><i>会计处理</i></span>
-                                        <span><em></em><i>税会差异</i></span>
-                                        <span><em></em><i>税务筹划</i></span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="turtor_info.html" target="_blank">
-                                    <div class="clearfix">
-                                        <div class="l-avatar block-head">
-                                            <img src="img/course/5a8cba2f-7666-dd13-edbd-15c539b3caba.jpg" alt="" height="50" width="50">
-                                            <em><img src="img/course/tag-V.png-v=1.10.1.png" alt="" title="认证导师" height="17" width="17"/></em>
-                                        </div>
-                                        <div class="r-info">
-                                            <p class="name">黄佩</p>
-                                            <p class="job">服务业</p>
-                                        </div>
-                                    </div>
-                                    <div class="specializes">
-                                        <span><em></em><i>合并报表</i></span>
-                                        <span><em></em><i>管理会计体</i></span>
-                                        <span><em></em><i>财务管控</i></span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" target="_blank" style="padding: 0">
-                                    <img src="img/course/xgg.png-v=1.10.1.png" width="278" height="145" style="vertical-align: middle">
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
             </div>
         </div>
         <!-- 推荐的课程 begin -->
@@ -294,19 +226,20 @@
             login();
             return;
         } else {
-            $.ajax({
-                url:"{:U('Home/Livecast/sign')}",
-                data:"uid="+uid+"&cid="+'{$_GET['id']}',
-                type:"post",
-                success:function (data) {
-                    if (data == 1) {
-                        $('#threadWechatDiv').show();
-                        $('#live-course-status-btn').html('<a class="submit-btn a-login" href="{:U("Home/Livecast/live",array("id"=>""))}" id="in"  target="_blank">进入直播间</a>');
-                    } else {
-                        WST.msg('报名失败,未知错误...');
-                    }
-                }
-            })
+            addCart({$course['courseId']},1);
+//            $.ajax({
+//                url:"{:U('Home/Livecast/sign')}",
+//                data:"uid="+uid+"&cid="+'{$_GET['id']}',
+//                type:"post",
+//                success:function (data) {
+//                    if (data == 1) {
+//                        $('#threadWechatDiv').show();
+//                        $('#live-course-status-btn').html('<a class="submit-btn a-login" href="{:U("Home/Livecast/live",array("id"=>""))}" id="in"  target="_blank">进入直播间</a>');
+//                    } else {
+//                        WST.msg('报名失败,未知错误...');
+//                    }
+//                }
+//            })
         }
 
     });
@@ -322,4 +255,5 @@
 <script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/focusUser.js"></script>
 <script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/icheck.min.js"></script>
 <script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/login.js"></script>
+<script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/course.js"></script>
 <include file="./Apps/Home/View/default/common_foot.html"/>

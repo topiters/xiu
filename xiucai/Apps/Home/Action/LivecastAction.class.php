@@ -34,6 +34,7 @@ class LivecastAction extends BaseAction {
             $course['catName'] = $catName['catName'];
             $course['liveStartTime'] = strtotime($course['liveStartTime']);
             $course['liveEndTime'] = strtotime($course['liveEndTime']);
+//            dump($course);die;
             $this->assign('course',$course);
             //导师详情
             $tutor = D('shops')->field('shopId,shopName,shopImg,shopDetails')->where("shopId = {$course['shopId']}")->find();
@@ -57,7 +58,6 @@ class LivecastAction extends BaseAction {
         } else {
             redirect(U('Home/Livecast/index'));
         }
-
     }
 
     /**
