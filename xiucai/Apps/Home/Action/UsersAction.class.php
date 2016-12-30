@@ -85,14 +85,39 @@ class UsersAction extends BaseAction {
 	 * 新用户注册
 	 */
 	public function toRegist(){
-		
 		$m = D('Home/Users');
 		$res = array();
-		$nameType = (int)I("nameType");
-		if($nameType!=3 && !$this->checkVerify("3")){			
-			$res['status'] = -4;
-			$res['msg'] = '验证码错误!';
-		}else{			
+		   $verify = new \Think\Verify();
+	     $ve=$verify->check(I('verify'));
+	    
+		if( $ve == false){
+		      $res['status']='-4';
+			  $res["msg"] = '验证码不正确!';
+			  echo json_encode($res);
+			  return false;
+		}
+
+		  $smscode=I('smscode');
+		  $times=time();//当前时间
+		 $time2=session('VerifyCode_userPhone_Time');
+		if( ($times-$time2)>60){
+			$res['status']='-5';
+			$res["msg"] = '短信验证码超时!';
+			echo json_encode($res);
+			return false;
+			
+		}
+		
+		$VerifyCode_userPhone=session('VerifyCode_userPhone');
+		if($smscode!=$VerifyCode_userPhone){
+			
+			$res['status']='-6';
+			$res["msg"] = '短信验证码输入错误!';
+			echo json_encode($res);
+			return false;
+			
+		}
+		
 			$res = $m->regist();
 			if($res['userId']>0){//注册成功			
 				//加载用户信息				
@@ -100,7 +125,7 @@ class UsersAction extends BaseAction {
 				if(!empty($user))session('WST_USER',$user);
 				
 			}
-		}
+		
 		echo json_encode($res);
 
 	}
@@ -109,9 +134,12 @@ class UsersAction extends BaseAction {
 	 * 获取验证码
 	 */
 	public function getPhoneVerifyCode(){
+		
+		vendor ('Sms.CCPRestSDK' );
 		$userPhone = WSTAddslashes(I("userPhone"));
 		$rs = array();
-		if(!preg_match("#^13[\d]{9}$|^14[5,7]{1}\d{8}$|^15[^4]{1}\d{8}$|^17[0,6,7,8]{1}\d{8}$|^18[\d]{9}$#",$userPhone)){
+		//
+		if(!preg_match('/^[1]+[3,4,5,7,8]+\d{9}$/', $userPhone)){
 			$rs["msg"] = '手机号格式不正确!';
 			echo json_encode($rs);
 			exit();
@@ -124,14 +152,56 @@ class UsersAction extends BaseAction {
 			exit();
 		}
 		$phoneVerify = rand(100000,999999);
-		$msg = "欢迎您注册成为".$GLOBALS['CONFIG']['mallName']."会员，您的注册验证码为:".$phoneVerify."，请在30分钟内输入。【".$GLOBALS['CONFIG']['mallName']."】";
-		$rv = D('Home/LogSms')->sendSMS(0,$userPhone,$msg,'getPhoneVerifyByRegister',$phoneVerify);
-		if($rv['status']==1){
+		//$msg = "欢迎您注册成为".$GLOBALS['CONFIG']['mallName']."会员，您的注册验证码为:".$phoneVerify."，请在30分钟内输入。【".$GLOBALS['CONFIG']['mallName']."】";
+		//$rv = D('Home/LogSms')->sendSMS(0,$userPhone,$msg,'getPhoneVerifyByRegister',$phoneVerify);
+		
+		
+		//主帐号
+		$accountSid='aaf98f894c9d994b014ca1fd595e0358';
+		//主帐号Token
+		$accountToken='9964514651ed42ad8d37a50c5e711f52';
+		//应用Id
+		$appId='8a216da859204cc901592ac13ee006f3';
+		//请求地址，格式如下，不需要写https://
+		$serverIP='app.cloopen.com';
+		//请求端口
+		$serverPort='8883';
+		//REST版本号
+		$softVersion='2013-12-26';
+		$to=$userPhone;
+		$tempId="144534";
+		$datas=array($phoneVerify,'60s');
+		
+		$rest = new \REST($serverIP,$serverPort,$softVersion);
+		$rest->setAccount($accountSid,$accountToken);
+		$rest->setAppId($appId);
+		
+		// 发送模板短信
+		//echo "Sending TemplateSMS to $to <br/>";
+		$result = $rest->sendTemplateSMS($to,$datas,$tempId);
+		if($result == NULL ) {
+			echo "result error!";
+			break;
+		}
+		if($result->statusCode!=0) {
+			echo "error code :" . $result->statusCode . "<br>";
+			echo "error msg :" . $result->statusMsg . "<br>";
+			//TODO 添加错误处理逻辑
+		}else{
+			//echo "Sendind TemplateSMS success!<br/>";
+			// 获取返回信息
+			$smsmessage = $result->TemplateSMS;
+		//	echo "dateCreated:".$smsmessage->dateCreated."<br/>";
+			//echo "smsMessageSid:".$smsmessage->smsMessageSid."<br/>";
 			session('VerifyCode_userPhone',$phoneVerify);
 			session('VerifyCode_userPhone_Time',time());
-			//$rs["phoneVerifyCode"] = $phoneVerify;
+			$arr=1;
+			echo json_encode($arr);
+			//TODO 添加成功处理逻辑
 		}
-		echo json_encode($rv);
+		
+		
+		
 	}
    /**
     * 会员中心页面

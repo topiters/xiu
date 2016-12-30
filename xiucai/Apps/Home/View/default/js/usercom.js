@@ -196,27 +196,11 @@ function editUser(){
 }
 
 function toPay(id){
-	
 	var params = {};
 	params.orderId = id;
-	jQuery.post(Think.U('Home/Orders/checkOrderPay') ,params,function(data) {
-		var json = WST.toJson(data);
-		if(json.status==1){
 			location.href=Think.U('Home/Payments/toPay','orderId='+params.orderId);
-		}else if(json.status==-2){
-			var rlist = json.rlist;
-			var garr = new Array();
-			for(var i=0;i<rlist.length;i++){
-				garr.push(rlist[i].goodsName+rlist[i].goodsAttrName);
-			}
-			WST.msg('订单中商品【'+garr.join("，")+'】库存不足，不能进行支付。', {icon: 5});
-		}else{
-			WST.msg('您的订单已支付!', {icon: 5});
-			setTimeout(function(){
-				window.location = Think.U('Home/orders/queryDeliveryByPage');
-			},1500);
-		}
-	});
+		
+	
 	
 }
 function showOrder(id){

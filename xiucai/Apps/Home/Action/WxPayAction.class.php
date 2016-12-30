@@ -19,6 +19,9 @@ class WxPayAction extends BaseAction {
 		vendor ( 'WxPay.WxQrcodePay' );
 
 		$this->wxpayConfig = C ( 'WxPayConf' );
+		
+		//var_dump($this->wxpayConfig);//array(2) { ["NOTIFY_URL"]=> string(55) "http://tax.hntax168.cn/Wstapi/payment/notify_weixin.php" ["CURL_TIMEOUT"]=> int(30) } 
+		//exit;
 		$m = D ( 'Home/Payments' );
 		$this->wxpay = $m->getPayment ( "weixin" );
 		$this->wxpayConfig ['appid'] = $this->wxpay ['appId']; // 微信公众号身份的唯一标识
@@ -28,33 +31,78 @@ class WxPayAction extends BaseAction {
 		$this->wxpayConfig ['notifyurl'] = $this->wxpayConfig ['NOTIFY_URL'];
 		$this->wxpayConfig ['returnurl'] = "";
 		// 初始化WxPayConf_pub
+		
+		//var_dump($this->wxpayConfig );exit;
 		$wxpaypubconfig = new \WxPayConf ( $this->wxpayConfig );
+		//var_dump($wxpaypubconfig::$APPID);
+		//exit;
 	}
 	
 	public function createQrcode() {
+		
+		
+		
 		$pkey = base64_decode ( I ( "pkey" ) );
 		$pkeys = explode ( "@", $pkey );
-//		dump($pkeys);
+       //	dump($pkeys);   //array(3) {  [0] => string(2) "42"   UserId [1] => string(2) "68"  orderId  [2] => string(1) "1" Type}
+      // exit;
 		$pflag = true;
 		if (count ( $pkeys ) != 3) {
 			$this->assign ( 'out_trade_no', "" );
 		} else {
 			$morders = D ( 'Home/Orders' );
-			$obj ["uniqueId"] = $pkeys [1];
+			$orderIds = $pkeys [1];//  [1] => string(8) "70,71,72" [2] => string(1) "1"
 			$obj ["orderType"] = $pkeys [2];
-			$data = $morders->getPayOrders ( $obj );
+			$needPay='';//支付金额
+			$orderNum='';//订单号
+			$orderCount=0;//订单数量
+			if (strpos($orderIds,',')){//多个订单号
+				//var_dump($orderIds);//in(".$ids.")
+				$Sqla="select oo.*,cc.*  from __PREFIX__orders  oo left join   __PREFIX__order_course  cc ON  cc.orderId=oo.orderId  where  oo.orderId in (".$orderIds.")";
+					
+				$result=$morders->query($Sqla);
+				
+				//var_dump($result);
+				//var_dump($morders->getLastSql());
+				
+				foreach ($result  as $k=>$v){
+					$orderCount++;
+					//var_dump($v);
+					//exit;
+					if($v['orderStatus']=='-2'){
+						//var_dump($v['orderStatus']);
+						//exit;
+						$orderNum.=$v['orderNo'].',';
+						$needPay+=$v['totalMoney'];
+					
+					}
 			
-			$orders = $data ["orders"];
-			$needPay = $data ["needPay"];
-            foreach ($orders as $v) {
-                $needPay += $v[0]['coursePrice'];
-            }
+			
+				}
+					
+			}else{//单个订单号
+				
+				//$orderIds
+				$Sqla="select  oo.*,cc.*  from __PREFIX__orders  oo left join   __PREFIX__order_course  cc ON  cc.orderId=oo.orderId  where  oo.orderId=$orderIds";
+				$result=$morders->query($Sqla);//二维数组
+				//var_dump($morders->getLastSql());
+				//var_dump($result);
+				//exit;
+				if($result[0]['orderStatus']=='-2'){
+					$needPay=$result[0]['totalMoney'];
+					$orderNum=$result[0]['orderNo'];
+					$orderCount=1;//订单数量
+				}
+					
+			}
+			
+			//
 
 			if($needPay>0){
-				
-				$this->assign ( "orders", $orders );
+				//var_dump($result);var_dump($orderNum);exit;
+			    $this->assign ( "orders", $result );
 				$this->assign ( "needPay", $needPay );
-				$this->assign ( "orderCnt", count ( $orders ) );
+				//$this->assign ( "orderCnt", count ( $orders ) );
 				
 				// 使用统一支付接口
 				$wxQrcodePay = new \WxQrcodePay ();
@@ -66,12 +114,12 @@ class WxPayAction extends BaseAction {
 				$wxQrcodePay->setParameter ( "total_fee", $needPay * 100 ); // 总金额
 				$wxQrcodePay->setParameter ( "notify_url", C ( 'WxPayConf.NOTIFY_URL' ) ); // 通知地址
 				$wxQrcodePay->setParameter ( "trade_type", "NATIVE" ); // 交易类型
-				$wxQrcodePay->setParameter ( "attach", "$pkey" ); // 附加数据
+				$wxQrcodePay->setParameter ( "attach", "$orderNum" ); // 附加数据
 				//$wxQrcodePay->setParameter ( "detail", "" );//附加数据
 				$wxQrcodePay->SetParameter ( "input_charset", "UTF-8" );
 				// 获取统一支付接口结果
 				$wxQrcodePayResult = $wxQrcodePay->getResult ();
-//                dump($wxQrcodePayResult);die;
+                // dump($wxQrcodePayResult);die;
 				// 商户根据实际情况设置相应的处理流程
 				if ($wxQrcodePayResult ["return_code"] == "FAIL") {
 					// 商户自行增加处理流程
@@ -85,18 +133,18 @@ class WxPayAction extends BaseAction {
 					$code_url = $wxQrcodePayResult ["code_url"];
 					// 商户自行增加处理流程
 				}
-				$this->assign ( 'out_trade_no', $obj ["uniqueId"] );
+				
+				$this->assign ( 'orderCount', $orderCount );
+				$this->assign ( 'out_trade_no', $out_trade_no );
 				$this->assign ( 'code_url', $code_url );
 				$this->assign ( 'wxQrcodePayResult', $wxQrcodePayResult );
-			}else{
-				$pflag = false;
+				
+				session('order',NULL);
+				//session_destroy();
+				$this->display ( "default/payment/wxpay/qrcode" );
 			}
 		}
-		if($pflag){
-			$this->display ( "default/payment/wxpay/qrcode" );
-		}else{
-			$this->display ( "default/payment/pay_success" );
-		}
+		
 		
 	}
 	
@@ -167,6 +215,9 @@ class WxPayAction extends BaseAction {
 	 * 检查支付结果
 	 */
 	public function paySuccess() {
+		
+	session('order',NULL);
+	//session_destroy();
 		$this->display ( "default/payment/pay_success" );
 	}
 }

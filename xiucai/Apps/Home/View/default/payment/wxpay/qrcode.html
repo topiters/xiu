@@ -1,37 +1,24 @@
-<!DOCTYPE>
-<html lang="zh-cn">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>{$CONF['mallTitle']} - 微信支付</title>
-<meta name="keywords" content="{$CONF['mallKeywords']},微信支付" />
-<meta name="description" content="{$CONF['mallDesc']},微信支付" />
-<link rel="stylesheet" href="__ROOT__/Apps/Home/View/default/css/common.css" />
-<link rel="stylesheet" href="__ROOT__/Apps/Home/View/default/css/ordersuccess.css" />
-<link rel="stylesheet" href="__ROOT__/Apps/Home/View/default/css/base.css" />
-<link rel="stylesheet" href="__ROOT__/Apps/Home/View/default/css/head.css" />
-<link rel="stylesheet" href="__ROOT__/Apps/Home/View/default/css/pslocation.css" />
-<link rel="stylesheet" href="__ROOT__/Apps/Home/View/default/css/magnifier.css" />
-<style type="text/css">
-.impowerBox {display: inline-block;line-height: 1.6;position: relative;text-align: center;vertical-align: middle;width: 100%;z-index: 1;}
-.impowerBox .title {font-size: 20px;text-align: center;}
-.impowerBox .qrcode {border: 1px solid #e2e2e2;margin-top: 15px;width: 280px;}
-.impowerBox .info {margin: 0 auto;width: 280px;}
-.impowerBox .status {padding: 7px 14px;text-align: left;}
-.impowerBox .status.normal {background-color: #E23C3D;border-radius: 100px;box-shadow: 0 5px 10px -5px #191919 inset, 0 1px 0 0 #444444;margin-top: 15px;}
-.impowerBox .status.status_browser {text-align: center;}
-.impowerBox .status p {font-size: 13px;}
-.impowerBox .status_txt p {position: relative;top: -2px;}
-.impowerBox .status_icon {display: inline-block;margin-right: 5px;vertical-align: middle;}
-.impowerBox .status_txt {display: inline-block;vertical-align: middle;}
-.impowerBox .status_txt p {margin: 0;position: relative;}
-.impowerBox .icon38_msg {display: inline-block;height: 38px;width: 38px;}
-#qrcode img{width:300px;height:300px;border:1px solid #dddddd;}
+<include file="./Apps/Home/View/default/common_head.html" />
+<style>
+#main{
+	width: 1200px;
+	margin: 30px auto;
+}
+.close_icon{
+	z-index: 8888;
+}
+.model_login span{
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border: 1px solid #fff;
+}
 </style>
-</head>
 
-<body class="root61">
-	<include file="./Apps/Home/View/default/header_common.html" />
-	<div class="w">
+</script>
+<div id="main">
+    <script>document.body.style.backgroundColor='#fff';</script>
+<div class="w">
 		<div>
 			<div>
                 <div id="succeed" class="wst-ods-success">
@@ -59,19 +46,21 @@
 						
 						<div class="wst-ods-success-tf" style="width:1150px;">
 							<div class="wst-ods-success-l25">
-								<if condition="count($orders) gt 0">
+								
 								<div class="wst-ods-success-tg">请你尽快支付，以便订单快速处理！</div>
 								<div>
-									共{$orderCnt}张订单， <span id="wst-order-details"
-										style="color: #1D94D7; cursor: pointer;">订单详情</span>。
+									共{$orderCount}张订单， <span id="wst-order-details"
+										style="color: #1D94D7; cursor: pointer;">订单详情如下：</span>。
 								</div>
 								<div id="wst-orders-box"
-									style="margin-left: 75px; display: none;">
+									style="margin-left: 75px; display: block;">
+									<if condition="!empty($orders)">
 									<volist name="orders" id="order">
-									<div>订单：{$key}</div>
-									<volist name="order" id="goods">
-									<div>{$goods["goodsName"]}&nbsp;&nbsp;{$goods["goodsAttrName"]}</div>
-									</volist> </volist>
+									<div></div>
+									
+									<div>订单号：{$order['orderNo']} &nbsp;&nbsp;&nbsp;&nbsp; 课程名称：{$order["courseName"]}&nbsp;&nbsp;</div>
+									</volist>
+									</if>
 								</div>
 								待付金额：<span class="wst-ods-success-ti">￥{$needPay}</span> 元
 								
@@ -103,9 +92,9 @@
 									</if>
 								</div>
 								
-								<else />
-								<div class="wst-ods-success-tj">您的订单已支付!</div>
-								</if>
+								
+							
+								
 							</div>
 						</div>
 						<div class="wst-clear"></div>
@@ -116,30 +105,194 @@
 			</div>
 		</div>
 	</div>
+	
+	
+	
+	
+	
+	
+</div>
+ <script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/jquery-1.9.0.js"></script> 
+	<script src="__PUBLIC__/js/think.js"></script>
+	
+<script>
+	$(function(){
+		$("input[name='mobile_login']").click(function(){
+			//登录成功之后
+			//先让非导航的右边显示登录之后的样子
+			$("#feinav_dlzq").css({"display":"none"});
+			$("#feinav_dlzh").css({"display":"block"});//显示用户信息
+			//再让黑色导航的右边显示登录之后的样子
+			$(".head_dhzx").css({"display":"none"});
+			$("#user_nodl").css({"display":"none"});
+			$("#login_dl").css({"display":"block"});
+			
+	var loginName = $.trim($('#loginName').val());
+	var loginPwd = $.trim($('#loginPwd').val());
+	var chPhone = /^1[2-9]{1}[0-9]{9}$/;
+	var regemail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+   //  alert(loginName);
+   
+   //判断是否手机号
+	 if($.isNumeric(loginName)){
+	    if(chPhone.test(loginName)){
+		checkl(loginName,loginPwd);
+		  //return true;
+	     }else{
+		 alert('不是有效的手机号');
+		 return false;
+		 } 
+	  
+	  
+	  }else{
+	   //是否邮箱
+	     if(loginName.indexOf("@")!=-1){
+				 if(regemail.test(loginName)){
+				 
+				 
+				  checkl(loginName,loginPwd);
+				 }else{
+				  alert('不是有效的邮箱');
+				 return false;
+				 }
+	  
+	     }else{
+	  
+	  
+	    alert('不是有效的手机号或邮箱');
+	    return false;
+	  
+	   }
+	 
+	 }
+	
 
-	<div class="wst-clear"></div>
-	<div style="height: 20px;"></div>
+			
+			
+		function checkl(loginN,pawd){
+		
+		
+		
+   var loginurl="{:U('Home/Users/checkLogin')}";
+	$.post(loginurl,{loginName:loginN,loginPwd:pawd},function(data,textStatus){
+	     var  data=$.parseJSON(data);
+		if(data.status=='1'){
+		alert('登陆成功，正在跳转...');
+		location.href=data.refer;
+		}else if(data.status=='-2'){
+			//$("#errmsg").html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;登陆失败，账号或密码错误");
+			alert('登陆失败，账号或密码错误');
+		}
+	});
+				
+		}					
+			//
+		});
+	})
+	
+	
+	
+	//刷新验证码
 
-	<include file="./Apps/Home/View/default/footer.html" />
+	
+function userreg(){	
+	
+	
+	 
+	/*if(!document.getElementById("protocol").checked){		
+		WST.msg('必须同意使用协议才允许注册!', {icon: 5});
+		return;
+	}
+	*/
+	
+	
+	var phone = $("#regPhone").val();
+	var chPhone = /^1[2-9]{1}[0-9]{9}$/;
+	 if(!chPhone.test(phone)){
+		alert('手机号不正确');
+		 return false;
 
-	<script src="__PUBLIC__/js/common.js"></script>
-	<script src="__PUBLIC__/plugins/layer/layer.min.js"></script>
-	<script src="__ROOT__/Apps/Home/View/default/js/index.js"></script>
-	<script src="__ROOT__/Apps/Home/View/default/js/common.js"></script>
-	<script src="__ROOT__/Apps/Home/View/default/js/orders.js"></script>
+	 }
+	var uName=$('#uname').val();
+	if(uName.length<1){
+	
+	alert('用户名不能为空');
+		 return false;
+	}
+	var pawd=$('#reUserPwd').val();
+	if(pawd.length<6 ||pawd.length>18){
+	
+	   alert('用户密码不能为6~18位');
+		 return false;
+	
+	}
+	var  vcode=$('#ymz').val();
+	if(vcode.length<1){
+	 alert('用户验证码不为空');
+	 return false;
+	}
+	
+	
+	
+  	var params = {};
+	params.loginPhone = $.trim($('#regPhone').val());//手机号
+	params.loginName = $.trim($('#uname').val());//姓名
+	params.reUserPwd = $.trim($('#reUserPwd').val());//密码
+	params.mverify = $.trim($('#ymz').val());//验证码
+	params.nameType = 3;
+	//params.userPass = $.trim($('#userPass').val());
+	// loginPhone loginName reUserPwd verify
+	//params.userTaste = $('#userTaste').val();
+	//params.userQQ = $.trim($('#userQQ').val());
+	//params.userPhone = $.trim($('#userPhone').val());
+	//params.mobileCode = $.trim($('#mobileCode').val());
+	//params.nameType = $("#nameType").val();
+	//params.protocol = document.getElementById("protocol").checked?1:0;	
+	
+	$.post(Think.U('Home/Users/toRegist'),params,function(data,textStatus){
+		var json = $.parseJSON(data);
+		if(json.status>0){
+			alert('注册成功，正在跳转登录!'); 
+				location.href=Think.U('Home/Index/index');
+   			
+		}else{
+			alert(json.msg);
+		}
+		getVerify();
+	});
+}	
+	
+function getVerify(){
 
-	<script src="__PUBLIC__/js/qrcode.js"></script>
+    $('.verifyImg').attr('src',Think.U('Home/Users/getVerify','rnd='+Math.random()));
+}	
+</script>
+
+	<script src="__PUBLIC__/js/qrcode.min.js"></script>
+	
+	
 	<script>
 	<if condition="$out_trade_no != ''">
 	if (<?php echo $wxQrcodePayResult["code_url"] != NULL; ?>) {
 		var url = "<?php echo $code_url;?>";
-		//参数1表示图像大小，取值范围1-10；参数2表示质量，取值范围'L','M','Q','H'
-		var qr = qrcode(10, 'M');
-			qr.addData(url);
-			qr.make();
-		$("#qrcode").html(qr.createImgTag());
+		
+	 var qrcode = new QRCode(document.getElementById("qrcode"), {
+	   text: url,
+	   width : 100,
+	   height : 100
+       });
+		
+		
+		
+		
 	}
 	</if>
+	
+	
+	
+	
+	
+
 	setInterval(function(){
 	var params = {};
 	params.trade_no = "{$out_trade_no}";
@@ -156,5 +309,5 @@
 	});
 },1500);
 </script>
-</body>
-</html>
+<div  style="clear:both;"></div>
+    <include file="./Apps/Home/View/default/common_foot.html" />

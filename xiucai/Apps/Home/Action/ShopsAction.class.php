@@ -330,9 +330,10 @@ class ShopsAction extends BaseAction {
 			$data['courseTime']=$_POST['courseTime'];
 			$data['is_live']=(int)$_POST['is_live'];
 			$data['is_free']=(int)$_POST['is_free'];
-			if($data['is_live']==2){
+			if($data['is_live']==2){//直播
 			$data['liveStartTime']=$_POST['liveStartTime'];
 			$data['liveEndTime']=$_POST['liveEndTime'];
+			$data['vid']=$_POST['vid'];//直播频道号
 
 			}
 			//var_dump($data);
@@ -358,8 +359,12 @@ class ShopsAction extends BaseAction {
 		    $data['courseThums']=$this->uploadShopPic();
 			$data['shopId']=$USER['shopId'];
 			$data['videoPath']=$_POST['videodata'];
+			
+			if($data['is_live']==1){
 			if(empty($data['videoPath'])){
 				$this->error('请上传课程视屏');
+			}
+			
 			}
 			//var_dump($data);
 			//exit;

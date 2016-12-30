@@ -19,6 +19,7 @@ class BaseAction extends Controller {
 		//初始化系统信息
 		$m = D('Home/System');
 		$GLOBALS['CONFIG'] = $m->loadConfigs();
+		//var_dump($GLOBALS['CONFIG']);
 		//系统课程分类
 		$this->assign("course_cats",$v=WSTGoodsCats());
 		//dump($v);

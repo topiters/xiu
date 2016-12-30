@@ -18,7 +18,7 @@ class LogSmsModel extends BaseModel {
 		$m = M('log_sms');
 		$ip = get_client_ip();
 	    //检测短信验证码验证是否正确
-	    if($GLOBALS['CONFIG']['smsVerfy']==1){
+	    if($GLOBALS['CONFIG']['smsVerfy']==0){//不验证
 	    	$smsverfy = I('smsVerfy');
 	    	$verify = new \Think\Verify(array('reset'=>false));    
 		    $rs =  $verify->check($smsverfy);
@@ -47,7 +47,9 @@ class LogSmsModel extends BaseModel {
 		if($ipRs['createTime']!='' && ((time()-strtotime($ipRs['createTime']))<120)){
 			return array('status'=>-20004,'msg'=>'请勿频繁发送短信验证!');
 		}
-		
+		$appId="8a48b5514da42dc3014dadbd605405a7";
+		$content="to=$phoneNumber&appId=$appId&templateId=144534&datas=["替换内容","替换内容"]";
+		$content=json_encode($content);
 		$code = WSTSendSMS($phoneNumber,$content);
 	    $data = array();
 		$data['smsSrc'] = $smsSrc;
@@ -60,7 +62,7 @@ class LogSmsModel extends BaseModel {
 		$data['smsFunc'] = $smsFunc;
 		$data['createTime'] = date('Y-m-d H:i:s');
 		$m->add($data);
-		if(intval($code)>0){
+		if($statusCode=="000000"){
 			return array('status'=>1,'msg'=>'短信发送成功!');
 		}else{
 			return array('status'=>-1,'msg'=>'短信发送失败!');

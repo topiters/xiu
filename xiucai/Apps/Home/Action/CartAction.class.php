@@ -142,9 +142,9 @@ class CartAction extends BaseAction {
 
                         if ($order_course) {
                             if ($k > 0) {
-                                $session .= '/' . $order_course;
+                                $sessionss .= ',' . $order_course;
                             } else {
-                                $session = $order_course;
+                                $sessionss = $order_course;
                             }
                             $data['orderId'] = $order_course;
                             $data['courseId'] = $val['courseId'];
@@ -167,7 +167,7 @@ class CartAction extends BaseAction {
                 }
             }
             $carStatus['status'] = 1;
-            session('order' , $session);
+            session('order' , $sessionss);
         } else {
             $carStatus['status'] = -1;
         }

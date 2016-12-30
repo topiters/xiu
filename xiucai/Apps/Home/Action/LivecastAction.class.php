@@ -49,6 +49,7 @@ class LivecastAction extends BaseAction {
             $re = D('course_record')->where("uid = {$user['userId']} and cid =".I('id'))->find();
             if ($re) {
                 $this->assign('sign' , 2);
+                $this->assign('sign_id' ,$res['id']);
             } else {
                 $this->assign('sign' , 1);
             }
@@ -63,6 +64,7 @@ class LivecastAction extends BaseAction {
      * 报名课程
      */
     public function sign() {
+    	$this->isUserLogin();
         if ($_POST) {
             $_POST['ctime'] = time();
             $re = D('course_record')->add($_POST);
@@ -77,10 +79,26 @@ class LivecastAction extends BaseAction {
      * 直播页面
      */
     public function live() {
+    /* 	$this->isUserLogin();
+    	$user=session('WST_USER');
+    	$cid=I('id');//报名id
+    	$courseId=I('courseId');//课程id
+    	$uid = $USER['userId'];
+    	 $re = D('course_record')->where("uid = {$user['userId']} and cid =".I('id'))->find();
+    	if(!$re){
+    		
+    		$this->error('没有报名该直播。。。');
+    		
+    	} 
     	
     	
+    	$liveOne=D('course')->where(array('courseId'=>$courseId))->find();
+    	if($liveOne){
+    	$this->assign('lid',$liveOne['vid']);
+    	} */
+    
     	
     	$this->display('default/living');
-        echo '正在进入直播间...';
+       
     }
 }

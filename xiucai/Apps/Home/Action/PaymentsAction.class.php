@@ -15,44 +15,6 @@
 class PaymentsAction extends BaseAction{
 	
 	/**
-	 * 获取支付宝URL
-	 */
-    public function getAlipayURL(){
-    	$this->isUserLogin();
-    	$morders = D('Home/Orders');
-		$USER = session('WST_USER');
-		$obj["userId"] = (int)$USER['userId'];
-
-		$data = $morders->checkOrderPay($obj);
-    	if($data["status"]==1){
-    		$m = D('Home/Payments');
-    		$url =  $m->getAlipayUrl();
-    		$data["url"] = $url;
-    	}
-		$this->ajaxReturn($data);
-	}
-
-	public function getWeixinURL(){
-		$this->isUserLogin();
-		$morders = D('Home/Orders');
-		$USER = session('WST_USER');
-		$obj["userId"] = (int)$USER['userId'];
-		
-		$data = $morders->checkOrderPay($obj);
-		if($data["status"]==1){
-			$m = D('Home/Payments');
-			$orderId = (int)I("orderId");
-			if($orderId>0){
-				$pkey = $obj["userId"]."@".$orderId."@1";
-			}else{
-				$pkey = $obj["userId"]."@".session("order")."@1";
-			}
-			$data["url"] = U('Home/WxPay/createQrcode',array("pkey"=>base64_encode($pkey)));
-		}
-		$this->ajaxReturn($data);
-	}
-	
-	/**
 	 * 支付
 	 */
 	public function toPay(){
@@ -68,16 +30,104 @@ class PaymentsAction extends BaseAction{
 		$data = $morders->getPayOrders($obj);
 		$orders = $data["orders"];
 		$needPay = 0;
-        foreach ($orders as $v) {
-            $needPay += $v[0]['coursePrice'];
+		foreach ($orders as $v) {
+			$needPay += $v[0]['coursePrice'];
 		}
-//		dump($orders);die;
+		
+		//dump(session('order'));
+		//dump($orders);echo'-------';dump($needPay);die;
 		$this->assign("orderId",$obj["orderId"]);
 		$this->assign("orders",$orders);
 		$this->assign("needPay",$needPay);
 		$this->assign("orderCnt",count($orders));
 		$this->display('default/payment/order_pay');
 	}
+	
+	
+	/**
+	 * 获取支付宝URL
+	 */
+    public function getAlipayURL(){
+    	$this->isUserLogin();
+    	$morders = D('Home/Orders');
+		$USER = session('WST_USER');
+		
+		$obj["userId"] = (int)$USER['userId'];
+
+		$data = $morders->checkOrderPay($obj);
+    	if($data["status"]==1){
+    		$m = D('Home/Payments');
+    		$url =  $m->getAlipayUrl();
+    		$data["url"] = $url;
+    	}
+		$this->ajaxReturn($data);
+	}
+
+	public function getWeixinURL(){
+		$this->isUserLogin();
+		$morders = D('Orders');
+		$USER = session('WST_USER');
+		$obj["userId"] = (int)$USER['userId'];
+		
+			$m = D('Home/Payments');
+			$orderId = (int)I("orderId");
+			if($orderId>0){//可能来自个人中心支付
+				$morder=$morders->where(array('userId'=>$obj["userId"],'orderId'=>$orderId))->find();
+				
+				
+				
+				if($morder['orderStatus']=='-2'){
+					//var_dump($morder);
+					//exit;
+					$pkey = $obj["userId"]."@".$orderId."@1";	
+					$data["url"] = U('Home/WxPay/createQrcode',array("pkey"=>base64_encode($pkey)));
+				}	
+			}
+			//正常支付时
+			$orderIds=session("order");
+		//	var_dump($orderIds);exit;
+			if($orderIds){
+							if (strpos($orderIds,',')){//多个订单号
+								//var_dump($orderIds);//in(".$ids.")
+							$Sqla="select  *  from __PREFIX__orders  where  orderId in (".$orderIds.")";
+							
+							$result=$morders->query($Sqla);
+							//var_dump($result);
+							//var_dump($morders->getLastSql());
+							foreach ($result  as $k=>$v){
+								
+								//var_dump($v);
+								//exit;
+								if($v['orderStatus']=='-2'){
+									//var_dump($v['orderStatus']);
+									//exit;
+									$pkey = $obj["userId"]."@".session("order")."@1";
+									$data["url"] = U('Home/WxPay/createQrcode',array("pkey"=>base64_encode($pkey)));
+								}
+								
+								
+							}
+							
+						}else{//单个订单号
+							$Sqla="select  *  from __PREFIX__orders  where  orderId=$orderIds";
+							$result=$morders->query($Sqla);
+							//var_dump($morders->getLastSql());
+							//var_dump($result);
+							if($result['0']['orderStatus']=="-2"){//二维数组
+								//var_dump('ccccc');
+								$pkey = $obj["userId"]."@".session("order")."@1";
+								$data["url"] = U('Home/WxPay/createQrcode',array("pkey"=>base64_encode($pkey)));
+							}
+							
+						}
+			
+		      }
+		
+		//var_dump($data);
+		//exit;
+	$this->ajaxReturn($data);
+	}
+	
 	
 	/**
 	 * 支付结果同步回调

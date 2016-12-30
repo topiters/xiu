@@ -6,7 +6,7 @@
             	<div class="header"> 
 	                <div class="switch" id="switch">
 	                    <a class="switch_btn_focus" id="switch_qlogin" href="javascript:void(0);" tabindex="7">普通登录</a> 
-	                    <a class="switch_btn" id="switch_login" href="javascript:void(0);" tabindex="8">短信登录</a>
+	               <!--      <a class="switch_btn" id="switch_login" href="javascript:void(0);" tabindex="8">短信登录</a> -->
 	                    <div class="switch_bottom" id="switch_bottom" style="position: absolute; width: 64px; left: 0px;"></div> 
 	                </div> 
 	            </div> 
@@ -58,7 +58,7 @@
 	                        		<table class="login_table">
 	                        			<tr>
 	                        				<td>
-	                        					<input type="text" placeholder="手机" value="" name="usermobile"/>
+	                        					<input type="text" placeholder="手机"   value=""  id=""  name="usermobile"/>
 	                        				</td>
 	                        			</tr>
 	                        			<tr>
@@ -74,8 +74,8 @@
 	                        			</tr>
 	                        			<tr>
 	                        				<td>
-	                        					<input type="password" placeholder="手机验证码" value="" name="mobile_yzm" style="width: 70%;"/>
-	                        					<a href="#" class="floatright fontcolor_999">获取验证码&nbsp;&nbsp;</a>
+	                        					<input type="password" placeholder="手机验证码" value=""     name="mobile_yzm" style="width: 70%;"/>
+	                        					<a href="#"   class="floatright fontcolor_999">获取验证码&nbsp;&nbsp;</a>
 	                        				</td>                     				
 	                        			</tr>
 	                        		</table>                      		
@@ -87,6 +87,10 @@
 	            </div> 
             	<!--短信登录end-->               
         	</div> 
+			
+			
+			
+			
         <div id="register_">
         		<div class="web_qr_login"  > 
 	                <div class="web_login">
@@ -119,8 +123,8 @@
 	                        			</tr>
 	                        			<tr>
 	                        				<td>
-	                        					<input type="password" placeholder="短信验证码" value="" name="zc_sms_yzm" style="width: 70%;"/>
-	                        					<a href="#" class="floatright fontcolor_999">获取验证码&nbsp;&nbsp;</a>
+	                        					<input type="text" placeholder="短信验证码"  name="zc_sms_yzm"    id="zc_sms_yzm"    value=""  style="width: 70%;"/>
+	                        					<span href="#"    id="regist-code-get" class="floatright fontcolor_999"  style="cursor:pointer;">获取验证码&nbsp;&nbsp;</span>
 	                        				</td>                     				
 	                        			</tr>
 	                        			<tr>
@@ -144,3 +148,48 @@
         	</div>
    </div>        
 </div>
+<script type="text/javascript" language="javascript">
+            
+				$(document).ready(function(){
+
+						var mobile_timeout;
+						var mobile_count = 100;
+						var mobile_lock = 0;
+						$(function () {
+							$("#regist-code-get").click(function () {
+								if (mobile_lock == 0) {
+									mobile_lock = 1;
+									$.ajax({
+										url: '{:U("Home/Users/getPhoneVerifyCode")}',
+										data: 'userPhone=' + $("#regPhone").val(),
+										type: 'post',
+										success: function (data) {
+											if (data == 1) {
+												mobile_count = 60;
+												BtnCount();
+											} else {
+												mobile_lock = 0;
+												alert(data);
+											}
+										}
+									});
+								}
+							});
+						});
+						BtnCount = function () {
+							if (mobile_count == 0) {
+								$('#regist-code-get').html("重新发送");
+								mobile_lock = 0;
+								clearTimeout(mobile_timeout);
+							}
+							else {
+								mobile_count--;
+								$('#regist-code-get').html("获取(" + mobile_count.toString() + ")秒");
+								mobile_timeout = setTimeout(BtnCount, 1000);
+							}
+						};
+
+
+				})
+			
+            </script>

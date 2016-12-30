@@ -105,7 +105,7 @@
                             </li>
                             <li id="live-course-status-btn" class="btn-group ">
                                 <if condition="$sign eq 2">
-                                    <a class="submit-btn a-login" href="{:U('Home/Livecast/live',array('id'=>''))}" id="in"  target="_blank">进入直播间</a>
+                                    <a class="submit-btn a-login" href="{:U('Home/Livecast/live',array('id'=>'sign_id','courseId'=>$course['courseId']))}" id="in"  target="_blank">进入直播间</a>
                                     <else/>
                                     <a class="submit-btn a-login" href="javascript:;" id="sign">报名课程</a>
                                 </if>

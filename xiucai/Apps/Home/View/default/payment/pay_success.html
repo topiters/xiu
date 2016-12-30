@@ -1,21 +1,24 @@
-<!DOCTYPE>
-<html lang="zh-cn">
-<head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>{$CONF['mallTitle']} - 支付成功</title>
-      	<meta name="keywords" content="{$CONF['mallKeywords']},支付成功" />
-      	<meta name="description" content="{$CONF['mallDesc']},支付成功" />
-	    <link rel="stylesheet" href="__ROOT__/Apps/Home/View/default/css/common.css" />
-     	<link rel="stylesheet" href="__ROOT__/Apps/Home/View/default/css/ordersuccess.css" />
-     	<link rel="stylesheet" href="__ROOT__/Apps/Home/View/default/css/base.css" />
-		<link rel="stylesheet" href="__ROOT__/Apps/Home/View/default/css/head.css" />
-		<link rel="stylesheet" href="__ROOT__/Apps/Home/View/default/css/pslocation.css" />
-		<link rel="stylesheet" href="__ROOT__/Apps/Home/View/default/css/magnifier.css" />
-</head>
+<include file="./Apps/Home/View/default/common_head.html" />
+<style>
+#main{
+	width: 1200px;
+	margin: 30px auto;
+}
+.close_icon{
+	z-index: 8888;
+}
+.model_login span{
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border: 1px solid #fff;
+}
+</style>
 
-<body class="root61">
-	<include file="./Apps/Home/View/default/header_common.html" />
-	<div class="w">
+</script>
+<div id="main">
+    <script>document.body.style.backgroundColor='#fff';</script>
+<div class="w">
 		<div>
 			<div>
                 <div id="succeed" class="wst-ods-success">
@@ -40,8 +43,10 @@
 						<div class="wst-ods-success-tf">
 							<div class="wst-ods-success-l25">
 								<span class="wst-ods-success-tg">您的订单已支付成功！</span>
+								<p  style="margin-left:200px;"><a  href="{:U('Home/Users/index')}"   style="color:red;font-size:16px;">请返回个人中心,学习该课程!</a></p>
 	   						</div>							
 						</div>
+						
 						<div class="wst-clear"></div>
 					</div>					
 					
@@ -66,19 +71,170 @@
 			</div>			
 		</div>
 	
-	<div class="wst-clear"></div>
-    <div style="height: 20px;"></div>
-    
-	<include file="./Apps/Home/View/default/footer.html" />
 	
-	<script src="__PUBLIC__/js/common.js"></script>
-  	<script src="__ROOT__/Apps/Home/View/default/js/index.js"></script>      	
- 	<script src="__ROOT__/Apps/Home/View/default/js/common.js"></script>
- 	<script src="__ROOT__/Apps/Home/View/default/js/orders.js"></script>
- 	<script>
- 		function toContinue(){
-			location.href= WST.DOMAIN;
-		}	
- 	</script>
-</body>
-</html>
+	
+	
+	
+</div>
+ <script type="text/javascript" src="__ROOT__/Apps/Home/View/default/js/jquery-1.9.0.js"></script> 
+	<script src="__PUBLIC__/js/think.js"></script>
+	
+<script>
+	$(function(){
+		$("input[name='mobile_login']").click(function(){
+			//登录成功之后
+			//先让非导航的右边显示登录之后的样子
+			$("#feinav_dlzq").css({"display":"none"});
+			$("#feinav_dlzh").css({"display":"block"});//显示用户信息
+			//再让黑色导航的右边显示登录之后的样子
+			$(".head_dhzx").css({"display":"none"});
+			$("#user_nodl").css({"display":"none"});
+			$("#login_dl").css({"display":"block"});
+			
+	var loginName = $.trim($('#loginName').val());
+	var loginPwd = $.trim($('#loginPwd').val());
+	var chPhone = /^1[2-9]{1}[0-9]{9}$/;
+	var regemail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+   //  alert(loginName);
+   
+   //判断是否手机号
+	 if($.isNumeric(loginName)){
+	    if(chPhone.test(loginName)){
+		checkl(loginName,loginPwd);
+		  //return true;
+	     }else{
+		 alert('不是有效的手机号');
+		 return false;
+		 } 
+	  
+	  
+	  }else{
+	   //是否邮箱
+	     if(loginName.indexOf("@")!=-1){
+				 if(regemail.test(loginName)){
+				 
+				 
+				  checkl(loginName,loginPwd);
+				 }else{
+				  alert('不是有效的邮箱');
+				 return false;
+				 }
+	  
+	     }else{
+	  
+	  
+	    alert('不是有效的手机号或邮箱');
+	    return false;
+	  
+	   }
+	 
+	 }
+	
+
+			
+			
+		function checkl(loginN,pawd){
+		
+		
+		
+   var loginurl="{:U('Home/Users/checkLogin')}";
+	$.post(loginurl,{loginName:loginN,loginPwd:pawd},function(data,textStatus){
+	     var  data=$.parseJSON(data);
+		if(data.status=='1'){
+		alert('登陆成功，正在跳转...');
+		location.href=data.refer;
+		}else if(data.status=='-2'){
+			//$("#errmsg").html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;登陆失败，账号或密码错误");
+			alert('登陆失败，账号或密码错误');
+		}
+	});
+				
+		}					
+			//
+		});
+	})
+	
+	
+	
+	//刷新验证码
+
+	
+function userreg(){	
+	
+	
+	 
+	/*if(!document.getElementById("protocol").checked){		
+		WST.msg('必须同意使用协议才允许注册!', {icon: 5});
+		return;
+	}
+	*/
+	
+	
+	var phone = $("#regPhone").val();
+	var chPhone = /^1[2-9]{1}[0-9]{9}$/;
+	 if(!chPhone.test(phone)){
+		alert('手机号不正确');
+		 return false;
+
+	 }
+	var uName=$('#uname').val();
+	if(uName.length<1){
+	
+	alert('用户名不能为空');
+		 return false;
+	}
+	var pawd=$('#reUserPwd').val();
+	if(pawd.length<6 ||pawd.length>18){
+	
+	   alert('用户密码不能为6~18位');
+		 return false;
+	
+	}
+	var  vcode=$('#ymz').val();
+	if(vcode.length<1){
+	 alert('用户验证码不为空');
+	 return false;
+	}
+	
+	
+	
+  	var params = {};
+	params.loginPhone = $.trim($('#regPhone').val());//手机号
+	params.loginName = $.trim($('#uname').val());//姓名
+	params.reUserPwd = $.trim($('#reUserPwd').val());//密码
+	params.mverify = $.trim($('#ymz').val());//验证码
+	params.nameType = 3;
+	//params.userPass = $.trim($('#userPass').val());
+	// loginPhone loginName reUserPwd verify
+	//params.userTaste = $('#userTaste').val();
+	//params.userQQ = $.trim($('#userQQ').val());
+	//params.userPhone = $.trim($('#userPhone').val());
+	//params.mobileCode = $.trim($('#mobileCode').val());
+	//params.nameType = $("#nameType").val();
+	//params.protocol = document.getElementById("protocol").checked?1:0;	
+	
+	$.post(Think.U('Home/Users/toRegist'),params,function(data,textStatus){
+		var json = $.parseJSON(data);
+		if(json.status>0){
+			alert('注册成功，正在跳转登录!'); 
+				location.href=Think.U('Home/Index/index');
+   			
+		}else{
+			alert(json.msg);
+		}
+		getVerify();
+	});
+}	
+	
+function getVerify(){
+
+    $('.verifyImg').attr('src',Think.U('Home/Users/getVerify','rnd='+Math.random()));
+}	
+</script>
+
+	<script src="__PUBLIC__/js/qrcode.min.js"></script>
+	
+	
+
+<div  style="clear:both;"></div>
+    <include file="./Apps/Home/View/default/common_foot.html" />

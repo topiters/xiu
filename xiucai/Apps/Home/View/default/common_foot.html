@@ -183,11 +183,20 @@ function userreg(){
 	 alert('用户验证码不为空');
 	 return false;
 	}
+	
+ var smscode=$('#zc_sms_yzm').val();
+   if(smscode.length<1){
+	 alert('短信验证码不为空');
+	 return false;
+	}
+
+	
   	var params = {};
 	params.loginPhone = $.trim($('#regPhone').val());//手机号
 	params.loginName = $.trim($('#uname').val());//姓名
 	params.reUserPwd = $.trim($('#reUserPwd').val());//密码
-	params.mverify = $.trim($('#ymz').val());//验证码
+	params.verify = $.trim($('#ymz').val());//验证码
+	params.smscode=$.trim($('#zc_sms_yzm').val());//短信验证码;
 	params.nameType = 3;
 	//params.userPass = $.trim($('#userPass').val());
 	// loginPhone loginName reUserPwd verify
@@ -214,6 +223,11 @@ function userreg(){
 }	
 	
 </script>
+
+
+
+
+
 
 <div id="footer">
     <div class="footer-context">

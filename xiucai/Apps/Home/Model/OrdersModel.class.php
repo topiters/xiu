@@ -82,7 +82,7 @@ class OrdersModel extends BaseModel {
 	 * 获取订单课程详情
 	 */
 	public function getPayOrders($obj){
-//	    dump($obj["orderType"]);die;
+	    //dump($obj);die;
 		$orderType = (int)$obj["orderType"];
 		$orderId = (int)$obj["orderId"];
 		$orderunique = 0;
@@ -105,15 +105,18 @@ class OrdersModel extends BaseModel {
             $rslist = $this->query($sql);
 		}else{
             $ids = session('order');
-            if (is_array($ids)){
-                $ids = explode('/' , $ids);
+            //dump($ids);dump(strpos($ids,'/'));die;
+            if (strpos($ids,',')){
+                $ids = explode(',' , $ids);
                 foreach ($ids as $vid) {
                     $sql = "SELECT o.orderId, o.orderNo, g.courseId, g.courseName ,og.courseAttrName , og.courseNums ,og.coursePrice
 				FROM __PREFIX__order_course og, __PREFIX__course g, __PREFIX__orders o
 				WHERE o.orderId = og.orderId AND og.courseId = g.courseId AND o.payType=1 AND orderFlag =1 AND o.isPay=0 AND o.orderStatus = -2 AND o.orderId =$vid";
                     $arr = $this->query($sql);
+                    //echo $sql;
+                    //dump($arr);
                     $rslist[] = $arr[0];
-//                dump($rslist);die;
+                //dump($rslist);die;
                 }
             } else {
                 $sql = "SELECT o.orderId, o.orderNo, g.courseId, g.courseName ,og.courseAttrName , og.courseNums ,og.coursePrice
@@ -1595,52 +1598,5 @@ class OrdersModel extends BaseModel {
 	/**
 	 * 检查订单是否已支付
 	 */
-	public function checkOrderPay ($obj){
-		$userId = (int)$obj["userId"];
-		$orderId = (int)I("orderId");
-		if($orderId>0){
-			$sql = "SELECT orderId,orderNo FROM __PREFIX__orders WHERE userId = $userId AND orderId = $orderId AND orderFlag = 1 AND orderStatus = -2 AND isPay = 0 ";
-		}else{
-			$orderunique = session("WST_ORDER_UNIQUE");
-			$sql = "SELECT orderId,orderNo FROM __PREFIX__orders WHERE userId = $userId AND orderunique = '$orderunique' AND orderFlag = 1 AND orderStatus = -2 AND isPay = 0 ";
-		}
-		$rsv = $this->query($sql);
-		$oIds = array();
-		for($i=0;$i<count($rsv);$i++){
-			$oIds[] = $rsv[$i]["orderId"];
-		}
-		$orderIds = implode(",",$oIds);
-		$data = array();
-		if(count($rsv)>0){
-			$sql = "SELECT og.courseId,og.courseName,og.courseAttrName,g.courseStock,og.courseNums, og.courseAttrId, ga.attrStock FROM  __PREFIX__course g ,__PREFIX__order_course og
-					left join __PREFIX__course_attributes ga on ga.courseId=og.courseId and og.courseAttrId=ga.id
-					WHERE og.courseId = g.courseId and og.orderId in($orderIds)";
-			$glist = $this->query($sql);
-			if(count($glist)>0){
-				$rlist = array();
-				foreach ($glist as $course) {
-					if($course["courseAttrId"]>0){
-						if($course["attrStock"]<$course["courseNums"]){
-							$rlist[] = $course;
-						}
-					}else{
-						if($course["courseStock"]<$course["courseNums"]){
-							$rlist[] = $course;
-						}
-					}
-				}
-				if(count($rlist)>0){
-					$data["status"] = -2;
-					$data["rlist"] = $rlist;
-				}else{
-					$data["status"] = 1;
-				}
-			}else{
-				$data["status"] = 1;
-			}
-		}else{
-			$data["status"] = -1;
-		}
-		return $data;
-	}
+	
 }
