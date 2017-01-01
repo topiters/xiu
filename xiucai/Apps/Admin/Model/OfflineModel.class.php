@@ -24,6 +24,15 @@ class OfflineModel extends BaseModel {
 		$data["offFile"] = I("offFile");
 		$data["offlineContent"] = I("offlineContent");
 		$data["offlineKey"] = I("offlineKey");
+		$data["offlinePrice"] = I("offlinePrice");
+		$data["offlineTeacher"] = I("offlineTeacher");
+		$data["offlineFor"] = I("offlineFor");
+		$data["offlineTeacherIntro"] = I("offlineTeacherIntro");
+		$data["offlineVipPrice"] = I("offlineVipPrice");
+		//$data["offlineKey"] = I("offlineKey");
+		$data["areaId1"] = (int)I("areaId1");
+		$data["areaId2"] = (int)I("areaId2");
+		//$data["areaId3"] = (int)I("areaId3");
 		$data["staffId"] = (int)session('WST_STAFF.staffId');
 		$data["createTime"] = date('Y-m-d H:i:s');
 	    if($this->checkEmpty($data,true)){
@@ -46,9 +55,17 @@ class OfflineModel extends BaseModel {
 		$data["offStartDate"] = I("offStartDate");
 		$data["offEndDate"] = I("offEndDate");
 		$data["offFile"] = I("offFile");
+		$data["offlinePrice"] = I("offlinePrice");
+		$data["offlineTeacher"] = I("offlineTeacher");
+		$data["offlineFor"] = I("offlineFor");
+		$data["offlineTeacherIntro"] = I("offlineTeacherIntro");
+		$data["offlineVipPrice"] = I("offlineVipPrice");
 		$data["isShow"] = (int)I("isShow",0);
 		$data["offlineContent"] = I("offlineContent");
 		$data["offlineKey"] = I("offlineKey");
+		$data["areaId1"] = (int)I("areaId1");
+		$data["areaId2"] = (int)I("areaId2");
+		//$data["areaId3"] = (int)I("areaId3");
 		$data["staffId"] = (int)session('WST_STAFF.staffId');
 	    if($this->checkEmpty($data,true)){	
 		    $rs = $this->where("offlineId=".(int)I('id',0))->save($data);
@@ -76,6 +93,23 @@ class OfflineModel extends BaseModel {
 	 	$sql.=' order by offlineId desc';
 		return $this->pageQuery($sql);
 	 }
+	 
+	 
+	public function  querysign() {
+		
+		$sql="select s.*,o.offlineTitle,o.offlinePrice, o.offlineVipPrice, o.offStartDate, o.offEndDate from  __PREFIX__offline_sign s left join __PREFIX__offline o ON s.offlineId=o.offlineId where o.offlineId>0  ";
+		
+		return $this->pageQuery($sql);
+	}
+	 
+	public function delsign(){
+		$rd = array('status'=>-1);
+		$rs = D('offline_sign')->delete((int)I('sign_id'));
+		if(false !== $rs){
+			$rd['status']= 1;
+		}
+		return $rd;
+	}
 	 /**
 	  * 获取列表
 	  */
@@ -85,9 +119,13 @@ class OfflineModel extends BaseModel {
 		 return $rs;
 	  }
 	  
+	  
+	  
 	 /**
 	  * 删除
 	  */
+	  
+	  
 	 public function del(){
 	 	$rd = array('status'=>-1);
 	    $rs = $this->delete((int)I('id'));

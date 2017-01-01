@@ -30,7 +30,7 @@
    </head>
    <script>
    $(function(){
-	   getVerify();
+	 //  getVerify();
 	   $('.form-actions').click(function(){login()});
 	   $(document).keypress(function(e) { 
 		   if(e.which == 13) {  
@@ -54,11 +54,11 @@
 		   $('#loginPwd').focus();
 		   return;
 	   }
-	   if(params.verify==''){
-		   Plugins.Tips({title:'信息提示',icon:'error',content:'请输入验证码!',timeout:1000});
-		   $('#verfyCode').focus();
-		   return;
-	   }
+	 //  if(params.verify==''){
+	//	   Plugins.Tips({title:'信息提示',icon:'error',content:'请输入验证码!',timeout:1000});
+	//	   $('#verfyCode').focus();
+	//	   return;
+	//   }
 	   Plugins.waitTips({title:'信息提示',content:'正在登录，请稍后...'});
 		$.post(Think.U("Admin/index/login"),params,function(data,textStatus){
 			var json = WST.toJson(data);
@@ -83,7 +83,7 @@
    </script>
    <body>
         <div id="loginbox"> 
-            <div class='logo'></div>            
+        <!--     <div class='logo'></div>  -->           
             <form id="loginform" class="form-vertical" />
                 <div class="control-group">
                     <div class="controls"> 
@@ -99,7 +99,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="control-group">
+              <!--   <div class="control-group">
                     <div class="controls">
                         <div class="input-prepend">
                             <span class="add-on">验证码：</span><input type="text" style='width:115px;' name='verfyCode' id='verfyCode' placeholder="验证码" />
@@ -108,7 +108,7 @@
 							</label>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="form-actions"></div>
             </form>
         </div> 
