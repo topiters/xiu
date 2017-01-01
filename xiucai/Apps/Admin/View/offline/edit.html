@@ -33,6 +33,36 @@
 	        "PUBLIC" : "__PUBLIC__",
 	        "DOMAIN" : "{:WSTDomain()}"
    };
+   
+     function getAreaList(objId,parentId,t,id){
+	   var params = {};
+	   params.parentId = parentId;
+	   $('#'+objId).empty();
+	   if(t<1){
+		   $('#areaId3').empty();
+		   $('#areaId3').html('<option value="">请选择</option>');
+	   }else{
+		   if(t==1 && $('#areaId2').find("option:selected").text()!=''){
+			   map.setZoom(15);
+			   map.setCity($('#areaId2').find("option:selected").text());
+			   $('#showLevel').val(map.getZoom());
+		   }
+	   }
+	   var html = [];
+	   $.post("{:U('Admin/Areas/queryByList')}",params,function(data,textStatus){
+		    html.push('<option value="">请选择</option>');
+			var json = WST.toJson(data);
+			if(json.status=='1' && json.list.length>0){
+				var opts = null;
+				for(var i=0;i<json.list.length;i++){
+					opts = json.list[i];
+					html.push('<option value="'+opts.areaId+'" '+((id==opts.areaId)?'selected':'')+'>'+opts.areaName+'</option>');
+				}
+			}
+			$('#'+objId).html(html.join(''));
+	   });
+   }
+
    $(function () {
    
         var uploading = null;
@@ -94,6 +124,14 @@
 	   params.isShow = $("input[name='isShow']:checked").val();
 	   params.offlineContent = $('#offlineContent').val();
 	   params.offlineKey = $('#offlineKey').val();
+	    params.offlinePrice = $('#offlinePrice').val();
+		 params.offlineTeacher = $('#offlineTeacher').val();
+		  params.offlineFor = $('#offlineFor').val();
+		   params.offlineVipPrice = $('#offlineVipPrice').val();
+		     params.offlineTeacherIntro = $('#offlineTeacherIntro').val();
+			   params.areaId1 = $('#areaId1').val();
+	   params.areaId2 = $('#areaId2').val();
+	//   params.areaId3 = $('#areaId3').val();
 	   
 	  if(params.offFile==''){
 		   Plugins.Tips({title:'信息提示',icon:'error',content:'请上传活动图片!',timeout:1000});
@@ -153,7 +191,48 @@
              <input type='text' id='offlineKey' class="form-control wst-ipt" value='{$object.offlineKey}' maxLength='80'/>
              </td>
            </tr>
+		     <tr>
+             <th width='120' align='right'>普通价<font color='red'>*</font>：</th>
+             <td><input type='text' id='offlinePrice' class="form-control wst-ipt" value='{$object.offlinePrice}' maxLength='25'/></td>
+           </tr>
+		    <tr>
+             <th width='120' align='right'>vip价<font color='red'>*</font>：</th>
+             <td><input type='text' id='offlineVipPrice' class="form-control wst-ipt" value='{$object.offlineVipPrice}' maxLength='25'/></td>
+           </tr>
+		     <tr>
+             <th width='120' align='right'>讲师<font color='red'>*</font>：</th>
+             <td><input type='text' id='offlineTeacher' class="form-control wst-ipt" value='{$object.offlineTeacher}'/></td>
+           </tr>
 		   
+		    <tr>
+             <th width='120' align='right'>适合对象<font color='red'>*</font>：</th>
+             <td><input type='text' id='offlineFor' class="form-control wst-ipt" value='{$object.offlineFor}'/></td>
+           </tr>
+		   
+		    <tr>
+             <th align='right'>讲师简介<font color='red'>*</font>：</th>
+             <td>
+             <textarea id='offlineTeacherIntro' class= " form-control wst-ipt" name='offlineTeacherIntro' style='width:80%;height:200px;'>{$object.offlineTeacherIntro}</textarea>
+             </td>
+           </tr>
+		   <tr>
+             <th align='right'>活动地区<font color='red'>*</font>：</th>
+             <td>
+             <select id='areaId1' onchange='javascript:getAreaList("areaId2",this.value,0)'>
+               <option value=''>请选择</option>
+               <volist name="areaList" id="vo">
+               <option value='{$vo['areaId']}' <if condition="$object['areaId1'] == $vo['areaId'] ">selected</if>>{$vo['areaName']}</option>
+               </volist>
+             </select>
+             <select id='areaId2' onchange='javascript:getAreaList("areaId3",this.value,1)'>
+               <option value='{$vo['areaId']}'     >{$area2['areaName']}</option>
+             </select>
+           <!--   <select id='areaId3'>
+               <option value=''>请选择</option>
+             </select> -->
+             </td>
+           </tr>  
+					  
 		    <tr>
              <th align='right'>活动日期<font color='red'>*</font>：</th>
              <td>
