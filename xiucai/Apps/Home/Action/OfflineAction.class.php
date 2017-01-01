@@ -25,6 +25,9 @@ class OfflineAction extends BaseAction {
 	 	
 	 	$cat=I('cat');//子类
 	 	$pcat=I('pcat');//父类
+	 	$monthid=I("yearId");//按年检索
+	 	$yearid=I("monthId");//按月检索
+	 	$areaId=I("areaId");//按地区检索
 	 	if($cat){
 	 	$map['catId']=$cat;
 	 	}
@@ -32,6 +35,16 @@ class OfflineAction extends BaseAction {
 	 		$map['parentId']=$pcat;
 	 	}
 	 	$map['isShow']=1;
+	 	if($yearid){
+	 		
+	 		$map['offStartDate']=array('like','%'.$yearid.'%');
+	 		
+	 	}
+	 	if($monthid){
+	 	
+	 		$map['offStartDate']=array('like','%'.$monthid.'%');
+	 	
+	 	}
 	 	
 	 	$offlist=D('offline')->where($map)->limit(20)->select();
 	 	$this->assign('offlist',$offlist);
@@ -42,194 +55,77 @@ class OfflineAction extends BaseAction {
 	 }
 	 //详情
 	 public function details(){
-	 	
-	 	
-	 	$catId=I('catId');//子类
+	 	  
+	 	//$this->isLogin();
+	 	$USER = session('WST_USER');
+	 	if($USER){
+	 	$this->assign("uid",$USER['userId']);	
 	 		
+	 		
+	 	}
+	 	$catId=I('catId');//子类
+	 	$details=D('offline')->where(array('offlineId'=>$catId))->find();
+	 	$this->assign('details',$details);
+	 	//var_dump($details);
+	 	if($details['areaId2']){
+	 		$areaName=D('areas')->where(array('area'=>$details['areaId2']))->find();//举办地点
+	 		$this->assign('areaName',$areaName);
+	 		
+	 		//exit;
+	 		
+	 	}
+	 	//近期课程
+	 	$jqcourse=D('course')->where(array('isSale'=>1))->limit(3)->order('courseId  desc')->select();
+	 	$this->assign('jqcourse',$jqcourse);
+	 	
+	 	
 	 	$this->display('default/offline_details');
 	 		
 	 }
 	 
-	 
-	 
-	 
-	 
-	 
-	 
-	   //我的圈子
-	  public function myindex(){
-		 
-		 $this->display('default/my_index');
-		 
-	 }
-	
-	public function toEditPass(){
-		$this->isLogin();
-		$this->assign("umark","toEditPass");
-		$this->display("default/users/edit_pass");
-	}
-	
-	/**
-	 * 修改用户密码
-	 */
-	public function editPass(){
-		$this->isLogin();
-		$USER = session('WST_USER');
-		$m = D('Home/Users');
-   		$rs = $m->editPass($USER['userId']);
-    	$this->ajaxReturn($rs);
-	}
-	/**
-	 * 跳去修改买家资料
-	 */
-	public function toEdit(){
-		$this->isLogin();
-		$m = D('Home/Users');
-		$obj["userId"] = session('WST_USER.userId');
-		$user = $m->getUserById($obj);
-	
-		//判断会员等级
-		$USER = session('WST_USER');
-		$rm = D('Home/UserRanks');
-		$USER["userRank"] = $rm->getUserRank();
-		session('WST_USER',$USER);
-		
-		$this->assign("user",$user);
-		$this->assign("umark","toEditUser");
-		$this->display("default/users/edit_user");
-	}
-	
-	/**
-	 * 跳去修改买家资料
-	 */
-	public function editUser(){
-		$this->isLogin();
-		$m = D('Home/Users');
-		$obj["userId"] = session('WST_USER.userId');
-		$data = $m->editUser($obj);
-		
-		$this->ajaxReturn($data);
-	}
-	
-	/**
-	 * 判断手机或邮箱是否存在
-	 */
-	public function checkLoginKey(){
-		$m = D('Home/Users');
-		$key = I('clientid');
-		$userId = (int)session('WST_USER.userId');
-		$rs = $m->checkLoginKey(I($key),$userId);
-		if($rs['status']==1){
-			$rs['msg'] = "该账号可用";
-		}else if($rs['status']==-2){
-			$rs['msg'] = "不能使用该账号";
-		}else{
-			$rs['msg'] = "该账号已存在";
+	 //报名
+	public function  takeInac(){
+		$rs=1;
+		$uname=I('uname');
+		$mobile=I("umobile");
+		$uid=I('uid');
+		$offlineid=I('offlineid');
+		//$forme=I('typeId');//是否给自自己报名
+		$data['userId']=$uid;
+		$data['mobile']=$mobile;
+		$data['offlineId']=$offlineid;
+		$data['uname']=$uname;
+		$data['type']=I('type') ;//1为自己报名
+		if($data['type']){
+		$repeatId=D('offline_sign')->where(array('userId'=>$uid,'offlineId'=>$offlineid,'type'=>$data['type']))->find();//判是否报名
+		if($repeatId){
+			
+			$rs='-2';
+			$this->ajaxReturn($rs);
+			die();
+			
 		}
-		$this->ajaxReturn($rs);
-	}
-	/**
-	 * 忘记密码
-	 */
-    public function forgetPass(){
-    	session('step',1);
-    	$this->display('default/forget_pass');
-    }
-    
-    /**
-     * 找回密码
-     */
-    public function findPass(){
-    	//禁止缓存
-    	header('Cache-Control:no-cache,must-revalidate');  
-		header('Pragma:no-cache');
-    	$step = (int)I('step');
-    	switch ($step) {
-    		case 1:#第二步，验证身份
-    			if (!$this->checkCodeVerify(false)) {
-    				$this->error('验证码错误！');
-    			}
-    			$loginName = WSTAddslashes(I('loginName'));
-    			$m = D('Home/Users');
-    			$info = $m->checkAndGetLoginInfo($loginName);
-    			if ($info != false) {
-    				session('findPass',array('userId'=>$info['userId'],'loginName'=>$loginName,'userPhone'=>$info['userPhone'],'userEmail'=>$info['userEmail'],'loginSecret'=>$info['loginSecret']) );
-    				if($info['userPhone']!='')$info['userPhone'] = WSTStrReplace($info['userPhone'],'*',3);
-    				if($info['userEmail']!='')$info['userEmail'] = WSTStrReplace($info['userEmail'],'*',2,'@');
-    				$this->assign('forgetInfo',$info);
-    				$this->display('default/forget_pass2');
-    			}else $this->error('该用户不存在！');
-    			break;
-    		case 2:#第三步,设置新密码
-    			if (session('findPass.loginName') != null ){
-                    if (session('findPass.userEmail')==null) {
-                        $this->error('你没有预留邮箱，请通过手机号码找回密码！');
-                    }
-                    if ( session('findPass.userPhone') == null) {
-    				    $this->error('你没有预留手机号码，请通过邮箱方式找回密码！');
-                    }
-    			}else $this->error('页面过期！');
-    			break;
-    		case 3:#设置成功
-    			$resetPass = session('REST_success');
-    			if($resetPass!='1')$this->error("非法的操作!");
-                $loginPwd = I('loginPwd');
-                $repassword = I('repassword');
-                if ($loginPwd == $repassword) {
-	                $rs = D('Home/Users')->resetPass();
-			    	if($rs['status']==1){
-			    	    $this->display('default/forget_pass4');
-			    	}else{
-			    		$this->error($rs['msg']);
-			    	}
-                }else $this->error('两次密码不同！');
-    			break;
-    		default:
-    			$this->error('页面过期！'); 
-    			break;
-    	}  	
-    }
-
-
-	/**
-	 * 手机验证码获取
-	 */
-	public function getPhoneVerify(){
-		$rs = array('status'=>-1);
-		if(session('findPass.userPhone')==''){
+		}
+		$result=D('offline_sign')->add($data);
+		//var_dump(D('offline_sign')->getLastSql());
+		if($result){
+			
+			$this->ajaxReturn($rs);
+			
+		}else{
+			
+			$rs='-1';
 			$this->ajaxReturn($rs);
 		}
-		$phoneVerify = mt_rand(100000,999999);
-		$USER = session('findPass');
-		$USER['phoneVerify'] = $phoneVerify;
-        session('findPass',$USER);
-		$msg = "您正在重置登录密码，验证码为:".$phoneVerify."，请在30分钟内输入。【".$GLOBALS['CONFIG']['mallName']."】";
-		$rv = D('Home/LogSms')->sendSMS(0,session('findPass.userPhone'),$msg,'getPhoneVerify',$phoneVerify);
-		$rv['time']=30*60;
-		$this->ajaxReturn($rv);
+		
+		
+	
+		
 	}
-
-	/**
-	 * 手机验证码检测
-	 * -1 错误，1正确
-	 */
-	public function checkPhoneVerify(){
-		$phoneVerify = I('phoneVerify');
-		$rs = array('status'=>-1);
-		if (session('findPass.phoneVerify') == $phoneVerify ) {
-			//获取用户信息
-			$user = D('Home/Users')->checkAndGetLoginInfo(session('findPass.userPhone'));
-			$rs['u'] = $user;
-			if(!empty($user)){
-				$rs['status'] = 1;
-				$keyFactory = new \Think\Crypt();
-			    $key = $keyFactory->encrypt("0_".$user['userId']."_".time(),C('SESSION_PREFIX'),30*60);
-				$rs['url'] = "http://".$_SERVER['HTTP_HOST'].U('Home/Users/toResetPass',array('key'=>$key));
-			}
-		}
-		$this->ajaxReturn($rs);
-	}
-
+	 
+	 
+	 
+	 
 	/**
 	 * 发送验证邮件
 	 */
