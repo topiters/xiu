@@ -26,6 +26,14 @@ class OfflineAction extends BaseAction{
     	$m = D('Admin/OfflineCats');
     	$this->assign('catList',$m->getCatLists());
     	$this->assign('object',$object);
+    	$a = D('Admin/Areas');
+    	$area2=$a->where(array('areaId'=>$object['areaId2']))->find();
+    	if($area2){
+    		$this->assign('area2',$area2);
+    	}
+    	
+    	$this->assign('areaList',$v=$a->queryShowByList(0));
+    	//var_dump($v);
 		$this->view->display('/offline/edit');
 	}
 	/**
@@ -54,6 +62,18 @@ class OfflineAction extends BaseAction{
     	$rs = $m->del();
     	$this->ajaxReturn($rs);
 	}
+	
+	
+	
+	public function delsign(){
+		$this->isLogin();
+		//$this->checkPrivelege('xxhd_03');
+		$m = D('Admin/Offline');
+		$rs = $m->delsign();
+		$this->ajaxReturn($rs);
+	}
+	
+	
    /**
 	 * 查看
 	 */
@@ -92,6 +112,23 @@ class OfflineAction extends BaseAction{
 		$rs['status'] = 1;
 		$rs['list'] = $list;
 		$this->ajaxReturn($rs);
+	}
+	
+	
+	public function book(){
+		$this->isLogin();
+		$m = D('Admin/Offline');
+		$page = $m->querysign();
+		
+		$pager = new \Think\Page($page['total'],$page['pageSize'],I());// 实例化分页类 传入总记录数和每页显示的记录数
+    	$page['pager'] = $pager->show();
+    	
+    	
+    	$this->assign('Page',$page);
+		
+		
+		
+		$this->display("/offline/book");
 	}
     /**
 	 * 显示商品是否显示/隐藏
