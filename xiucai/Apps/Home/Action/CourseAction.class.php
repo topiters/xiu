@@ -81,8 +81,44 @@ class CourseAction extends BaseAction {
 		
 		
 	}
+	//定制课程
+   public  function ding(){
+	   
+	   
+	   	$this->display('default/course_ding');
+   }
+  
+  //提交定制课                                                                                                                                    
+  public function mylikecourse(){
+	$courseName=I('courseName');
+	$coursecontent=I('coursecontent');
+	$phone=I('phone');
+	$email=I('email');
+	if($phone){
+		$data['courseName']=$courseName;
+		$data['coursecontent']=$coursecontent;
+		$data['phone']=$phone;
+		$data['email']=$email;
+		$data['times']=time();
+		$res=D('course_ding')->add($data);
+		if($res){
+			$msg=1;
+			$this->ajaxReturn($msg);
+			
+		}
+		
+		
+		
+		
+		
+	}
 	
-   
+	
+	
+	 
+	  
+  }
+  
   
 	/**
 	 * 查询商品详情
