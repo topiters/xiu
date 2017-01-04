@@ -131,10 +131,10 @@
                         <div class="">
                         	<ul class="btn_li_two" style="padding: 0;margin:  0 auto;">
 	                            <li class="">
-	                                 <a class="" href="javascript:;"  onclick="takePart({$uid},1)">立即报名</a>                                                                                                                                  
+	                                 <a class="" href="javascript:;"  onclick="takePart(1)">立即报名</a>                                                                                                                                  
 	                            </li>
 	                            <li class="">
-	                                 <a class="" href="javascript:;"     onclick="takePart({$uid},2)">帮别人报名</a>                                                                                                                                  
+	                                 <a class="" href="javascript:;"     onclick="takePart(2)">帮别人报名</a>                                                                                                                                  
 	                            </li>
 	                        </ul>
                         </div>
@@ -406,8 +406,11 @@
 
 <script>
 	 
-function takePart(uid,type){
-   //var uid=2;
+function takePart(type){
+
+
+
+   var uid="{$uid}";
    if(!uid){
      login();
 	 return  false;
