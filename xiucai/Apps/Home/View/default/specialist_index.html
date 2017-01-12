@@ -96,7 +96,7 @@
 		                    <dt class="zj">最近解答：</dt>
 		                    <dd>
                                 <foreach name="v['shopQuestions']" item="vv">
-		                        <p><a target="_blank" href="{:U('Home/specialist/question',array('id'=>$vv['id']))}">{$vv['title']|WSTMSubstr=###,0,25}</a></p>
+		                        <p><span>{$vv['title']|WSTMSubstr=###,0,25}</span></p>
                                 </foreach>
 		                    </dd>
 		                </dl>

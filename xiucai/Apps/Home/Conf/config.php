@@ -6,7 +6,7 @@ return array(
 	define('WEB_HOST', WSTDomain()),
 	/*微信支付配置*/
 	'WxPayConf'=>array(
-		'NOTIFY_URL' =>  WEB_HOST.'/index.php?m=Home&c=WxPay&a=notify',
-		'CURL_TIMEOUT' => 30
+		'NOTIFY_URL' =>  WEB_HOST.'/payment/notify_weixin.php',
+		'CURL_TIMEOUT' => 60
 	)
 );

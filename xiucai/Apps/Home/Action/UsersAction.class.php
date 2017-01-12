@@ -12,7 +12,7 @@ class UsersAction extends BaseAction {
      * 跳去登录界面
      */
 	public function login(){
-		//如果已经登录了则直接跳去后台
+		//如果已经登录了则直接跳转
 		$USER = session('WST_USER');
 		if(!empty($USER) && $USER['userId']!=''){
 			$this->redirect("Users/index");
@@ -181,7 +181,7 @@ class UsersAction extends BaseAction {
 		$result = $rest->sendTemplateSMS($to,$datas,$tempId);
 		if($result == NULL ) {
 			echo "result error!";
-			break;
+			exit;
 		}
 		if($result->statusCode!=0) {
 			echo "error code :" . $result->statusCode . "<br>";
@@ -234,6 +234,9 @@ class UsersAction extends BaseAction {
 		$this->assign("statusList",$statusList);
 		//我的问答
         $myquestion = D('questions')->field('id,title')->where("userId = {$USER['userId']}")->select();
+		foreach ($myquestion as $k=>$v) {
+            $myquestion[$k]['answers'] = D('answers')->where("qId = {$v['id']}")->select();
+        }
         $this->assign('myquestion',$myquestion);
 //        dump($myquestion);die;
         //老师列表
@@ -452,7 +455,7 @@ class UsersAction extends BaseAction {
 			    	}
                 }else $this->error('两次密码不同！');
     			break;
-    		default:
+            default:
     			$this->error('页面过期！'); 
     			break;
     	}  	
@@ -671,10 +674,7 @@ class UsersAction extends BaseAction {
 	
 	//开通会员说明
 	public function open_member(){
-		
-		
 		$this->display("default/users/openintro");
-		
 	}
 	
 	
@@ -682,20 +682,19 @@ class UsersAction extends BaseAction {
     //视屏播放页面
 	public  function  videoPlay(){
 		$this->isUserLogin();
-		$courseId=I('courseId');
+		
 		$orderId=I('orderId');
-		$courseOne=D('course')->where(array('courseId'=>$courseId))->find();
-		if(!$courseOne){
-			
-			$this->error('当前课程不存在');
-		}
+		
 		$orderOne=D('orders')->where(array('orderNo'=>$orderId))->find();
 		if(!$orderOne){
-			
 			$this->error('当前视屏不存在');
-			
 		}
-		
+		$orderCourse=D('order_course')->where(array('orderId'=>$orderOne['orderId']))->find();
+		$courseOne=D('course')->where(array('courseId'=>$orderCourse['courseId']))->find();
+		if(!$courseOne){
+			$this->error('当前课程不存在');
+		}
+
 		$this->assign('courseOne',$courseOne);
 
 		//dump($courseOne);
@@ -703,7 +702,85 @@ class UsersAction extends BaseAction {
 		$this->display("default/users/videoplay");
 		 
 	}
-	
-    
-    
+
+    public function toOpenShop() {
+        $this->isUserLogin();
+        //判断用户是否已提交审核资料
+        $userId = session('WST_USER.userId');
+        $result = D('shops')->where("userId = {$userId}")->find();
+//        dump($result['shopStatus']);die;
+        if ($result['shopStatus'] === '0' || $result['shopStatus'] == 1) {
+            $this->assign('auth',1);  //已提交
+        } elseif ($result['shopStatus'] == -1) {
+            $this->assign('auth' , 2);  //未提交
+            $this->assign('result' , $result);//用户信息
+        }else {
+            $this->assign('auth' , 2);  //未提交
+        }
+        $this->display("default/users/openShop");
+    }
+
+    public function toAuth() {
+        $this->isUserLogin();
+        if ($_POST){
+            if ($_POST['save']){//需要重新审核的
+                unset($_POST['save']);
+                $_POST['userId'] = session('WST_USER.userId');
+                $_POST['shopCompany'] = $_POST['shopName'];
+                $_POST['createTime'] = date('Y-m-d H:i:s' , time());
+                $_POST['shopStatus'] = 0;
+                if ($_FILES['shopImg']['name']) {
+                    $_POST['shopImg'] = $this->uploadShopPic();
+                }
+                $result = D('shops')->where("userId = {$_POST['userId']}")->save($_POST);
+                if ($result) {
+                    $this->success('提交成功,待审核',U('Home/Users/toOpenShop'));
+                } else {
+                    $this->error('未知错误');
+                }
+            } else { //新提交的
+                $_POST['userId'] = session('WST_USER.userId');
+                $_POST['shopCompany'] = $_POST['shopName'];
+                $_POST['createTime'] = date('Y-m-d H:i:s' , time());
+                if ($_FILES['shopImg']['name']) {
+                    $_POST['shopImg'] = $this->uploadShopPic();
+                }
+                $result = D('shops')->add($_POST);
+                if ($result) {
+                    $this->success('提交成功,待审核',U('Home/Users/toOpenShop'));
+                } else {
+                    $this->error('未知错误');
+                }
+            }
+        } else {
+            $this->redirect("Home/Index/index");
+        }
+    }
+
+
+
+    public function uploadShopPic() {
+        $config = array(
+            'maxSize'  => 0 , //上传的文件大小限制 (0-不做限制)
+            'exts'     => array('jpg' , 'png' , 'gif' , 'jpeg') , //允许上传的文件后缀
+            'rootPath' => './Upload/' , //保存根路径
+            'driver'   => 'LOCAL' , // 文件上传驱动
+            'subName'  => array('date' , 'Y-m') ,
+            'savePath' => I('dir' , 'shops') . "/"
+        );
+        $dirs = explode("," , C("WST_UPLOAD_DIR"));
+        if (!in_array(I('dir' , 'shops') , $dirs)) {
+            echo '非法文件目录！';
+            return false;
+        }
+        $upload = new \Think\Upload($config);
+        $rs = $upload->upload($_FILES);
+        $Filedata = key($_FILES);
+        if (!$rs) {
+            $this->error($upload->getError());
+        } else {
+            $rs[$Filedata]['savepath'] = "Upload/" . $rs[$Filedata]['savepath'] . $rs[$Filedata]['savename'];
+            return $rs[$Filedata]['savepath'];
+        }
+    }
 }

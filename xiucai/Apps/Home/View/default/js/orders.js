@@ -243,7 +243,7 @@ function delAddress(addressId){
 function submitOrder(){
 	var flag = true;
     var totalMoney=$('#submit-order').attr("data-total");
-	    totalMoney=parseInt(totalMoney);
+	   // totalMoney=parseInt(totalMoney);
 	 if(!totalMoney){ 
       layer.msg('没有订单可提交', {icon: 16,shade: [0.5, '#B3B3B3']});
 	  layer.close(ll);

@@ -508,7 +508,7 @@ var WST = ThinkPHP = window.Think = {
 
                         <a href="{:U('Home/course/getCourseDetails',array('courseId'=>$data['courseId']))}"  target="_blank" data-opt_value="相关课程">
                             <div class="course-list-img">
-                                <img width="280" height="160" src="__ROOT__/{$data['courseImg']}" alt="{$data['courseName']} ">
+                                <img width="280" height="160" src="__ROOT__/{$data['courseThums']}" alt="{$data['courseName']} ">
                             </div>
                             <h5>
                                 <span>{$data['courseName']} </span>
@@ -529,9 +529,16 @@ var WST = ThinkPHP = window.Think = {
                                 <em>|</em>
                                 <span>1134人已学</span>
                             </div>
+							<if  condition="$data['is_free']  eq 1">
                             <div class="cost">                                                                                                                                                   
+                                 <span class="l toll">{$data['shopPrice']}</span>                                                                                   
+                            </div>
+							<else/>
+							
+							  <div class="cost">                                                                                                                                                   
                                  <span class="l toll">会员免费看</span>                                                                                   
                             </div>
+							</if>
                         </a>
                     </li>
 					

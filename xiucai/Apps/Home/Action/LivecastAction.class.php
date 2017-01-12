@@ -16,24 +16,30 @@ class LivecastAction extends BaseAction {
 		vendor ( 'WxPay.WxPayConf' );
 		vendor ( 'WxPay.WxQrcodePay' );
 
-		$this->wxpayConfig = C ( 'WxPayConf' );
-		
+		$wxpayConfig = C ( 'WxPayConf' );
+		//var_dump($this->wxpayConfig);
 		//var_dump($this->wxpayConfig);//array(2) { ["NOTIFY_URL"]=> string(55) "http://tax.hntax168.cn/Wstapi/payment/notify_weixin.php" ["CURL_TIMEOUT"]=> int(30) } 
 		//exit;
-		$m = D ( 'Home/Payments' );
-		$this->wxpay = $m->getPayment ( "weixin" );
-		$this->wxpayConfig ['appid'] = $this->wxpay ['appId']; // 微信公众号身份的唯一标识
-		$this->wxpayConfig ['appsecret'] = $this->wxpay ['appsecret']; // JSAPI接口中获取openid
-		$this->wxpayConfig ['mchid'] = $this->wxpay ['mchId']; // 受理商ID
-		$this->wxpayConfig ['key'] = $this->wxpay ['apiKey']; // 商户支付密钥Key
-		$this->wxpayConfig ['notifyurl'] = $this->wxpayConfig ['NOTIFY_URL'];
+		$m = D ( 'Payments' )->where(array('payCode'=>'weixin'))->find();
+		//
+		//exit;
+		
+		$wxpay = Json_decode($m['payConfig'],true);
+		//var_dump($this->wxpay['appId']);
+		//exit;
+		$wxpayConfig ['appid'] = $wxpay ['appId']; // 微信公众号身份的唯一标识
+		//var_dump($wxpayConfig ['appid']);exit;
+		$wxpayConfig ['appsecret'] = $wxpay ['appsecret']; // JSAPI接口中获取openid
+		$wxpayConfig ['mchid'] =$wxpay['mchId']; // 受理商ID
+		$wxpayConfig ['key'] = $wxpay ['apiKey']; // 商户支付密钥Key
+		$wxpayConfig ['notifyurl'] = $wxpayConfig ['NOTIFY_URL'];
 		//$this->wxpayConfig ['returnurl'] = "/index.php?m=Home&c=WxPay&a=paySuccess";
 		// 初始化WxPayConf_pub
 		
 		//var_dump($this->wxpayConfig );exit;
-		$wxpaypubconfig = new \WxPayConf ( $this->wxpayConfig );
+		$wxpaypubconfig = new \WxPayConf ($wxpayConfig );
 		//var_dump($wxpaypubconfig::$APPID);
-		//exit;
+	//exit;
 	}
 	 
 	 
@@ -83,19 +89,20 @@ class LivecastAction extends BaseAction {
             }
 			
 			
-			
+			$uid=$user['userId'];
+			$cid=$course['courseId'];
 			// 使用统一支付接口
 				$wxQrcodePay = new \WxQrcodePay ();
 				$wxQrcodePay->setParameter ( "body", "直播课程费用" ); // 商品描述 
 				$timeStamp = time ();
-				$out_trade_no = "$timeStamp";
+				$out_trade_no =$timeStamp;
 				//$out_trade_no = "1000001|1000002";
 				$wxQrcodePay->setParameter ( "out_trade_no", "$out_trade_no" ); // 商户订单号
 				$wxQrcodePay->setParameter ( "total_fee", $course['shopPrice'] * 100 ); // 总金额
 				$wxQrcodePay->setParameter ( "notify_url", C ( 'WxPayConf.NOTIFY_URL' ) ); // 通知地址
 				$wxQrcodePay->setParameter ( "trade_type", "NATIVE" ); // 交易类型
-				$wxQrcodePay->setParameter ( "attach", "100" ); // 附加数据
-				$wxQrcodePay->setParameter ( "detail", $user['userId'].'@'.$course['courseId']);//附加数据
+				$wxQrcodePay->setParameter ( "attach", "100aa@$uid@$cid" ); // 附加数据
+				//$wxQrcodePay->setParameter ( "detail","");//附加数据
 				$wxQrcodePay->SetParameter ( "input_charset", "UTF-8" );
 				// 获取统一支付接口结果
 				$wxQrcodePayResult = $wxQrcodePay->getResult ();

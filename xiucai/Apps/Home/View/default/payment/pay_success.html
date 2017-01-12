@@ -43,7 +43,12 @@
 						<div class="wst-ods-success-tf">
 							<div class="wst-ods-success-l25">
 								<span class="wst-ods-success-tg">您的订单已支付成功！</span>
+								<if condition="!empty($ordernumId)">
+								<p  style="margin-left:200px;"><a  href="{:U('Home/Users/videoPlay',array('orderId'=>$ordernumId))}"   style="color:red;font-size:16px;">前去学习该课程!</a></p>
+								
+								<else/>
 								<p  style="margin-left:200px;"><a  href="{:U('Home/Users/index')}"   style="color:red;font-size:16px;">请返回个人中心,学习该课程!</a></p>
+								</if>
 	   						</div>							
 						</div>
 						

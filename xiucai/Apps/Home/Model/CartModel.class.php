@@ -280,7 +280,7 @@ class CartModel extends BaseModel {
 			  $total='';
 			  $amount='';
 			foreach ($result as $k=>$v){
-				$total+=(int)$v['shopPrice'];
+				$total+=$v['shopPrice'];
 				$amount+=(int)$v['courseCnt'];
 				
 				

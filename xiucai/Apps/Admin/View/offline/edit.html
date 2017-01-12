@@ -218,15 +218,15 @@
 		   <tr>
              <th align='right'>活动地区<font color='red'>*</font>：</th>
              <td>
-             <select id='areaId1' onchange='javascript:getAreaList("areaId2",this.value,0)'>
+             <select id='areaId1'>
                <option value=''>请选择</option>
                <volist name="areaList" id="vo">
                <option value='{$vo['areaId']}' <if condition="$object['areaId1'] == $vo['areaId'] ">selected</if>>{$vo['areaName']}</option>
                </volist>
              </select>
-             <select id='areaId2' onchange='javascript:getAreaList("areaId3",this.value,1)'>
-               <option value='{$vo['areaId']}'     >{$area2['areaName']}</option>
-             </select>
+             <!-- <select id='areaId2' onchange='javascript:getAreaList("areaId3",this.value,1)'> -->
+               <!-- <option value='{$vo['areaId']}'     >{$area2['areaName']}</option> -->
+             <!-- </select> -->
            <!--   <select id='areaId3'>
                <option value=''>请选择</option>
              </select> -->

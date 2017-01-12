@@ -115,8 +115,16 @@
                         		</li>
                         		<li>
                         			<div>地点</div>
-                        			<div><font color="#f00">{$areaName['areaName']}</font></div>
-                        			<div>{$areaName['areaName']}具体会场待定</div>
+                        			<div>
+									<switch name="details.areaId1">    
+											<case value="1">北京</case>    
+											<case value="2">上海</case>
+											<case value="3">广州</case>
+											<case value="4">深圳</case>
+											<case value="5">郑州</case>											
+											<default />具体会场待定
+									</switch>
+									</div>
                         		</li>
                         		<li>
                         			<div>适宜人群</div>
@@ -166,7 +174,7 @@
                   <div class="course-panel">
                 <h3 class="panel-title"><em></em>课程大纲</h3>
                 <div class="panel-body">
-              {$details['offlineContent']}
+              {$details['offlineContent']|htmlspecialchars_decode}
                 </div>
             </div>
         

@@ -226,7 +226,8 @@
     </div>
     <div class="wrp_code" style="position:relative;margin-top: 40px">
         <div>
-            <div style="float:left;width:150px;height:322px;text-align: right;" id="qrcode"></div>
+            <div style="float:left;width:150px;height:252px;margin:60px 0px 0px 60px;text-align: right;" id="qrcode"></div>
+			<div style="float:left;left:60px;position:absolute;" id='tips'>亲!观看该直播需要支付:{$course.shopPrice}元</div>
             <div style="float:right;width:200px;">
                 <img src="__ROOT__/Apps/Home/View/default/images/wxphone.png" width="200"/>
             </div>
@@ -235,7 +236,7 @@
         <div class="info" style="position:absolute;bottom:50px;left:209px;color:#ffffff;">
             <div class="status status_browser js_status normal"
                  id="wx_default_tip">
-                <p>请使用微信扫描二维码进行支付</p>
+                <p color="#000">请使用微信扫描二维码进行支付</p>
             </div>
         </div>
     </div>
@@ -286,8 +287,9 @@
             login();
             return;
         } else {
-			var money = "{$course['shopPrice']}";
-			if(parseInt(money) > 0){
+			var money = {$course['shopPrice']};
+			//alert(money);return false;parseInt(money)
+			if(money > 0){
 			
 			$("#paycode").show();
 

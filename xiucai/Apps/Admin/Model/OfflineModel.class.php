@@ -62,6 +62,7 @@ class OfflineModel extends BaseModel {
 		$data["offlineVipPrice"] = I("offlineVipPrice");
 		$data["isShow"] = (int)I("isShow",0);
 		$data["offlineContent"] = I("offlineContent");
+		dump($data["offlineContent"]);die;
 		$data["offlineKey"] = I("offlineKey");
 		$data["areaId1"] = (int)I("areaId1");
 		$data["areaId2"] = (int)I("areaId2");

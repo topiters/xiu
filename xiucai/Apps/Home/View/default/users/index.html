@@ -215,47 +215,19 @@
                                                         </a>
                                                         <a href="javascript:" class="title answer" target="_blank" data-id="{$v['id']}">{$v['title']}</a>
                                                     </dt>
+                                                    <if condition="$v['answers'] neq null">
+                                                    <volist name="v['answers']" id="vv" key="kk">
+                                                        <dt style="text-align: center">
+                                                            <span style="font-size: 14px;">回答{$kk}&nbsp;:&nbsp;{$vv['content']}.</span>
+                                                        </dt>
+                                                    </volist>
+                                                    </if>
                                                 </dl>
                                             </volist>
                                         </div>
                                     </div>
                                 </div>
-					            <h3>导师问答，用专业态度，为您解惑</h3>
-					            <div class="quan-block">
-					                <div class="slider-three">
-					                    <div class="slider-show">
-					                        <ul>
-                                                <volist name="specialist" id="data">
-                                                    <li>
-                                                        <div class="relative">
-
-                                                            <a href="javascript:;" class="globe-btn50 globe-btn50-nobg questioning" tutor-id="1013">向Ta提问</a>
-                                                            <a href="{:U('Home/Specialist/tutor',array('id'=>$data['shopId']))}" class="block-head avatar-80" target="_blank">
-                                                                <img src="__ROOT__/{$data['shopImg']|default='__ROOT__/Apps/Home/View/default/img/turtor/5242c1db-3d93-a0e7-cd21-53953a79f2f4.jpg'}" alt="{$data['shopName']}">
-                                                                <em>
-                                                                    <img src="__ROOT__/Apps/Home/View/default/img/tag-V.png-v=1.10.1.png" alt="" title="认证导师"/>
-                                                                </em>
-                                                            </a>
-                                                            <p>
-                                                                <a href="{:U('Home/Specialist/tutor',array('id'=>$data['shopId']))}" target="_blank">{$data['shopName']}</a>
-                                                            </p>
-                                                            <p>{$data['shopIndustry']}</p>
-                                                            <!-- 限制三条 -->
-                                                            <p class="specializes">
-                                                                <if condition="!empty($data['shopGoodat'])">
-                                                                    <volist name="data['shopGoodat']" id="data1">
-                                                                        <span><em></em><i>{$data1['shopGoodat']}</i></span>
-                                                                    </volist>
-                                                                </if>
-                                                            </p>
-                                                        </div>
-                                                    </li>
-                                                </volist>
-					                        </ul>
-					                        <div class="clear"></div>
-					                    </div>
-					                </div>
-					            </div>
+					            <h3 style="margin-bottom: 20px">导师问答，用专业态度，为您解惑</h3>
 					        </div>
 					    </div>                                          
 																		

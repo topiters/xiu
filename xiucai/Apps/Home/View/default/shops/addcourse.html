@@ -225,6 +225,17 @@
 			background: #FF8860;
 			color: #fff;
 		}
+		.uploadvideo1{
+			padding: 8px 40px;
+			border-radius: 6px;
+			background: #FF8860;
+			color: #fff;
+			display: block;
+			margin: 18px 0 0 50px;
+			width: 90px;
+			height: 20px;
+			float: left;
+		}
 		.uploadify{width:200px;height:30px;line-height:30px;}
 		.liveOn{display:none;}
     </style>
@@ -304,6 +315,9 @@
 					     </p>
 				          
 		            	</div>
+		             
+					    <span class="btn upload uploadvideo1">上传视频封面图<input type="file"   id="courseThums"   name="courseThums"  class="upload_pic" /></span>
+				          
 		            	<!-- <div class="info_progress">
 		            		<span >100%</span>
 		            		<span >
@@ -315,6 +329,8 @@
 		            	<div class="info_M">
 		            		小于500M
 		            	</div>
+						<br>
+						
 						<div   style="width:600px;height:100px;margin-top:30px;"></div>
 		            	<form     action="{:U('Home/Shops/addcourse')}"    method="post"    id="myform"  enctype="multipart/form-data"    >
 						
@@ -349,14 +365,14 @@
 									<tr>
 			            				<td>课程类型</td>
 			            				<td>
-										<span> 录&nbsp;&nbsp;播</span> <input type="radio"   name="is_live"   value="1" style="width:40px;" />
+										<span> 录&nbsp;&nbsp;播</span> <input type="radio"   name="is_live"   value="1" style="width:40px;" onClick=" javascript:nolive();"/>
 			            				 <span>直&nbsp;&nbsp;&nbsp;播&nbsp;</span><input type="radio"   name="is_live"   value="2"   onClick=" javascript:livetime();"   style="width:40px;"/>
 			            				
 										
 										</td>
 			            			</tr>
 									
-									<tr   class="liveOn"  id="liveOn" >
+									<tr   class="liveOn"  id="liveTime" >
 			            				<td>直播时间</td>
 			            				<td>
 			            				 <span  style="font-size:12px;padding-right:4px;">开始时间:</span><input type="text"   name="liveStartTime"   value=""   onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" style="width:180px;padding:0px;height:28px;line-height:28px;"/> 
@@ -364,7 +380,7 @@
 										<span  style="font-size:12px;padding-right:4px;">结束时间:</span> <input type="text"   name="liveEndTime"   value=""   onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" style="width:180px;height:28px;padding:0px;line-height:28px;" />
 										</td>
 			            			</tr>
-									<tr  class="liveOn" >
+									<tr  class="liveOn" id="liveNo">
 									<td>直播频道号</td>
 									    <td>
 			            					<input type="text"   name="vid"  id="vid" value="" />
@@ -442,12 +458,12 @@
 			            					</select>
 			            				</td>
 			            			</tr>
-			            			<tr>
-			            				<td>上传视频图</td>
-			            				<td>		            			
-											<span class="btn upload uploadvideo">上传视频封面图<input type="file"   id="courseThums"   name="courseThums"  class="upload_pic" /></span>
-			            				</td>
-			            			</tr>
+			            			<!-- <tr> -->
+			            				<!-- <td>上传视频图</td> -->
+			            				<!-- <td>		            			 -->
+											<!-- <span class="btn upload uploadvideo">上传视频封面图<input type="file"   id="courseThums"   name="courseThums"  class="upload_pic" /></span> -->
+			            				<!-- </td> -->
+			            			<!-- </tr> -->
 			            			<tr>
 			            				<td>课程详情</td>
 			            				<td>
@@ -488,10 +504,10 @@
                           
                         </li>
                         <li class="course-category course-category-more  " >
-                            <a class="course-category-link   curr" href="{:U('Home/Shops/course')}">
+                            <a class="course-category-link" href="{:U('Home/Shops/course')}">
                             	我的课程
                             </a>
-                             <div class="vertical"></div>
+                             <div class=""></div>
                         </li>
                         <li class="course-category course-category-more" data-href="#ulli-item3">
                             <a class="course-category-link" href="{:U('Home/Shops/order')}">
@@ -510,6 +526,12 @@
                             	我的问答
                             </a>
                             <div class=""></div>
+                        </li>
+						<li class="course-category course-category-more   curr" data-href="#ulli-item6">
+                            <a class="course-category-link" href="{:U('Home/Shops/addcourse')}">
+                            	发布直播
+                            </a>
+                            <div class="vertical"></div>
                         </li>
                     </ul>
                 </div>
@@ -561,9 +583,15 @@
   function livetime(){
   
   
-  $("#liveOn").removeClass('liveOn');
+  $("#liveTime").removeClass('liveOn');
+  $("#liveNo").removeClass('liveOn');
  // 
   
+  }
+  
+  function nolive(){
+  $("#liveTime").addClass('liveOn');
+  $("#liveNo").addClass('liveOn');
   }
   
   

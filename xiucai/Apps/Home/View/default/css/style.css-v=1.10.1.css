@@ -154,7 +154,8 @@ table th,table td{vertical-align: middle;}
 	z-index: 1000;
 }
 .nav a{color: #ccc; font-size: 14px;}
-.nav a:hover{color: #fff;}
+.nav a:hover{color: #ff7745;}
+.login-block-r a:hover{color: #ff7745;}
 .nav a.logo,.nav a.nav-menu-btn,.nav ul.nav-item,.nav-item > li{float: left;}
 .logo{
 	display: inline-block;

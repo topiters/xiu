@@ -62,22 +62,16 @@ class ShopsModel extends BaseModel {
 		$data["userPhone"] = I("userPhone");
 		//店铺资料
 		$sdata = array();
-		$sdata["shopSn"] = I("shopSn");
-		$sdata["areaId1"] = (int)I("areaId1");
-		$sdata["areaId2"] = (int)I("areaId2");
-		$sdata["areaId3"] = (int)I("areaId3");
-		$sdata["courseCatId1"] = (int)I("courseCatId1");
+		$sdata["shopSn"] = 9999;
+		$sdata["areaId1"] = 440000;
+		$sdata["areaId2"] = 440100;
+		$sdata["areaId3"] = 440106;
+		$sdata["courseCatId1"] = 49;
 		$sdata["shopName"] = I("shopName");
-		$sdata["shopCompany"] = I("shopCompany");
+		$sdata["shopCompany"] = I("shopName");
 		$sdata["shopImg"] = I("shopImg");
-		$sdata["shopAddress"] = I("shopAddress");
-		$sdata["bankId"] = (int)I("bankId");
-		$sdata["bankNo"] = I("bankNo");
-		$sdata["bankUserName"] = I("bankUserName");
-		$sdata["serviceStartTime"] = I("serviceStartTime");
-		$sdata["serviceEndTime"] = I("serviceEndTime");
 		$sdata["shopTel"] = I("shopTel");
-		if($this->checkEmpty($data,true) && $this->checkEmpty($sdata,true)){ 
+		if($this->checkEmpty($data,true)){
 			$data["userStatus"] = (int)I("userStatus",1);
 			$data["userType"] = (int)I("userType",1);
 			$data["userEmail"] = I("userEmail");
@@ -96,23 +90,11 @@ class ShopsModel extends BaseModel {
 				}else{
 					$sdata["deliveryType"] = 0;
 				}
-				$sdata["deliveryStartMoney"] = I("deliveryStartMoney",0);
-		        $sdata["deliveryCostTime"] = I("deliveryCostTime",0);
-				$sdata["deliveryFreeMoney"] = I("deliveryFreeMoney",0);
-		        $sdata["deliveryMoney"] = I("deliveryMoney",0);
-				$sdata["avgeCostMoney"] = I("avgeCostMoney",0);
-				$sdata["longitude"] = (float)I("longitude");
-				$sdata["latitude"] = (float)I("latitude");
-				$sdata["mapLevel"] = (int)I("mapLevel",13);
-				$sdata["isInvoice"] = (int)I("isInvoice",1);
 				$sdata["shopStatus"] = (int)I("shopStatus",1);
 				$sdata["shopAtive"] = (int)I("shopAtive",1);
-				$sdata["isDistributAll"] = (int)I("isDistributAll",0);
 				$sdata["shopFlag"] = 1;
 				$sdata["createTime"] = date('Y-m-d H:i:s');
 			    $sdata['statusRemarks'] = I('statusRemarks');
-			    $sdata['qqNo'] = I('qqNo');
-			    $sdata["invoiceRemarks"] = I("invoiceRemarks");
 				$m = M('shops');
 				$shopId = $m->add($sdata);
 				if(false !== $shopId){
@@ -184,11 +166,7 @@ class ShopsModel extends BaseModel {
 	 		}
 	 	}
 	    $data = array();
-		$data["shopSn"] = I("shopSn");
-		$data["areaId1"] = (int)I("areaId1");
-		$data["areaId2"] = (int)I("areaId2");
-		$data["areaId3"] = (int)I("areaId3");
-		$data["courseCatId1"] = (int)I("courseCatId1");
+		$data["shopSn"] = 9999;
 		$data["isSelf"] = (int)I("isSelf",0);
 		if($data["isSelf"]==1){
 			$data["deliveryType"] = 1;
@@ -198,30 +176,11 @@ class ShopsModel extends BaseModel {
 		$data["shopName"] = I("shopName");
 		$data["shopCompany"] = I("shopCompany");
 		$data["shopImg"] = I("shopImg");
-		$data["shopAddress"] = I("shopAddress");
-		$data["deliveryStartMoney"] = I("deliveryStartMoney",0);
-		$data["deliveryCostTime"] = I("deliveryCostTime",0);
-		$data["deliveryFreeMoney"] = I("deliveryFreeMoney",0);
-		$data["deliveryMoney"] = I("deliveryMoney",0);
-		$data["avgeCostMoney"] = I("avgeCostMoney",0);
-		$data["bankId"] = I("bankId");
-		$data["bankNo"] = I("bankNo");
-		$data["bankUserName"] = I("bankUserName");
-		$data["longitude"] = (float)I("longitude");
-		$data["latitude"] = (float)I("latitude");
-		$data["mapLevel"] = (int)I("mapLevel",13);
-		$data["isInvoice"] = I("isInvoice",1);
-		$data["serviceStartTime"] = I("serviceStartTime");
-		$data["serviceEndTime"] = I("serviceEndTime");
 		$data["shopStatus"] = (int)I("shopStatus",0);
 		$data["shopAtive"] = (int)I("shopAtive",1);
-		$isDistributAll = (int)I("isDistributAll",0);
-		$data["isDistributAll"] = $isDistributAll;
 		$data["shopTel"] = I("shopTel");
 		
-		if($this->checkEmpty($data,true)){
-			$data['qqNo'] = I('qqNo');
-			$data["invoiceRemarks"] = I("invoiceRemarks");
+		if(1){
 			$rs = $m->where("shopId=".$shopId)->save($data);
 		    if(false !== $rs){
 		    	$shopMessage = '';
@@ -313,7 +272,7 @@ class ShopsModel extends BaseModel {
 		$rs = $m->where("shopId=".(int)I('id'))->find();
 		$m = M('users');
 		$us = $m->where("userId=".$rs['userId'])->find();
-		$rs['userName'] = $us['userName'];
+		$rs['loginName'] = $us['loginName'];
 		$rs['userPhone'] = $us['userPhone'];
 		//获取店铺社区关系
 		$m = M('shops_communitys');
@@ -380,14 +339,9 @@ class ShopsModel extends BaseModel {
 	  * 分页列表
 	  */
      public function queryByPage(){
-        $areaId1 = (int)I('areaId1',0);
-     	$areaId2 = (int)I('areaId2',0);
-	 	$sql = "select shopId,shopSn,shopName,u.userName,shopAtive,shopStatus,gc.catName from __PREFIX__shops s,__PREFIX__users u ,__PREFIX__course_cats gc 
-	 	     where gc.catId=s.courseCatId1 and s.userId=u.userId and shopStatus=1 and shopFlag=1 ";
+	 	$sql = "select shopId,shopSn,shopName,u.loginName,shopAtive,shopStatus from __PREFIX__shops s,__PREFIX__users u  where s.userId=u.userId and shopStatus=1 and shopFlag=1 ";
 	 	if(I('shopName')!='')$sql.=" and shopName like '%".WSTAddslashes(I('shopName'))."%'";
-	 	if(I('shopSn')!='')$sql.=" and shopSn like '%".WSTAddslashes(I('shopSn'))."%'";
-	 	if($areaId1>0)$sql.=" and areaId1=".$areaId1;
-	 	if($areaId2>0)$sql.=" and areaId2=".$areaId2;
+	 	if(I('shopId')!='')$sql.=" and shopId like '%".WSTAddslashes(I('shopId'))."%'";
 	 	$sql.=" order by shopId desc";
 		return $this->pageQuery($sql);
 	 }
@@ -395,15 +349,10 @@ class ShopsModel extends BaseModel {
 	  * 分页列表[待审核列表]
 	  */
      public function queryPeddingByPage(){
-        $areaId1 = (int)I('areaId1',0);
-     	$areaId2 = (int)I('areaId2',0);
-	 	$sql = "select shopId,shopSn,shopName,u.userName,shopAtive,shopStatus,gc.catName from __PREFIX__shops s,__PREFIX__users u ,__PREFIX__course_cats gc 
-	 	     where gc.catId=s.courseCatId1 and s.userId=u.userId and shopStatus<=0 and shopFlag=1";
+	 	$sql = "select shopId,shopSn,shopName,u.loginName,shopAtive,shopStatus from __PREFIX__shops s,__PREFIX__users u  where s.userId=u.userId and shopStatus<=0 and shopFlag=1";
 	 	if(I('shopName')!='')$sql.=" and shopName like '%".WSTAddslashes(I('shopName'))."%'";
-	 	if(I('shopSn')!='')$sql.=" and shopSn like '%".WSTAddslashes(I('shopSn'))."%'";
+	 	if(I('shopId')!='')$sql.=" and shopId like '%".WSTAddslashes(I('shopId'))."%'";
 	 	if(I('shopStatus',-999)!=-999)$sql.=" and shopStatus =".(int)I('shopStatus');
-	 	if($areaId1>0)$sql.=" and areaId1=".$areaId1;
-	 	if($areaId2>0)$sql.=" and areaId2=".$areaId2;
 	 	$sql.=" order by shopId desc";
 		return $this->pageQuery($sql);
 	 }
@@ -425,10 +374,8 @@ class ShopsModel extends BaseModel {
 	    $sql = "update __PREFIX__course set isSale=0,courseStatus=-1 where shopId=".$shopId;
 		$this->execute($sql);
 		$sql = "select userId from __PREFIX__shops where shopId=".$shopId;
-		$shop = $this->queryRow($sql);
+		$this->queryRow($sql);
 		//删除登录账号
-		$sql = "update __PREFIX__users set userFlag=-1 where userId=".$shop['userId'];
-		$this->execute($sql);
 		
 		$scm = M('shops_communitys');
 		$scm->where('shopId='.$shopId)->delete();
@@ -437,7 +384,8 @@ class ShopsModel extends BaseModel {
 	    $data = array();
 		$data["shopFlag"] = -1;
 		$data["shopStatus"] = -2;
-	 	$rs = $this->where("shopId=".$shopId)->save($data);
+		$rs = $this->where("shopId=".$shopId)->delete();
+	 	//$rs = $this->where("shopId=".$shopId)->save($data);
 	    if(false !== $rs){
 			$rd['status']= 1;
 		}

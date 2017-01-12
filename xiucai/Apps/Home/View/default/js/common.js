@@ -133,7 +133,7 @@ $(function() {
 	}
 	view.bind('scroll', resizeHandler);
 	if($("#wst-mallLicense").attr("data")!='1'){
-		onloadright();
+		//onloadright();
 	}
 	
 	

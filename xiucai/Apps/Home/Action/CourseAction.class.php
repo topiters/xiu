@@ -83,7 +83,10 @@ class CourseAction extends BaseAction {
 	}
 	//定制课程
    public  function ding(){
-	   
+	   $course=D('Home/Course');
+   		$cArr=array('courseFlag'=>1,'isAdminRecom'=>1,'isSale'=>1);
+   		$courseIndex=$course->where($cArr)->limit(6)->select();
+   		$this->assign('courseIndex',$courseIndex);
 	   
 	   	$this->display('default/course_ding');
    }

@@ -21,34 +21,32 @@
                 </div>
                 <!-- 用户未登录状态 -->
 				<if condition="!$WST_USER['userId']">
-                <div class="login-block" id="feinav_dlzq"  style="position: relative;height: 62px;padding-top: 18px;float: right;margin-right: 10%;">
+                <div class="login-block" id="feinav_dlzq"  style="position: relative;height: 62px;padding-top: 25px;float: right;margin-right: 10%;">
                     <a href="javascript:;" id="a-login"  class="a-login"  onclick="login();">登录</a>
                     <a href="javascript:;" id="a-register" class="a-register" onclick="zhuce();">注册</a>
-                    <input type="button" value="发布视频" class="index_btn" style="position: absolute;bottom: -10px;"/>
+                    <input type="button" value="发布视频" class="index_btn" style="position: absolute;bottom: -10px;" onclick="login();"/>
                 </div>
 				</if>
                 <!--用户已登录状态-->
 				<if condition="$WST_USER['userId'] gt 0">
-                <div class="login-block" id="feinav_dlzh" style="position: relative;height: 72px;float: right;margin-right: 10%;width: 100px;display:block;">
-                    <a href="{:U('Home/Users/index')}" style="width:93px;display: block;margin: 0 auto;overflow: hidden;">
-				   <img src="__ROOT__/Apps/Home/View/default/img/login/touxaing.png" style=""/>
-				   <span  style="width:30px;height:30px;line-height:30px;"> {$WST_USER['userName']}   </span> 
-				
-                    	
-                    </a>
-					
-					<PHP>if(session('WST_USER.loginTarget')==0){</PHP>
-                    <a href="{:U('Home/Shops/index')}"  class="index_btn" style="position: absolute;bottom: -10px;">发布视频</a>
-					<PHP>}else{</PHP>
-			     <a href="{:U('Home/Shops/toOpenShop')}" rel="nofollow"  style="font-size:10px;"  >我要认证</a>
-				
-			     <PHP>}</PHP>
-				 <a href="javascript:logout();"  style="font-size:10px;">退出</a>
+                <div class="login-block" id="feinav_dlzh" style="position: relative;height: 72px;margin-right: 5%;padding-top: 15px;">
+                    <div class="login-block-l l">
+                        <a href="{:U('Home/Users/index')}" style="width:93px;display: block;margin: 0 auto;overflow: hidden;">
+                            <img src="__ROOT__/{$WST_USER['userPhoto']|default='Apps/Home/View/default/img/login/touxaing.png'}" style="width:50px;height:50px;margin-left: 20px;border-radius:25px;box-sizing:border-box;"/>
+                            <span style="width:30px;height:30px;line-height:30px;"> {$WST_USER['userName']}   </span>
+                        </a>
+                    </div>
+					<div class="login-block-r r" style="padding-top: 5px">
+                        <PHP>if($WST_USER['userType']==1){</PHP>
+                        <a href="{:U('Home/Shops/index')}" style="font-size:12px;margin-left: 0;display: block;color: #333">发布视频</a>
+                        <PHP>}else{</PHP>
+                        <a href="{:U('Home/Users/toOpenShop')}" rel="nofollow" style="font-size:12px;margin-left: 0;display: block;color: #333">发布视频</a>
+                        <PHP>}</PHP>
+                        <a href="javascript:logout();" style="font-size:12px;margin: 5px 0 0 10px;color: #333;display:block">退出</a>
+                    </div>
                 </div>
                 </if>
                 <div class="change-entrance" style="padding-bottom: 0;position: relative;">
-                	<a href="javascript:logout();" title="退出;"><i></i></a>   
-                	<a href="task/mall/index.htm" title="发布视频"><i class="icon iconfont" style="position: absolute;bottom:0;padding: 0px;font-size: 23px;">&#xe62c;</i></a>   
                 </div>
             </div>
         </div>
@@ -70,16 +68,11 @@
                     <li><a class="notCard" href="{:U('home/index/index')}" >首页</a></li>
                     <li class="parent-nav-item">
                         <a href="{:U('home/course/index')}">课程 </a>
-                        <ul class="second-nav-item">
-                            <li><a href="{:U('home/course/index')}" >课程大厅</a></li>
-                            <li><a href="{:U('home/specialcourse/index')}">专题课程</a></li>
-                            <li><a href="{:U('home/mycourse/index')}" >我的课程</a></li>
-                        </ul>
                     </li>
                     <li><a href="{:U('home/livecast/index')}" >直播</a></li>
                     <li class="beta"><a href="{:U('home/specialist/index')}">导师问答<em></em></a></li>
                     <li class="parent-nav-item">
-                        <a href="{:U('home/forum/index')}" >财税圈 </a>
+                        <a href="{:U('home/forum/index')}" >财税论坛 </a>
                         <ul class="second-nav-item">
                             <li><a href="{:U('home/forum/index')}" >圈子首页</a></li>
                             <li class="none-border"><a href="{:U('home/forum/myindex')}">我的圈子</a></li>

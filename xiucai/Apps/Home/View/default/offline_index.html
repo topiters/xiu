@@ -50,36 +50,40 @@
 			<div class="select_xianxia">
 			
 			
-				<select name="yearId"   id="yearid" >
+				<select name="yearId"   id="yearid" onchange="self.location.href=options[selectedIndex].value">
 					<option value="">举办年份</option>
-					<option value="all">全部</option>
-					<option value="2014">2014年</option>
-					<option value="2015">2015年</option>
-					<option value="2016">2016年</option>
-					<option value="2017">2017年</option>
+					<option value="{:U('Offline/index',array('yearId'=>''))}">全部</option>
+					<option value="{:U('Offline/index',array('yearId'=>'2014'))}">2014年</option>
+					<option value="{:U('Offline/index',array('yearId'=>'2015'))}">2015年</option>
+					<option value="{:U('Offline/index',array('yearId'=>'2016'))}">2016年</option>
+					<option value="{:U('Offline/index',array('yearId'=>'2017'))}">2017年</option>
 				</select>
 				
-				<select name="monthId"  id="monthId" >
+				<select name="monthId"  id="monthId" onchange="self.location.href=options[selectedIndex].value">
 					<option value="">举办月份</option>
-					<option value="all">全部</option>
-					<option value="-1-">1月</option>
-					<option value="-2-">2月</option>
-					<option value="-3-">3月</option>
-					<option value="-4-">4月</option>
-					<option value="-5-">5月</option>
-					<option value="-6-">6月</option>
-					<option value="-7-">7月</option>
-					<option value="-8-">8月</option>
-					<option value="-9-">9月</option>
+					<option value="{:U('Offline/index',array('monthId'=>''))}">全部</option>
+					<option value="{:U('Offline/index',array('monthId'=>'-01-'))}">1月</option>
+					<option value="{:U('Offline/index',array('monthId'=>'-02-'))}">2月</option>
+					<option value="{:U('Offline/index',array('monthId'=>'-03-'))}">3月</option>
+					<option value="{:U('Offline/index',array('monthId'=>'-04-'))}">4月</option>
+					<option value="{:U('Offline/index',array('monthId'=>'-05-'))}">5月</option>
+					<option value="{:U('Offline/index',array('monthId'=>'-06-'))}">6月</option>
+					<option value="{:U('Offline/index',array('monthId'=>'-07-'))}">7月</option>
+					<option value="{:U('Offline/index',array('monthId'=>'-08-'))}">8月</option>
+					<option value="{:U('Offline/index',array('monthId'=>'-09-'))}">9月</option>
+					<option value="{:U('Offline/index',array('monthId'=>'-10-'))}">10月</option>
+					<option value="{:U('Offline/index',array('monthId'=>'-11-'))}">11月</option>
+					<option value="{:U('Offline/index',array('monthId'=>'-12-'))}">12月</option>
 				</select>
 				
-				<select name="areaId" id="areaId"  >
+				<select name="areaId" id="areaId" onchange="self.location.href=options[selectedIndex].value" >
 					<option value="">举办地点</option>
-					<option value="all">全部</option>
-					<option value="">苏州</option>
-					<option value="">广州</option>
-					<option value="">杭州</option>
-					<option value="">郑州</option>
+					<option value="{:U('Offline/index',array('areaId'=>''))}">全部</option>
+					<option value="{:U('Offline/index',array('areaId'=>'1'))}">北京</option>
+					<option value="{:U('Offline/index',array('areaId'=>'2'))}">上海</option>
+					<option value="{:U('Offline/index',array('areaId'=>'3'))}">广州</option>
+					<option value="{:U('Offline/index',array('areaId'=>'4'))}">深圳</option>
+					<option value="{:U('Offline/index',array('areaId'=>'5'))}">郑州</option>
 				</select>
 			</div>
 		
@@ -113,7 +117,7 @@
 							<tr>
 								<td colspan="2">
 									<font>
-										{$data['offlineContent']}
+										{$data['offlineContent']|htmlspecialchars_decode|WSTMSubstr=###,0,150}
 									</font>
 								</td>
 							</tr>
@@ -122,9 +126,17 @@
 									<font>讲师：<span>陈东</span></font>
 									<span style="float: right;">
 										<font>时间：<font style="color: #FF7545;">{$data['offStartDate']}至{$data['offEndDate']}</font></font>
-										&nbsp;&nbsp;&nbsp;&nbsp;
-										<font>地点：<font style="color: #FF7545;">广州</font></font>
-                                   <font>&nbsp;&nbsp;&nbsp;分享到：</font>
+										&nbsp;&nbsp;
+										<font>地点：<font style="color: #FF7545;">
+											<switch name="data.areaId1">    
+											<case value="1">北京</case>    
+											<case value="2">上海</case>
+											<case value="3">广州</case>
+											<case value="4">深圳</case>
+											<case value="5">郑州</case>											
+											<default />郑州</switch>
+										</font></font>
+                                   <font>&nbsp;&nbsp;分享到：</font>
 										       <!-- JiaThis Button BEGIN -->
                                   <!-- JiaThis Button BEGIN -->
 								<div class="jiathis_style"   style="margin-left:300px;">

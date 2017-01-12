@@ -12,6 +12,30 @@ class OfflineAction extends BaseAction{
 	/**
 	 * 跳到新增/编辑页面
 	 */
+	// public function toEdit(){
+		// $this->isLogin();
+	    // $m = D('Admin/Offline');
+    	// $object = array();
+    	// if(I('id',0)>0){
+    		// $this->checkPrivelege('xxhd_02');
+    		// $object = $m->get();
+    	// }else{
+    		// $this->checkPrivelege('xxhd_01');
+    		// $object = $m->getModel();
+    	// }
+    	// $m = D('Admin/OfflineCats');
+    	// $this->assign('catList',$m->getCatLists());
+    	// $this->assign('object',$object);
+    	// $a = D('Admin/Areas');
+    	// $area2=$a->where(array('areaId'=>$object['areaId2']))->find();
+    	// if($area2){
+    		// $this->assign('area2',$area2);
+    	// }
+    	
+    	// $this->assign('areaList',$v=$a->queryShowByList(0));
+    	// var_dump($v);
+		// $this->view->display('/offline/edit');
+	// }
 	public function toEdit(){
 		$this->isLogin();
 	    $m = D('Admin/Offline');
@@ -26,14 +50,29 @@ class OfflineAction extends BaseAction{
     	$m = D('Admin/OfflineCats');
     	$this->assign('catList',$m->getCatLists());
     	$this->assign('object',$object);
-    	$a = D('Admin/Areas');
-    	$area2=$a->where(array('areaId'=>$object['areaId2']))->find();
-    	if($area2){
-    		$this->assign('area2',$area2);
-    	}
-    	
-    	$this->assign('areaList',$v=$a->queryShowByList(0));
-    	//var_dump($v);
+//    	$a = D('Admin/Areas');
+//    	$area2=$a->where(array('areaId'=>$object['areaId2']))->find();
+//    	if($area2){
+//    		$this->assign('area2',$area2);
+//    	}
+        $arr0['areaId'] = 1;
+        $arr0['areaName'] = '北京市';
+        $arr1['areaId'] = 2;
+        $arr1['areaName'] = '上海市';
+        $arr2['areaId'] = 3;
+        $arr2['areaName'] = '广州市';
+        $arr3['areaId'] = 4;
+        $arr3['areaName'] = '深圳市';
+        $arr4['areaId'] = 5;
+        $arr4['areaName'] = '郑州市';
+    	$arr = array();
+    	$arr[] = $arr0;
+        $arr[] = $arr1;
+        $arr[] = $arr2;
+        $arr[] = $arr3;
+        $arr[] = $arr4;
+    	$this->assign('areaList',$v=$arr);
+//    	dump($v);die;
 		$this->view->display('/offline/edit');
 	}
 	/**

@@ -101,9 +101,6 @@ class ShopsAction extends BaseAction{
 	public function index(){
 		$this->isLogin();
 		$this->checkPrivelege('dplb_00');
-		//获取地区信息
-		$m = D('Admin/Areas');
-		$this->assign('areaList',$m->queryShowByList(0));
 		$m = D('Admin/Shops');
     	$page = $m->queryByPage();
     	$pager = new \Think\Page($page['total'],$page['pageSize'],I());// 实例化分页类 传入总记录数和每页显示的记录数

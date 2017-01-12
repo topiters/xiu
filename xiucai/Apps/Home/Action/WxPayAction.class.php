@@ -19,9 +19,10 @@ class WxPayAction extends BaseAction {
 		vendor ( 'WxPay.WxQrcodePay' );
 
 		$this->wxpayConfig = C ( 'WxPayConf' );
-		
-		//var_dump($this->wxpayConfig);//array(2) { ["NOTIFY_URL"]=> string(55) "http://tax.hntax168.cn/Wstapi/payment/notify_weixin.php" ["CURL_TIMEOUT"]=> int(30) } 
+		//var_dump(C ( 'WxPayConf.NOTIFY_URL' ));
 		//exit;
+	//var_dump($this->wxpayConfig);//array(2) { ["NOTIFY_URL"]=> string(55) "http://tax.hntax168.cn/Wstapi/payment/notify_weixin.php" ["CURL_TIMEOUT"]=> int(30) } 
+	//	exit;
 		$m = D ( 'Home/Payments' );
 		$this->wxpay = $m->getPayment ( "weixin" );
 		$this->wxpayConfig ['appid'] = $this->wxpay ['appId']; // 微信公众号身份的唯一标识
@@ -32,7 +33,7 @@ class WxPayAction extends BaseAction {
 		$this->wxpayConfig ['returnurl'] = "";
 		// 初始化WxPayConf_pub
 		
-		//var_dump($this->wxpayConfig );exit;
+	//var_dump($this->wxpayConfig );exit;
 		$wxpaypubconfig = new \WxPayConf ( $this->wxpayConfig );
 		//var_dump($wxpaypubconfig::$APPID);
 		//exit;
@@ -148,11 +149,21 @@ class WxPayAction extends BaseAction {
 		
 	}
 	
+	
 	public function notify() {
 		// 使用通用通知接口
+		//echo "ddddd";
+			
+
+ $xml = $GLOBALS["HTTP_RAW_POST_DATA"];
+
+ //$datam['syscontent']=serialize($postStr);
+  //$datam['content']=serialize($xmls);
+ // $datam['moneyRemark']=$_GET;
+ // D('log_sys_moneys')->add($datam);
+//exit;
 		$wxQrcodePay = new \WxQrcodePay ();
 		// 存储微信的回调
-		$xml = $GLOBALS ['HTTP_RAW_POST_DATA'];
 		$wxQrcodePay->saveData ( $xml );
 		// 验证签名，并回应微信。
 		if ($wxQrcodePay->checkSign () == FALSE) {
@@ -170,72 +181,77 @@ class WxPayAction extends BaseAction {
 				// 此处应该更新一下订单状态，商户自行增删操作
 			} else {
 				// 此处应该更新一下订单状态，商户自行增删操作
-				$order = $wxQrcodePay->getData ();
+				 $order = $wxQrcodePay->getData ();
+				 // $datam['content']=serialize($order);
+              
+				//  D('log_sys_moneys')->add($datam);
+				//exit;
+				//直播
 				
-				if($order ["attach"]=='100'){
-				$trade_no = $order["transaction_id"];	
-				$total_fee = $order ["total_fee"];	
+				if(  strpos($order["attach"],"aa")){
+				//$trade_no = $order["transaction_id"];	
+				//$total_fee = $order ["total_fee"];	
 					
-				$pkeys = explode ( "@", $order['detail'] );	
-				 $userId=$pkeys[0];
-				$courseId=$pkeys[1];	
-				$payCourse=D('course')->where(array('courseId'=>$courseId))->find();
-				if(
-				$payCourse
-				){
-				$datav['orderNo']=$trade_no;//订单号
-                $datav['shopId']=$payCourse['shopId'];
-				$datav['totalMoney']=$total_fee;
-				$datav['orderStatus']=2;
-				$datav['userId']=$userId;
-				$datav['payType']=1;
-				$datav['createTime']=date('Y-m-d H:i:s');
-				
-				 $orderLiveId=D('orders')->add($datav);
-                 if($orderLiveId){
-				   $datam['orderId']= $orderLiveId;
-				   $datam['courseId']= $courseId;
-				   $datam['courseNums']= 1;
-				   $datam['coursePrice']=$total_fee;
-				  $datam['courseName']=$payCourse['courseName'];
-				  $datam['courseThums']=$payCourse['courseThums'];
-				   D('order_course')->add($datam);	
-					
-					}
-					
-				}
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+				$pkeys = explode ( "@", $order["attach"] );	
+				 $datav['userId']=$pkeys[1];
+				 $datam['courseId']=$pkeys[2];	
+				  $arr['uid'] =$datav['userId'];
+                    $arr['cid'] =$datam['courseId'];
+                    $arr['ctime'] = time();
+                    $sign_id = D('course_record')->add($arr);
+				   S ("$out_trade_no",1);
+				   echo "SUCCESS";
+				   exit;
+
 				}
 				
 				
 				$trade_no = $order["transaction_id"];
 				$total_fee = $order ["total_fee"];
 				$pkey = $order ["attach"] ;
-				$pkeys = explode ( "@", $pkey );
-				$userId = $pkeys [0];
-				$out_trade_no = $pkeys [1];
-				$orderType = $pkeys [2];
-				$pm = D ( 'Home/Payments' );
+				
+				if(strpos($pkey,',')){//多个订单好
+				$pkeys = explode ( ",", $pkey );	
+					foreach($pkeys as $k=>$v){
+						$datax['orderStatus']=2;
+					$res=D('orders')->where(array('orderNo'=>$v))->save($datax);	
+					if($res){
+					S ("$out_trade_no",1);	
+						
+					}
+					
+						
+					}
+					
+					
+					
+				}else{
+					
+					
+					$datax['orderStatus']=2;
+					$res=D('orders')->where(array('orderNo'=>$pkey))->save($datax);	
+					if($res){
+					S ("$out_trade_no",1);	
+					S('orderNoId',$pkey);	
+					}	
+					
+				}
+				
+				//$userId = $pkeys [0];
+				//$out_trade_no = $pkeys [1];
+				//$orderType = $pkeys [2];
+				//$pm = D ( 'Home/Payments' );
 				// 商户订单号
-				$obj = array ();
-				$obj ["trade_no"] = $trade_no;
-				$obj ["out_trade_no"] = $out_trade_no;
-				$obj ["order_type"] = $orderType;
-				$obj ["total_fee"] = $total_fee;
-				$obj ["userId"] = $userId;
-				$obj["payFrom"] = 2;
+				//$obj = array ();
+				//$obj ["trade_no"] = $trade_no;
+				///$obj ["out_trade_no"] = $out_trade_no;
+				///$obj ["order_type"] = $orderType;
+				//$obj ["total_fee"] = $total_fee;
+				//$obj ["userId"] = $userId;
+				//$obj["payFrom"] = 2;
 				// 支付成功业务逻辑
-				$payments = $pm->complatePay ( $obj );
-				S ("$out_trade_no",$total_fee);
+				//$payments = $pm->complatePay ( $obj );
+				//S ("$out_trade_no",$total_fee);
 			
 				
 				
@@ -244,12 +260,20 @@ class WxPayAction extends BaseAction {
 		}
 	}
 	
+	 //日志记录
+public function logger($log_content)
+ {
+     $max_size = 100000;
+     $log_filename = "log.xml";
+     if(file_exists($log_filename) and (abs(filesize($log_filename)) > $max_size)){unlink($log_filename);}
+     file_put_contents($log_filename, date('H:i:s')." ".$log_content."\r\n", FILE_APPEND);
+ }
 	/**
 	 * 检查支付结果
 	 */
 	public function getPayStatus() {
-		$trade_no = I ( 'trade_no' );
-		$total_fee = S ( $trade_no );
+		//$trade_no = I ( 'trade_no' );
+		$total_fee = S ( $out_trade_no );
 		$data = array("status"=>-1);
 		if(empty ( $total_fee )){
 			$data["status"] = -1;
@@ -266,6 +290,8 @@ class WxPayAction extends BaseAction {
 	public function paySuccess() {
 		
 	session('order',NULL);
+    $ordernumId=S('orderNoId');
+	$this->assign("ordernumId",$ordernumId);
 	//session_destroy();
 		$this->display ( "default/payment/pay_success" );
 	}
