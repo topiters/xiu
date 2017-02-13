@@ -3,7 +3,7 @@
 		'URL_MODEL' => 0,
 	    'URL_CASE_INSENSITIVE'  =>  false,
 	    'VAR_PAGE'=>'p',
-	    'PAGE_SIZE'=>15,
+	    'PAGE_SIZE'=>10,
 		'DB_TYPE'=>'mysql',
 	    'DB_HOST'=>'localhost',
 	    'DB_NAME'=>'xiucai',

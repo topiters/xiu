@@ -199,6 +199,7 @@ class WxPayAction extends BaseAction {
                     $arr['cid'] =$datam['courseId'];
                     $arr['ctime'] = time();
                     $sign_id = D('course_record')->add($arr);
+                    D('course')->where("courseId = {$datam['courseId']}")->setInc('saleCount',1);
 				   S ("$out_trade_no",1);
 				   echo "SUCCESS";
 				   exit;
