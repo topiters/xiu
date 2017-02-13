@@ -46,7 +46,7 @@ class LiveModel extends BaseModel {
 	}
 
     /**
-     * 秀财说
+     * 乐尚说
      */
     public function live($id) {
         $sql = "select c.courseId,c.courseName,c.courseThums,c.saleCount,c.courseIntro,cc.catName,c.liveStartTime,c.liveEndTime,s.shopId,s.shopImg,s.shopName

@@ -212,6 +212,7 @@ dl.areaSelect dd{ float: left; margin-left: 20px; cursor: pointer;}
 	   params.isSelf = $("input[name='isSelf']:checked").val();
 	   params.shopName = $('#shopName').val();
 	   params.shopCompany = $('#shopName').val();
+       params.shopTitle = $('#shopTitle').val();
 	   params.shopStatus = $("input[name='shopStatus']:checked").val();
 	   params.shopImg = $('#shopImg').val();
 	   //拒绝的时候不用上传
@@ -295,10 +296,67 @@ dl.areaSelect dd{ float: left; margin-left: 20px; cursor: pointer;}
 	             </div>
              </td>
            </tr>
+            <tr style="height:80px;">
+                <th align="right">教师身份证：</th>
+                <td>
+                    <div>
+                        <img src="__ROOT__/{$object.shopInfoImg}" ref="__ROOT__/{$object.shopInfoImg}"
+                        <if condition="$object['shopInfoImg'] =='' ">style='display:none'
+                            <else/>
+                            style='width:152px;height:152px;max-width:152px;'
+                        </if>
+                        />
+                    </div>
+                </td>
+            </tr>
+            <tr style="height:80px;">
+                <th align="right">教师资格证：</th>
+                <td>
+                    <div>
+                        <img src="__ROOT__/{$object.shopCertImg}" ref="__ROOT__/{$object.shopCertImg}"
+                        <if condition="$object['shopCertImg'] =='' ">style='display:none'
+                            <else/>
+                            style='width:152px;height:152px;max-width:152px;'
+                        </if>
+                        />
+                    </div>
+                </td>
+            </tr>
            <tr>
              <th align='right'>教师端电话<font color='red'>*</font>：</th>
              <td><input type='text' id='shopTel' class="form-control wst-ipt" value='{$object.shopTel}' maxLength='25'/></td>
            </tr>
+            <tr>
+                <th align="right">教师职称<font color="red">*</font>：</th>
+                <td>
+                    <select name="shopTitle" id="shopTitle">
+                        <option value="1"
+                        <eq name="object['shopTitle']" value="1"> selected</eq>
+                        >初级会计师</option>
+                        <option value="2"
+                        <eq name="object['shopTitle']" value="2"> selected</eq>
+                        >中级会计师</option>
+                        <option value="3"
+                        <eq name="object['shopTitle']" value="3"> selected</eq>
+                        >高级会计师</option>
+                        <option value="4"
+                        <eq name="object['shopTitle']" value="4"> selected</eq>
+                        >注册会计师</option>
+                        <option value="5"
+                        <eq name="object['shopTitle']" value="5"> selected</eq>
+                        >注册税务师</option>
+                        <option value="6"
+                        <eq name="object['shopTitle']" value="6"> selected</eq>
+                        >审计师</option>
+                        <option value="7"
+                        <eq name="object['shopTitle']" value="7"> selected</eq>
+                        >律师</option>
+						<option value="8"
+                        <eq name="object['shopTitle']" value="8"> selected</eq>
+                        >其他</option>
+                    </select>
+                </td>
+            </tr>
            <tr>
              <th align='right'>营业状态<font color='red'>*</font>：</th>
              <td>

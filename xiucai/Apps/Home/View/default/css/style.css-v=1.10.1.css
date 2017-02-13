@@ -120,7 +120,7 @@ table th,table td{vertical-align: middle;}
 /*index begin*/
 .container{
     margin: 0 auto;
-    width: 1250px;
+    width: 1200px;
     color: #333;
 }
 .container900{
@@ -1567,7 +1567,7 @@ table th,table td{vertical-align: middle;}
 .idx-header .hot-search-fixed a:hover{
 	color: #FF7745;
 }
-.nav a.course-classify{
+.nav .course-classify{
 	display:block;
 	width:230px;
 	height:40px;
@@ -1578,12 +1578,12 @@ table th,table td{vertical-align: middle;}
 	font-size:16px;
 	color:#fff;
 }
-.nav a.course-classify>em{
+.nav .course-classify>em{
 	display:inline-block;
 	width:14px;
 	height:16px;
 	margin:0 16px 0 10px;
-	background:url("../img/top-nav.png")/*tpa=http://assets.xiucai.com/assets/img/top-nav.png*//*tpa=http://assets.xiucai.com/assets/img/top-nav.png*/ no-repeat;
+	background:url("../img/top-nav.png") no-repeat;
 	background-position:-131px 0;
 	vertical-align:middle;
 }
@@ -1746,24 +1746,22 @@ body.index #main{
 	background: #E85613;
 }
 .slideBox .bd img{
-	width:1200px;
 	height:420px;
 	display: block;
 	margin:0 auto;
 }
 .slide-img{
 	position: absolute;
-	top:0;
+	top:35px;
 	left: 50%;
 	margin-left: -625px;
 	display: block;
-	width: 1200px;
 	height: 420px;
 }
 .category-index{
     position: absolute;
     top: 0;
-    left: 0;
+    left: 25px;
     width: 230px;
     background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA4RpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTExIDc5LjE1ODMyNSwgMjAxNS8wOS8xMC0wMToxMDoyMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo5ZDdiMzVlMy0yZTQ3LWRjNDEtYWIxOS1jYjM0MWIzNTVmMjMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6N0VFQ0UzOUQwQUIzMTFFNjkwRTBGMjFENDRGNEQ2NzUiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6N0VFQ0UzOUMwQUIzMTFFNjkwRTBGMjFENDRGNEQ2NzUiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6OTAxYmExY2QtMThlZS0zZjQ2LThkZDUtNWM2N2EwZjEwODMxIiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6ODUwNGY0ODAtMmI1ZS0xMWU1LTllMDgtZjYxZmZiMmE5ODc3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+ZgOcmQAAAA9JREFUeNpiMjY2/gQQYAACzAGOJgjUZgAAAABJRU5ErkJggg==");
     /*height: 420px;*/
@@ -1870,9 +1868,8 @@ body.index #main{
 	display: inline-block;
 }
 .spread{
-	width: 970px;
+	width: 1250px;
 	height: 102px;
-	padding-left: 230px;
 	margin: 0 auto;
 	background-color: #ffffff;
 }
@@ -1883,7 +1880,6 @@ body.index #main{
 	width: 300px;
 	height: 102px;
 	float: left;
-	margin: 0 15px 0 5px;
 }
 .spread ul li:first-child{
 	margin-left: 15px;
@@ -10397,10 +10393,10 @@ input[type="text"].mark-info{
 /*兼容retina*/
 @media only screen and (-webkit-min-device-pixel-ratio: 2),
     only screen and (min-device-pixel-ratio: 2) {
-		.logo{
-			background: url("../img/logo@2x.png")/*tpa=http://assets.xiucai.com/assets/img/logo@2x.png*//*tpa=http://assets.xiucai.com/assets/img/logo@2x.png*/ no-repeat left center;
-			background-size: 114px 30px;
-		}
+		/* .logo{ */
+			/* background: url("../img/logo@2x.png")/*tpa=http://assets.xiucai.com/assets/img/logo@2x.png*//*tpa=http://assets.xiucai.com/assets/img/logo@2x.png*/ no-repeat left center; */
+			/* background-size: 114px 30px; */
+		/* } */
         .nav-item a i.phone,.nav-item a:hover i.phone,.search-block .search-form .search-btn,.search-block-active .search-form .search-btn,.personal-box > p > span.sex,.side-top-box ul li i.list-icon,.diy_select_btn,.login-box .input-item span,.update-head a i,.message-item-block span.message-l-icon,.account-item-l,.account-login i.account-wx,.account-login i.account-qq{
             background: url("../img/sprite@2x.png")/*tpa=http://assets.xiucai.com/assets/img/sprite@2x.png*//*tpa=http://assets.xiucai.com/assets/img/sprite@2x.png*/;
             background-size: 265px 224px;

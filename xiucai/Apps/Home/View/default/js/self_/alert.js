@@ -2,7 +2,7 @@
     var xcDialog = {
         alert: function (options) {
             var defaults = {
-                content: "秀财网", timeOut: 2000, onClose: function () {
+                content: "乐尚中原财税网", timeOut: 2000, onClose: function () {
                 }
             };
             options = $.extend(true, {}, defaults, options);

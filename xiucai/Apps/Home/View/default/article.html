@@ -218,7 +218,7 @@
                                 <div class="quan-post-info quan-post-info-top clearfix">
                                     <div class="fl">
                                         <!-- level -->
-                                        <a href="/help/6/#q28" target="_blank" class="" title="经验值：{$v.userTotalScore}，等级头衔：{$v.rank.rankName}，了解经验值等级">
+                                        <a href="javascript:;" class="" title="经验值：{$v.userTotalScore}，等级头衔：{$v.rank.rankName}，了解经验值等级">
 			                    <span class="tag-level tag-level-LV{$v.rank.rankId}">
 			                    <i>LV{$v.rank.rankId}</i></span></a>
                                         <!-- 马甲 -->
@@ -285,7 +285,7 @@
                                             <div class="r-content">
                                                 <div class="quan-post-info quan-post-info-top">
                                                     <!-- level -->
-                                                    <a href="/help/6/#q28" target="_blank" class="" title="经验值：{$vv.userTotalScore}，等级头衔：{$vv.rank.rankName}，了解经验值等级">
+                                                    <a href="javascript:;" class="" title="经验值：{$vv.userTotalScore}，等级头衔：{$vv.rank.rankName}，了解经验值等级">
 			                                            <span class="tag-level tag-level-LV{$vv.rank.rankId}">
 			                                                <i>LV{$vv.rank.rankId}</i>
                                                         </span>
@@ -420,6 +420,7 @@
                     })
                 });
                 $('.agree-reply').click(function () {
+                    var obj = $(this);
                     var cid = $(this).attr('data-reply-id');
                     var luid = $(this).attr('data-reply-uid');
                     $.ajax({
@@ -429,14 +430,14 @@
                         success: function (data) {
                             if (data == 1) {
                                 WST.msg('点赞成功');
-                                $('.agree-reply').hide();
-                                $('.disagree-reply').show();
-
+                                obj.hide();
+                                obj.parent().find('.disagree-reply').show();
                             }
                         }
                     })
                 });
                 $('.disagree-reply').click(function () {
+                    var obj = $(this);
                     var cid = $(this).attr('data-reply-id');
                     var luid = $(this).attr('data-reply-uid');
                     $.ajax({
@@ -446,8 +447,8 @@
                         success: function (data) {
                             if (data == 1) {
                                 WST.msg('取消成功');
-                                $('.disagree-reply').hide();
-                                $('.agree-reply').show();
+                                obj.hide();
+                                obj.parent().find('.agree-reply').show();
                             }
                         }
                     })

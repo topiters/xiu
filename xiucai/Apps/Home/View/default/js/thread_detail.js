@@ -533,7 +533,7 @@ $(function(){
         $(this).parent().parent().next().html(position);
     });
 
-    // 秀财直播轮播
+    // 乐尚直播轮播
     jQuery(".live-slider").slide({mainCell:".bd ul",effect:"left",easing:"easeOutCirc",delayTime:1000,interTime:3000,autoPlay:true});
 
     // 导师问答更新状态 满意/不满意

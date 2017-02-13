@@ -224,7 +224,7 @@
     min-width:1200px;
     overflow-x:hidden;
     background:url(../img/vip/s3-banner.png) no-repeat;
-    height: 480px;
+    min-height: 750px;
 }
 #v-third h1{
     padding:60px 0;

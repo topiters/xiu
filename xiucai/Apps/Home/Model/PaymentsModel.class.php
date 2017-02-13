@@ -208,19 +208,30 @@ class PaymentsModel extends BaseModel {
             if (strpos($orderId , ',')) {
                 $rs = $om->where("orderId in ($orderId) and payType = 1 and totalMoney > 0 and orderFlag=1 and orderStatus=-2")->save($data);
             } else {
-                $rs = $om->where("orderId = $orderId and payType = 1 and totalMoney > 0 and orderFlag=1 and orderStatus=-2")->save($data);
+                $rs = $om->where("orderId = '$orderId' and payType = 1 and totalMoney > 0 and orderFlag=1 and orderStatus=-2")->save($data);
             }
         }else{
             $rs = $om->where("orderunique = '$orderunique' and payType = 1 and totalMoney > 0 and orderFlag=1 and orderStatus=-2")->save($data);
         }
+		// $aa['userId'] = 11111;
+		// $aa['title'] = $orderId;
+		// $aa['content'] = $om->getLastSql();
+		// $aa['ctime']=time();
+		// D('questions')->add($aa);
         if(false !== $rs){
             $rd['status']= 1;
             //修改库存
             foreach ($goodslist as $key=> $sgoods){
                 $goodsId = $sgoods['courseId'];
                 $goodsNums = $sgoods['courseNums'];
-                $sql="update __PREFIX__course set courseStock=courseStock-".$goodsNums." where courseId=".$goodsId;
+                $sql = "update __PREFIX__course set courseStock=courseStock-1  where courseId=" . $goodsId;
                 $this->execute($sql);
+                $sql = "update __PREFIX__course set saleCount=saleCount+1 where courseId=" . $goodsId;
+                $this->execute($sql);
+				// $bb['userId']=$goodsId;
+				// $bb['title']=$goodsNums;
+				// $bb['ctime']=time();
+				// D('questions')->add($bb);
                 //若是直播课则支付完成后自动报名
                 $isLive = D('course')->field('courseId,is_live')->where("courseId = $goodsId")->find();
                 if ($isLive['is_live'] == 2) {

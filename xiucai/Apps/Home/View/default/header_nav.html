@@ -11,11 +11,6 @@
 	                <li><a class="notCard font-color-white" href="{:U('home/index/index')}" >首页</a></li>
 	                <li class="parent-nav-item">
 	                    <a href="{:U('home/course/index')}" >课程 </a>
-	                    <ul class="second-nav-item">
-	                        <li><a href="{:U('home/course/index')}" target="_blank">课程大厅</a></li>
-	                        <li><a href="{:U('home/specialcourse/index')}" >专题课程</a></li>
-	                        <li><a href="{:U('home/mycourse/index')}">我的课程</a></li>
-	                    </ul>
 	                </li>
 	                <li>
 	                	<a href="{:U('home/livecast/index')}"  >直播间</a>
@@ -25,12 +20,6 @@
 	                </li>
 	                <li class="parent-nav-item">
 	                    <a href="{:U('home/forum/index')}" >财税论坛 </a>
-	                    <ul class="second-nav-item">
-	                        <li>
-	                        	<a href="{:U('home/forum/index')}" >圈子首页</a></li>
-	                        <li class="none-border">
-	                        	<a href="{:U('home/forum/myindex')}">我的圈子</a></li>
-	                    </ul>
 	                </li>
 	                <li>
 	                	<a href="{:U('home/users/open_member')}">开通会员</a>
@@ -59,23 +48,18 @@
 	           </div>-->
 	             <PHP>if(session('WST_USER.userId')>0){</PHP>
 	            <div class="change-entrance head_dhzx" >
-	            	<a href="javascript:logout();"  title="退出" ><i></i></a>
+	            	<a href="javascript:logout();"  title="退出" >退出</a>
 	            </div>
 	            <div class="login-block login_zh" id="login_dl" style="display: block;">
 	            	<ul>
-	            		<!-- <li><a href="#"><i class="iconfont">&#xe615;</i></a></li>
-	            		<li><a href="#"><i class="iconfont">&#xe69c;</i></a></li>
-	            		<li><a href="#"><i class="iconfont">&#xe9c5;</i></a></li> -->
-	            		<li><a href="#"><i class="iconfont">&#xe625;</i></a></li>
 	            		<li><a href="{:U('Home/Users/index')}"><div><img src="__ROOT__/Apps/Home/View/default/img/login/touxaing.png" /></div></a></li>
-						<li><a href="{:U('Home/Users/index')}"><div>个人中心</div></a></li>
 	            	</ul>
 	            </div>
 	            <PHP>}</PHP>
 	            <div class="search-block search-block-active search-block-focus">
 	                <div class="search-form clearfix">
-	                    <input type="button" class="fl search-btn" id="search_button"/>
-	                    <input type="text" class="fl search_content_input" id="search_content" name="search_content" placeholder="找到你想要的课程或帖子" maxlength="15"/>
+	                    <input type="button" class="fl search-btn" id="search_buttons"/>
+	                    <input type="text" class="fl search_content_input" id="search_contents" name="search_content" placeholder="找到你想要的课程" maxlength="15"/>
 	                </div>
 	
 	                <!-- 关键字搜索面板 默认隐藏 -->
@@ -83,4 +67,21 @@
 	                <input id="search_from" type="hidden" value="course">
 	            </div>
 	        </div>
+	<script>
+	//首页搜索
+	$(function(){
 	
+	$("#search_buttons").click(
+	
+  function(){
+	var  index_content=$("#search_contents").val();
+	//alert(index_content);
+	if(index_content==''){
+	alert('请输入搜索内容');
+	return false;
+	}
+	window.location="/index.php?m=Home&c=course&a=index&keyWords="+index_content;
+	
+	})
+	})
+	</script>

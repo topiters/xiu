@@ -69,7 +69,7 @@
        <div id='tab' class="wst-tab-box">
 		<ul class="wst-tab-nav">
 	    	<li>课程信息</li>
-	        <li>课程相册</li>
+	        <li>课程视屏</li>
 	    </ul>
     	<div class="wst-tab-content" style='width:98%;'>
     	<div class='wst-tab-item'>
@@ -83,7 +83,7 @@
 	             {$object.courseSn}
 	             </td>
 	             <td rowspan='6' style='padding:5px;'>
-	             <img id='courseImgPreview' src='<if condition="$object['courseImg'] =='' ">__ROOT__/Apps/Home/View/default/img/store_default_sign.png<else/>__ROOT__/{$object['courseImg']}</if>' width='160' height='160'/><br/>
+	             <img id='courseImgPreview' src='__ROOT__/{$object['courseThums']}' width='160' height='160'/><br/>
 	             </td>
 	           </tr>
 	           <tr>
@@ -143,12 +143,16 @@
 	       </form>
 	      </div>
 	      <div class='wst-tab-item'>
+		  
+		 
 	       <div id='galleryImgs' class='wst-gallery-imgs'>
-	           <volist name="object['gallery']" id="vo" key='i'>
+		   
+		   <video class="video-free " src="__ROOT__/{$object.videoPath}" controls="controls" style="width: 100%;height: 100%;"></video>
+		      <!-- <volist name="object['gallery']" id="vo" key='i'>
 		       <div class="wst-gallery-img">
 			       <img class="gallery-img" width='140' height='100' iv="{$vo.courseThumbs}" v="{$vo.courseImg}" src="__ROOT__/{$vo.courseThumbs}"/>
 		       </div>
-		       </volist>
+		       </volist> -->
 	       </div>
 	       <div style='clear:both;'></div>
 	      </div>

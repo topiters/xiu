@@ -301,7 +301,7 @@
             <!-- 右侧内容 begin -->
             <div class="r about_content">              
             
-
+	<form     action="{:U('Home/Shops/addcourse')}"    method="post"    id="myform"  enctype="multipart/form-data"    >
 
                  <div class="course-list" id="ulli-item2" style="padding-left: 15px;box-sizing: border-box;">
 					 <script src='__PUBLIC__/plugins/uploadify/jquery.uploadify.min.js'/></script>
@@ -330,9 +330,8 @@
 		            		小于500M
 		            	</div>
 						<br>
-						
-						<div   style="width:600px;height:100px;margin-top:30px;"></div>
-		            	<form     action="{:U('Home/Shops/addcourse')}"    method="post"    id="myform"  enctype="multipart/form-data"    >
+					
+		            
 						
 						<input    type="hidden" id="jcrop-x1"  name="videodata"      value="" >
 		            		<table>
@@ -479,12 +478,12 @@
 			            			</tr>
 			            		</tbody>
 			            	</table>	            
-		            	</form>
+		            	
 					 </div>
         
                 </div>  
 
-
+</form>
 
 			
 			
@@ -527,9 +526,9 @@
                             </a>
                             <div class=""></div>
                         </li>
-						<li class="course-category course-category-more   curr" data-href="#ulli-item6">
-                            <a class="course-category-link" href="{:U('Home/Shops/addcourse')}">
-                            	发布直播
+						<li class="course-category course-category-more" data-href="#ulli-item6">
+                            <a class="course-category-link    curr" href="{:U('Home/Shops/addcourse')}">
+                            	发布视频
                             </a>
                             <div class="vertical"></div>
                         </li>

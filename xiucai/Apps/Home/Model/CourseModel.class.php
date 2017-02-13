@@ -13,13 +13,13 @@ namespace Home\Model;
 * @version:1.0
 */
 class CourseModel extends BaseModel {
-	
-	
+
+
 	/**
 	 * 课程列表
 	 */
 	public function getCourseList(){
-		
+
 		//$areaId2 = $obj["areaId2"];
 		//$areaId3 = $obj["areaId3"];
 	//	$communityId = (int)I("communityId");
@@ -28,12 +28,20 @@ class CourseModel extends BaseModel {
 		$c3Id = (int)I("c3Id");
 		$pcurr = (int)I("pcurr");
 		$mark = (int)I("mark",1);//13,14最新，最热
+        $is_new = (int)I("is_new");
+        $is_hot = (int)I("is_hot");
+        if ($is_new){
+            $mark = 13;
+        }
+        if ($is_hot) {
+            $mark = 14;
+        }
 		$msort = (int)I("msort",1);
 		$prices = I("prices");
-		
+
 		// 免费课is_free,1,2,
 		$is_free=(int)I("is_free");
-		
+
 		//is_live是否直播录播
 		$is_live=(int)I("is_live");
 
@@ -46,14 +54,14 @@ class CourseModel extends BaseModel {
 		if($keyWords!=""){
 			$words = explode(" ",$keyWords);
 		}
-		
+
 		$sqla = "SELECT  g.courseId,g.createTime,g.is_free,g.courseSn,g.courseName,g.courseThums,g.courseStock,g.saleCount,p.shopId,g.marketPrice,g.shopPrice,ga.id courseAttrId,saleTime,totalScore,totalUsers ";
 		//$sqlb = "SELECT max(shopPrice) maxShopPrice  ";
 		$sqlc = " FROM __PREFIX__course g 
 				left join __PREFIX__course_attributes ga on g.courseId=ga.courseId and ga.isRecomm=1
 				left join __PREFIX__course_scores gs on gs.courseId= g.courseId
 				, __PREFIX__shops p ";
-		
+
 		if($brandId>0){
 			$sqlc .=" , __PREFIX__brands bd ";
 		}
@@ -61,7 +69,7 @@ class CourseModel extends BaseModel {
 		if($areaId3>0 || $communityId>0){
 			$sqld .=" , __PREFIX__shops_communitys sc ";
 		}
-		
+
 		$where = " WHERE g.shopId = p.shopId AND  g.coursestatus=1 AND g.courseFlag = 1 and g.isSale=1 and  g.is_live=1";//非直播课
 		//$where2 = " AND p.areaId2 = $areaId2 AND p.isDistributAll=0 ";
 		$where3 = " AND p.isDistributAll=1 ";
@@ -86,19 +94,19 @@ class CourseModel extends BaseModel {
 		if($c3Id>0){
 			$where .= " AND g.courseCatId3 = $c3Id";
 		}
-		
+
 		if($is_free){
 			$where .= " AND g.is_free =$is_free";
-			
+
 		};
-		
+
 		if($is_live){
 			$where .= " AND g.is_live =$is_live";
 		}
-		
-		
-		
-		
+
+
+
+
 		if(!empty($words)){
 			$sarr = array();
 			foreach ($words as $key => $word) {
@@ -108,23 +116,23 @@ class CourseModel extends BaseModel {
 			}
 			$where .= " AND (".implode(" or ", $sarr).")";
 		}
-		/* 
+		/*
 		$sqlb = "select max(maxShopPrice) maxShopPrice from (".
-				//$sqlb . $sqlc . $sqld . $where. $where2. 
+				//$sqlb . $sqlc . $sqld . $where. $where2.
 		$sqlb . $sqlc . $sqld . $where.
 				" union all ".
-				$sqlb . $sqlc . $where. $where3. 
+				$sqlb . $sqlc . $where. $where3.
 				") course";
 		 */
 	//	$maxrow = $this->queryRow( $sqlb );
 	//	$maxPrice = $maxrow["maxShopPrice"];
-	
+
 	    if($prices != "" && $pricelist[0]>=0 && $pricelist[1]>=0){
 			$where .= " AND (g.shopPrice BETWEEN  ".(int)$pricelist[0]." AND ".(int)$pricelist[1].") ";
 		}
 	   	$groupBy .= " group by courseId ";
 	   	//排序-暂时没有按好评度排
-	   	$orderFile = array('1'=>'saleCount','6'=>'saleCount','7'=>'saleCount','8'=>'shopPrice','9'=>'(totalScore/totalUsers)','10'=>'saleTime',''=>'saleTime','12'=>'saleCount','13'=>'isNew','isHot'=>14);
+	   	$orderFile = array('1'=>'saleCount','6'=>'saleCount','7'=>'saleCount','8'=>'shopPrice','9'=>'(totalScore/totalUsers)','10'=>'saleTime',''=>'saleTime','12'=>'saleCount','13'=>'createTime','14'=>'saleCount');
 	   	$orderSort = array('0'=>'ASC','1'=>'DESC');
 		$orderBy .= " ORDER BY ".$orderFile[$mark]." ".$orderSort[$msort].",courseId ";
 
@@ -133,9 +141,9 @@ class CourseModel extends BaseModel {
 				" union all ".
 				$sqla . $sqlc . $where. $where3 .
 				") course". $groupBy .$orderBy ;
-		
-		//var_dump($sqla);
-		//exit;
+
+		// var_dump($sqla);
+		// exit;
 		$pages = $this->pageQuery($sqla, I('p'), 16);
 		//var_dump($pages );
 		//exit;
@@ -164,32 +172,32 @@ class CourseModel extends BaseModel {
 	/**
 	 * 查询课程信息
 	 */
-	public function getCourseDetails($obj){		
+	public function getCourseDetails($obj){
 		$courseId = $obj["courseId"];
 		/* $sql = "SELECT sc.catName,sc2.catName as pCatName, g.*,shop.shopName,shop.deliveryType,ga.id courseAttrId,ga.attrPrice,ga.attrStock,
 				shop.shopAtive,shop.shopTel,shop.shopDetails,shop.shopAddress,shop.deliveryTime,shop.isInvoice, shop.deliveryStartMoney,g.courseStock,shop.deliveryFreeMoney,shop.qqNo,shop.isDistributAll,
-				shop.deliveryMoney ,g.courseSn,g.courseTime,g.courseDifficulty,g.courseIntro,g.courseFor,shop.serviceStartTime,shop.serviceEndTime FROM __PREFIX__course g , __PREFIX__shops shop, __PREFIX__shops_cats sc 
+				shop.deliveryMoney ,g.courseSn,g.courseTime,g.courseDifficulty,g.courseIntro,g.courseFor,shop.serviceStartTime,shop.serviceEndTime FROM __PREFIX__course g , __PREFIX__shops shop, __PREFIX__shops_cats sc
 				LEFT JOIN __PREFIX__shops_cats sc2 ON sc.parentId = sc2.catId
-				WHERE g.courseId = $courseId AND shop.shopId=sc.shopId AND sc.catId=g.shopCatId1 AND g.shopId = shop.shopId AND g.courseFlag = 1 ";		
+				WHERE g.courseId = $courseId AND shop.shopId=sc.shopId AND sc.catId=g.shopCatId1 AND g.shopId = shop.shopId AND g.courseFlag = 1 ";
 		 */
-		
+
 		$sql="SELECT g.*,shop.shopName,shop.deliveryType,shop.shopAtive,shop.shopTel,shop.shopDetails,shop.shopAddress,shop.deliveryTime,shop.isInvoice, shop.deliveryStartMoney,g.courseStock,shop.deliveryFreeMoney,shop.qqNo,shop.isDistributAll,shop.deliveryMoney ,g.courseSn,g.courseTime,g.courseDifficulty,g.courseIntro,g.courseFor,shop.serviceStartTime,shop.serviceEndTime FROM __PREFIX__course g , __PREFIX__shops shop WHERE g.courseId = $courseId AND  g.shopId = shop.shopId AND g.courseFlag = 1 ;";
-		
-		
-		
+
+
+
 		$rs = $this->query($sql);
-		
+
 		//if(!empty($rs) && $rs[0]['courseAttrId']>0){
 		//	$rs[0]['shopPrice'] = $rs[0]['attrPrice'];
 		//	$rs[0]['courseStock'] = $rs[0]['attrStock'];
 		//}
 		return $rs[0];
 	}
-	
+
 	/**
 	 * 获取课程信息-购物车/核对订单用
 	 */
-    public function getCourseForCheck($obj){		
+    public function getCourseForCheck($obj){
 		$courseId = (int)$obj["courseId"];
 		$courseAttrId = (int)$obj["courseAttrId"];
 		$sql = "SELECT sc.catName,sc2.catName as pCatName, g.attrCatId,g.courseThums,g.courseId,g.courseName,g.shopPrice,g.courseStock
@@ -197,7 +205,7 @@ class CourseModel extends BaseModel {
 				shop.deliveryStartMoney,g.courseStock,shop.deliveryFreeMoney,shop.deliveryMoney ,g.courseSn,shop.serviceStartTime startTime,shop.serviceEndTime endTime
 				FROM __PREFIX__course g, __PREFIX__shops shop, __PREFIX__shops_cats sc 
 				LEFT JOIN __PREFIX__shops_cats sc2 ON sc.parentId = sc2.catId
-				WHERE g.courseId = $courseId AND shop.shopId=sc.shopId AND sc.catId=g.shopCatId1 AND g.shopId = shop.shopId AND g.courseFlag = 1 ";		
+				WHERE g.courseId = $courseId AND shop.shopId=sc.shopId AND sc.catId=g.shopCatId1 AND g.shopId = shop.shopId AND g.courseFlag = 1 ";
 		$rs = $this->queryRow($sql);
 		if(!empty($rs) && $rs['attrCatId']>0){
 			$sql = "select ga.id,ga.attrPrice,ga.attrStock,a.attrName,ga.attrVal,ga.attrId from __PREFIX__attributes a,__PREFIX__course_attributes ga
@@ -252,40 +260,40 @@ class CourseModel extends BaseModel {
 	 * 获取课程相册
 	 */
 	public function getCourseImgs(){
-		
+
 		$courseId = (int)I("courseId");
-	
-		$sql = "SELECT img.* FROM __PREFIX__course_gallerys img WHERE img.courseId = $courseId ";		
+
+		$sql = "SELECT img.* FROM __PREFIX__course_gallerys img WHERE img.courseId = $courseId ";
 		$rs = $this->query($sql);
 		return $rs;
-		
+
 	}
-	
-	
+
+
 	/**
 	 * 获取关联课程
 	 */
 	public function getRelatedCourse(){
-		
+
 		$courseId = (int)I("courseId");
 		$sql = "SELECT g.* FROM __PREFIX__course g, __PREFIX__course_relateds gr WHERE g.courseId = gr.relatedCourseId AND g.courseStock>0 AND g.courseStatus = 1 AND gr.courseId =$courseId";
 		$rs = $this->query($sql);
 		return $rs;
-		
+
 	}
-	
-	
+
+
 	  //获取同类课程
 	public function getRelatedCoursed($catid){
-	
+
 		//$courseId = (int)I("courseId");
 		$sql = "SELECT g.* FROM __PREFIX__course g  WHERE g.courseCatId2 =$catid  AND g.courseStock>0 AND g.courseStatus = 1 ORDER  BY  rand(),courseId desc ";
 		$rs = $this->query($sql);
 		return $rs;
-	
+
 	}
-	
-	
+
+
 	/**
 	 * 获取上架中的课程
 	 */
@@ -300,7 +308,7 @@ class CourseModel extends BaseModel {
 		if($shopCatId2>0)$sql.=" and g.shopCatId2=".$shopCatId2;
 		if($courseName!='')$sql.=" and (g.courseName like '%".$courseName."%' or g.courseSn like '%".$courseName."%') ";
 		$sql.=" order by g.courseId desc";
-		
+
 		return $this->pageQuery($sql,I('p'),9);
 	}
     /**
@@ -339,7 +347,7 @@ class CourseModel extends BaseModel {
 		$sql.=" order by g.courseId desc";
 		return $this->pageQuery($sql);
 	}
-	
+
 	protected $_validate = array(
 		 array('courseSn','require','请输入课程编号!',1),
 		 array('courseName','require','请输入课程名称!',1),
@@ -356,7 +364,7 @@ class CourseModel extends BaseModel {
 		 array('shopCatId2','integer','请选择本店二级分类!',1),
 		 array('shopCatId2','integer','请选择本店二级分类!',1)
 	);
-		
+
 	/**
 	 * 新增课程
 	 */
@@ -460,7 +468,7 @@ class CourseModel extends BaseModel {
 						$m->add($data);
 					}
 				}
-				
+
 				//保存优惠套餐
 				$packageCnt = (int)I("packageCnt");
 				$pm = M("packages");
@@ -472,7 +480,7 @@ class CourseModel extends BaseModel {
 					$data["courseId"] = $courseId;
 					$data["createTime"] = date('Y-m-d H:i:s');
 					$packageId = $pm->add($data);
-					
+
 					$courseIds = explode(",",I("courseIds_".$i));
 					$courseDiffPrices = explode(",",I("courseDiffPrices_".$i));
 					for($j=0,$k=count($courseIds);$j<$k;$j++){
@@ -491,8 +499,8 @@ class CourseModel extends BaseModel {
 			$rd['msg'] = $m->getError();
 		}
 		return $rd;
-	} 
-	 
+	}
+
 	/**
 	 * 编辑课程信息
 	 */
@@ -530,7 +538,7 @@ class CourseModel extends BaseModel {
 			$m->coursepec = I("coursepec");
 			$m->courseKeywords = I("courseKeywords");
 			$m->where('courseId='.$course['courseId'])->save();
-			
+
 			if(false !== $rs){
 				if($shopStatus['shopStatus']==1){
 				    $rd['status']= 1;
@@ -569,7 +577,7 @@ class CourseModel extends BaseModel {
 							$no = (int)I('coursePriceNo');
 							$no = $no>50?50:$no;
 							$totalStock = 0;
-							
+
 							for ($i=0;$i<=$no;$i++){
 								$name = trim(I('price_name_'.$priceAttrId."_".$i));
 								if($name=='')continue;
@@ -603,7 +611,7 @@ class CourseModel extends BaseModel {
 						}
 					}
 				}
-				
+
 			    //保存相册
 				$gallery = I("gallery");
 				if($gallery!=''){
@@ -623,7 +631,7 @@ class CourseModel extends BaseModel {
 						$m->add($data);
 					}
 				}
-				
+
 				//保存优惠套餐
 				$packageCnt = (int)I("packageCnt");
 				$packageIds = array();
@@ -642,18 +650,18 @@ class CourseModel extends BaseModel {
 				}
 				$sql = "delete from __PREFIX__packages where packageId in (".implode(",",$npIds).")";
 				$this->execute($sql);
-				
+
 				//删除已经失效的套餐记录
 				$sql = "delete from __PREFIX__cart where packageId in (".implode(",",$npIds).")";
 				$m->execute($sql);
-				
+
 				$sql = "select * from __PREFIX__packages where courseId= $courseId";
 				$vlist = $this->query($sql);
 				$vpIds = array();
 				for($i=0, $k=count($vlist); $i<$k; $i++){
 					$vpIds[] = $vlist[$i]["packageId"];
 				}
-				
+
 				$sql = "delete from __PREFIX__course_packages where packageId in (".implode(",",$vpIds).")";
 				$this->execute($sql);
 				$pm = M("packages");
@@ -752,7 +760,7 @@ class CourseModel extends BaseModel {
 		}
 		return $rd;
 	 }
-	 
+
 	 /**
 	  * 批量删除课程
 	  */
@@ -838,21 +846,21 @@ class CourseModel extends BaseModel {
 				$rd['status']= 1;
 			}
 	 	}
-	 	
+
 		return $rd;
 	 }
-	 
+
 	/**
 	 * 获取店铺课程列表
 	 */
 	public function getShopsCourse($shopId = 0){
-		
+
 		$shopId = ($shopId>0)?$shopId:(int)I("shopId");
 		$ct1 = (int)I("ct1");
 		$ct2 = (int)I("ct2");
-		$msort = (int)I("msort",1);//排序標識		
-		$mdesc = (int)I("mdesc");//排序標識		
-		
+		$msort = (int)I("msort",1);//排序標識
+		$mdesc = (int)I("mdesc");//排序標識
+
 		$sprice = WSTAddslashes(I("sprice"));//开始价格
 		$eprice = WSTAddslashes(I("eprice"));//结束价格
 		//$courseName = I("courseName");//搜索店鋪名
@@ -866,7 +874,7 @@ class CourseModel extends BaseModel {
 						left join __PREFIX__course_scores gs on gs.courseId= g.courseId,
 						__PREFIX__shops sp 
 						WHERE g.shopId = sp.shopId AND sp.shopFlag=1 AND sp.shopStatus=1 AND g.courseFlag = 1 AND g.isSale = 1 AND g.courseStatus = 1 AND g.shopId = $shopId";
-		
+
 		if($ct1>0){
 			$sql .= " AND g.shopCatId1 = $ct1 ";
 		}
@@ -889,16 +897,16 @@ class CourseModel extends BaseModel {
 			}
 			$sql .= " AND (".implode(" or ", $sarr).")";
 		}
-		
+
 		$orderFile = array('1'=>'saleCount','2'=>'saleCount','3'=>'saleCount','4'=>'shopPrice','5'=>'(totalScore/totalUsers)','6'=>'saleTime');
 	   	$orderSort = array('0'=>'ASC','1'=>'DESC');
 		$sql .= " ORDER BY ".$orderFile[$msort]." ".$orderSort[$mdesc].",g.courseId";
 		$rs = $this->pageQuery($sql,I('p'),20);
 		return $rs;
-		
+
 	}
-	
-	
+
+
 	/**
 	 * 获取店铺课程列表
 	 */
@@ -918,7 +926,7 @@ class CourseModel extends BaseModel {
 		}
 		return  $hotcourse;
 	}
-	
+
 	/**
 	 * 获取课程库存
 	 */
@@ -940,15 +948,15 @@ class CourseModel extends BaseModel {
 	 	if(empty($course))return array();
 	 	return $course;
 	 }
-	 
-	 
+
+
 	 /**
 	  * 获取课程库存
 	  */
 	 public function getPkgcourseStock($data){
 	 	$packageId = $data['packageId'];
 	 	$batchNo = $data['batchNo'];
-	 	
+
 	 	$sql = "select * from __PREFIX__cart where packageId=$packageId and batchNo=$batchNo";
 	 	$pkgList = $this->query($sql);
 	 	$package = array();
@@ -965,7 +973,7 @@ class CourseModel extends BaseModel {
 	 		if($course==null)continue;
 	 		//如果课程有价格属性的话则获取其价格属性
 	 		if(!empty($course) && $course['attrCatId']>0){
-	 	
+
 	 			$sql = "select ga.id,ga.attrPrice,ga.attrStock,a.attrName,ga.attrVal,ga.attrId from __PREFIX__attributes a,__PREFIX__course_attributes ga
 				         	where a.attrId=ga.attrId and a.catId=".$course['attrCatId']." and a.isPriceAttr=1
 				          	and ga.courseId=".$courseId." and id=".$courseAttrId;
@@ -980,16 +988,16 @@ class CourseModel extends BaseModel {
 	 	}
 	 	$package["packageId"] = $packageId;
 	 	$package["courseStock"] = $pckMinStock;
-	 
+
 	 	return $package;
 	 }
-	 
-	 
+
+
 	/**
 	 * 查询课程简单信息
 	 */
-	public function getCourseInfo($courseId,$courseAttrId){		
-		$sql = "SELECT g.attrCatId,g.courseId,g.courseName,g.courseStock,g.bookQuantity,g.isBook,g.isSale,sp.shopAtive,sp.shopName FROM __PREFIX__course g, __PREFIX__shops sp WHERE g.shopId=sp.shopId AND g.courseId = $courseId AND g.courseFlag = 1 AND g.courseStatus = 1";		
+	public function getCourseInfo($courseId,$courseAttrId){
+		$sql = "SELECT g.attrCatId,g.courseId,g.courseName,g.courseStock,g.bookQuantity,g.isBook,g.isSale,sp.shopAtive,sp.shopName FROM __PREFIX__course g, __PREFIX__shops sp WHERE g.shopId=sp.shopId AND g.courseId = $courseId AND g.courseFlag = 1 AND g.courseStatus = 1";
 		$rs = $this->queryRow($sql);
         if(!empty($rs) && $rs['attrCatId']>0){
         	$sql = "select ga.id,ga.attrPrice,ga.attrStock,a.attrName,ga.attrVal,ga.attrId from __PREFIX__attributes a,__PREFIX__course_attributes ga
@@ -999,9 +1007,9 @@ class CourseModel extends BaseModel {
 			if(!empty($priceAttrs))$rs['courseStock'] = $priceAttrs[0]['attrStock'];
         }
 		return $rs;
-		
+
 	}
-	
+
 	/**
 	 * 查询课程简单信息
 	 */
@@ -1013,7 +1021,7 @@ class CourseModel extends BaseModel {
 		if(empty($rs))return array();
 	  /*   if($rs['attrCatId']>0){
         	$sql = "select ga.id,ga.attrPrice,ga.attrStock,a.attrName,ga.attrVal,ga.attrId from __PREFIX__attributes a,__PREFIX__course_attributes ga
-			        where a.attrId=ga.attrId and a.catId=".$rs['attrCatId']." 
+			        where a.attrId=ga.attrId and a.catId=".$rs['attrCatId']."
 			        and ga.courseId=".$rs['courseId']." and id=".$courseAttrId;
 			$priceAttrs = $this->queryRow($sql);
 			if(!empty($priceAttrs)){
@@ -1027,10 +1035,10 @@ class CourseModel extends BaseModel {
         } */
        // $rs['courseAttrId'] = (int)$rs['courseAttrId'];
 		return $rs;
-		
+
 	}
-	
-	
+
+
 	/**
 	 * 获取课程类别导航
 	 */
@@ -1047,13 +1055,13 @@ class CourseModel extends BaseModel {
 		foreach ($gclist as $key => $gcat) {
 			$catslist[$gcat["catId"]] = $gcat;
 		}
-		
+
 		$data[] = $catslist[$rs["courseCatId1"]];
 		$data[] = $catslist[$rs["courseCatId2"]];
 		$data[] = $catslist[$rs["courseCatId3"]];
 		return $data;
 	}
-	
+
 	/**
 	 * 查询课程属性价格及库存
 	 */
@@ -1064,7 +1072,7 @@ class CourseModel extends BaseModel {
 		$rs = $this->query($sql);
 		return $rs[0];
 	}
-	
+
 	/**
 	 * 修改课程库存
 	 */
@@ -1074,21 +1082,21 @@ class CourseModel extends BaseModel {
 		$stock = (int)I("stock");
 		$data = array();
 		$data["courseStock"] = $stock;
-		
+
 		M('course')->where("courseId=$courseId")->save($data);
 		$rdata["status"] = 1;
 		return $rdata;
 	}
-	
+
 	/**
 	 * 修改课程库存,课程编号,价格
 	 */
 	public function editCourseBase(){
-	
+
 		$rdata= array("status"=>-1);
 		$vfield = (int)I("vfield");
 		$courseId = (int)I("courseId");
-	
+
 		$data = array();
 		if($vfield==1){//课程编号
 			$data["courseSn"] = WSTAddslashes(I("vtext"));
@@ -1097,22 +1105,22 @@ class CourseModel extends BaseModel {
 		}else if($vfield==3){//课程庫存
 			$data["courseStock"] = (int)I("vtext");
 		}
-	
+
 		M('course')->where("courseId=$courseId")->save($data);
 		$rdata["status"] = 1;
 		return $rdata;
 	}
-	
+
 	public function getKeyList($areaId2){
-		$keywords = WSTAddslashes(I("keywords"));	
+		$keywords = WSTAddslashes(I("keywords"));
 		$m = M('course');
 		$sql = "select DISTINCT courseName as searchKey from __PREFIX__course g,__PREFIX__shops sp  where (sp.areaId2=$areaId2 or sp.isDistributAll=1) and g.shopId=sp.shopId and courseStatus=1 and courseFlag=1 and courseName like '%$keywords%' 
 				Order by saleCount desc, courseName asc limit 10";
 		$rs = $this->query($sql);
 		return $rs;
 	}
-	
-	
+
+
 	/**
 	 * 修改 推荐/精品/新品/热销/上架
 	 */
@@ -1147,12 +1155,12 @@ class CourseModel extends BaseModel {
 	 		    $data["saleTime"] = date('Y-m-d H:i:s');
 			}
 		}
-	
+
 		M('course')->where("courseId=$courseId")->save($data);
 		$rdata["status"] = 1;
 		return $rdata;
 	}
-	
+
 	/**
 	 * 获取课程历史浏览记录(取最新10條)
 	 */
@@ -1168,21 +1176,21 @@ class CourseModel extends BaseModel {
 		$sql = "SELECT g.saleCount totalnum, g.courseId , g.courseName,g.courseImg, g.courseThums,g.shopPrice,g.marketPrice, g.courseSn FROM __PREFIX__course g
 				WHERE g.courseId in ($goodIds) AND g.courseFlag = 1 AND g.isSale = 1 AND g.courseStatus = 1
 				ORDER BY FIELD(g.courseId,$goodIds) limit 10";
-	
+
 		$course = $m->query($sql);
 		for($i=0;$i<count($course);$i++){
 			$course[$i]["courseName"] = WSTMSubstr($course[$i]["courseName"],0,25);
 		}
 		return  $course;
-	
+
 	}
-	
+
 	/**
 	 * 上传课程数据
 	 */
 	public function importCourse($data){
 		$objReader = WSTReadExcel($data['file']['savepath'].$data['file']['savename']);
-        $objReader->setActiveSheetIndex(0); 
+        $objReader->setActiveSheetIndex(0);
         $sheet = $objReader->getActiveSheet();
         $rows = $sheet->getHighestRow();
         $cells = $sheet->getHighestColumn();
@@ -1263,7 +1271,7 @@ class CourseModel extends BaseModel {
         if(count($readData)>0)$courseModel->addAll($readData);
         return array('status'=>1,'importNum'=>$importNum);
 	}
-	
+
 	public function getCourseByCat(){
 		$shopId = (int)session('WST_USER.shopId');
 		$catId = (int)I("catId");
@@ -1274,7 +1282,7 @@ class CourseModel extends BaseModel {
 		$rs = $this->query($sql);
 		return $rs;
 	}
-	
+
 	/**
 	 * 获取套餐中的课程
 	 */
@@ -1285,7 +1293,7 @@ class CourseModel extends BaseModel {
 		$rs = $this->query($sql);
 		return $rs;
 	}
-	
+
 	/**
 	 * 获取指定课程的套餐
 	 * $courseId 课程ID
@@ -1325,18 +1333,18 @@ class CourseModel extends BaseModel {
 			$pcourse = array();
 			$gprices = array();
 			$sprices = array();
-			
+
 			$courseIds = array();
 			$diffPrices = array();
-			
+
 			for($i=0;$i<count($glist);$i++){
 				$course = $glist[$i];
 				if($flag==1){
 					$diffPrice = $course['diffPrice'];
-					
+
 					$minPrice = 0;
 					$maxPrice = 0;
-					
+
 					//获取规格属性
 					$sql = "select ga.id,ga.attrVal,ga.attrPrice,ga.attrStock,ga.isRecomm,a.attrId,a.attrName,a.isPriceAttr,a.attrType,a.attrContent
 			            	,ga.isRecomm from __PREFIX__attributes a, __PREFIX__course_attributes ga  where
@@ -1352,12 +1360,12 @@ class CourseModel extends BaseModel {
 							}
 							$course['priceAttrId'] = $v['attrId'];
 							$course['priceAttrName'] = $v['attrName'];
-							
+
 							$vprice = (($attrPrice-$diffPrice)>0)?($attrPrice-$diffPrice):$attrPrice;
-							
+
 							$minPrice = ($vprice<$minPrice || $minPrice==0)?$vprice:$minPrice;
 							$maxPrice = ($vprice>$maxPrice)?$vprice:$maxPrice;
-							
+
 							$priceAttr[] = $v;
 						}
 						$course['priceAttrs'] = $priceAttr;
@@ -1368,7 +1376,7 @@ class CourseModel extends BaseModel {
 						$maxPrice = $vprice;
 					}
 					$sprices[$course['packageId']]['savePrice'] = $sprices[$course['packageId']]['savePrice']+$course["diffPrice"];
-					
+
 					$gprices[$course['packageId']]['minPrice'] += $minPrice;
 					$gprices[$course['packageId']]['maxPrice'] += $maxPrice;
 				}
@@ -1379,10 +1387,10 @@ class CourseModel extends BaseModel {
 			for($i=0;$i<count($packages);$i++){
 				if($flag==1){
 					$packages[$i]["savePrice"] = $sprices[$packages[$i]["packageId"]]["savePrice"];
-					
+
 					$packages[$i]["pminPrice"] = $pminPrice;
 					$packages[$i]["pmaxPrice"] = $pmaxPrice;
-					
+
 					$packages[$i]["minPrice"] = $gprices[$packages[$i]["packageId"]]["minPrice"];
 					$packages[$i]["maxPrice"] = $gprices[$packages[$i]["packageId"]]["maxPrice"];
 				}
@@ -1392,6 +1400,6 @@ class CourseModel extends BaseModel {
 			}
 		}
 		return $packages;
-		
+
 	}
 }

@@ -313,7 +313,7 @@
                                                                 <img src="__ROOT__/{$data['userPhoto']|default='Apps/Home/View/default/img/caiduoduo.png-v=1.10.1.png'}" alt="{$data['loginName']}"/>
                                                             </a>
                                                             <if condition=" $_GET['type'] eq 'unanswered'">
-                                                                <a href="javascript:" class="title answer" target="_blank" data-id="{$data['questionId']}">{$data['title']}</a>
+                                                                <a href="javascript:" class="title answer"  data-id="{$data['questionId']}">{$data['title']}</a>
                                                                 <else/>
                                                                 <a href="#" class="title">{$data['title']}</a>
                                                             </if>
@@ -325,7 +325,7 @@
                                                                 </a>
                                                                 <p class="answer">
                                                                     {:WSTMSubstr($data['content'],0,20)}
-                                                                    <a href="javascript:if(confirm('确认需要查看详情么'))window.location='' " target="_blank">详情>></a>
+                                                                  <!--   <a href="javascript:if(confirm('确认需要查看详情么'))window.location='' ">详情>></a> -->
                                                                 </p>
                                                             </dd>
                                                         </if>
@@ -420,7 +420,7 @@
                         </li>
 						<li class="course-category course-category-more" data-href="#ulli-item6">
                             <a class="course-category-link" href="{:U('Home/Shops/addcourse')}">
-                            	发布直播
+                            	发布视频
                             </a>
                             <div class=""></div>
                         </li>

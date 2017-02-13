@@ -87,9 +87,9 @@ class UsersAction extends BaseAction {
 	public function toRegist(){
 		$m = D('Home/Users');
 		$res = array();
-		   $verify = new \Think\Verify();
-	     $ve=$verify->check(I('verify'));
-	    
+		$verify = new \Think\Verify();
+	    $ve=$verify->check(I('verify'));
+	    //$ve = true;
 		if( $ve == false){
 		      $res['status']='-4';
 			  $res["msg"] = '验证码不正确!';
@@ -134,21 +134,25 @@ class UsersAction extends BaseAction {
 	 * 获取验证码
 	 */
 	public function getPhoneVerifyCode(){
-		
 		vendor ('Sms.CCPRestSDK' );
 		$userPhone = WSTAddslashes(I("userPhone"));
 		$rs = array();
 		//
 		if(!preg_match('/^[1]+[3,4,5,7,8]+\d{9}$/', $userPhone)){
 			$rs["msg"] = '手机号格式不正确!';
-			echo json_encode($rs);
+			echo $rs["msg"];
 			exit();
 		}
+		$verify = new \Think\Verify();
+        $ve = $verify->check(I('yzm'));
+        if ($ve == false){
+            echo json_encode(2);exit;
+        }
 		$m = D('Home/Users');
 		$rs = $m->checkUserPhone($userPhone,(int)session('WST_USER.userId'));
 		if($rs["status"]!=1){
 			$rs["msg"] = '手机号已存在!';
-			echo json_encode($rs);
+			echo $rs["msg"];
 			exit();
 		}
 		$phoneVerify = rand(100000,999999);
@@ -169,7 +173,7 @@ class UsersAction extends BaseAction {
 		//REST版本号
 		$softVersion='2013-12-26';
 		$to=$userPhone;
-		$tempId="144534";
+		$tempId="149107";
 		$datas=array($phoneVerify,'60s');
 		
 		$rest = new \REST($serverIP,$serverPort,$softVersion);
@@ -674,6 +678,8 @@ class UsersAction extends BaseAction {
 	
 	//开通会员说明
 	public function open_member(){
+		$article = D('articles')->where("catId = 7")->find();
+	    $this->assign('article',$article);
 		$this->display("default/users/openintro");
 	}
 	
@@ -730,7 +736,16 @@ class UsersAction extends BaseAction {
                 $_POST['createTime'] = date('Y-m-d H:i:s' , time());
                 $_POST['shopStatus'] = 0;
                 if ($_FILES['shopImg']['name']) {
-                    $_POST['shopImg'] = $this->uploadShopPic();
+                    $imgarr = $this->uploadShopPic();
+                    if ($imgarr[0]) {
+                        $_POST['shopImg'] = "Upload/" . $imgarr[0]['savepath'] . $imgarr[0]['savename'];
+                    }
+                    if ($imgarr[1]) {
+                        $_POST['shopInfoImg'] = "Upload/" . $imgarr[1]['savepath'] . $imgarr[1]['savename'];
+                    }
+                    if ($imgarr[2]) {
+                        $_POST['shopCertImg'] = "Upload/" . $imgarr[2]['savepath'] . $imgarr[2]['savename'];
+                    }
                 }
                 $result = D('shops')->where("userId = {$_POST['userId']}")->save($_POST);
                 if ($result) {
@@ -739,11 +754,21 @@ class UsersAction extends BaseAction {
                     $this->error('未知错误');
                 }
             } else { //新提交的
+//                dump($_FILES);die;
                 $_POST['userId'] = session('WST_USER.userId');
                 $_POST['shopCompany'] = $_POST['shopName'];
                 $_POST['createTime'] = date('Y-m-d H:i:s' , time());
                 if ($_FILES['shopImg']['name']) {
-                    $_POST['shopImg'] = $this->uploadShopPic();
+                    $imgarr = $this->uploadShopPic();
+                    if ($imgarr[0]){
+                        $_POST['shopImg'] = "Upload/".$imgarr[0]['savepath']. $imgarr[0]['savename'];
+                    }
+                    if ($imgarr[1]) {
+                        $_POST['shopInfoImg'] = "Upload/".$imgarr[1]['savepath'] . $imgarr[1]['savename'];
+                    }
+                    if ($imgarr[2]) {
+                        $_POST['shopCertImg'] = "Upload/".$imgarr[2]['savepath'] . $imgarr[2]['savename'];
+                    }
                 }
                 $result = D('shops')->add($_POST);
                 if ($result) {
@@ -780,7 +805,7 @@ class UsersAction extends BaseAction {
             $this->error($upload->getError());
         } else {
             $rs[$Filedata]['savepath'] = "Upload/" . $rs[$Filedata]['savepath'] . $rs[$Filedata]['savename'];
-            return $rs[$Filedata]['savepath'];
+            return $rs;
         }
     }
 }

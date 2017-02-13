@@ -183,6 +183,38 @@ class CourseModel extends BaseModel {
 		}
 		return $rd;
 	 }
+	 
+	 
+	 
+	 /**
+	  * 批量修改新品状态
+	  */
+	 public function changeNewStatus(){
+	 	$rd = array('status'=>-1);
+	 	$id = I('id',0);
+	 	$id = self::formatIn(",", $id);
+	 	$this->isAdminNew = (int)I('status',0);
+		$rs = $this->where('courseId in('.$id.")")->save();
+		if(false !== $rs){
+			$rd['status'] = 1;
+		}
+		return $rd;
+	 }
+	 
+	 /**
+	  * 批量修改新品状态
+	  */
+	 public function changeDiscountStatus(){
+	 	$rd = array('status'=>-1);
+	 	$id = I('id',0);
+	 	$id = self::formatIn(",", $id);
+	 	$this->isAdminDiscount = (int)I('status',0);
+		$rs = $this->where('courseId in('.$id.")")->save();
+		if(false !== $rs){
+			$rd['status'] = 1;
+		}
+		return $rd;
+	 }
      /**
 	  * 批量修改推荐状态
 	  */

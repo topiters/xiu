@@ -119,6 +119,17 @@
                             账户设置
                             <div class="classify-line hide"></div>
                         </a>
+						<PHP>if($WST_USER['userType']==1){</PHP>
+                        <a class="classify " href="{:U('Home/Shops/addcourse')}">
+                            发布视频
+                            <div class="classify-line hide"></div>
+                        </a>
+                        <PHP>}else{</PHP>
+						<a class="classify " href="{:U('Home/Users/toOpenShop')}">
+                            发布视频
+                            <div class="classify-line hide"></div>
+                        </a>
+                        <PHP>}</PHP>
                     </div>
                 </div>
                 <div class="self_block_none">
@@ -587,7 +598,7 @@
         </form>
         <div class="hp-user-zone" id="personal-info-div">
             <p class="user-name">
-                <a href="#" class="vip" title="了解秀财会员"><img src="__ROOT__/Apps/Home/View/default/img/vip.png" width="16" height="12" alt="会员特权" border="0"></a>
+                <a href="#" class="vip" title="了解乐尚会员"><img src="__ROOT__/Apps/Home/View/default/img/vip.png" width="16" height="12" alt="会员特权" border="0"></a>
                 <strong id="nickname-span">{$WST_USER.loginName}</strong>
             </p>
             <!-- 用户等级展示 -->

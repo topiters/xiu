@@ -142,6 +142,7 @@
 	   params.userScore = $.trim($('#userScore').val());
 	   params.userTotalScore = $.trim($('#userTotalScore').val());
 	   params.userSex = $('input[name="userSex"]:checked').val();
+       params.vip = $('input[name="vip"]:checked').val();
 	   params.userPhone = $.trim($('#userPhone').val());
 	   params.userPhoto = $.trim($('#userPhoto').val());
 	   params.userEmail = $.trim($('#userEmail').val());  
@@ -222,6 +223,21 @@
              <input type='text' id='userTotalScore' class="form-control wst-ipt-10"  value='{$object.userTotalScore}' onkeypress="return WST.isNumberKey(event)" onkeyup="javascript:WST.isChinese(this,1)" maxLength='8'/>
              </td>
            </tr>
+            <tr>
+                <th align="right">高级会员：</th>
+                <td>
+                    <label>
+                        <input type="radio" id="vip1" name="vip"
+                        <if condition="$object['vip'] eq 1 ">checked</if>
+                        value='1'/>是
+                    </label>
+                    <label>
+                        <input type="radio" id="vip0" name="vip"
+                        <if condition="$object['vip'] eq 0 ">checked</if>
+                        value='0'/>否
+                    </label>
+                </td>
+            </tr>
            <tr>
              <th align='right'>QQ：</th>
              <td colspan='2'>

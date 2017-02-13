@@ -75,6 +75,50 @@
 				}
 	   });
    }
+   
+   
+   
+    function batchNew(v){
+	   var ids = [];
+	   $('.chk').each(function(){
+		   if($(this).prop('checked'))ids.push($(this).val());
+	   })
+	   Plugins.waitTips({title:'信息提示',content:'正在操作，请稍后...'});
+	   $.post("{:U('Admin/Course/changeNewStatus')}",{id:ids.join(','),status:v},function(data,textStatus){
+				var json = WST.toJson(data);
+				if(json.status=='1'){
+					Plugins.setWaitTipsMsg({content:'操作成功',timeout:1000,callback:function(){
+					    location.reload();
+					}});
+				}else{
+					Plugins.closeWindow();
+					Plugins.Tips({title:'信息提示',icon:'error',content:'操作失败!',timeout:1000});
+				
+				}
+	   });
+   }
+   
+   
+   
+    function batchDiscount(v){
+	   var ids = [];
+	   $('.chk').each(function(){
+		   if($(this).prop('checked'))ids.push($(this).val());
+	   })
+	   Plugins.waitTips({title:'信息提示',content:'正在操作，请稍后...'});
+	   $.post("{:U('Admin/Course/changeDiscountStatus')}",{id:ids.join(','),status:v},function(data,textStatus){
+				var json = WST.toJson(data);
+				if(json.status=='1'){
+					Plugins.setWaitTipsMsg({content:'操作成功',timeout:1000,callback:function(){
+					    location.reload();
+					}});
+				}else{
+					Plugins.closeWindow();
+					Plugins.Tips({title:'信息提示',icon:'error',content:'操作失败!',timeout:1000});
+				
+				}
+	   });
+   }
    function batchRecom(v){
 	   var ids = [];
 	   $('.chk').each(function(){
@@ -226,6 +270,13 @@
         <button type="button" class="btn btn-primary glyphicon" onclick='javascript:batchBest(0)'>取消精品</button>
         <button type="button" class="btn btn-primary glyphicon" onclick='javascript:batchRecom(1)'>设置推荐</button>
         <button type="button" class="btn btn-primary glyphicon" onclick='javascript:batchRecom(0)'>取消推荐</button>
+		
+		
+		<button type="button" class="btn btn-primary glyphicon" onclick='javascript:batchNew(1)'>设置最新</button>
+        <button type="button" class="btn btn-primary glyphicon" onclick='javascript:batchNew(0)'>取消最新</button>
+		
+		<button type="button" class="btn btn-primary glyphicon" onclick='javascript:batchDiscount(1)'>设置特惠</button>
+        <button type="button" class="btn btn-primary glyphicon" onclick='javascript:batchDiscount(0)'>取消特惠</button>
         <button type="button" class="btn btn-primary glyphicon" onclick='javascript:batchChangeStatus(0)'>批量禁售</button>
         <php>}</php>  
         </div>
@@ -242,6 +293,8 @@
                <th width='100'>课程分类</th>
                <th width='25'>推荐</th>
                <th width='25'>精品</th>
+			    <th width='25'>最新</th>
+				 <th width='25'>最惠</th>
                <th width='25'>销量</th>
                <th width='80'>操作</th>
              </tr>
@@ -265,6 +318,12 @@
                </td>
                <td>
                <if condition="$vo['isAdminBest']==1 "><span class='label label-success'>精品</span></if>
+               </td>
+			    <td>
+               <if condition="$vo['isAdminNew']==1 "><span class='label label-success'>最新</span></if>
+               </td>
+			    <td>
+               <if condition="$vo['isAdminDiscount']==1 "><span class='label label-success'>最惠</span></if>
                </td>
                <td>{$vo['saleCount']}</td>
                <td>

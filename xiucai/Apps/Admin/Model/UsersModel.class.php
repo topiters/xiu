@@ -46,6 +46,7 @@ class UsersModel extends BaseModel {
 			$data["userStatus"] = I("userStatus",0);
 			$data["userType"] = (int)I("userType",0);
 			$data["userSex"] = (int)I("userSex",0);
+			$data["vip"] = (int)I("vip" , 0);
 			$data["userEmail"] = I("userEmail");
 			$data["userPhone"] = I("userPhone");
 			$data["userQQ"] = I("userQQ");
@@ -91,6 +92,7 @@ class UsersModel extends BaseModel {
 			$data["userName"] = I("userName");
 			$data["userPhoto"] = I("userPhoto");
 			$data["userSex"] = (int)I("userSex",0);
+			$data["vip"] = (int)I("vip" , 0);
 		    $data["userQQ"] = I("userQQ");
 		    $data["userPhone"] = I("userPhone");
 		    $data["userEmail"] = I("userEmail");

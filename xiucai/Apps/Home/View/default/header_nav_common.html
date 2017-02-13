@@ -5,7 +5,7 @@
         <div class="container">
             <div class="nav nav-t clearfix">
                 <a href="{:U('Home/index/index')}"   title="首页" class="logo" >
-                	<img src="__ROOT__/Apps/Home/View/default/img/logo_.png" style="max-width: 169px;"/>
+                	<img src="__ROOT__/Apps/Home/View/default/img/logo_.png" style="max-width: 280px;"/>
                 </a>
                 <div class="idx-search-block">
                     <div class="idx-search-form clearfix">
@@ -38,7 +38,7 @@
                     </div>
 					<div class="login-block-r r" style="padding-top: 5px">
                         <PHP>if($WST_USER['userType']==1){</PHP>
-                        <a href="{:U('Home/Shops/index')}" style="font-size:12px;margin-left: 0;display: block;color: #333">发布视频</a>
+                        <a href="{:U('Home/Shops/index')}" style="font-size:12px;margin-left: 0;display: block;color: #333">发布视频(教师版)</a>
                         <PHP>}else{</PHP>
                         <a href="{:U('Home/Users/toOpenShop')}" rel="nofollow" style="font-size:12px;margin-left: 0;display: block;color: #333">发布视频</a>
                         <PHP>}</PHP>
@@ -51,32 +51,95 @@
             </div>
         </div>
     </div>
+	
+	<script>
+	//首页搜索
+	$(function(){
+	
+	$("#search_button_index").click(
+  function(){
+	var  index_content=$("#search_content_index").val();
+	//alert(index_content);
+	if(index_content==''){
+	alert('请输入搜索内容');
+	return false;
+	}
+	window.location="/index.php?m=Home&c=course&a=index&keyWords="+index_content;
+	
+	})
+	})
+	</script>
     <div class="hot-search-fixed">
         <p>热门：
-            <a href="" target="_blank">营改增</a>
-            <a href="" target="_blank">Excel</a>
-            <a href="" target="_blank">预算管理</a>
-            <a href="" target="_blank">沟通能力</a>
-            <a href="javascript:if(confirm(''))window.location=''"  target="_blank">财务创造价值</a>
+            <a href="/index.php?m=Home&c=course&a=index&c2Id=17" target="_blank">营改增</a>
+            <a href="/index.php?m=Home&c=course&a=index&c2Id=19" target="_blank">Excel</a>
+            <a href="/index.php?m=Home&c=course&a=index&c2Id=18" target="_blank">汇算清缴</a>
+           
+            <a href="/index.php?m=Home&c=course&a=index&c2Id=20"  target="_blank">财务报表分析</a>
         </p>
     </div>
     <div class="idx-nav">
         <div class="container">
             <div class="nav nav-b clearfix">
-                <a href="" class="fl course-classify"><em></em>课程分类</a>
+                <div href="" class="fl course-classify"><em></em>课程分类
+                    <!-- slide轮播图 end-->
+                    <div class="slide-img">
+                        <div class="category-index" style="display: none">
+
+
+                            <volist name=":WSTGoodsCats()" key="k1" id="vo1">
+                                <dl>
+                                    <dt><span>{$vo1["catName"]}</span><i class="iconfont">&#xe612;</i></dt>
+
+                                    <dd>
+                                        <volist name="vo1['catChildren']" key="k1" id="vo2" offset="0" length="3">
+                                            <a href="{:U('Home/course/index',array('c1Id'=>$vo1['catId']))}" target="_blank">{$vo2["catName"]}</a>、
+                                        </volist>
+
+                                    </dd>
+                                    <dd class="nav-item ">
+                                        <p class="title">{$vo1["catName"]}</p>
+                                        <ul>
+                                            <volist name="vo1['catChildren']" key="k1" id="vo2" offset="0" length="3">
+                                                <li>
+                                                    <div class="item-left">
+                                                        <a href="{:U('Home/course/index',array('c1Id'=>$vo1['catId']))}" target="_blank">{$vo2["catName"]}</a>
+                                                    </div>
+                                                    <div class="item-right">
+                                                        <volist name="vo2['catChildren']" key="k1" id="vo3" offset="0" length="4">
+                                                            <a href="{:U('Home/course/index',array('c1Id'=>$vo1['catId'],'c2Id'=>$vo2['catId']))}" tppabs="http://www.xiucai.com/course/zt/fcygz/" target="_blank">{$vo3["catName"]}</a>
+
+                                                        </volist>
+                                                    </div>
+                                                </li>
+                                            </volist>
+
+
+                                        </ul>
+                                    </dd>
+                                </dl>
+
+                            </volist>
+
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    $(".course-classify").hover(function () {
+                        $('.category-index').show();
+                    }, function () {
+                        $('.category-index').hide();
+                    })
+                </script>
                 <ul class="nav-item">
                     <li><a class="notCard" href="{:U('home/index/index')}" >首页</a></li>
                     <li class="parent-nav-item">
                         <a href="{:U('home/course/index')}">课程 </a>
                     </li>
                     <li><a href="{:U('home/livecast/index')}" >直播</a></li>
-                    <li class="beta"><a href="{:U('home/specialist/index')}">导师问答<em></em></a></li>
+                    <li class="beta"><a href="{:U('home/specialist/index')}">专家问答</a></li>
                     <li class="parent-nav-item">
                         <a href="{:U('home/forum/index')}" >财税论坛 </a>
-                        <ul class="second-nav-item">
-                            <li><a href="{:U('home/forum/index')}" >圈子首页</a></li>
-                            <li class="none-border"><a href="{:U('home/forum/myindex')}">我的圈子</a></li>
-                        </ul>
                     </li>
                     <li><a href="{:U('home/users/open_member')}" >开通会员</a></li>
 					  <li><a href="{:U('home/offline/index')}" >线下</a></li>
@@ -85,7 +148,7 @@
                         <ul class="second-nav-item row-nav">
                             <li><img src="__ROOT__/Apps/Home/View/default/img/appIntro/qrcode.png-v=1.10.1.png"  height="130" width="130"></li>
                             <li class="r-load">
-                                <p>扫一扫下载秀财APP</p>
+                                <p>扫一扫下载乐尚APP</p>
                                 <!--<a href="javascript:if(confirm('https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=1051177745&mt=8  ?'))window.location='https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=1051177745&mt=8'"  class="app-down"></a>
                                 <a href="javascript:if(confirm('http://assets.xiucai.com/assets/uploads/file/2016/0701/527ed4ea-d805-af28-6792-29b74853db9e.apk  ?'))window.location='http://assets.xiucai.com/assets/uploads/file/2016/0701/527ed4ea-d805-af28-6792-29b74853db9e.apk'"   class="app-down android"></a>
                            -->

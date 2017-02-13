@@ -69,6 +69,7 @@ class ShopsModel extends BaseModel {
 		$sdata["courseCatId1"] = 49;
 		$sdata["shopName"] = I("shopName");
 		$sdata["shopCompany"] = I("shopName");
+         $sdata["shopTitle"] = I("shopTitle");
 		$sdata["shopImg"] = I("shopImg");
 		$sdata["shopTel"] = I("shopTel");
 		if($this->checkEmpty($data,true)){
@@ -175,6 +176,7 @@ class ShopsModel extends BaseModel {
 		}
 		$data["shopName"] = I("shopName");
 		$data["shopCompany"] = I("shopCompany");
+         $data["shopTitle"] = I("shopTitle");
 		$data["shopImg"] = I("shopImg");
 		$data["shopStatus"] = (int)I("shopStatus",0);
 		$data["shopAtive"] = (int)I("shopAtive",1);

@@ -105,7 +105,7 @@ class SpecialistAction extends BaseAction {
             $course = D('Course')->getHotCourse($sid);
             $this->assign('course',$course);
 //            dump($course);die;
-            //秀财说
+            //乐尚说
             $live = D('Live')->live($sid);
             $this->assign('live' , $live);
 //            dump($live);die;

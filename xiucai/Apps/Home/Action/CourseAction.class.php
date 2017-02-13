@@ -203,6 +203,17 @@ class CourseAction extends BaseAction {
 			$this->assign("favoriteShopId",$m->checkFavorite($shopId,1));
 			//客户端二维码
 			$this->assign("qrcode",base64_encode("{type:'courses',content:'".$coursesId."',key:'wstmall'}"));
+			$user = session('WST_USER');
+			$isVip = D('users')->field('userId,vip')->where("userId={$user['userId']}")->find();
+			$this->assign('vip',$isVip['vip']);
+			if ($isVip['vip'] < 1){
+                $buy = D('order_course')->where("buyerName={$user['loginName']} and courseId = $coursesId")->find();
+                if ($buy){
+                    $this->assign('buy' , 1);
+                } else {
+                    $this->assign('buy' , 0);
+                }
+            }
 			$this->display('default/courses_details');
 		}else{
 			//'default/courses_notexist'

@@ -24,9 +24,9 @@
     }
 
     .laoshiinfotable td:first-child {
-        font-size: 18px;
+        font-size: 15px;
         text-align: right;
-        width: 100px;
+        width: 120px;
     }
 
     .laoshiinfotable input[type='text'] {
@@ -229,7 +229,15 @@
                 </tr>
                 <tr>
                     <td>上传头像：</td>
-                    <td><input type="file" class="" name="shopImg" placeholder="请上传个人图像" value=""/></td>
+                    <td><input type="file" class="" name="shopImg[]" placeholder="请上传个人图像" value=""/></td>
+                </tr>
+                <tr>
+                    <td>上传身份证：</td>
+                    <td><input type="file" class="" name="shopImg[]" placeholder="请上传身份证" value=""/></td>
+                </tr>
+                <tr>
+                    <td>上传证书：</td>
+                    <td><input type="file" class="" name="shopImg[]" placeholder="请上传资格证书" value=""/></td>
                 </tr>
                 <tr>
                     <td>职称：</td>
@@ -244,6 +252,21 @@
                             <option value="3"
                             <eq name="result['shopTitle']" value="3"> selected</eq>
                             >高级会计师</option>
+							<option value="4"
+                            <eq name="result['shopTitle']" value="4"> selected</eq>
+                            >注册会计师</option>
+                            <option value="5"
+                            <eq name="result['shopTitle']" value="5"> selected</eq>
+                            >注册税务师</option>
+                            <option value="6"
+                            <eq name="result['shopTitle']" value="6"> selected</eq>
+                            >审计师</option>
+                            <option value="7"
+                            <eq name="result['shopTitle']" value="7"> selected</eq>
+                            >律师</option>
+							<option value="8"
+                            <eq name="result['shopTitle']" value="8"> selected</eq>
+                            >其他</option>
                         </select>
                     </td>
                 </tr>

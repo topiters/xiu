@@ -138,6 +138,11 @@ class CourseAction extends BaseAction{
 		$rs = $m->changeCourseStatus();
 		$this->ajaxReturn($rs);
 	}
+	
+	
+	
+	
+	
 	public function becheChangeCourseStatus(){
 		$this->isLogin();
 		$this->checkPrivelege('splb_04');
@@ -163,6 +168,31 @@ class CourseAction extends BaseAction{
 		$rs = $m->changeBestStatus();
 		$this->ajaxReturn($rs);
 	}
+	
+   /**
+	 * 批量设置新品
+	 */
+	public function changeNewStatus(){
+		$this->isLogin();
+		$this->checkPrivelege('splb_04');
+		$m = D('Admin/Course');
+		$rs = $m->changeNewStatus();
+		$this->ajaxReturn($rs);
+	}
+	
+ /**
+	 * 批量设置最惠品
+	 */
+	public function changeDiscountStatus(){
+		$this->isLogin();
+		$this->checkPrivelege('splb_04');
+		$m = D('Admin/Course');
+		$rs = $m->changeDiscountStatus();
+		$this->ajaxReturn($rs);
+	}	
+	
+	
+	
     /**
 	 * 批量设置推荐
 	 */

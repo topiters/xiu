@@ -624,7 +624,7 @@ function sendValidateCode(sms_login_phone,get_code_btn,flag,error_tips){
                                 //$("#to-login-btn-sms").val("注册");
                                 $("#to-login-btn-sms").data("is-reg", 0);
                                 $(".jason-reg-info").show();
-                                $(".jason-reg-tips").show().html("该手机尚未注册，设置密码后将自动创建秀财账户");
+                                $(".jason-reg-tips").show().html("该手机尚未注册，设置密码后将自动创建乐尚账户");
                             }
                         }else if(flag == 1){
                             $('#forgot_pwd_code_img').click();

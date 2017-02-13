@@ -45,134 +45,56 @@
             <a href="javascript:" class="prev"></a>
             <a href="javascript:" class="next"></a>
         </div>
-        <!-- slide轮播图 end-->
-        <div class="slide-img">
-            <div class="category-index">
-			
-			
-			    <volist name=":WSTGoodsCats()" key="k1"   id="vo1">
-                <dl>
-                    <dt><span>{$vo1["catName"]}</span><i class="iconfont">&#xe612;</i></dt>
-					
-                    <dd>
-					<volist name="vo1['catChildren']" key="k1" id="vo2"   offset="0"   length="3">
-                        <a href="{:U('Home/course/index',array('c1Id'=>$vo1['catId']))}"   target="_blank">{$vo2["catName"]}</a>、
-                        </volist>
-					
-                    </dd>
-                    <dd class="nav-item ">
-                        <p class="title">{$vo1["catName"]}</p>
-                        <ul> 
-						<volist name="vo1['catChildren']" key="k1" id="vo2"   offset="0"   length="3">
-                            <li>
-                                <div class="item-left"><a href="{:U('Home/course/index',array('c1Id'=>$vo1['catId']))}" target="_blank">{$vo2["catName"]}</a></div>
-                                <div class="item-right">
-								<volist name="vo2['catChildren']" key="k1" id="vo3"   offset="0"   length="4">
-                                    <a href="{:U('Home/course/index',array('c1Id'=>$vo1['catId'],'c2Id'=>$vo2['catId']))}" tppabs="http://www.xiucai.com/course/zt/fcygz/" target="_blank">{$vo3["catName"]}</a>
-                                
-									 </volist>
-                                </div>
-                            </li>
-							 </volist>
-							
-							
-                                 
-                        </ul>
-                    </dd>
-                </dl>
-				
-				 </volist>
-            
-            </div>
-            <!-- 直播课区域 begin -->
-            <!-- 直播课最少显示三个，最多显示五个 -->
-         
-        </div>
     </div>
     <div class="spread">
         <ul>
             <li>
-            	<a href="tutor/index.htm"   data-trackEvent="" data-category="homepage_ad" data-action="homepage_ad_left_click" data-opt_label="homepage_ad_left" data-opt_value="首页左侧广告" target="_blank">
+            	<a href="{:U('home/specialist/index')}"   data-trackEvent="" data-category="homepage_ad" data-action="homepage_ad_left_click" data-opt_label="homepage_ad_left" data-opt_value="首页左侧广告" target="_blank">
             		<img src="__ROOT__/Apps/Home/View/default/img/spread1.jpg-v=1.10.1.jpg"   />
             	</a>
             </li>
             <li>
-            	<a href="tutor/index.htm"   data-trackEvent="" data-category="homepage_ad" data-action="homepage_ad_left_click" data-opt_label="homepage_ad_left" data-opt_value="首页左侧广告" target="_blank">
+            	<a href="{:U('home/specialist/index')}"   data-trackEvent="" data-category="homepage_ad" data-action="homepage_ad_left_click" data-opt_label="homepage_ad_left" data-opt_value="首页左侧广告" target="_blank">
             		<img src="__ROOT__/Apps/Home/View/default/img/spread1.jpg-v=1.10.1.jpg"   />
             	</a>
             </li>
             <li>
-            	<a href="tutor/index.htm"   data-trackEvent="" data-category="homepage_ad" data-action="homepage_ad_left_click" data-opt_label="homepage_ad_left" data-opt_value="首页左侧广告" target="_blank">
+            	<a href="{:U('home/specialist/index')}"   data-trackEvent="" data-category="homepage_ad" data-action="homepage_ad_left_click" data-opt_label="homepage_ad_left" data-opt_value="首页左侧广告" target="_blank">
             		<img src="__ROOT__/Apps/Home/View/default/img/spread1.jpg-v=1.10.1.jpg"   />
             	</a>
+            </li>
+            <li>
+                <a href="{:U('home/specialist/index')}" data-trackEvent="" data-category="homepage_ad" data-action="homepage_ad_left_click" data-opt_label="homepage_ad_left" data-opt_value="首页左侧广告" target="_blank">
+                    <img src="__ROOT__/Apps/Home/View/default/img/spread1.jpg-v=1.10.1.jpg"/>
+                </a>
             </li>
         </ul>
     </div>
     <div class="daily-new-courses">
         <div class="container">  
         	<div class="course-list-title">
-                <span>限时<em>特惠</em></span>活动截止日期：8月17号
-                <a href="course/index.htm"   class="link-more">查看更多&raquo;</a>
+                <span>限时<em>特惠</em></span>
+                <a href="{:U('Home/Course/index')}"   class="link-more">查看更多&raquo;</a>
             </div>
             <div id="news-course" class="">
                 <div class="show-zone course-list">
                     <ul class="clearfix">
+					
+					<volist   name="discountCourse"  id="datam">
                         <li id="li_703">
-                            <a href="course/703/index.htm"  target="_blank">
+                            <a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$datam['courseId']))}"  target="_blank">
                                 <div class="course-list-img">
-                                    <img width="280" height="160" src="__ROOT__/Apps/Home/View/default/img/34ba92d4-a5b6-2f77-dffa-d9a524212a1f.jpg"  alt=" ">                 
+                                    <img width="280" height="160"  src="__ROOT__/{$datam['courseThums']}"   alt="{$datam['courseThums']}"  title="{$datam['courseName']}">                 
                                 </div>
                                 <div class="tips">
-                                    <span class="toll">￥9.9</span>
+                                    <span class="toll">￥{$datam['shopPrice']}</span>
                                     <em></em>
-                                    <span class="text-line-through">￥20.00</span>
-                                    <span class="floatright">1142人已学</span>
+                                    <span class="text-line-through">￥{$datam['marketPrice']}</span>
+                                    <span class="floatright">{$datam['saleCount']}人已学</span>
                                 </div>                              
                             </a>
                         </li>
-
-                        <li id="li_702">
-                            <a href="course/703/index.htm"  target="_blank">
-                                <div class="course-list-img">
-                                    <img width="280" height="160" src="__ROOT__/Apps/Home/View/default/img/34ba92d4-a5b6-2f77-dffa-d9a524212a1f.jpg"  alt=" ">                 
-                                </div>
-                                <div class="tips">
-                                    <span class="toll">￥9.9</span>
-                                    <em></em>
-                                    <span class="text-line-through">￥20.00</span>
-                                    <span class="floatright">1142人已学</span>
-                                </div>                              
-                            </a>
-                        </li>
-
-                        <li id="li_701">
-                            <a href="course/703/index.htm"  target="_blank">
-                                <div class="course-list-img">
-                                    <img width="280" height="160" src="__ROOT__/Apps/Home/View/default/img/34ba92d4-a5b6-2f77-dffa-d9a524212a1f.jpg"  alt=" ">                 
-                                </div>
-                                <div class="tips">
-                                    <span class="toll">￥9.9</span>
-                                    <em></em>
-                                    <span class="text-line-through">￥20.00</span>
-                                    <span class="floatright">1142人已学</span>
-                                </div>                              
-                            </a>
-                        </li>
-
-                        <li id="li_700">
-                            <a href="course/703/index.htm"  target="_blank">
-                                <div class="course-list-img">
-                                    <img width="280" height="160" src="__ROOT__/Apps/Home/View/default/img/34ba92d4-a5b6-2f77-dffa-d9a524212a1f.jpg"  alt=" ">                 
-                                </div>
-                                <div class="tips">
-                                    <span class="toll">￥9.9</span>
-                                    <em></em>
-                                    <span class="text-line-through">￥20.00</span>
-                                    <span class="floatright">1142人已学</span>
-                                </div>                              
-                            </a>
-                        </li>
-
+                    </volist>
                      </ul>
                 </div>
             </div>
@@ -202,8 +124,8 @@
 											<if condition=" $datas['difficulty']  eq  3" >
                                                 <span>中级课程</span>
 											</if>	
-                                    <em>|</em>
-                                    <span>{$datas['isSale']}人已学</span>
+                                    <!--<em>|</em>-->
+                                    <span>{$datas['saleCount']}人已学</span>
                                 </div>
                                	<if condition=" $datas['is_free']  eq  2" >
                                               <div class="cost">
@@ -229,8 +151,8 @@
             </div>
             <div class="subject-list clearfix">
                 <div class="devaluation">
-                    <a href="course/zt/mzsfsd/index.htm"   target="_blank">
-                        <img src="__ROOT__/Apps/Home/View/default/img/01a5b1f3-29a2-4e5d-bfb8-3336bd8f84b5.jpg"  alt=" " width="588" height="330"/>
+                    <a href="{$tArrIndex.0.adURL}"   target="_blank">
+                        <img src="__ROOT__/{$tArrIndex.0.adFile}"  alt=" " width="588" height="330"/>
                     </a>
                 </div>
                 <ul class="clearfix">
@@ -255,11 +177,11 @@
             <div class="course-content course-new-content">
                 <div class="index-course clearfix">
                     <div class="course-l   course-l-swgl  ">
-                        <a href="course/cate/75/index.htm"  >
-                            <p class="title">财务管理</p>
-                            <p class="describe">财务职业成长之路</p>
+                        <a href="{$tArrIndex1.0.adURL}"  >
+                            <p class="title">{$tArrIndex1.0.adName}</p>
+                            <!--<p class="describe">财务职业成长之路</p>-->
                             <p class="linkmore">查看全部<em></em></p>
-                            <img src="__ROOT__/Apps/Home/View/default/img/idx-course-p4.png-v=1.10.1.png"   alt="" width="260" height="341">   
+                            <img src="__ROOT__/{$tArrIndex1.0.adFile}"   alt="" width="240" height="341">
                         </a>
                         <i class="r-triangle   r-swgl-triangle  "></i>
                     </div>
@@ -268,7 +190,7 @@
                             <div>
                                 <ul class="clearfix">
 								
-								<volist   name="courseIsBest"  id="data"     offset="0"  length="6">
+								<volist   name="courseIsBest1"  id="data"   >
                                     <li>
                                         <a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$data['courseId']))}"  target="_blank">
                                             <div class="course-list-img">
@@ -289,8 +211,8 @@
 											</if>	
 												
 												
-                                                <em>|</em>
-                                                <span>{$data['isSale']}人已学</span>
+                                                <!--<em>|</em>-->
+                                                <span>{$data['saleCount']}人已学</span>
                                             </div>
 											<if condition=" $data['is_free']  eq  2" >
                                               <div class="cost">
@@ -322,11 +244,11 @@
 			<div class="course-content course-new-content">
                 <div class="index-course clearfix">
                     <div class="course-l   course-l-swgl  ">
-                        <a href="course/cate/75/index.htm"  >
-                            <p class="title">税务实操管理</p>
-                            <p class="describe">税务实操成长之路</p>
+                        <a href="{$tArrIndex2.0.adURL}">
+                            <p class="title">{$tArrIndex2.0.adName}</p>
+                            <!--<p class="describe">税务实操成长之路</p>-->
                             <p class="linkmore">查看全部<em></em></p>
-                            <img src="__ROOT__/Apps/Home/View/default/img/idx-course-p4.png-v=1.10.1.png"   alt="" width="260" height="341">   
+                            <img src="__ROOT__/{$tArrIndex2.0.adFile}" alt="" width="240" height="341">
                         </a>
                         <i class="r-triangle   r-swgl-triangle  "></i>
                     </div>
@@ -335,7 +257,7 @@
                             <div>
                                 <ul class="clearfix">
 								
-								<volist   name="courseIsBest"  id="data"     offset="6"  length="6">
+								<volist   name="courseIsBest2"  id="data"  >
                                     <li>
                                         <a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$data['courseId']))}"  target="_blank">
                                             <div class="course-list-img">
@@ -356,8 +278,8 @@
 											</if>	
 												
 												
-                                                <em>|</em>
-                                                <span>{$data['isSale']}人已学</span>
+                                                <!--<em>|</em>-->
+                                                <span>{$data['saleCount']}人已学</span>
                                             </div>
 											<if condition=" $data['is_free']  eq  2" >
                                               <div class="cost">
@@ -390,11 +312,11 @@
 			<div class="course-content course-new-content">
                 <div class="index-course clearfix">
                     <div class="course-l   course-l-swgl  ">
-                        <a href="course/cate/75/index.htm"  >
-                            <p class="title">会计核算</p>
-                            <p class="describe">会计核算成长之路</p>
+                        <a href="{$tArrIndex3.0.adURL}">
+                            <p class="title">{$tArrIndex3.0.adName}</p>
+                            <!--<p class="describe">会计核算成长之路</p>-->
                             <p class="linkmore">查看全部<em></em></p>
-                            <img src="__ROOT__/Apps/Home/View/default/img/idx-course-p4.png-v=1.10.1.png"   alt="" width="260" height="341">   
+                            <img src="__ROOT__/{$tArrIndex3.0.adFile}" alt="" width="240" height="341">
                         </a>
                         <i class="r-triangle   r-swgl-triangle  "></i>
                     </div>
@@ -403,7 +325,7 @@
                             <div>
                                 <ul class="clearfix">
                                   	
-								<volist   name="courseIsBest"  id="data"     offset="13"  length="6">
+								<volist   name="courseIsBest3"  id="data"  >
                                     <li>
                                         <a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$data['courseId']))}"  target="_blank">
                                             <div class="course-list-img">
@@ -424,8 +346,8 @@
 											</if>	
 												
 												
-                                                <em>|</em>
-                                                <span>{$data['isSale']}人已学</span>
+                                                <!--<em>|</em>-->
+                                                <span>{$data['saleCount']}人已学</span>
                                             </div>
 											<if condition=" $data['is_free']  eq  2" >
                                               <div class="cost">

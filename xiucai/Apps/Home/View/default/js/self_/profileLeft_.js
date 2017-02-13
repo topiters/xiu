@@ -17,6 +17,6 @@ $(".hp-r-nav li a").click(function(event) {
 });
 
     $(function(){
-        // 秀财直播轮播
+        // 乐尚直播轮播
         jQuery(".live-slider").slide({mainCell:".bd ul",effect:"left",easing:"easeOutCirc",delayTime:1000,interTime:3000,autoPlay:true});
     })

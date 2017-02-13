@@ -215,6 +215,10 @@ class WxPayAction extends BaseAction {
 					foreach($pkeys as $k=>$v){
 						$datax['orderStatus']=2;
 					$res=D('orders')->where(array('orderNo'=>$v))->save($datax);	
+					$orderId = D('orders')->where(array('orderNo' => $v))->find();
+                    $orderArr = D('order_course')->where("orderId = {$orderId['orderId']}")->find();
+                    D('course')->where("courseId = {$orderArr['courseId']}")->setInc('saleCount',1);
+                    D('course')->where("courseId = {$orderArr['courseId']}")->setDec('courseStock' , 1);
 					if($res){
 					S ("$out_trade_no",1);	
 						
@@ -230,6 +234,10 @@ class WxPayAction extends BaseAction {
 					
 					$datax['orderStatus']=2;
 					$res=D('orders')->where(array('orderNo'=>$pkey))->save($datax);	
+					$orderId = D('orders')->where(array('orderNo' => $pkey))->find();
+                    $orderArr = D('order_course')->where("orderId = {$orderId['orderId']}")->find();
+                    D('course')->where("courseId = {$orderArr['courseId']}")->setInc('saleCount',1);
+                    D('course')->where("courseId = {$orderArr['courseId']}")->setDec('courseStock' , 1);
 					if($res){
 					S ("$out_trade_no",1);	
 					S('orderNoId',$pkey);	
