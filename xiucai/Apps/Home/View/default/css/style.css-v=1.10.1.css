@@ -5386,7 +5386,7 @@ input[type="button"].reset-btn{
     *display: none;
 }
 #news-course ul{
-	height:238px;
+	/*height:238px;*/
 }
 /* #news-course li{
 	position:relative;

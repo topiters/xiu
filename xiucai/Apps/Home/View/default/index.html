@@ -79,7 +79,6 @@
             <div id="news-course" class="">
                 <div class="show-zone course-list">
                     <ul class="clearfix">
-					
 					<volist   name="discountCourse"  id="datam">
                         <li id="li_703">
                             <a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$datam['courseId']))}"  target="_blank">
@@ -108,44 +107,42 @@
             <div id="news-course" class="">
                 <div class="show-zone course-list">
                     <ul class="clearfix">
-					<volist   name="newCourse"  id="datas">
-                        <li id="li_703">
-                            <a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$datas['courseId']))}" target="_blank">
-                                <div class="course-list-img">
-                                    <img width="280" height="160" src="__ROOT__/{$datas['courseThums']}"   alt="{$datas['courseThums']}"  title="{$datas['courseName']}" />                 
-                                </div>
-                                <h5>
-                                    <span>{$datas['courseName']}</span>
-                                </h5>
-                                <div class="tips">
-                                   	<if condition=" $datas['difficulty']  eq  1" >
-                                                <span>初级课程</span>
-											</if>	
-											<if condition=" $datas['difficulty']  eq  2" >
-                                                <span>中级课程</span>
-											</if>	
-											<if condition=" $datas['difficulty']  eq  3" >
-                                                <span>中级课程</span>
-											</if>	
-                                    <!--<em>|</em>-->
-                                    <span>{$datas['saleCount']}人已学</span>
-                                </div>
-                               	<if condition=" $datas['is_free']  eq  2" >
-                                              <div class="cost">
-                                                <span class="l toll">会员免费看</span>
-                                            </div>
-											
-											<else/>
-											
-											  <div class="cost">
-                                                <span class="l toll">{$datas['shopPrice']}</span>
-                                            </div>
-											</if>
-                            </a>
-                        </li>
-                   </volist>
-                      
-                     </ul>
+                        <volist name="newCourse" id="datas">
+                            <li id="li_703">
+                                <a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$datas['courseId']))}" target="_blank">
+                                    <div class="course-list-img">
+                                        <img width="280" height="160" src="__ROOT__/{$datas['courseThums']}" alt="{$datas['courseThums']}" title="{$datas['courseName']}"/>
+                                    </div>
+                                    <h5>
+                                        <span>{$datas['courseName']}</span>
+                                    </h5>
+                                    <div class="tips">
+                                        <if condition=" $datas['difficulty']  eq  1">
+                                            <span>初级课程</span>
+                                        </if>
+                                        <if condition=" $datas['difficulty']  eq  2">
+                                            <span>中级课程</span>
+                                        </if>
+                                        <if condition=" $datas['difficulty']  eq  3">
+                                            <span>中级课程</span>
+                                        </if>
+                                        <span>{$datas['saleCount']}人已学</span>
+                                    </div>
+                                    <if condition=" $datas['is_free']  eq  2">
+                                        <div class="cost">
+                                            <span class="l toll">会员免费看</span>
+                                        </div>
+
+                                        <else/>
+
+                                        <div class="cost">
+                                            <span class="l toll">{$datas['shopPrice']}</span>
+                                        </div>
+                                    </if>
+                                </a>
+                            </li>
+                        </volist>
+                    </ul>
                 </div>
             </div>
             <div class="course-list-title relative">
@@ -167,222 +164,133 @@
                             </div>
                         </a>
                     </li>
-					
-				</volist>	
-					
-                 
+				</volist>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="class-zone">
+
+    <div class="daily-new-courses">
         <div class="container">
-            <div class="course-content course-new-content">
-                <div class="index-course clearfix">
-                    <div class="course-l   course-l-swgl  ">
-                        <a href="{$tArrIndex1.0.adURL}"  >
-                            <p class="title">{$tArrIndex1.0.adName}</p>
-                            <!--<p class="describe">财务职业成长之路</p>-->
-                            <p class="linkmore">查看全部<em></em></p>
-                            <img src="__ROOT__/{$tArrIndex1.0.adFile}"   alt="" width="240" height="341">
-                        </a>
-                        <i class="r-triangle   r-swgl-triangle  "></i>
-                    </div>
-                    <div class="course-r">
-                        <div class="course-list course-list-new">
-                            <div>
-                                <ul class="clearfix">
-								
-								<volist   name="courseIsBest1"  id="data"   >
-                                    <li>
-                                        <a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$data['courseId']))}"  target="_blank">
-                                            <div class="course-list-img">
-                                                <img width="280" height="160" src="__ROOT__/{$data['courseThums']}"   alt="{$data['courseThums']}"  title="{$data['courseName']}"  class="lazy" />
-                                            </div>
-                                            <h5>
-                                                <span>{$data['courseName']}</span>
-                                            </h5>
-                                            <div class="tips">
-											<if condition=" $data['difficulty']  eq  1" >
-                                                <span>初级课程</span>
-											</if>	
-											<if condition=" $data['difficulty']  eq  2" >
-                                                <span>中级课程</span>
-											</if>	
-											<if condition=" $data['difficulty']  eq  3" >
-                                                <span>中级课程</span>
-											</if>	
-												
-												
-                                                <!--<em>|</em>-->
-                                                <span>{$data['saleCount']}人已学</span>
-                                            </div>
-											<if condition=" $data['is_free']  eq  2" >
-                                              <div class="cost">
-                                                <span class="l toll">会员免费看</span>
-                                            </div>
-											
-											<else/>
-											
-											  <div class="cost">
-                                                <span class="l toll">{$data['shopPrice']}</span>
-                                            </div>
-											</if>
-                                           
-                                        </a>
-                                    </li>
-								</volist>	
-									
-									
-                                
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>           
+            <div class="course-list-title">
+                <span>财务<em>管理</em></span>好课天天有
+                <a href="{:U('Home/Course/index',array('c1Id'=>15))}" class="link-more">查看更多&raquo;</a>
             </div>
-			
-			
-			
-			<div class="course-content course-new-content">
-                <div class="index-course clearfix">
-                    <div class="course-l   course-l-swgl  ">
-                        <a href="{$tArrIndex2.0.adURL}">
-                            <p class="title">{$tArrIndex2.0.adName}</p>
-                            <!--<p class="describe">税务实操成长之路</p>-->
-                            <p class="linkmore">查看全部<em></em></p>
-                            <img src="__ROOT__/{$tArrIndex2.0.adFile}" alt="" width="240" height="341">
-                        </a>
-                        <i class="r-triangle   r-swgl-triangle  "></i>
-                    </div>
-                    <div class="course-r">
-                        <div class="course-list course-list-new">
-                            <div>
-                                <ul class="clearfix">
-								
-								<volist   name="courseIsBest2"  id="data"  >
-                                    <li>
-                                        <a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$data['courseId']))}"  target="_blank">
-                                            <div class="course-list-img">
-                                                <img width="280" height="160" src="__ROOT__/{$data['courseThums']}"   alt="{$data['courseThums']}"  title="{$data['courseName']}"  class="lazy" />
-                                            </div>
-                                            <h5>
-                                                <span>{$data['courseName']}</span>
-                                            </h5>
-                                            <div class="tips">
-											<if condition=" $data['difficulty']  eq  1" >
-                                                <span>初级课程</span>
-											</if>	
-											<if condition=" $data['difficulty']  eq  2" >
-                                                <span>中级课程</span>
-											</if>	
-											<if condition=" $data['difficulty']  eq  3" >
-                                                <span>中级课程</span>
-											</if>	
-												
-												
-                                                <!--<em>|</em>-->
-                                                <span>{$data['saleCount']}人已学</span>
-                                            </div>
-											<if condition=" $data['is_free']  eq  2" >
-                                              <div class="cost">
-                                                <span class="l toll">会员免费看</span>
-                                            </div>
-											
-											<else/>
-											
-											  <div class="cost">
-                                                <span class="l toll">{$data['shopPrice']}</span>
-                                            </div>
-											</if>
-                                           
-                                        </a>
-                                    </li>
-								</volist>	
-									
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>           
+            <div id="news-course" class="">
+                <div class="show-zone course-list">
+                    <ul class="clearfix" style="width: 1224px;">
+                        <volist name="courseIsBest1" id="datam">
+                            <li id="li_703">
+                                <a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$datam['courseId']))}" target="_blank">
+                                    <div class="course-list-img">
+                                        <img width="280" height="160" src="__ROOT__/{$datam['courseThums']}" alt="{$datam['courseThums']}" title="{$datam['courseName']}">
+                                    </div>
+                                    <h5>
+                                        <span>{$datam['courseName']}</span>
+                                    </h5>
+                                    <div class="tips">
+                                        <span class="toll">￥{$datam['shopPrice']}</span>
+                                        <em></em>
+                                        <span class="text-line-through">￥{$datam['marketPrice']}</span>
+                                        <span class="floatright">{$datam['saleCount']}人已学</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </volist>
+                    </ul>
+                </div>
             </div>
-			
-			
-			
-			
-			
-			
-			<div class="course-content course-new-content">
-                <div class="index-course clearfix">
-                    <div class="course-l   course-l-swgl  ">
-                        <a href="{$tArrIndex3.0.adURL}">
-                            <p class="title">{$tArrIndex3.0.adName}</p>
-                            <!--<p class="describe">会计核算成长之路</p>-->
-                            <p class="linkmore">查看全部<em></em></p>
-                            <img src="__ROOT__/{$tArrIndex3.0.adFile}" alt="" width="240" height="341">
-                        </a>
-                        <i class="r-triangle   r-swgl-triangle  "></i>
-                    </div>
-                    <div class="course-r">
-                        <div class="course-list course-list-new">
-                            <div>
-                                <ul class="clearfix">
-                                  	
-								<volist   name="courseIsBest3"  id="data"  >
-                                    <li>
-                                        <a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$data['courseId']))}"  target="_blank">
-                                            <div class="course-list-img">
-                                                <img width="280" height="160" src="__ROOT__/{$data['courseThums']}"   alt="{$data['courseThums']}"  title="{$data['courseName']}"  class="lazy" />
-                                            </div>
-                                            <h5>
-                                                <span>{$data['courseName']}</span>
-                                            </h5>
-                                            <div class="tips">
-											<if condition=" $data['difficulty']  eq  1" >
-                                                <span>初级课程</span>
-											</if>	
-											<if condition=" $data['difficulty']  eq  2" >
-                                                <span>中级课程</span>
-											</if>	
-											<if condition=" $data['difficulty']  eq  3" >
-                                                <span>中级课程</span>
-											</if>	
-												
-												
-                                                <!--<em>|</em>-->
-                                                <span>{$data['saleCount']}人已学</span>
-                                            </div>
-											<if condition=" $data['is_free']  eq  2" >
-                                              <div class="cost">
-                                                <span class="l toll">会员免费看</span>
-                                            </div>
-											
-											<else/>
-											
-											  <div class="cost">
-                                                <span class="l toll">{$data['shopPrice']}</span>
-                                            </div>
-											</if>
-                                           
-                                        </a>
-                                    </li>
-								</volist>	
-									
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>           
+            <div class="course-list-title">
+                <span>税务<em>实操</em></span>好课天天有
+                <a href="{:U('Home/Course/index',array('c1Id'=>12))}" class="link-more">查看更多&raquo;</a>
             </div>
-			
-			
-			
-			
-			
-			
-			
+            <div id="news-course" class="">
+                <div class="show-zone course-list">
+                    <ul class="clearfix" style="width: 1224px;">
+                        <volist name="courseIsBest2" id="datas">
+                            <li id="li_703">
+                                <a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$datas['courseId']))}" target="_blank">
+                                    <div class="course-list-img">
+                                        <img width="280" height="160" src="__ROOT__/{$datas['courseThums']}" alt="{$datas['courseThums']}" title="{$datas['courseName']}"/>
+                                    </div>
+                                    <h5>
+                                        <span>{$datas['courseName']}</span>
+                                    </h5>
+                                    <div class="tips">
+                                        <if condition=" $datas['difficulty']  eq  1">
+                                            <span>初级课程</span>
+                                        </if>
+                                        <if condition=" $datas['difficulty']  eq  2">
+                                            <span>中级课程</span>
+                                        </if>
+                                        <if condition=" $datas['difficulty']  eq  3">
+                                            <span>中级课程</span>
+                                        </if>
+                                        <span>{$datas['saleCount']}人已学</span>
+                                    </div>
+                                    <if condition=" $datas['is_free']  eq  2">
+                                        <div class="cost">
+                                            <span class="l toll">会员免费看</span>
+                                        </div>
+                                        <else/>
+                                        <div class="cost">
+                                            <span class="l toll">{$datas['shopPrice']}</span>
+                                        </div>
+                                    </if>
+                                </a>
+                            </li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+            <div class="course-list-title">
+                <span>会计<em>核算</em></span>好课天天有
+                <a href="{:U('Home/Course/index',array('c1Id'=>13))}" class="link-more">查看更多&raquo;</a>
+            </div>
+            <div id="news-course" class="">
+                <div class="show-zone course-list">
+                    <ul class="clearfix" style="width: 1224px;">
+                        <volist name="courseIsBest3" id="datas">
+                            <li id="li_703">
+                                <a href="{:U('Home/Course/getCourseDetails',array('courseId'=>$datas['courseId']))}" target="_blank">
+                                    <div class="course-list-img">
+                                        <img width="280" height="160" src="__ROOT__/{$datas['courseThums']}" alt="{$datas['courseThums']}" title="{$datas['courseName']}"/>
+                                    </div>
+                                    <h5>
+                                        <span>{$datas['courseName']}</span>
+                                    </h5>
+                                    <div class="tips">
+                                        <if condition=" $datas['difficulty']  eq  1">
+                                            <span>初级课程</span>
+                                        </if>
+                                        <if condition=" $datas['difficulty']  eq  2">
+                                            <span>中级课程</span>
+                                        </if>
+                                        <if condition=" $datas['difficulty']  eq  3">
+                                            <span>中级课程</span>
+                                        </if>
+                                        <span>{$datas['saleCount']}人已学</span>
+                                    </div>
+                                    <if condition=" $datas['is_free']  eq  2">
+                                        <div class="cost">
+                                            <span class="l toll">会员免费看</span>
+                                        </div>
+
+                                        <else/>
+
+                                        <div class="cost">
+                                            <span class="l toll">{$datas['shopPrice']}</span>
+                                        </div>
+                                    </if>
+                                </a>
+                            </li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
+
     <div class="dialog-board dialog-board-window hide" id="weekOfflineDiv">
         <div class="dialog-board-bar">
             <h2>课程暂未上线</h2>

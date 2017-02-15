@@ -25,15 +25,15 @@ class IndexAction extends BaseAction {
    		$this->assign('courseIndex',$courseIndex);
    		//首页分级课程一
    		$jArr=array('courseCatId1'=>15,'courseFlag'=>1,'courseStatus'=>1);
-   		$courseIsBest1 = $course->where($jArr)->order("createTime desc")->limit(6)->select();
+   		$courseIsBest1 = $course->where($jArr)->order("createTime desc")->limit(8)->select();
    		$this->assign('courseIsBest1',$courseIsBest1);
         //首页分级课程二
         $jArr = array('courseCatId1' => 12 , 'courseFlag' => 1 , 'courseStatus' => 1);
-        $courseIsBest2 = $course->where($jArr)->order("createTime desc")->limit(6)->select();
+        $courseIsBest2 = $course->where($jArr)->order("createTime desc")->limit(8)->select();
         $this->assign('courseIsBest2' , $courseIsBest2);
         //首页分级课程三
         $jArr = array('courseCatId1' => 13 , 'courseFlag' => 1 , 'courseStatus' => 1);
-        $courseIsBest3 = $course->where($jArr)->order("createTime desc")->limit(6)->select();
+        $courseIsBest3 = $course->where($jArr)->order("createTime desc")->limit(8)->select();
         $this->assign('courseIsBest3' , $courseIsBest3);
    		
    		//首页Banner广告位
